@@ -5,11 +5,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Galeria from '../Componentes/Galeria'
 import IniciarSesion from '../Componentes/login/IniciarSesion'
-import { Typography, IconButton, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog } from '@material-ui/core';
+import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog } from '@material-ui/core';
 import firebase from '../firebaseConfig'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
 import Registro from '../Componentes/login/Registro'
+import Home from './Home'
 
 
 const styles = theme => ({
@@ -88,13 +88,7 @@ class Inicio extends Component {
         if (this.state.user) {
             if (this.state.user.emailVerified || this.isloginFacebook() === true) {
                 return (
-                    <Grid>
-                        <Typography>HOLA {this.state.user.displayName}!</Typography>
-                        <IconButton color="primary" variant="contained" onClick={AuthController.handleLogout}  >
-                            <ExitToAppIcon />
-                        </IconButton>
-                    </Grid>
-
+                    <Home user={this.state.user}/>
                 )
             } else {
                 return (
