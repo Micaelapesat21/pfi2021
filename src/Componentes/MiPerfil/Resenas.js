@@ -28,7 +28,7 @@ class Resenas extends Component {
             
                 <Grid item xs={12} md={8} lg={9}>
                     <Paper className={fixedHeightPaper}>
-                      <Typography variant="h3">Tus Reseñas Activas</Typography>
+                      <Typography variant="h3">Tus Reseñas </Typography>
                     </Paper>
                 </Grid>
                

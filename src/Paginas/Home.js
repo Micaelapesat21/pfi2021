@@ -1,58 +1,23 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItems from '../Componentes/listItems';
 import General from '../Componentes/General';
-import BarraPrincipal from '../Componentes/BarraPrincipal'
-import Perfil from '../Componentes/Perfil';
-import Reservas from '../Componentes/Reservas';
-import CheckIn from '../Componentes/CheckIn';
-import CheckOut from '../Componentes/CheckOut';
-import Servicios from '../Componentes/Servicios';
-import Resenas from '../Componentes/Resenas';
-import Pagos from '../Componentes/Pagos';
-
-
-
-const drawerWidth = 240;
+import Perfil from '../Componentes/MiPerfil/Perfil';
+import Reservas from '../Componentes/MiReserva/Reservas';
+import CheckIn from '../Componentes/MiReserva/CheckIn';
+import CheckOut from '../Componentes/MiReserva/CheckOut';
+import Servicios from '../Componentes/MiReserva/Servicios';
+import Resenas from '../Componentes/MiPerfil/Resenas';
+import Pagos from '../Componentes/MiPerfil/Pagos';
+import Deslizable from '../Componentes/Deslizable'
 
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    },
-    drawerPaper: {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -64,22 +29,12 @@ const useStyles = makeStyles(theme => ({
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
     },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        height: 240,
-    },
 }));
 
 export default function PanelControl(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [modoGeneral, setmodoGeneral] = React.useState(false);
-    const [modoPerfil, setmodoPerfil] = React.useState(true);
+    const [modoGeneral, setmodoGeneral] = React.useState(true);
+    const [modoPerfil, setmodoPerfil] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
@@ -87,12 +42,6 @@ export default function PanelControl(props) {
     const [modoResenas, setmodoResenas] = React.useState(false);
     const [modoPagos, setmodoPagos] = React.useState(false);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
     const generalOpen = () => {
         setmodoGeneral(true);
         reservasClose();
@@ -198,43 +147,37 @@ export default function PanelControl(props) {
         setmodoPagos(false);
     };
 
+
+    const listDrawer = (
+        <div>
+            <div className={classes.toolbar} />
+            <Divider />
+            <List>{<ListItems
+                openGeneral={generalOpen}
+                perfilOpen={perfilOpen}
+                reservasOpen={reservasOpen}
+                checkInOpen={checkInOpen}
+                serviciosOpen={serviciosOpen}
+                checkOutOpen={checkOutOpen}
+                resenasOpen={resenasOpen}
+                pagosOpen={pagosOpen}
+                user={props.user}
+            />}</List>
+
+            <List></List>
+        </div>
+    );
+
     if (modoPerfil) {
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                    }}
-                    open={open}
-                >
-                    <div className={classes.toolbarIcon}>
-                        <IconButton onClick={handleDrawerClose}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </div>
-                    <Divider />
-                    <List>{<ListItems
-                        openGeneral={generalOpen}
-                        perfilOpen={perfilOpen}
-                        reservasOpen={reservasOpen}
-                        checkInOpen={checkInOpen}
-                        serviciosOpen={serviciosOpen}
-                        checkOutOpen={checkOutOpen}
-                        resenasOpen={resenasOpen}
-                        pagosOpen={pagosOpen}
-                        user={props.user}
-                    />}</List>
-                    
-                    <List></List>
-                </Drawer>
+                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Mi Perfil"} />
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
 
                     <Container maxWidth="lg" className={classes.container}>
-                        <Perfil user={props.user}/>
+                        <Perfil user={props.user} />
                     </Container>
                 </main>
             </div>
@@ -244,39 +187,11 @@ export default function PanelControl(props) {
             return (
                 <div className={classes.root}>
                     <CssBaseline />
-                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                    <Drawer
-                        variant="permanent"
-                        classes={{
-                            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                        }}
-                        open={open}
-                    >
-                        <div className={classes.toolbarIcon}>
-                            <IconButton onClick={handleDrawerClose}>
-                                <ChevronLeftIcon />
-                            </IconButton>
-                        </div>
-                        <Divider />
-                        <List>{<ListItems
-                            openGeneral={generalOpen}
-                            perfilOpen={perfilOpen}
-                            reservasOpen={reservasOpen}
-                            checkInOpen={checkInOpen}
-                            serviciosOpen={serviciosOpen}
-                            checkOutOpen={checkOutOpen}
-                            resenasOpen={resenasOpen}
-                            pagosOpen={pagosOpen}
-                            user={props.user}
-                        />}</List>
-                       
-                        <List></List>
-                    </Drawer>
+                    <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Reserva"} />
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
-
                         <Container maxWidth="lg" className={classes.container}>
-                            <Reservas/>
+                            <Reservas />
                         </Container>
                     </main>
                 </div>
@@ -286,39 +201,11 @@ export default function PanelControl(props) {
                 return (
                     <div className={classes.root}>
                         <CssBaseline />
-                        <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                        <Drawer
-                            variant="permanent"
-                            classes={{
-                                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                            }}
-                            open={open}
-                        >
-                            <div className={classes.toolbarIcon}>
-                                <IconButton onClick={handleDrawerClose}>
-                                    <ChevronLeftIcon />
-                                </IconButton>
-                            </div>
-                            <Divider />
-                            <List>{<ListItems
-                                openGeneral={generalOpen}
-                                perfilOpen={perfilOpen}
-                                reservasOpen={reservasOpen}
-                                checkInOpen={checkInOpen}
-                                serviciosOpen={serviciosOpen}
-                                checkOutOpen={checkOutOpen}
-                                resenasOpen={resenasOpen}
-                                pagosOpen={pagosOpen}
-                                user={props.user}
-                            />}</List>
-                           
-                            <List></List>
-                        </Drawer>
+                        <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Check-In"}/>
                         <main className={classes.content}>
                             <div className={classes.appBarSpacer} />
-
                             <Container maxWidth="lg" className={classes.container}>
-                                <CheckIn/>
+                                <CheckIn />
                             </Container>
                         </main>
                     </div>
@@ -328,39 +215,11 @@ export default function PanelControl(props) {
                     return (
                         <div className={classes.root}>
                             <CssBaseline />
-                            <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                            <Drawer
-                                variant="permanent"
-                                classes={{
-                                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                                }}
-                                open={open}
-                            >
-                                <div className={classes.toolbarIcon}>
-                                    <IconButton onClick={handleDrawerClose}>
-                                        <ChevronLeftIcon />
-                                    </IconButton>
-                                </div>
-                                <Divider />
-                                <List>{<ListItems
-                                    openGeneral={generalOpen}
-                                    perfilOpen={perfilOpen}
-                                    reservasOpen={reservasOpen}
-                                    checkInOpen={checkInOpen}
-                                    serviciosOpen={serviciosOpen}
-                                    checkOutOpen={checkOutOpen}
-                                    resenasOpen={resenasOpen}
-                                    pagosOpen={pagosOpen}
-                                    user={props.user}
-                                />}</List>
-                               
-                                <List></List>
-                            </Drawer>
+                            <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Servicios"} />
                             <main className={classes.content}>
                                 <div className={classes.appBarSpacer} />
-
                                 <Container maxWidth="lg" className={classes.container}>
-                                   <Servicios/>
+                                    <Servicios />
                                 </Container>
                             </main>
                         </div>
@@ -370,39 +229,11 @@ export default function PanelControl(props) {
                         return (
                             <div className={classes.root}>
                                 <CssBaseline />
-                                <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                                <Drawer
-                                    variant="permanent"
-                                    classes={{
-                                        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                                    }}
-                                    open={open}
-                                >
-                                    <div className={classes.toolbarIcon}>
-                                        <IconButton onClick={handleDrawerClose}>
-                                            <ChevronLeftIcon />
-                                        </IconButton>
-                                    </div>
-                                    <Divider />
-                                    <List>{<ListItems
-                                        openGeneral={generalOpen}
-                                        perfilOpen={perfilOpen}
-                                        reservasOpen={reservasOpen}
-                                        checkInOpen={checkInOpen}
-                                        serviciosOpen={serviciosOpen}
-                                        checkOutOpen={checkOutOpen}
-                                        resenasOpen={resenasOpen}
-                                        pagosOpen={pagosOpen}
-                                        user={props.user}
-                                    />}</List>
-                                   
-                                    <List></List>
-                                </Drawer>
+                                <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Check-Out"} />
                                 <main className={classes.content}>
                                     <div className={classes.appBarSpacer} />
-
                                     <Container maxWidth="lg" className={classes.container}>
-                                    <CheckOut/>
+                                        <CheckOut />
                                     </Container>
                                 </main>
                             </div>
@@ -411,40 +242,11 @@ export default function PanelControl(props) {
                         if (modoResenas) {
                             return (
                                 <div className={classes.root}>
-                                    <CssBaseline />
-                                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                                    <Drawer
-                                        variant="permanent"
-                                        classes={{
-                                            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                                        }}
-                                        open={open}
-                                    >
-                                        <div className={classes.toolbarIcon}>
-                                            <IconButton onClick={handleDrawerClose}>
-                                                <ChevronLeftIcon />
-                                            </IconButton>
-                                        </div>
-                                        <Divider />
-                                        <List>{<ListItems
-                                            openGeneral={generalOpen}
-                                            perfilOpen={perfilOpen}
-                                            reservasOpen={reservasOpen}
-                                            checkInOpen={checkInOpen}
-                                            serviciosOpen={serviciosOpen}
-                                            checkOutOpen={checkOutOpen}
-                                            resenasOpen={resenasOpen}
-                                            pagosOpen={pagosOpen}
-                                            user={props.user}
-                                        />}</List>
-                                       
-                                        <List></List>
-                                    </Drawer>
+                                    <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Reseñas"}/>
                                     <main className={classes.content}>
                                         <div className={classes.appBarSpacer} />
-
                                         <Container maxWidth="lg" className={classes.container}>
-                                            <Resenas/>
+                                            <Resenas />
                                         </Container>
                                     </main>
                                 </div>
@@ -454,39 +256,11 @@ export default function PanelControl(props) {
                                 return (
                                     <div className={classes.root}>
                                         <CssBaseline />
-                                        <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                                        <Drawer
-                                            variant="permanent"
-                                            classes={{
-                                                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                                            }}
-                                            open={open}
-                                        >
-                                            <div className={classes.toolbarIcon}>
-                                                <IconButton onClick={handleDrawerClose}>
-                                                    <ChevronLeftIcon />
-                                                </IconButton>
-                                            </div>
-                                            <Divider />
-                                            <List>{<ListItems
-                                                openGeneral={generalOpen}
-                                                perfilOpen={perfilOpen}
-                                                reservasOpen={reservasOpen}
-                                                checkInOpen={checkInOpen}
-                                                serviciosOpen={serviciosOpen}
-                                                checkOutOpen={checkOutOpen}
-                                                resenasOpen={resenasOpen}
-                                                pagosOpen={pagosOpen}
-                                                user={props.user}
-                                            />}</List>
-                                            
-                                            <List></List>
-                                        </Drawer>
+                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Pagos"} />
                                         <main className={classes.content}>
                                             <div className={classes.appBarSpacer} />
-
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <Pagos/>
+                                                <Pagos />
                                             </Container>
                                         </main>
                                     </div>
@@ -496,39 +270,11 @@ export default function PanelControl(props) {
                                     return (
                                         <div className={classes.root}>
                                             <CssBaseline />
-                                            <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} />
-                                            <Drawer
-                                                variant="permanent"
-                                                classes={{
-                                                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                                                }}
-                                                open={open}
-                                            >
-                                                <div className={classes.toolbarIcon}>
-                                                    <IconButton onClick={handleDrawerClose}>
-                                                        <ChevronLeftIcon />
-                                                    </IconButton>
-                                                </div>
-                                                <Divider />
-                                                <List>{<ListItems
-                                                    openGeneral={generalOpen}
-                                                    perfilOpen={perfilOpen}
-                                                    reservasOpen={reservasOpen}
-                                                    checkInOpen={checkInOpen}
-                                                    serviciosOpen={serviciosOpen}
-                                                    checkOutOpen={checkOutOpen}
-                                                    resenasOpen={resenasOpen}
-                                                    pagosOpen={pagosOpen}
-                                                    user={props.user}
-                                                />}</List>
-                                               
-                                                <List></List>
-                                            </Drawer>
+                                            <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Panel General"} />
                                             <main className={classes.content}>
                                                 <div className={classes.appBarSpacer} />
-
                                                 <Container maxWidth="lg" className={classes.container}>
-                                                    <General />
+                                                    <General  id={props.id} CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={props.huespedes} precio={props.precio}/>
                                                 </Container>
                                             </main>
                                         </div>
@@ -543,3 +289,4 @@ export default function PanelControl(props) {
         }
     }
 }
+

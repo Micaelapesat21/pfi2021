@@ -12,6 +12,8 @@ import Registro from '../Componentes/login/Registro'
 import Home from './Home'
 
 
+
+
 const styles = theme => ({
     root: {
         height: '100vh',
@@ -38,6 +40,11 @@ class Inicio extends Component {
             user: null,
             inicio: true,
             verificar: false,
+            id: "",
+            CheckIn: "",
+            CheckOut: "",
+            huespedes: "",
+            precio: "",
         };
 
     }
@@ -47,6 +54,26 @@ class Inicio extends Component {
                 user: user
             });
         });
+
+     
+        if (this.props.location.state !== undefined) {
+            const {
+                id,
+                CheckIn,
+                CheckOut,
+                huespedes,
+                precio,
+            } = this.props.location.state
+
+            this.setState({
+                id: id,
+                CheckIn: CheckIn,
+                CheckOut: CheckOut,
+                huespedes: huespedes,
+                precio: precio,
+            })
+        }
+
     }
 
     callbackInicio = (x) => {
@@ -88,7 +115,14 @@ class Inicio extends Component {
         if (this.state.user) {
             if (this.state.user.emailVerified || this.isloginFacebook() === true) {
                 return (
-                    <Home user={this.state.user}/>
+                    <Home
+                        user={this.state.user}
+                        id={this.state.id}
+                        CheckIn={this.state.CheckIn}
+                        CheckOut={this.state.CheckOut}
+                        huespedes={this.state.huespedes}
+                        precio={this.state.precio}
+                    />
                 )
             } else {
                 return (
