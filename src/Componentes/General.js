@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Paper, Typography } from '@material-ui/core';
 import clsx from 'clsx';
-
+import ReservaHelper from './../Utils/ReservaHelper.js'
 
 
 const styles = theme => ({
@@ -20,15 +20,20 @@ const styles = theme => ({
 
 class General extends Component {
 
+     getTotalPrice(checkIn,checkOut,precio) {
+        return ReservaHelper.total(checkIn,checkOut,precio);
+      }
+
     reserva() {
         if (this.props.id !== "") {
             return (
                 <Grid>
-                    <Typography>{this.props.id}</Typography>
-                    <Typography>{this.props.CheckIn}</Typography>
-                    <Typography>{this.props.CheckOut}</Typography>
-                    <Typography>{this.props.huespedes}</Typography>
-                    <Typography>{this.props.precio}</Typography>
+                    <Typography>Nombre: {this.props.id}</Typography>
+                    <Typography>Fecha de entrada: {this.props.CheckIn}</Typography>
+                    <Typography>Fecha de Salida: {this.props.CheckOut}</Typography>
+                    <Typography>Cantidad Huespedes: {this.props.huespedes}</Typography>
+                    <Typography>Precio por noche: {this.props.precio}</Typography>
+                    <Typography>Precio Total: ${this.getTotalPrice(this.props.CheckIn,this.props.CheckOut)*parseInt(this.props.precio)}</Typography>
                 </Grid>
             )
         } else
