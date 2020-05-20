@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-
+import ReservaHelper from './../../Utils/ReservaHelper.js'
 
 
 const payments = [
@@ -30,16 +30,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Review(props) {
   const classes = useStyles();
 
-  function total(checkIn,checkOut,precio){
-    var arraycheckIn = checkIn.split("-");
-    var arraycheckOut = checkOut.split("-");
-    let noches=parseInt(arraycheckOut.join(''))-parseInt(arraycheckIn.join(''))
-
-    return noches
+  function getTotalPrice(checkIn,checkOut,precio) {
+    return ReservaHelper.total(checkIn,checkOut,precio);
   }
-
   
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -50,7 +44,7 @@ export default function Review(props) {
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            ${total(props.CheckIn,props.CheckOut)*parseInt(props.precio)}
+            ${getTotalPrice(props.CheckIn,props.CheckOut)*parseInt(props.precio)}
           </Typography>
         </ListItem>
       </List>
