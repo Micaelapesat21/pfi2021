@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid  } from '@material-ui/core';
 import CompletarReserva from '../Componentes/ReservApi/CompletarReserva'
-
-
+import firebase from '../firebaseConfig'
+import DialogLogin from './../Componentes/login/DialogLogin.js'
+import { Dialog } from '@material-ui/core';
 
 const styles = theme => ({
    
@@ -20,6 +21,8 @@ class General extends Component {
             CheckOut:"",
             huespedes:"",
             precio:"",
+            showLogin: true,
+            user: null,
         }
     }
     
@@ -43,6 +46,34 @@ class General extends Component {
       
     }
 
+    openDialogLogin = () => {
+        this.setState({ showLogin: true });
+    }
+
+    closeDialogLogin = () => {
+        this.setState({ showLogin: false });
+      }
+
+    checkIfUserIsLogged() {
+        firebase.auth().onAuthStateChanged(user => {
+            this.setState({
+                user: user,
+                showLogin: false,
+            });
+        });
+    }
+
+    showLoginViewIfNeeded() {
+        if ( this.state.showLogin ) {
+            return (
+                <Dialog open= { this.openDialogLogin } onClose= { this.closeDialogLogin } >
+                  <DialogLogin closePass={ this.closeDialogLogin.bind() } />
+                </Dialog>
+            );
+        }else {
+            return
+        }
+    }
     
     
     render() {
@@ -51,6 +82,8 @@ class General extends Component {
         
         return (
             <Grid container justify="center" alignItems="center">
+
+                { this.showLoginViewIfNeeded() }
 
                 <Grid item xs={12} md={8} lg={9}>
                     <CompletarReserva
