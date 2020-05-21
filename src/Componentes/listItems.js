@@ -26,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(2),
     },
   },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
 }));
 
 
@@ -64,7 +72,7 @@ export default function ListItems(props) {
 
           <ListItem button onClick={props.perfilOpen} className={classes.nested}>
             <ListItemIcon>
-              <RenderAvatar user={props.user} />
+              <RenderAvatar user={props.user} className={classes.small} />
             </ListItemIcon>
             <ListItemText primary={props.user.displayName} />
           </ListItem>

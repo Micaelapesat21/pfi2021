@@ -17,20 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CheckboxesGroup() {
+export default function Tintoreria(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    gilad: false,
-    champagne: false,
-    gaseosa: false,
-    vino: false,
-  });
+  const setTintoreria=props.setTintoreria
+  const tintoreria=props.tintoreria
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setTintoreria({ ...tintoreria, [event.target.name]: event.target.checked });
   };
 
-  const { aguaFria, champagne, gaseosa,vino } = state;
+  const { uno, dos, tres,cuatro } = tintoreria;
  
 
   return (
@@ -39,19 +35,19 @@ export default function CheckboxesGroup() {
         <FormLabel component="legend">Dias a la semana</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox color="primary" checked={aguaFria} onChange={handleChange} name="aguaFria" />}
+            control={<Checkbox color="primary" checked={uno} onChange={handleChange} name="uno" />}
             label="1 Vez a la semana"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={champagne} onChange={handleChange} name="champagne" />}
+            control={<Checkbox color="primary" checked={dos} onChange={handleChange} name="dos" />}
             label="2 Veces a la semana"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={gaseosa} onChange={handleChange} name="gaseosa" />}
+            control={<Checkbox color="primary" checked={tres} onChange={handleChange} name="tres" />}
             label="3 Veces a la semana"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={vino} onChange={handleChange} name="vino" />}
+            control={<Checkbox color="primary" checked={cuatro} onChange={handleChange} name="cuatro" />}
             label="4 Veces a la semana"
           />
         </FormGroup>

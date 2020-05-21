@@ -40,7 +40,7 @@ class Perfil extends Component {
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item xs={12} md={12} lg={12}>
                             <Paper>
-                                <TabsPerfil />
+                                <TabsPerfil user={this.props.user} />
                             </Paper>
                         </Grid>
                     </Grid>

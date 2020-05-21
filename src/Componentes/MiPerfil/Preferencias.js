@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Preferencias() {
+export default function Preferencias(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -76,13 +76,31 @@ export default function Preferencias() {
 
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Bienvenida />
+        <Bienvenida
+          bienvenida={props.bienvenida}
+          setBienvenida={props.setBienvenida}
+          houseKeeping={props.houseKeeping}
+          setHouseKeeping={props.setHouseKeeping}
+          tintoreria={props.tintoreria}
+          setTintoreria={props.setTintoreria} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <HouseKeeping />
+        <HouseKeeping
+          bienvenida={props.bienvenida}
+          setBienvenida={props.setBienvenida}
+          houseKeeping={props.houseKeeping}
+          setHouseKeeping={props.setHouseKeeping}
+          tintoreria={props.tintoreria}
+          setTintoreria={props.setTintoreria} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Tintoreria />
+        <Tintoreria
+          bienvenida={props.bienvenida}
+          setBienvenida={props.setBienvenida}
+          houseKeeping={props.houseKeeping}
+          setHouseKeeping={props.setHouseKeeping}
+          tintoreria={props.tintoreria}
+          setTintoreria={props.setTintoreria} />
       </TabPanel>
 
     </div>

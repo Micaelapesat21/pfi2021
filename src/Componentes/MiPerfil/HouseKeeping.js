@@ -17,20 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CheckboxesGroup() {
+export default function HouseKeeping(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    gilad: false,
-    champagne: false,
-    gaseosa: false,
-    vino: false,
-  });
+  const setHouseKeeping=props.setHouseKeeping
+  const houseKeeping=props.houseKeeping
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setHouseKeeping({ ...houseKeeping, [event.target.name]: event.target.checked });
   };
 
-  const { aguaFria, champagne, gaseosa,vino } = state;
+  const { siete, nueve, once,trece } = houseKeeping;
  
 
   return (
@@ -39,19 +35,19 @@ export default function CheckboxesGroup() {
         <FormLabel component="legend">Horario de limpieza</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox color="primary" checked={aguaFria} onChange={handleChange} name="aguaFria" />}
+            control={<Checkbox color="primary" checked={siete} onChange={handleChange} name="siete" />}
             label="07:00 - 09:00 Hs"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={champagne} onChange={handleChange} name="champagne" />}
+            control={<Checkbox color="primary" checked={nueve} onChange={handleChange} name="nueve" />}
             label="09:00 - 11:00 Hs"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={gaseosa} onChange={handleChange} name="gaseosa" />}
+            control={<Checkbox color="primary" checked={once} onChange={handleChange} name="once" />}
             label="11:00 - 13:00 Hs"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={vino} onChange={handleChange} name="vino" />}
+            control={<Checkbox color="primary" checked={trece} onChange={handleChange} name="trece" />}
             label="13:00 - 15:00 Hs"
           />
         </FormGroup>

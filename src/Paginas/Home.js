@@ -274,7 +274,7 @@ export default function PanelControl(props) {
                                             <main className={classes.content}>
                                                 <div className={classes.appBarSpacer} />
                                                 <Container maxWidth="lg" className={classes.container}>
-                                                    <General  id={props.id} CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={props.huespedes} precio={props.precio}/>
+                                                    <General user={props.user} perfilOpen={perfilOpen}  id={props.id} CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={props.huespedes} precio={props.precio}/>
                                                 </Container>
                                             </main>
                                         </div>

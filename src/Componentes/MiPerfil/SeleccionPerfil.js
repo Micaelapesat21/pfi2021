@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
 
+
 const styles = theme => ({
     formControl: {
         marginLeft: theme.spacing(3),
@@ -12,6 +13,88 @@ const styles = theme => ({
 })
 
 class SeleccionPerfil extends Component {
+
+    constructor(props){
+        super(props);
+        this.state={
+            bienvenida:"A eleccion",
+            acompañamiento:"A eleccion",
+            limpieza:"A eleccion",
+            tintoreria:"A eleccion",
+        }
+    }
+    
+    componentWillMount(){
+        const { aguaFria, champagne, gaseosa, vino,chocolates,golosinas,fiambres,pasteleria } = this.props.bienvenida;
+        const { siete, nueve, once,trece } = this.props.houseKeeping;
+        const { uno, dos, tres,cuatro } = this.props.tintoreria;
+    
+        if(aguaFria){
+            this.setState({bienvenida:"Agua fria"})
+        }else{
+            if(champagne){
+                this.setState({bienvenida:"Champagne"})
+            }else{
+                if(gaseosa){
+                    this.setState({bienvenida:"Gaseosa"})
+                }else{
+                    if(vino){
+                        this.setState({bienvenida:"Vino"})
+                    }
+                }
+            }
+        }
+        
+        if(chocolates){
+            this.setState({acompañamiento:"Chocolates"})
+        }else{
+            if(golosinas){
+                this.setState({acompañamiento:"Golosinas"})
+            }else{
+                if(fiambres){
+                    this.setState({acompañamiento:"Tabla de fiambres"})
+                }else{
+                    if(pasteleria){
+                        this.setState({acompañamiento:"Pasteleria"})
+                    }
+                }
+            }
+        }
+
+
+
+        if(siete){
+            this.setState({limpieza:"07:00 - 09:00 Hs"})
+        }else{
+            if(nueve){
+                this.setState({limpieza:"09:00 - 11:00 Hs"})
+            }else{
+                if(once){
+                    this.setState({limpieza:"11:00 - 13:00 Hs"})
+                }else{
+                    if(trece){
+                        this.setState({limpieza:"13:00 - 15:00 Hs"})
+                    }
+                }
+            }
+        }
+
+        if(uno){
+            this.setState({tintoreria:"1 Vez a la semana"})
+        }else{
+            if(dos){
+                this.setState({tintoreria:"2 Veces a la semana"})
+            }else{
+                if(tres){
+                    this.setState({tintoreria:"3 Veces a la semana"})
+                }else{
+                    if(cuatro){
+                        this.setState({tintoreria:"4 Veces a la semana"})
+                    }
+                }
+            }
+        }
+    }
 
 
 
@@ -116,25 +199,25 @@ class SeleccionPerfil extends Component {
                                 <Grid item xs={12}>
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Bebida de bienvenida</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="A eleccion" />
+                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label={this.state.bienvenida}/>
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} >
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Acompañamiento</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="A eleccion"  />
+                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label={this.state.acompañamiento}  />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <FormControl component="fieldset" >
+                                    <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Horario de limpieza</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="A eleccion"  />
+                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label={this.state.limpieza}  />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} >
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Dias a la semana</FormLabel>
-                                        <FormControlLabel  control={<Checkbox checked color="primary" name="checkedE" />} label="A eleccion"  />
+                                        <FormControlLabel  control={<Checkbox checked color="primary" name="checkedE" />} label={this.state.tintoreria}  />
                                         <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                                     </FormControl>
                                 </Grid>

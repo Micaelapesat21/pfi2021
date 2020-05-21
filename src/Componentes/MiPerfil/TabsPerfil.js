@@ -7,9 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Guest from '../Guest/GuestInfoForm/GuestInfoForm'
 import Preferencias from './Preferencias';
-
 import { Grid } from '@material-ui/core';
 import SeleccionPerfil from './SeleccionPerfil'
 import FormLabel from '@material-ui/core/FormLabel';
@@ -17,6 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import FormularioDatos from './FormularioDatos';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -63,10 +62,10 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         marginBottom: theme.spacing(1),
-      },
+    },
 }));
 
-export default function FullWidthTabs() {
+export default function TabsPerfil(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -75,6 +74,31 @@ export default function FullWidthTabs() {
     const [ejecutivo, setEjecutivo] = React.useState(false)
     const [familia, setFamilia] = React.useState(false)
     const [preferencias, setPreferencias] = React.useState(false)
+
+    const [bienvenida, setBienvenida] = React.useState({
+        aguaFria: false,
+        champagne: false,
+        gaseosa: false,
+        vino: false,
+        chocolates: false,
+        golosinas: false,
+        fiambres: false,
+        pasteleria: false,
+    });
+
+    const [houseKeeping, setHouseKeeping] = React.useState({
+        siete: false,
+        nueve: false,
+        once: false,
+        trece: false,
+    });
+
+    const [tintoreria, setTintoreria] = React.useState({
+        uno: false,
+        dos: false,
+        tres: false,
+        cuatro: false,
+      });
 
 
 
@@ -115,6 +139,7 @@ export default function FullWidthTabs() {
     const preferenciasClose = () => {
         setPreferencias(false);
     };
+    
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -146,13 +171,15 @@ export default function FullWidthTabs() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <Guest />
+
+                    {/*FORMULARIO*/}
+                    <FormularioDatos user={props.user} />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     <Grid container  >
                         <Grid item xs={12} md={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormLabel component="legend">Seleccione su tipo de Perfil</FormLabel>
+                                {/*PERFILES*/}               <FormLabel component="legend">Seleccione su tipo de Perfil</FormLabel>
                                 <FormGroup tag="div">
                                     <FormControlLabel
                                         control={<Switch color="primary" checked={romantico} onChange={romanticoOpen} name="romantico" />}
@@ -174,13 +201,29 @@ export default function FullWidthTabs() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <SeleccionPerfil romantico={romantico} ejecutivo={ejecutivo}  familia={familia} preferencias={preferencias}/>
+                            <SeleccionPerfil 
+                            romantico={romantico} 
+                            ejecutivo={ejecutivo} 
+                            familia={familia} 
+                            preferencias={preferencias} 
+                            bienvenida={bienvenida} 
+                            houseKeeping={houseKeeping} 
+                            tintoreria={tintoreria}  />
                         </Grid>
                     </Grid>
 
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <Preferencias />
+                    {/*PREFERENCIAS*/}
+                    <Preferencias 
+                    bienvenida={bienvenida} 
+                    setBienvenida={setBienvenida} 
+                    houseKeeping={houseKeeping} 
+                    setHouseKeeping={setHouseKeeping} 
+                    tintoreria={tintoreria} 
+                    setTintoreria={setTintoreria} 
+
+                    />
                 </TabPanel>
             </SwipeableViews>
         </div>

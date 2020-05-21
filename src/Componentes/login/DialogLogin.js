@@ -1,5 +1,5 @@
 import React from 'react';
-import { DialogTitle, withStyles, DialogContent, TextField, DialogContentText, DialogActions, Button, Container } from '@material-ui/core';
+import { DialogTitle, withStyles, DialogContent, DialogActions, Button, Container } from '@material-ui/core';
 import AuthController from './AuthController';
 import IniciarSesion from './IniciarSesion'
 

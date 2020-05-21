@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Paper, Typography, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import ReservaHelper from './../Utils/ReservaHelper.js'
 
@@ -59,7 +59,14 @@ class General extends Component {
 
                 <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaper}>
+                    <br/>
                         <Typography variant="h4">Tus Datos</Typography>
+                        <Typography style={{fontWeight: "bold"}}>Nombre y apellido: </Typography>
+                        <Typography >{this.props.user.displayName}</Typography>
+                        <Typography style={{fontWeight: "bold"}}>Email: </Typography>
+                        <Typography >{this.props.user.email}</Typography>
+                       
+                        <Button variant="outlined" onClick={this.props.perfilOpen}>Editar Datos</Button>
                     </Paper>
                 </Grid>
 
