@@ -8,12 +8,11 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-
 import Typography from '@material-ui/core/Typography';
 import SeleccionarFechas from './SeleccionarFechas';
-import PaymentForm from './PaymentForm';
 import Review from './ReviewForm';
 import { Link } from 'react-router-dom'
+import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
 
 
 
@@ -62,9 +61,26 @@ function getStepContent(step, props) {
     case 0:
       return <SeleccionarFechas CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={hues} precio={props.precio} />;
     case 1:
-      return <PaymentForm />;
+      return <TarjetaCheta
+        callNumeroTarjeta={props.callNumeroTarjeta}
+        callNombreTarjeta={props.callNombreTarjeta}
+        callMesTarjeta={props.callMesTarjeta}
+        callAñoTarjeta={props.callAñoTarjeta}
+        callCodTarjeta={props.callCodTarjeta}
+        callTipoTarjeta={props.callTipoTarjeta}
+      />;
     case 2:
-      return <Review CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={hues} precio={props.precio} />;
+      return <Review
+        CheckIn={props.CheckIn}
+        CheckOut={props.CheckOut}
+        huespedes={hues}
+        precio={props.precio}
+        numeroTarjeta={props.numeroTarjeta}
+        nombreTarjeta={props.nombreTarjeta}
+        mesTarjeta={props.mesTarjeta}
+        añoTarjeta={props.añoTarjeta}
+        tipoTarjeta={props.tipoTarjeta}
+      />;
     default:
       throw new Error('Unknown step');
   }
@@ -75,9 +91,12 @@ export default function GuestInfoForm(props) {
   const [activeStep, setActiveStep] = React.useState(0);
 
 
+ 
+
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+  
   };
 
   const handleBack = () => {
@@ -123,12 +142,12 @@ export default function GuestInfoForm(props) {
                   component={Link}
                   to={{
                     pathname: `/ReservaOk`,
-                    state:{
-                      id:props.id,
-                      CheckIn:props.CheckIn,
-                      CheckOut:props.CheckOut,
-                      huespedes:props.huespedes,
-                      precio:props.precio,
+                    state: {
+                      id: props.id,
+                      CheckIn: props.CheckIn,
+                      CheckOut: props.CheckOut,
+                      huespedes: props.huespedes,
+                      precio: props.precio,
                     }
                   }}>
                   Continuar

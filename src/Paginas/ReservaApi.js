@@ -7,6 +7,7 @@ import firebase from '../firebaseConfig'
 import DialogLogin from './../Componentes/login/DialogLogin.js'
 import { Dialog } from '@material-ui/core';
 
+
 const styles = theme => ({
    
 })
@@ -21,6 +22,12 @@ class General extends Component {
             CheckOut:"",
             huespedes:"",
             precio:"",
+            numeroTarjeta:"",
+            nombreTarjeta:"",
+            mesTarjeta:"",
+            añoTarjeta:"",
+            codTarjeta:"",
+            tipoTarjeta:"",
             showLogin: true,
             user: null,
         }
@@ -43,7 +50,28 @@ class General extends Component {
             precio:precio,
         })
 
+        console.log(this.state.nombreTarjeta)
       
+    }
+    callNumeroTarjeta = (x) => {
+        this.setState({ numeroTarjeta: x });
+
+    }
+    callNombreTarjeta = (x) => {
+        this.setState({ nombreTarjeta: x });
+        console.log(x)
+    }
+    callMesTarjeta = (x) => {
+        this.setState({ mesTarjeta: x });
+    }
+    callAñoTarjeta = (x) => {
+        this.setState({ añoTarjeta: x });
+    }
+    callCodTarjeta = (x) => {
+        this.setState({ codTarjeta: x });
+    }
+    callTipoTarjeta = (x) => {
+        this.setState({ tipoTarjeta: x });
     }
 
     openDialogLogin = () => {
@@ -92,6 +120,19 @@ class General extends Component {
                         CheckOut={this.state.CheckOut}
                         huespedes={this.state.huespedes}
                         precio={this.state.precio}
+                        callNumeroTarjeta={this.callNumeroTarjeta}
+                        callNombreTarjeta={this.callNombreTarjeta}
+                        callMesTarjeta={this.callMesTarjeta}
+                        callAñoTarjeta={this.callAñoTarjeta}
+                        callCodTarjeta={this.callCodTarjeta}
+                        callTipoTarjeta={this.callTipoTarjeta}
+
+                        numeroTarjeta={this.state.numeroTarjeta}
+                        nombreTarjeta={this.state.nombreTarjeta}
+                        mesTarjeta={this.state.mesTarjeta}
+                        añoTarjeta={this.state.añoTarjeta}
+                        codTarjeta={this.state.codTarjeta}
+                        tipoTarjeta={this.state.tipoTarjeta}
                     />
                 </Grid>
                

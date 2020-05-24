@@ -8,12 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import ReservaHelper from './../../Utils/ReservaHelper.js'
 
 
-const payments = [
-  { name: 'Tipo de tarjeta', detail: 'Visa' },
-  { name: 'Nombre de la tarjeta', detail: 'Mr John Smith' },
-  { name: 'Numero de la Tajeta', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Fecha de expiracion', detail: '04/2024' },
-];
+
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -63,16 +58,40 @@ export default function Review(props) {
            Tarjeta de Reserva
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
+         
+              <React.Fragment >
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
+                  <Typography gutterBottom>Tipo de tarjeta</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
+                  <Typography gutterBottom>{props.tipoTarjeta}</Typography>
                 </Grid>
               </React.Fragment>
-            ))}
+              <React.Fragment >
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Nombre y apellido</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{props.nombreTarjeta}</Typography>
+                </Grid>
+              </React.Fragment>
+              <React.Fragment >
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Numero de la Tajeta</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{props.numeroTarjeta}</Typography>
+                </Grid>
+              </React.Fragment>
+              <React.Fragment >
+                <Grid item xs={6}>
+                  <Typography gutterBottom>Fecha de Vencimiento</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{props.mesTarjeta}/{props.añoTarjeta}</Typography>
+                </Grid>
+              </React.Fragment>
+          
           </Grid>
         </Grid>
       </Grid>

@@ -1,8 +1,9 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Paper, Typography } from '@material-ui/core';
-import clsx from 'clsx';
+import { Grid } from '@material-ui/core';
+
+
 
 
 
@@ -21,15 +22,15 @@ const styles = theme => ({
 class Pagos extends Component {
     
     render() {
-        const { classes } = this.props;
-        const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+       // const { classes } = this.props;
+       
         return (
             <Grid container spacing={3}>
             
                 <Grid item xs={12} md={8} lg={9}>
-                    <Paper className={fixedHeightPaper}>
-                      <Typography variant="h3">Tus Pagos</Typography>
-                    </Paper>
+                   
+                      
+                    
                 </Grid>
                
                 
