@@ -9,6 +9,7 @@ import Bienvenida from './Bienvenida';
 import HouseKeeping from './HouseKeeping';
 import Tintoreria from './Tintoreria';
 
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -16,8 +17,8 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`horizontal-tabpanel-${index}`}
-      aria-labelledby={`horizontal-tab-${index}`}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -37,22 +38,20 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `horizontal-tab-${index}`,
-    'aria-controls': `horizontal-tabpanel-${index}`,
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    flexGrow: 1,
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
-    height: 300,
-  },
-  tabs: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
   },
 }));
 
-export default function Preferencias(props) {
+export default function ScrollableTabsButtonForce(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -62,19 +61,22 @@ export default function Preferencias(props) {
 
   return (
     <div className={classes.root}>
+
       <Tabs
-        orientation="horizontal"
-        variant="scrollable"
         value={value}
         onChange={handleChange}
-        aria-label="horizontal tabs example"
-        className={classes.tabs}
+        variant="scrollable"
+        scrollButtons="on"
+        indicatorColor="primary"
+        textColor="primary"
+        aria-label="scrollable force tabs example"
       >
         <Tab label="Bienvenida" {...a11yProps(0)} />
         <Tab label="Limpieza a la habitacion" {...a11yProps(1)} />
         <Tab label="Tintoreria" {...a11yProps(2)} />
 
       </Tabs>
+
       <TabPanel value={value} index={0}>
         <Bienvenida
           bienvenida={props.bienvenida}

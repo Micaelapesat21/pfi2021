@@ -30,6 +30,9 @@ const styles = theme => ({
             display: 'none',
         },
     },
+    inicio: {
+        marginTop: theme.spacing(8),
+    }
 })
 
 class Inicio extends Component {
@@ -55,7 +58,7 @@ class Inicio extends Component {
             });
         });
 
-     
+
         if (this.props.location.state !== undefined) {
             const {
                 id,
@@ -96,9 +99,13 @@ class Inicio extends Component {
     }
 
     login() {
+        const { classes } = this.props;
         if (this.state.inicio === true) {
             return (
-                <IniciarSesion inicio={this.callbackInicio} />
+                <Grid className={classes.inicio}>
+                    <IniciarSesion inicio={this.callbackInicio} />
+                </Grid>
+
             )
         }
         else {
@@ -133,7 +140,7 @@ class Inicio extends Component {
                             <Galeria />
                         </Grid>
                         <Grid item xs={false} sm={4} md={7} className={classes.sectionMobile} />
-                        <Grid item xs={12} sm={8} md={5} >
+                        <Grid item xs={12} sm={8} md={5}  >
                             {this.login()}
                         </Grid>
                         <Dialog open={this.state.verificar} onClose={this.handleCloseVerificar} >

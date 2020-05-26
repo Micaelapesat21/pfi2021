@@ -1,7 +1,8 @@
 import React from 'react';
-import { DialogTitle, withStyles, DialogContent, DialogActions, Button, Container } from '@material-ui/core';
+import { withStyles, DialogContent, DialogActions, Button, Dialog, DialogTitle, DialogContentText } from '@material-ui/core';
 import AuthController from './AuthController';
 import IniciarSesion from './IniciarSesion'
+import Registro from './Registro';
 
 const styles = theme => ({
 
@@ -14,6 +15,7 @@ class DialogLogin extends React.Component {
     super(props);
     this.state = {
       correo: '',
+      inicio: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.cambiar = this.cambiar.bind(this)
@@ -30,25 +32,61 @@ class DialogLogin extends React.Component {
   }
 
   handleClose = () => {
-    this.props.closePass();
+    this.props.onClose();
+  }
+
+  callbackInicio = (x) => {
+    this.setState({ inicio: x })
+  }
+
+  login() {
+    if (this.state.inicio === true) {
+      return (
+        <IniciarSesion inicio={this.callbackInicio} />
+      )
+    }
+    else {
+      return (
+        <Registro inicio={this.callbackInicio} verificar={this.props.verificar} />
+      )
+    }
   }
 
 
   render() {
     return (
-      <Container>
-        <DialogTitle id="form-dialog-title">Login</DialogTitle>
-        <DialogContent>
-    
-          <IniciarSesion/>
+      <div>
+        {this.login()}
+        <Dialog open={this.props.open} onClose={this.props.onClose} >
+          <DialogTitle >{"Completar reserva"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText >
+              Por favor Inicie sesion para poder completar su Reserva
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cerrar
+            </Button>
+          </DialogActions>
+        </Dialog>
 
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleClose.bind()} color="primary">
-            Cancelar
-        </Button>
-        </DialogActions>
-      </Container>
+        <Dialog open={this.props.openVerificar} onClose={this.props.onCloseVerificar} >
+          <DialogTitle >{"Verificar correo electronico"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText >
+              Por favor verificar su correo electronico para poder iniciar sesion. Si no aparece verifique su casilla de spam.
+                         </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.props.onCloseVerificar} color="primary">
+              Cerrar
+                        </Button>
+
+          </DialogActions>
+        </Dialog>
+
+      </div>
     )
   }
 }

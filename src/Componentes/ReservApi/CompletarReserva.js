@@ -13,6 +13,10 @@ import SeleccionarFechas from './SeleccionarFechas';
 import Review from './ReviewForm';
 import { Link } from 'react-router-dom'
 import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
+import { IconButton } from '@material-ui/core';
+import RenderAvatar from '../login/RenderAvatar';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AuthController from '../login/AuthController'
 
 
 
@@ -51,15 +55,30 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  title: {
+    flexGrow: 1,
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
 }));
 
 const steps = ['Confirme las fechas', 'Pago', 'Ver tu reserva'];
 
 function getStepContent(step, props) {
-  let hues = parseInt(props.huespedes)
+
   switch (step) {
     case 0:
-      return <SeleccionarFechas CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={hues} precio={props.precio} />;
+      return <SeleccionarFechas
+        CheckIn={props.CheckIn}
+        CheckOut={props.CheckOut}
+        huespedes={props.huespedes}
+        precio={props.precio}
+        callHuespedes={props.callHuespedes}
+        callCheckIn={props.callCheckIn}
+        callCheckOut={props.callCheckOut}
+      />;
     case 1:
       return <TarjetaCheta
         callNumeroTarjeta={props.callNumeroTarjeta}
@@ -73,7 +92,7 @@ function getStepContent(step, props) {
       return <Review
         CheckIn={props.CheckIn}
         CheckOut={props.CheckOut}
-        huespedes={hues}
+        huespedes={props.huespedes}
         precio={props.precio}
         numeroTarjeta={props.numeroTarjeta}
         nombreTarjeta={props.nombreTarjeta}
@@ -86,17 +105,55 @@ function getStepContent(step, props) {
   }
 }
 
+function logueado(classes, props) {
+
+  if (props.user) {
+    return (
+      <Toolbar>
+        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          Hotel {props.id}
+        </Typography>
+        <IconButton color="inherit" variant="contained"  >
+          <RenderAvatar user={props.user} className={classes.small} />
+        </IconButton>
+
+        <Typography component="h1" variant="h6" color="inherit" noWrap >
+          {props.user.displayName}
+        </Typography>
+
+        <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+          <ExitToAppIcon />
+        </IconButton>
+      </Toolbar>
+    )
+  } else {
+    return (
+      <Toolbar>
+
+        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          Hotel {props.id}
+        </Typography>
+
+      </Toolbar>
+    )
+  }
+}
+
+
+
+
 export default function GuestInfoForm(props) {
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
 
- 
+
 
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-  
+
   };
 
   const handleBack = () => {
@@ -107,11 +164,11 @@ export default function GuestInfoForm(props) {
     <React.Fragment>
       <CssBaseline />
       <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Hotel {props.id}
-          </Typography>
-        </Toolbar>
+
+
+        {logueado(classes, props)}
+
+
       </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -132,7 +189,7 @@ export default function GuestInfoForm(props) {
                   Gracias por reservar con nosotros
                 </Typography>
                 <Typography variant="subtitle1">
-                  Tu numero de reserva es #2001539. Te hemos enviado un mail con tu vocher, si desea puede editar sus preferencias y realizar su Check-In
+                  Tu numero de reserva es #2001539. Te hemos enviado un mail a {props.user.email} con tu vocher, si desea puede editar sus preferencias y realizar su Check-In
                 </Typography>
                 <Button
                   variant="contained"

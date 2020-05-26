@@ -140,10 +140,10 @@ class FormularioDatos extends Component {
                     Datos Personales
                  </Typography>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={2}>
+                    <Grid item xs={4} sm={2}>
                         <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>
                     </Grid>
-                    <Grid item xs={12} sm={2}>
+                    <Grid item xs={4} sm={2}>
                         {this.botonGuardar()}
                     </Grid>
                     <Grid item xs={12} sm={12}>

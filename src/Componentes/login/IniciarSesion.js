@@ -30,7 +30,7 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(8),
+  
     marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',

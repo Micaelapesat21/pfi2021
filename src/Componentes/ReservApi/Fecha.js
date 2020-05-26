@@ -1,6 +1,6 @@
 import 'date-fns';
 import esLocale from "date-fns/locale/es";
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -15,11 +15,24 @@ const localeMap = {
 
 export default function MaterialUIPickers(props) {
   // The first commit of Material-UI
-  const [/*selectedDate*/, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [locale] = React.useState("es");
+
+  function pad(n) {
+    return n +1
+  }
+
+  useEffect(() => {
+    setSelectedDate(props.fecha)
+   }, [props.fecha]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    var dia = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    var fecha = year + "-" +  pad(month) + "-" + dia ;
+    props.callFecha(fecha)
   };
 
   return (
@@ -27,14 +40,14 @@ export default function MaterialUIPickers(props) {
       <Grid container justify="space-around">
         <KeyboardDatePicker
           autoOk
-          inputVariant="outlined"
+          inputVariant="standard"
           variant="inline"
           format="dd/MM/yyyy"
           margin="normal"
           id="date-picker-inline"
           color="primary"
           label={props.label}
-          value={props.fecha}
+          value={selectedDate}
           InputAdornmentProps={{ position: "start" }}
           onChange={handleDateChange}
           KeyboardButtonProps={{

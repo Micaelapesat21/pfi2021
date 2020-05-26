@@ -37,6 +37,20 @@ export default function Review(props) {
       <List disablePadding>
         
         <ListItem className={classes.listItem}>
+          <ListItemText primary="Noches" />
+          <Typography variant="subtitle1" className={classes.total}>
+            {getTotalPrice(props.CheckIn,props.CheckOut)}
+          </Typography>
+         
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          
+          <ListItemText primary="Precio por Noche" />
+          <Typography variant="subtitle1" className={classes.total}>
+            ${parseInt(props.precio)}
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
             ${getTotalPrice(props.CheckIn,props.CheckOut)*parseInt(props.precio)}
