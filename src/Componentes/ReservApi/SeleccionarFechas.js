@@ -30,11 +30,11 @@ export default function AddressForm(props) {
 
     var aFecha1 = checkIn.split("-");
     var aFecha2 = checkOut.split("-");
-    var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]);
-    var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]);
+    var fFecha1 = Date.UTC(aFecha1[0], aFecha1[1] - 1, aFecha1[2]);
+    var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
     var dif = fFecha2 - fFecha1;
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    
+
     return dias
   }
 
@@ -51,24 +51,21 @@ export default function AddressForm(props) {
     <React.Fragment>
       <Grid container direction="row" >
 
-        <Grid item md={12}>
-          <Typography variant="h6" gutterBottom>
-            Tus fechas
-          </Typography>
-        </Grid>
-
-        <Grid item md={12}>
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item md={6} xs={12}>
+        <Grid item md={12} >
+          <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+            <Grid item md={12} xs={9}>
+              <Typography variant="h6" gutterBottom>
+                Tus fechas
+              </Typography>
+            </Grid>
+            <Grid item md={6} xs={10}>
               <Fecha label={"Check-in"} fecha={props.CheckIn} callFecha={props.callCheckIn} />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item md={6} xs={10}>
               <Fecha label={"Check-out"} fecha={props.CheckOut} callFecha={props.callCheckOut} />
             </Grid>
           </Grid>
         </Grid>
-
-
 
 
         <Grid item md={6} xs={12}>
@@ -76,7 +73,7 @@ export default function AddressForm(props) {
             <Grid item md={12} >
               <Typography variant="h6" gutterBottom className={classes.espacio}>
                 Cantidad de huespedes
-          </Typography>
+              </Typography>
             </Grid>
             <Grid item md={12}>
               <FormControl variant="standard" className={classes.formControl}>

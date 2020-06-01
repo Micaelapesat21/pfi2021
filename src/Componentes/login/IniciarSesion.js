@@ -152,7 +152,7 @@ class IniciarSesion extends React.Component {
               fullWidth
               label="Correo Electronico"
               name="correo"
-              type="correo"
+              type="email"
               autoComplete="email"
               autoFocus
               value={this.state.correo}

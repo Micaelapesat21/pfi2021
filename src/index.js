@@ -2,8 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
+import { LocalizationProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
+import esLocale from "date-fns/locale/es";
 
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core'
+
+const localeMap = {
+  es: esLocale,
+
+};
 
 
 const theme=createMuiTheme({
@@ -32,9 +40,11 @@ const theme=createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
+    <LocalizationProvider dateAdapter={DateFnsUtils} locale={localeMap.es}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      </LocalizationProvider>
     </MuiThemeProvider>, 
   </React.StrictMode>,
   document.getElementById('root')

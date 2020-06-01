@@ -69,8 +69,8 @@ const styles = theme => ({
 
 class FormularioDatos extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             fotoPerfil: "",
             nombre: "",
@@ -86,6 +86,7 @@ class FormularioDatos extends Component {
             compañia: "",
             edicion: false,
             redOnly: true,
+            completado:false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -103,6 +104,12 @@ class FormularioDatos extends Component {
             nombre: nombre,
             apellido: apellido,
         })
+
+        
+            
+            
+            
+       
     }
 
     edicionOpen() {
@@ -111,6 +118,21 @@ class FormularioDatos extends Component {
 
     guardar() {
         this.setState({ edicion: false, redOnly: true })
+        if(this.state.nombre !==" " && 
+            this.state.apellido !==" " && 
+            this.state.tipo !==" " && 
+            this.state.documento !==" " && 
+            this.state.correo !==" " &&
+            this.state.pais !==" " &&
+            this.state.estado !==" " &&
+            this.state.ciudad !==" " &&
+            this.state.codigoPostal !==" " &&
+            this.state.direccion !==" "
+            ){
+                this.props.callPerfilCompletado(true)
+            }else{
+                this.props.callPerfilCompletado(false)
+            }
     }
 
     botonGuardar() {
@@ -134,218 +156,345 @@ class FormularioDatos extends Component {
 
     render() {
         const { classes } = this.props;
-        return (
-            <Grid>
-                <Typography variant="h6" gutterBottom>
-                    Datos Personales
-                 </Typography>
-                <Grid container spacing={3}>
-                    <Grid item xs={4} sm={2}>
-                        <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>
-                    </Grid>
-                    <Grid item xs={4} sm={2}>
-                        {this.botonGuardar()}
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <Grid container direction="row" alignItems="center" justify="center" spacing={3}>
-                            <input
-                                accept="image/*"
-                                className={classes.input}
-                                id="contained-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="contained-button-file">
-                                <ButtonBase
-                                    focusRipple
-                                    className={classes.image}
-                                    focusVisibleClassName={classes.focusVisible}
-                                    component="span"
-                                >
-                                    <RenderAvatar user={this.props.user} className={classes.large} />
-                                    <span className={classes.imageBackdrop} />
-                                    <span className={classes.imageButton}>
-                                        <Typography
-                                            component="span"
-                                            variant="subtitle1"
-                                            color="inherit"
-                                            className={classes.imageTitle}
-                                        >
-                                            Editar
-                                         </Typography>
-                                    </span>
-                                </ButtonBase>
-                            </label>
+
+        if (this.props.modo === "Perfil" || this.props.numero === 1) {
+
+            return (
+                <Grid>
+                    <Typography variant="h6" gutterBottom>
+                        Datos Personales
+             </Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xs={4} sm={2}>
+                            <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="Nombre"
-                            name="nombre"
-                            label="Nombre"
-                            fullWidth
-                            autoComplete="Nombre"
-                            value={this.state.nombre}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="Apellido"
-                            name="apellido"
-                            label="Apellido"
-                            fullWidth
-                            autoComplete="Apellido"
-                            value={this.state.apellido}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="Tipo"
-                            name="tipo"
-                            label="Tipo Documento"
-                            fullWidth
-                            autoComplete="Tipo"
-                            value={this.state.tipo}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="documento"
-                            name="documento"
-                            label="Nro documento "
-                            fullWidth
-                            autoComplete="documento"
-                            value={this.state.documento}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="Correo"
-                            name="correo"
-                            label="Correo Electronico"
-                            fullWidth
-                            autoComplete="Correo"
-                            value={this.state.correo}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
+                        <Grid item xs={4} sm={2}>
+                            {this.botonGuardar()}
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <Grid container direction="row" alignItems="center" justify="center" spacing={3}>
+                                <input
+                                    accept="image/*"
+                                    className={classes.input}
+                                    id="contained-button-file"
+                                    multiple
+                                    type="file"
+                                />
+                                <label htmlFor="contained-button-file">
+                                    <ButtonBase
+                                        focusRipple
+                                        className={classes.image}
+                                        focusVisibleClassName={classes.focusVisible}
+                                        component="span"
+                                    >
+                                        <RenderAvatar user={this.props.user} className={classes.large} />
+                                        <span className={classes.imageBackdrop} />
+                                        <span className={classes.imageButton}>
+                                            <Typography
+                                                component="span"
+                                                variant="subtitle1"
+                                                color="inherit"
+                                                className={classes.imageTitle}
+                                            >
+                                                Editar
+                                     </Typography>
+                                        </span>
+                                    </ButtonBase>
+                                </label>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Nombre"
+                                name="nombre"
+                                label="Nombre"
+                                fullWidth
+                                autoComplete="Nombre"
+                                value={this.state.nombre}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Apellido"
+                                name="apellido"
+                                label="Apellido"
+                                fullWidth
+                                autoComplete="Apellido"
+                                value={this.state.apellido}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Tipo"
+                                name="tipo"
+                                label="Tipo Documento"
+                                fullWidth
+                                autoComplete="Tipo"
+                                value={this.state.tipo}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="documento"
+                                name="documento"
+                                label="Nro documento "
+                                fullWidth
+                                autoComplete="documento"
+                                value={this.state.documento}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Correo"
+                                name="correo"
+                                label="Correo Electronico"
+                                fullWidth
+                                autoComplete="Correo"
+                                value={this.state.correo}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
 
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="País"
-                            name="pais"
-                            label="País"
-                            fullWidth
-                            autoComplete="País"
-                            value={this.state.pais}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            id="Estado"
-                            name="estado"
-                            label="Estado/Provincia/Región"
-                            fullWidth
-                            value={this.state.estado}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="Ciudad"
-                            name="ciudad"
-                            label="Ciudad"
-                            fullWidth
-                            autoComplete="Ciudad"
-                            value={this.state.ciudad}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="Código Postal"
-                            name="codigoPostal"
-                            label="Código Postal"
-                            fullWidth
-                            autoComplete="Código Postal"
-                            value={this.state.codigoPostal}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="Direccion"
-                            name="direccion"
-                            label="Direccion"
-                            fullWidth
-                            autoComplete="Direccion"
-                            value={this.state.direccion}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="Compañia"
-                            name="compañia"
-                            label="Compañia (opcional)"
-                            fullWidth
-                            autoComplete="Compañia"
-                            value={this.state.compañia}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly,
-                            }}
-                        />
-                    </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="País"
+                                name="pais"
+                                label="País"
+                                fullWidth
+                                autoComplete="País"
+                                value={this.state.pais}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="Estado"
+                                name="estado"
+                                label="Estado/Provincia/Región"
+                                fullWidth
+                                value={this.state.estado}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Ciudad"
+                                name="ciudad"
+                                label="Ciudad"
+                                fullWidth
+                                autoComplete="Ciudad"
+                                value={this.state.ciudad}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Código Postal"
+                                name="codigoPostal"
+                                label="Código Postal"
+                                fullWidth
+                                autoComplete="Código Postal"
+                                value={this.state.codigoPostal}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Direccion"
+                                name="direccion"
+                                label="Direccion"
+                                fullWidth
+                                autoComplete="Direccion"
+                                value={this.state.direccion}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="Compañia"
+                                name="compañia"
+                                label="Compañia (opcional)"
+                                fullWidth
+                                autoComplete="Compañia"
+                                value={this.state.compañia}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
 
 
+                    </Grid>
                 </Grid>
-            </Grid>
-        );
+            );
+
+        } else {
+            return (
+                <Grid>
+                    <Typography variant="h6" gutterBottom>
+                        Datos Personales
+                     </Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Nombre"
+                                name="nombre"
+                                label="Nombre"
+                                fullWidth
+                                autoComplete="Nombre"                                                        
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Apellido"
+                                name="apellido"
+                                label="Apellido"
+                                fullWidth
+                                autoComplete="Apellido"                                                
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Tipo"
+                                name="tipo"
+                                label="Tipo Documento"
+                                fullWidth
+                                autoComplete="Tipo" 
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="documento"
+                                name="documento"
+                                label="Nro documento "
+                                fullWidth
+                                autoComplete="documento" 
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Correo"
+                                name="correo"
+                                label="Correo Electronico"
+                                fullWidth
+                                autoComplete="Correo"     
+                            />
+                        </Grid>
+    
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="País"
+                                name="pais"
+                                label="País"
+                                fullWidth
+                                autoComplete="País"   
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="Estado"
+                                name="estado"
+                                label="Estado/Provincia/Región"
+                                fullWidth             
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Ciudad"
+                                name="ciudad"
+                                label="Ciudad"
+                                fullWidth
+                                autoComplete="Ciudad"  
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Código Postal"
+                                name="codigoPostal"
+                                label="Código Postal"
+                                fullWidth
+                                autoComplete="Código Postal"    
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Direccion"
+                                name="direccion"
+                                label="Direccion"
+                                fullWidth
+                                autoComplete="Direccion"        
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="Compañia"
+                                name="compañia"
+                                label="Compañia (opcional)"
+                                fullWidth
+                                autoComplete="Compañia"
+                            />
+                        </Grid>
+    
+    
+                    </Grid>
+                </Grid>
+            );
+        }
+
+
     }
 }
 

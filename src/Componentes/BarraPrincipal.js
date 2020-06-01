@@ -63,7 +63,7 @@ export default function BarraPrincipal(props) {
                  {props.modo}
                 </Typography>
                 <IconButton color="inherit">
-                    <Badge badgeContent={"0"} color="secondary">
+                    <Badge badgeContent={0} color="secondary">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>

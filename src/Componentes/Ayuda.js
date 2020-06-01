@@ -18,7 +18,7 @@ const styles = theme => ({
     },
 })
 
-class CheckOut extends Component {
+class Ayuda extends Component {
     
     render() {
         const { classes } = this.props;
@@ -28,7 +28,7 @@ class CheckOut extends Component {
             
                 <Grid item xs={12} md={8} lg={9} justify="center" alignItems="center">
                     <Paper className={fixedHeightPaper}>
-                      <Typography variant="h3">Check-Out</Typography>
+                      <Typography variant="h3">Ayuda</Typography>
                     </Paper>
                 </Grid>
                
@@ -39,8 +39,8 @@ class CheckOut extends Component {
     }
 }
 
-CheckOut.propTypes = {
+Ayuda.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CheckOut);
+export default withStyles(styles)(Ayuda);

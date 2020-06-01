@@ -40,7 +40,20 @@ class Perfil extends Component {
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item xs={12} md={12} lg={12}>
                             <Paper>
-                                <TabsPerfil user={this.props.user} />
+                                <TabsPerfil 
+                                user={this.props.user} 
+                                perfil={this.props.perfil}
+                                romanticoOpen={this.props.romanticoOpen}
+                                ejecutivoOpen={this.props.ejecutivoOpen}
+                                familiaOpen={this.props.familiaOpen}
+                                preferenciasOpen={this.props.preferenciasOpen}
+                                romantico={this.props.romantico}
+                                ejecutivo={this.props.ejecutivo}
+                                familia={this.props.familia}
+                                preferencias={this.props.preferencias}
+                                perfilCompletado={this.props.perfilCompletado}
+                                callPerfilCompletado={this.props.callPerfilCompletado}
+                                />
                             </Paper>
                         </Grid>
                     </Grid>

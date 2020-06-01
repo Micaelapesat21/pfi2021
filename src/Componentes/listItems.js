@@ -16,6 +16,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import PersonIcon from '@material-ui/icons/Person';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import HistoryIcon from '@material-ui/icons/History';
+import HelpIcon from '@material-ui/icons/Help';
+
 
 
 
@@ -41,6 +44,8 @@ export default function ListItems(props) {
   const classes = useStyles();
   const [openPer, setOpenPer] = React.useState(true);
   const [openRes, setOpenRes] = React.useState(true);
+  
+
 
 
   const handleClickPeril = () => {
@@ -130,9 +135,23 @@ export default function ListItems(props) {
             </ListItemIcon>
             <ListItemText primary="Check-Out" />
           </ListItem>
+         
+          <ListItem button onClick={props.historialOpen} className={classes.nested}>
+            <ListItemIcon>
+              <HistoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="Historial" />
+          </ListItem>
         </List>
       </Collapse>
       <Divider />
+
+      <ListItem button onClick={props.ayudaOpen}>
+        <ListItemIcon>
+          <HelpIcon />
+        </ListItemIcon>
+        <ListItemText primary="Ayuda" />
+      </ListItem>
 
     </div>
   )

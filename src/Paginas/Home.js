@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -14,6 +14,9 @@ import Servicios from '../Componentes/MiReserva/Servicios';
 import Resenas from '../Componentes/MiPerfil/Resenas';
 import Pagos from '../Componentes/MiPerfil/Pagos';
 import Deslizable from '../Componentes/Deslizable'
+import Historial from '../Componentes/MiReserva/Historial';
+import Ayuda from '../Componentes/Ayuda';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,6 +44,21 @@ export default function PanelControl(props) {
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
     const [modoPagos, setmodoPagos] = React.useState(false);
+    const [modoHistorial, setmodoHistorial] = React.useState(false);
+    const [modoAyuda, setmodoAyuda] = React.useState(false);
+
+    const [romantico, setRomantico] = React.useState(false)
+    const [ejecutivo, setEjecutivo] = React.useState(false)
+    const [familia, setFamilia] = React.useState(false)
+    const [preferencias, setPreferencias] = React.useState(false)
+    const [perfil, setPer] = React.useState(0);
+    const [expanded, setExpanded] = React.useState(false);
+    const [contacto, setContacto] = React.useState(false);
+    const [perfilCompletado, setPerfilCompletado] = React.useState(false);
+
+    const callPerfilCompletado = (x) =>{
+        setPerfilCompletado(x)
+    }
 
     const generalOpen = () => {
         setmodoGeneral(true);
@@ -51,9 +69,24 @@ export default function PanelControl(props) {
         checkOutClose();
         resenasClose();
         pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const generalClose = () => {
         setmodoGeneral(false);
+    };
+    const perfilOpenPerfil = () => {
+        setmodoPerfil(true);
+        generalClose();
+        reservasClose();
+        checkInClose();
+        serviciosClose();
+        checkOutClose();
+        resenasClose();
+        pagosClose();
+        setPer(1);
+        historialClose();
+        ayudaClose();
     };
     const perfilOpen = () => {
         setmodoPerfil(true);
@@ -64,9 +97,26 @@ export default function PanelControl(props) {
         checkOutClose();
         resenasClose();
         pagosClose();
+        setPer(0);
+        historialClose();
+        ayudaClose();
     };
     const perfilClose = () => {
         setmodoPerfil(false);
+    };
+    const reservasOpenContacto = () => {
+        setmodoReservas(true);
+        setExpanded(true)
+        setContacto(true)
+        generalClose();
+        perfilClose();
+        checkInClose();
+        serviciosClose();
+        checkOutClose();
+        resenasClose();
+        pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const reservasOpen = () => {
         setmodoReservas(true);
@@ -77,6 +127,8 @@ export default function PanelControl(props) {
         checkOutClose();
         resenasClose();
         pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const reservasClose = () => {
         setmodoReservas(false);
@@ -90,6 +142,8 @@ export default function PanelControl(props) {
         checkOutClose();
         resenasClose();
         pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const checkInClose = () => {
         setmodoCheckIn(false);
@@ -103,6 +157,8 @@ export default function PanelControl(props) {
         checkOutClose();
         resenasClose();
         pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const serviciosClose = () => {
         setmodoServicios(false);
@@ -116,6 +172,8 @@ export default function PanelControl(props) {
         serviciosClose();
         resenasClose();
         pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const checkOutClose = () => {
         setmodoCheckOut(false);
@@ -129,6 +187,8 @@ export default function PanelControl(props) {
         serviciosClose();
         checkOutClose();
         pagosClose();
+        historialClose();
+        ayudaClose();
     };
     const resenasClose = () => {
         setmodoResenas(false);
@@ -142,9 +202,78 @@ export default function PanelControl(props) {
         serviciosClose();
         checkOutClose();
         resenasClose();
+        historialClose();
+        ayudaClose();
     };
     const pagosClose = () => {
         setmodoPagos(false);
+    };
+    const historialOpen = () => {
+        setmodoHistorial(true);
+        generalClose();
+        perfilClose();
+        reservasClose();
+        checkInClose();
+        serviciosClose();
+        checkOutClose();
+        resenasClose();
+        pagosClose();
+        ayudaClose();
+    };
+    const historialClose = () => {
+        setmodoHistorial(false);
+    };
+    const ayudaOpen = () => {
+        setmodoAyuda(true);
+        generalClose();
+        perfilClose();
+        reservasClose();
+        checkInClose();
+        serviciosClose();
+        checkOutClose();
+        pagosClose();
+        resenasClose();
+        historialClose();
+    };
+    const ayudaClose = () => {
+        setmodoAyuda(false);
+    };
+    const romanticoOpen = () => {
+        setRomantico(true);
+        ejecutivoClose();
+        familiaClose();
+        preferenciasClose();
+    };
+    const romanticoClose = () => {
+        setRomantico(false);
+    };
+
+    const ejecutivoOpen = () => {
+        setEjecutivo(true);
+        romanticoClose();
+        familiaClose();
+        preferenciasClose();
+    };
+    const ejecutivoClose = () => {
+        setEjecutivo(false);
+    };
+    const familiaOpen = () => {
+        setFamilia(true);
+        ejecutivoClose();
+        romanticoClose();
+        preferenciasClose();
+    };
+    const familiaClose = () => {
+        setFamilia(false);
+    };
+    const preferenciasOpen = () => {
+        setPreferencias(true);
+        ejecutivoClose();
+        familiaClose();
+        romanticoClose();
+    };
+    const preferenciasClose = () => {
+        setPreferencias(false);
     };
 
 
@@ -161,6 +290,8 @@ export default function PanelControl(props) {
                 checkOutOpen={checkOutOpen}
                 resenasOpen={resenasOpen}
                 pagosOpen={pagosOpen}
+                historialOpen={historialOpen}
+                ayudaOpen={ayudaOpen}
                 user={props.user}
             />}</List>
 
@@ -177,7 +308,20 @@ export default function PanelControl(props) {
                     <div className={classes.appBarSpacer} />
 
                     <Container maxWidth="lg" className={classes.container}>
-                        <Perfil user={props.user} />
+                        {<Perfil
+                            user={props.user}
+                            perfil={perfil}
+                            romanticoOpen={romanticoOpen}
+                            ejecutivoOpen={ejecutivoOpen}
+                            familiaOpen={familiaOpen}
+                            preferenciasOpen={preferenciasOpen}
+                            romantico={romantico}
+                            ejecutivo={ejecutivo}
+                            familia={familia}
+                            preferencias={preferencias}
+                            perfilCompletado={perfilCompletado}
+                            callPerfilCompletado={callPerfilCompletado}
+                        />}
                     </Container>
                 </main>
             </div>
@@ -187,11 +331,24 @@ export default function PanelControl(props) {
             return (
                 <div className={classes.root}>
                     <CssBaseline />
-                    <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Reserva"} />
+                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reservas"} />
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
                         <Container maxWidth="lg" className={classes.container}>
-                            <Reservas />
+                            <Reservas
+                                user={props.user}
+                                id={props.id}
+                                CheckIn={props.CheckIn}
+                                CheckOut={props.CheckOut}
+                                huespedes={props.huespedes}
+                                precio={props.precio}
+                                reservasOpen={reservasOpen}
+                                checkInOpen={checkInOpen}
+                                checkOutOpen={checkOutOpen}
+                                expanded={expanded}
+                                contacto={contacto}
+                                modo={"Reservas"}
+                            />
                         </Container>
                     </main>
                 </div>
@@ -201,11 +358,34 @@ export default function PanelControl(props) {
                 return (
                     <div className={classes.root}>
                         <CssBaseline />
-                        <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Check-In"}/>
+                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-In"} />
                         <main className={classes.content}>
                             <div className={classes.appBarSpacer} />
                             <Container maxWidth="lg" className={classes.container}>
-                                <CheckIn />
+                                {<CheckIn
+                                    user={props.user}
+                                    id={props.id}
+                                    CheckIn={props.CheckIn}
+                                    CheckOut={props.CheckOut}
+                                    huespedes={props.huespedes}
+                                    precio={props.precio}
+                                    reservasOpen={reservasOpen}
+                                    checkInOpen={checkInOpen}
+                                    checkOutOpen={checkOutOpen}
+                                    modo={"Check-In"}
+                                    romantico={romantico}
+                                    ejecutivo={ejecutivo}
+                                    familia={familia}
+                                    preferencias={preferencias}
+                                    perfil={perfil}
+                                    romanticoOpen={romanticoOpen}
+                                    ejecutivoOpen={ejecutivoOpen}
+                                    familiaOpen={familiaOpen}
+                                    preferenciasOpen={preferenciasOpen}
+                                    reservasOpenContacto={reservasOpenContacto}
+                                    perfilCompletado={perfilCompletado}
+                                    callPerfilCompletado={callPerfilCompletado}
+                                />}
                             </Container>
                         </main>
                     </div>
@@ -215,7 +395,7 @@ export default function PanelControl(props) {
                     return (
                         <div className={classes.root}>
                             <CssBaseline />
-                            <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Servicios"} />
+                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Servicios"} />
                             <main className={classes.content}>
                                 <div className={classes.appBarSpacer} />
                                 <Container maxWidth="lg" className={classes.container}>
@@ -229,11 +409,20 @@ export default function PanelControl(props) {
                         return (
                             <div className={classes.root}>
                                 <CssBaseline />
-                                <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Check-Out"} />
+                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-Out"} />
                                 <main className={classes.content}>
                                     <div className={classes.appBarSpacer} />
                                     <Container maxWidth="lg" className={classes.container}>
-                                        <CheckOut />
+                                        <CheckOut
+                                            user={props.user}
+                                            id={props.id}
+                                            CheckIn={props.CheckIn}
+                                            CheckOut={props.CheckOut}
+                                            huespedes={props.huespedes}
+                                            precio={props.precio}
+                                            reservasOpen={reservasOpen}
+                                            checkInOpen={checkInOpen}
+                                            checkOutOpen={checkOutOpen} />
                                     </Container>
                                 </main>
                             </div>
@@ -242,7 +431,7 @@ export default function PanelControl(props) {
                         if (modoResenas) {
                             return (
                                 <div className={classes.root}>
-                                    <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Reseñas"}/>
+                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reseñas"} />
                                     <main className={classes.content}>
                                         <div className={classes.appBarSpacer} />
                                         <Container maxWidth="lg" className={classes.container}>
@@ -270,15 +459,74 @@ export default function PanelControl(props) {
                                     return (
                                         <div className={classes.root}>
                                             <CssBaseline />
-                                            <Deslizable listDrawer={listDrawer} user={props.user}  modo={"Panel General"} />
+                                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Panel General"} />
                                             <main className={classes.content}>
                                                 <div className={classes.appBarSpacer} />
                                                 <Container maxWidth="lg" className={classes.container}>
-                                                    <General user={props.user} perfilOpen={perfilOpen}  id={props.id} CheckIn={props.CheckIn} CheckOut={props.CheckOut} huespedes={props.huespedes} precio={props.precio}/>
+
+                                                    {<General
+                                                        user={props.user}
+                                                        perfilOpen={perfilOpen}
+                                                        id={props.id}
+                                                        CheckIn={props.CheckIn}
+                                                        CheckOut={props.CheckOut}
+                                                        huespedes={props.huespedes}
+                                                        precio={props.precio}
+                                                        reservasOpen={reservasOpen}
+                                                        checkInOpen={checkInOpen}
+                                                        checkOutOpen={checkOutOpen}
+                                                        perfilOpenPerfil={perfilOpenPerfil}
+                                                        romantico={romantico}
+                                                        ejecutivo={ejecutivo}
+                                                        familia={familia}
+                                                        preferencias={preferencias}
+                                                        modo={"General"}
+                                                        perfilCompletado={perfilCompletado}
+                                                        callPerfilCompletado={callPerfilCompletado}
+                                                    />}
+
                                                 </Container>
                                             </main>
                                         </div>
                                     )
+                                } else {
+                                    if (modoHistorial) {
+                                        return (
+                                            <div className={classes.root}>
+                                                <CssBaseline />
+                                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Historial de reservas"} />
+                                                <main className={classes.content}>
+                                                    <div className={classes.appBarSpacer} />
+                                                    <Container maxWidth="lg" className={classes.container}>
+                                                        {<Historial
+                                                            user={props.user}
+                                                            id={props.id}
+                                                            CheckIn={props.CheckIn}
+                                                            CheckOut={props.CheckOut}
+                                                            huespedes={props.huespedes}
+                                                            precio={props.precio}
+                                                            modo={"Historial"}
+                                                        />}
+                                                    </Container>
+                                                </main>
+                                            </div>
+                                        )
+                                    } else {
+                                        if (modoAyuda) {
+                                            return (
+                                                <div className={classes.root}>
+                                                    <CssBaseline />
+                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Ayuda"} />
+                                                    <main className={classes.content}>
+                                                        <div className={classes.appBarSpacer} />
+                                                        <Container maxWidth="lg" className={classes.container}>
+                                                            <Ayuda />
+                                                        </Container>
+                                                    </main>
+                                                </div>
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
