@@ -5,6 +5,7 @@ import { Grid, Typography } from '@material-ui/core';
 
 import ReservaRender from './ReservaRender';
 import foto from '../../Imagenes/logoHotel.png'
+import foto2 from '../../Imagenes/logoFourSeason.jpg'
 
 
 
@@ -31,13 +32,14 @@ class CheckIn extends Component {
 
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
-
                 <Grid item xs={12} md={8} lg={9}>
                     <Typography variant="h3">Check-In</Typography>
-
-                    {<ReservaRender
+                </Grid>
+                <Grid item xs={12} md={8} lg={9}>
+                    <ReservaRender
                         user={this.props.user}
                         id={this.props.id}
+                        nroReserva={"#1234568"}
                         logo={foto}
                         CheckIn={this.props.CheckIn}
                         CheckOut={this.props.CheckOut}
@@ -58,14 +60,22 @@ class CheckIn extends Component {
                         reservasOpenContacto={this.props.reservasOpenContacto}
                         perfilCompletado={this.props.perfilCompletado}
                         callPerfilCompletado={this.props.callPerfilCompletado}
-                    />}
-
-
-
+                    />
                 </Grid>
-
-
-
+                <Grid item xs={12} md={8} lg={9}>
+                    <ReservaRender
+                        id={"Four Season"}
+                        nroReserva={"#1234567"}
+                        logo={foto2}
+                        CheckIn={"2020-12-24"}
+                        CheckOut={"2020-12-30"}
+                        huespedes={4}
+                        precio={"1234"}
+                        checkInOpen={this.props.checkInOpen}
+                        checkOutOpen={this.props.checkOutOpen}
+                        modo={this.props.modo}
+                    />
+                </Grid>
             </Grid>
         );
     }

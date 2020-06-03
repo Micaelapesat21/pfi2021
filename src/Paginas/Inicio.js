@@ -89,6 +89,15 @@ class Inicio extends Component {
         this.setState({ verificar: false });
         AuthController.handleLogout()
     }
+    callCheckIn = (x) => {
+        this.setState({ CheckIn: x });
+    }
+    callCheckOut = (x) => {
+        this.setState({ CheckOut: x });
+    }
+    callHuespedes = (x) => {
+        this.setState({ huespedes: x });
+    }
 
     isloginFacebook() {
         var face = firebase.auth().currentUser.providerData[0].providerId
@@ -129,6 +138,9 @@ class Inicio extends Component {
                         CheckOut={this.state.CheckOut}
                         huespedes={this.state.huespedes}
                         precio={this.state.precio}
+                        callCheckIn={this.callCheckIn}
+                        callCheckOut={this.callCheckOut}
+                        callHuespedes={this.callHuespedes}
                     />
                 )
             } else {

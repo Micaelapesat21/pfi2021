@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import { TextField } from "@material-ui/core";
 import { MobileTimePicker } from "@material-ui/pickers";
 
-function TimeValidation() {
-  const [selectedDate, handleDateChange] = useState(new Date("2020-01-01 15:00"));
+function TimeValidation(props) {
+  const [selectedDate, handleDateChange] = useState(props.date);
 
   return (
     <Fragment>
@@ -11,9 +11,9 @@ function TimeValidation() {
       <MobileTimePicker
         renderInput={props => <TextField {...props} />}
         ampm={false}
-        label={"Horario de ingreso"}
-        minTime={new Date(0, 0, 0, 15)}
-        maxTime={new Date(0, 0, 0, 23)}
+        label={props.label}
+        minTime={props.minTime}
+        maxTime={props.maxTime}
         minutesStep={5}
         value={selectedDate}
         onChange={date => handleDateChange(date)}

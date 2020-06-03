@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
             display: "none",
         },
     },
-    perfilDatos:{
+    perfilDatos: {
         marginBottom: theme.spacing(1),
     }
 }));
@@ -154,7 +154,7 @@ export default function AdminReserva(props) {
                         <Typography variant="subtitle2" color="error" >*obligatorio</Typography>
                     </Grid>
                     <Grid item md={3} xs={12}>
-                        <Hora />
+                        <Hora minTime={new Date(0, 0, 0, 15)} maxTime={new Date(0, 0, 0, 23)} label={"Horario de ingreso"} date={new Date("2020-01-01 15:00")}/>
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <Typography variant="subtitle2" align="justify" style={{ color: "#9e9e9e" }} >
@@ -168,15 +168,15 @@ export default function AdminReserva(props) {
                         <Typography variant="subtitle2" color="primary" >{props.huespedes} Huespedes</Typography>
                     </Grid>
                     <Grid item md={7} xs={12}>
-                        {huespedes(props.huespedes).map((num,index) => (
+                        {huespedes(props.huespedes).map((num, index) => (
                             <Grid item className={classes.perfilDatos} key={index}>
                                 <PerfilCheckIn
                                     user={props.user}
-                                    numero={index+1}
+                                    numero={index + 1}
                                     callPerfilCompletado={props.callPerfilCompletado}
                                     perfilCompletado={props.perfilCompletado}
                                 />
-                                
+
                             </Grid>
                         ))}
                     </Grid>
@@ -237,7 +237,7 @@ export default function AdminReserva(props) {
                                 />
                             </Grid>
                             <Grid item md={5} xs={12}>
-                                <HoraTraslado />
+                                <HoraTraslado label={"Horario de arribo"} />
                             </Grid>
                         </Grid>
                     </Grid>

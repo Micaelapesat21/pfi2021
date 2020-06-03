@@ -1,0 +1,155 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Grid, Typography, Divider, IconButton, TextField, Link, Button } from '@material-ui/core';
+import Hora from './Hora'
+import HoraTraslado from './HoraTraslado'
+
+
+
+
+
+
+
+
+const useStyles = makeStyles(theme => ({
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    izq: {
+        borderRight: "1px solid #e0e0e0",
+        [theme.breakpoints.down('xs')]: {
+            borderRight: "1px solid #ffffff",
+        },
+    },
+    main: {
+        marginTop: theme.spacing(3),
+        marginLeft: theme.spacing(3),
+        [theme.breakpoints.down('xs')]: {
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(0),
+
+        },
+    },
+    tituloMobile: {
+        display: "block",
+        [theme.breakpoints.down('xs')]: {
+            display: "none",
+        },
+    },
+    perfilDatos:{
+        marginBottom: theme.spacing(1),
+    }
+}));
+
+
+export default function AdminReserva(props) {
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(true);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+   
+    
+
+    return (
+        <Grid>
+            <Grid container direction="row" >
+                <Grid item md={3} xs={12} className={classes.izq} >
+                    <Grid item md={12} xs={7} className={classes.tituloMobile}>
+                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                    </Grid>
+                </Grid>
+                <Grid item md={8} xs={12}>
+                    <Grid container direction="row" justify="flex-end" alignItems="flex-end">
+                        <Grid item md={1}>
+                            <IconButton
+                                className={clsx(classes.expand, {
+                                    [classes.expandOpen]: expanded,
+                                })}
+                                aria-expanded={expanded}
+                                color="primary"
+                                onClick={handleExpandClick}
+                            >
+                                <ExpandMoreIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Divider />
+
+
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Grid container direction="row" spacing={2} className={classes.main} >
+                    <Grid item md={12}>
+                        <Typography variant="h5">Realice su Check-Out</Typography>
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                        <Typography >Seleccione a la hora que se va</Typography>
+                        <Typography variant="subtitle2" color="error" >*obligatorio</Typography>
+                    </Grid>
+                    <Grid item md={3} xs={12}>
+                        <Hora minTime={new Date(0, 0, 0, 7)} maxTime={new Date(0, 0, 0, 14)} label={"Horario de retirada"} date={new Date("2020-01-01 07:00")} />
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                        <Typography variant="subtitle2" align="justify" style={{ color: "#9e9e9e" }} >
+                            *Si desea seleccionar un horario de egreso fuera del rango permitido, por favor dirijase a
+                        {<Link onClick={props.reservasOpenContacto}> CONTACTAR HOTEL</Link>}
+                        </Typography>
+                    </Grid>
+                    
+                   
+                    <Grid item md={11} xs={12}>
+                        <Divider />
+                    </Grid>
+                    <Grid item md={12} xs={12}>
+                        <Typography variant="h5">Adicionales</Typography>
+                    </Grid>
+                   
+                    <Grid item md={4} xs={12}>
+                        <Typography>Traslados al Aeropuerto</Typography>
+                    </Grid>
+                    <Grid item md={7} xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item md={5} xs={12}>
+                                <TextField
+                                    label="Aeropuerto"
+                                />
+                            </Grid>
+                            <Grid item md={5} xs={12}>
+                                <TextField
+                                    label="Numero de vuelo"
+                                />
+                            </Grid>
+                            <Grid item md={5} xs={12}>
+                                <HoraTraslado label={"Horario de partida"} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Divider />
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Grid container justify="flex-end">
+                            <Grid item >
+                                <Button variant="contained" color="primary">Confirmar</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Collapse>
+        </Grid >
+    );
+
+}

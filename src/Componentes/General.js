@@ -1,10 +1,12 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Paper, Typography, Button, Divider, FormControl, FormLabel, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+import { Grid, Paper, Typography, Button, Divider, FormControl, FormLabel, FormGroup, FormControlLabel, Switch, Card, CardActionArea } from '@material-ui/core';
 import clsx from 'clsx';
 import ReservaRender from './MiReserva/ReservaRender.js';
 import foto from '../Imagenes/logoHotel.png'
+import foto2 from '../Imagenes/logoFourSeason.jpg'
+import InfoIcon from '@material-ui/icons/Info';
 
 
 
@@ -22,11 +24,26 @@ const styles = theme => ({
         },
     },
     fixedHeightDatos: {
-        height: 380,
+        height: 400,
         [theme.breakpoints.down('xs')]: {
             height: 380,
         },
     },
+    divider: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
+    },
+    avisosPaper: {
+        marginTop: theme.spacing(2),
+        borderLeft: "4px solid #f44336"
+    },
+    avisosPaperHabilitado: {
+        marginTop: theme.spacing(2),
+        borderLeft: "4px solid #4caf50"
+    },
+    cardArea: {
+        padding: theme.spacing(1),
+    }
 })
 
 
@@ -77,14 +94,147 @@ class General extends Component {
         }
     }
 
-    datosCompletados(){
-        if(this.props.perfilCompletado){
-            return(
-                <Typography align="center" style={{ color: "#4caf50" }}  variant="subtitle2">Completado!</Typography>
+    datosCompletados() {
+        if (this.props.perfilCompletado) {
+            return (
+                <Typography align="center" style={{ color: "#4caf50" }} variant="subtitle2">Completado!</Typography>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <Typography align="center" color="error" variant="subtitle2">Faltan datos por completar</Typography>
+            )
+        }
+    }
+    pad(n) {
+        return n + 1
+    }
+    fechaNow() {
+        var date = new Date()
+        var dia = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+        var fecha = year + "-" + this.pad(month) + "-" + dia;
+        return fecha
+    }
+    difDias(checkIn) {
+        var now = this.fechaNow()
+        var aFecha1 = checkIn.split("-");
+        var aFecha2 = now.split("-");
+        var fFecha1 = Date.UTC(aFecha1[0], aFecha1[1] - 1, aFecha1[2]);
+        var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
+        var dif = fFecha1 - fFecha2;
+        var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+        if (dias <= 2)
+            return true
+        else
+            return false
+    }
+    habilitarCheckIN(fecha) {
+        const { classes } = this.props;
+        var habilitar = this.difDias(fecha)
+        if (habilitar) {
+            return (
+
+                <Card className={classes.avisosPaperHabilitado}>
+                    <CardActionArea className={classes.cardArea} onClick={this.props.checkInOpen}>
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item md={1} xs={2}>
+                                <InfoIcon />
+                            </Grid>
+                            <Grid item md={11} xs={10}>
+                                <Typography >Ya puede hacer su Check in para el Hotel Paihuen #1234568 </Typography>
+                            </Grid>
+
+                        </Grid>
+                    </CardActionArea>
+                </Card>
+
+            )
+        } else {
+            return (
+                <Card className={classes.avisosPaper}>
+                    <CardActionArea className={classes.cardArea} disabled>
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item md={1} xs={2}>
+                                <InfoIcon />
+                            </Grid>
+                            <Grid item md={11} xs={10}>
+                                <Typography >48 hs antes de su estadia va a poder hacer su Check-In </Typography>
+                            </Grid>
+                        </Grid>
+                    </CardActionArea>
+                </Card>
+            )
+        }
+    }
+
+    avisoPerfil() {
+        const { classes } = this.props;
+        if (this.props.romantico || this.props.ejecutivo || this.props.familia || this.props.preferencias) {
+            return (
+                <Card className={classes.avisosPaperHabilitado} >
+                    <CardActionArea className={classes.cardArea} onClick={this.props.perfilOpenPerfil}>
+                        <Grid container justify="center" alignItems="center" >
+                            <Grid item md={1} xs={2}>
+                                <InfoIcon />
+                            </Grid>
+                            <Grid item md={11} xs={10}>
+                                <Typography>Genial!! seleccionaste tu perfil, ahora el hotel sabra que te gusta</Typography>
+                            </Grid>
+                        </Grid>
+                    </CardActionArea>
+                </Card>
+            )
+        } else {
+            return (
+                <Card className={classes.avisosPaper} >
+                    <CardActionArea className={classes.cardArea} onClick={this.props.perfilOpenPerfil}>
+                        <Grid container justify="center" alignItems="center" >
+                            <Grid item md={1} xs={2}>
+                                <InfoIcon />
+                            </Grid>
+                            <Grid item md={11} xs={10}>
+                                <Typography>Puede seleccionar su perfil para que se adapte a sus gustos</Typography>
+                            </Grid>
+                        </Grid>
+                    </CardActionArea>
+                </Card>
+            )
+        }
+    }
+    avisoDatos() {
+        const { classes } = this.props;
+        if (this.props.perfilCompletado) {
+            return (
+                <Card className={classes.avisosPaperHabilitado} >
+                    <CardActionArea className={classes.cardArea} onClick={this.props.perfilOpen}>
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item md={1} xs={2}>
+                                <InfoIcon />
+                            </Grid>
+                            <Grid item md={11} xs={10}>
+                                <Typography>Genial!! Tiene todos sus datos completados</Typography>
+
+                            </Grid>
+                        </Grid>
+                    </CardActionArea>
+                </Card>
+            )
+        } else {
+            return (
+                <Card className={classes.avisosPaper} >
+                    <CardActionArea className={classes.cardArea} onClick={this.props.perfilOpen}>
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item md={1} xs={2}>
+                                <InfoIcon />
+                            </Grid>
+                            <Grid item md={11} xs={10}>
+                                <Typography>Acuerdese de completar sus datos personales para agilizar su Check-in</Typography>
+
+                            </Grid>
+                        </Grid>
+                    </CardActionArea>
+                </Card>
             )
         }
     }
@@ -109,17 +259,31 @@ class General extends Component {
                                         <Typography align="left" variant="h4">Reserva actual</Typography>
                                     </Grid>
                                     <Grid item md={2} xs={10}>
-                                        <Button color="primary" onClick={this.props.reservasOpen}>ver todas</Button>
+                                        <Button color="primary" onClick={this.props.reservasOpen}>administrar</Button>
                                     </Grid>
                                 </Grid>
                                 <Divider />
                                 <ReservaRender
                                     id={this.props.id}
+                                    nroReserva={"#1234568"}
                                     logo={foto}
                                     CheckIn={this.props.CheckIn}
                                     CheckOut={this.props.CheckOut}
                                     huespedes={this.props.huespedes}
                                     precio={this.props.precio}
+                                    checkInOpen={this.props.checkInOpen}
+                                    checkOutOpen={this.props.checkOutOpen}
+                                    modo={this.props.modo}
+                                />
+                                <Divider className={classes.divider} />
+                                <ReservaRender
+                                    id={"Four Season"}
+                                    nroReserva={"#1234567"}
+                                    logo={foto2}
+                                    CheckIn={"2020-12-24"}
+                                    CheckOut={"2020-12-30"}
+                                    huespedes={4}
+                                    precio={"1234"}
                                     checkInOpen={this.props.checkInOpen}
                                     checkOutOpen={this.props.checkOutOpen}
                                     modo={this.props.modo}
@@ -130,7 +294,21 @@ class General extends Component {
                             <Paper className={classes.paper} elevation={3}>
                                 <Typography variant="h4">Avisos</Typography>
                                 <Divider />
+                                <Grid container direction="row" >
 
+                                    <Grid item md={12}>
+                                        {this.habilitarCheckIN(this.props.CheckIn)}
+                                    </Grid>
+
+                                    <Grid item md={12}  >
+                                        {this.avisoDatos()}
+                                    </Grid>
+                                    <Grid item md={12}>
+                                        {this.avisoPerfil()}
+                                    </Grid>
+
+
+                                </Grid>
                             </Paper>
                         </Grid>
                     </Grid>
@@ -145,7 +323,7 @@ class General extends Component {
                         <Typography >{this.props.user.displayName}</Typography>
                         <Typography style={{ fontWeight: "bold" }}>Email: </Typography>
                         <Typography >{this.props.user.email}</Typography>
-                       {this.datosCompletados()}
+                        {this.datosCompletados()}
                         <Button variant="outlined" onClick={this.props.perfilOpen}>Editar Datos</Button>
                         <br />
                         <Divider />

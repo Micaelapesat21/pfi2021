@@ -7,6 +7,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import ReservaHelper from '../../Utils/ReservaHelper'
 import AdminReserva from './AdminReserva'
 import AdminCheckIn from './AdminCheckIn'
+import AdminCheckOut from './AdminCheckOut'
 
 
 const useStyles = makeStyles(theme => ({
@@ -114,7 +115,7 @@ export default function ReservaRender(props) {
                         <Grid item md={3} xs={12} className={classes.izq} >
                             <Grid container direction="row" justify="center" alignItems="center" >
                                 <Grid item md={12} xs={12}>
-                                    <Typography align="center">Reserva: #1234567</Typography>
+                                    <Typography align="center">Reserva: {props.nroReserva}</Typography>
                                 </Grid>
                                 <Grid item md={8} xs={5}>
                                     <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -229,6 +230,150 @@ export default function ReservaRender(props) {
         }
     }
 
+    function habilitarCheckOut(fecha) {
+
+        var now = fechaNow()
+        var aFecha1 = fecha.split("-");
+        var aFecha2 = now.split("-");
+        var fFecha1 = Date.UTC(aFecha1[0], aFecha1[1] - 1, aFecha1[2]);
+        var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
+        var dif = fFecha1 - fFecha2;
+        var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+
+        if (dias === 0) {
+            return (
+                <Grid>
+                    <Grid container direction="row"  >
+                        {/*IZQUIERDA */}
+                        <Grid item md={3} xs={12} className={classes.izq} >
+                            <Grid container direction="row" justify="center" alignItems="center" >
+                                <Grid item md={12} xs={12}>
+                                    <Typography align="center">Reserva: {props.nroReserva}</Typography>
+                                </Grid>
+                                <Grid item md={8} xs={5}>
+                                    <img src={props.logo} alt="logo" width className={classes.logo} />
+                                </Grid>
+                                <Grid item md={12} xs={7} className={classes.tituloMobile}>
+                                    <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        {/*Derecha */}
+                        <Grid item md={8} xs={12}>
+                            <Grid container direction="row">
+                                <Grid item md={12} className={classes.reserva}>
+                                    <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                        <Grid item md={6} xs={12}>
+                                            <Grid container direction="row" alignItems="center" justify="center">
+                                                <Grid item md={6} xs={8}>
+                                                    <Button
+                                                        size="small"
+                                                        className={classes.botones}
+                                                        startIcon={<AssignmentTurnedInIcon />}
+                                                        onClick={props.checkInOpen}
+                                                    >
+                                                        Check-Out:
+                                                        </Button>
+                                                </Grid>
+                                                <Grid item md={4} xs={2}>
+                                                    <Typography >{fechas(props.CheckOut)}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                    <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Ya puede hacer su Check-Out</Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <AdminCheckOut
+                        id={props.id}
+                        reservasOpenContacto={props.reservasOpenContacto}
+                    />
+
+                </Grid>
+            )
+        } else {
+            return (
+                <Grid>
+                    <Grid container direction="row"  >
+                        {/*IZQUIERDA */}
+                        <Grid item md={3} xs={12} className={classes.izq} >
+                            <Grid container direction="row" justify="center" alignItems="center" >
+                                <Grid item md={12} xs={12}>
+                                    <Typography align="center">Reserva: #1234567</Typography>
+                                </Grid>
+                                <Grid item md={8} xs={5}>
+                                    <img src={props.logo} alt="logo" width className={classes.logo} />
+                                </Grid>
+                                <Grid item md={12} xs={7} >
+                                    <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        {/*Derecha */}
+                        <Grid item md={8} xs={12}>
+                            <Grid container direction="row">
+                                <Grid item md={12} className={classes.reserva}>
+                                    <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                        <Grid item md={6} xs={12}>
+                                            <Grid container direction="row" alignItems="center" justify="center">
+                                                <Grid item md={6} xs={8}>
+                                                    <Button
+                                                        size="small"
+                                                        className={classes.botones}
+                                                        startIcon={<AssignmentTurnedInIcon />}
+                                                        onClick={props.checkInOpen}
+                                                    >
+                                                        Check-Out:
+                                                        </Button>
+                                                </Grid>
+                                                <Grid item md={4} xs={2}>
+                                                    <Typography >{fechas(props.CheckOut)}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                    <Typography align="center" variant="h5" color="error">Solo se puede hacer el Check-out en su dia correspondiente</Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+            )
+        }
+    }
+    function habilitarServicios(fech1,fecha2){
+
+        var now = fechaNow()
+        var aFecha1 = fech1.split("-");
+        var aFecha2 = fecha2.split("-");
+        var aNow = now.split("-");
+
+        var fFecha1 = Date.UTC(aFecha1[0], aFecha1[1] - 1, aFecha1[2]);
+        var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
+        var fNow = Date.UTC(aNow[0], aNow[1] - 1, aNow[2]);
+
+        var dif1 = fFecha1 - fNow;
+        var dif2 = fFecha2 - fNow;
+        var dif3=fNow-fFecha1
+
+        var Inicio = Math.floor(dif1 / (1000 * 60 * 60 * 24));
+        var Fin = Math.floor(dif2 / (1000 * 60 * 60 * 24));
+        var Dias= Math.floor(dif3 / (1000 * 60 * 60 * 24));
+
+        
+
+    }
+
 
 
     if (props.modo === "Reservas") {
@@ -241,7 +386,7 @@ export default function ReservaRender(props) {
                             <Grid item md={3} xs={12} className={classes.izq} >
                                 <Grid container direction="row" justify="center" alignItems="center" >
                                     <Grid item md={12} xs={12}>
-                                        <Typography align="center">Reserva: #1234567</Typography>
+                                        <Typography align="center">Reserva: {props.nroReserva}</Typography>
                                     </Grid>
                                     <Grid item md={8} xs={5}>
                                         <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -332,6 +477,11 @@ export default function ReservaRender(props) {
                             id={props.id}
                             expanded={props.expanded}
                             contacto={props.contacto}
+                            precio={getTotalPrice(props.CheckIn, props.CheckOut) * parseInt(props.precio)}
+                            callCheckIn={props.callCheckIn}
+                            callCheckOut={props.callCheckOut}
+                            callHuespedes={props.callHuespedes}
+                            nroReserva={props.nroReserva}
                         />
                     </CardContent>
                 </Card>
@@ -357,7 +507,7 @@ export default function ReservaRender(props) {
             } else {
                 return (
                     <div>
-                        <Typography align="center" variant="h4">Aca podras hacer tu Check-In, 48 hs antes de su estadia</Typography>
+
                     </div>
                 )
             }
@@ -370,7 +520,7 @@ export default function ReservaRender(props) {
                             <Grid item md={3} xs={12} className={classes.izq} >
                                 <Grid container direction="row" justify="center" alignItems="center" >
                                     <Grid item md={12} xs={12}>
-                                        <Typography align="center">Reserva: #1234567</Typography>
+                                        <Typography align="center">Reserva: {props.nroReserva}</Typography>
                                     </Grid>
                                     <Grid item md={8} xs={5}>
                                         <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -460,14 +610,12 @@ export default function ReservaRender(props) {
                     )
                 } else {
                     return (
-                        <Typography align="center" variant="h4">No tenes ninguna reserva aun :(</Typography>
+                        <div></div>
                     )
                 }
             } else {
                 if (props.modo === "Historial") {
                     if (props.id !== "") {
-
-
                         return (
                             <Card >
                                 <CardContent>
@@ -476,7 +624,7 @@ export default function ReservaRender(props) {
                                         <Grid item md={3} xs={12} className={classes.izq} >
                                             <Grid container direction="row" justify="center" alignItems="center" >
                                                 <Grid item md={12}>
-                                                    <Typography align="center">Reserva: #1234567</Typography>
+                                                    <Typography align="center">Reserva: {props.nroReserva}</Typography>
                                                 </Grid>
                                                 <Grid item md={8} xs={5}>
                                                     <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -567,6 +715,43 @@ export default function ReservaRender(props) {
 
                             </div>
                         )
+                    }
+                } else {
+                    if (props.modo === "Check-Out") {
+                        if (props.id !== "") {
+                            return (
+                                <Card >
+                                    <CardContent>
+                                        {habilitarCheckOut(props.CheckOut)}
+                                    </CardContent>
+                                </Card>
+                            )
+                        } else {
+                            return (
+                                <div>
+
+                                </div>
+                            )
+                        }
+                    } else {
+                        if (props.modo === "Servicios") {
+                            if (props.id !== "") {
+                                return (
+                                    <Card >
+                                        <CardContent>
+                                            {habilitarServicios(props.CheckIn,props.CheckOut)}
+                                        </CardContent>
+                                    </Card>
+                                )
+                            } else {
+                                return (
+                                    <div>
+
+                                    </div>
+                                )
+                            }
+
+                        }
                     }
                 }
             }

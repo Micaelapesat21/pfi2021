@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 
 
@@ -25,17 +25,13 @@ class Pagos extends Component {
        // const { classes } = this.props;
        
         return (
-            <Grid container spacing={3}>
-            
-                <Grid item xs={12} md={8} lg={9}>
-                   
-                      
-                    
-                </Grid>
-               
+            <Grid container spacing={3} justify="center" alignItems="center">
+            <Grid item xs={12} md={8} lg={9}>
                 
-                
+                  <Typography variant="h3">Pagos</Typography>
+              
             </Grid>
+        </Grid>
         );
     }
 }

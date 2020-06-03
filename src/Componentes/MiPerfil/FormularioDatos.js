@@ -118,20 +118,18 @@ class FormularioDatos extends Component {
 
     guardar() {
         this.setState({ edicion: false, redOnly: true })
-        if(this.state.nombre !==" " && 
-            this.state.apellido !==" " && 
-            this.state.tipo !==" " && 
-            this.state.documento !==" " && 
-            this.state.correo !==" " &&
-            this.state.pais !==" " &&
-            this.state.estado !==" " &&
-            this.state.ciudad !==" " &&
-            this.state.codigoPostal !==" " &&
-            this.state.direccion !==" "
+        if(this.state.nombre !=="" && 
+            this.state.apellido !=="" && 
+            this.state.tipo !=="" && 
+            this.state.documento !=="" && 
+            this.state.correo !=="" &&
+            this.state.pais !=="" &&
+            this.state.estado !=="" &&
+            this.state.ciudad !=="" &&
+            this.state.codigoPostal !=="" &&
+            this.state.direccion !==""
             ){
-                this.props.callPerfilCompletado(true)
-            }else{
-                this.props.callPerfilCompletado(false)
+                this.props.callPerfilCompletado()
             }
     }
 
@@ -165,10 +163,10 @@ class FormularioDatos extends Component {
                         Datos Personales
              </Typography>
                     <Grid container spacing={3}>
-                        <Grid item xs={4} sm={2}>
+                        <Grid item xs={4} md={3}>
                             <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>
                         </Grid>
-                        <Grid item xs={4} sm={2}>
+                        <Grid item xs={4} md={4}>
                             {this.botonGuardar()}
                         </Grid>
                         <Grid item xs={12} sm={12}>

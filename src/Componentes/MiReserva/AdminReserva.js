@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),
         [theme.breakpoints.down('xs')]: {
-            padding: theme.spacing(1,4),
+            padding: theme.spacing(1, 4),
         },
     },
     total: {
@@ -91,21 +91,44 @@ export default function AdminReserva(props) {
     const [contacto, setContacto] = React.useState(false);
     const [cancelar, setCancelar] = React.useState(false);
     const [resumen, setResumen] = React.useState(false);
-    const [huespedes, setHuespedes] = React.useState(0);
+    const [/*huespedes*/, setHuespedes] = React.useState(0);
     const [dialogCanelar, setDialogConcelar] = React.useState(false);
+    const [dialogModificar, setDialogModificar] = React.useState(false);
+    const [dialogContactar, setDialogContactar] = React.useState(false);
+    const [cancelarError, setCancelarError] = React.useState(false);
+    const [asuntoVacio, setAsuntoVacio] = React.useState(false);
+    const [mensajeVacio, setMensajeVacio] = React.useState(false);
+    const [values, setValues] = React.useState({
+        asunto: '',
+        mensaje: '',
+        cancelar: ''
+    });
+
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
 
     useEffect(() => {
-        setHuespedes(props.huespedes)
+
         setExpanded(props.expanded)
         setContacto(props.contacto)
-    }, [props.huespedes, props.expanded, props.contacto]);
+    }, [props.expanded, props.contacto]);
 
     const handleChangeHuespedes = (event) => {
         setHuespedes(event.target.value);
-        //props.callHuespedes(event.target.value)
+        props.callHuespedes(event.target.value)
     };
     const closeDialog = () => {
         setDialogConcelar(!dialogCanelar);
+    };
+    const closeDialogModificar = () => {
+        setDialogModificar(!dialogModificar);
+    };
+    const closeDialogContactar = () => {
+        setDialogContactar(!dialogContactar);
+        setAsuntoVacio(false)
+        setMensajeVacio(false)
     };
 
     const handleExpandClick = () => {
@@ -164,6 +187,37 @@ export default function AdminReserva(props) {
         setResumen(false)
     }
 
+    const botonContactar = () => {
+
+        if (values.asunto !== "" && values.mensaje !== "") {
+            closeDialogContactar()
+        } else {
+            if (values.asunto === "" && values.mensaje === "") {
+                setAsuntoVacio(true)
+                setMensajeVacio(true)
+            } else {
+                if (values.mensaje === "") {
+                    setMensajeVacio(true)
+                } else {
+                    if (values.asunto === "") {
+                        setAsuntoVacio(true)
+                    }
+                }
+            }
+        }
+
+    }
+    const botonCancelar = () => {
+        if (values.cancelar !== props.nroReserva) {
+            setCancelarError(true)
+            alert("Numero de reserva incorrecto")
+        } else (
+            closeDialog()
+        )
+
+    }
+
+
 
     function container() {
 
@@ -187,7 +241,7 @@ export default function AdminReserva(props) {
                     </Grid>
                     <Grid item md={6} xs={12}>
                         <Grid container direction="row" justify="center" alignItems="center">
-                            <Grid item md={12}  xs={12}>
+                            <Grid item md={12} xs={12}>
                                 <Typography variant="h6" gutterBottom className={classes.espacio}>
                                     Cantidad de huespedes
                                  </Typography>
@@ -198,7 +252,7 @@ export default function AdminReserva(props) {
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
                                         id="demo-simple-select-outlined"
-                                        value={huespedes}
+                                        value={props.huespedes}
                                         onChange={handleChangeHuespedes}
                                         label="Huespedes"
                                     >
@@ -206,6 +260,7 @@ export default function AdminReserva(props) {
                                         <MenuItem value={1}>1 Huesped</MenuItem>
                                         <MenuItem value={2}>2 Huespedes</MenuItem>
                                         <MenuItem value={3}>3 Huespedes</MenuItem>
+                                        <MenuItem value={4}>4 Huespedes</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -214,10 +269,20 @@ export default function AdminReserva(props) {
                     <Grid item md={12} xs={12} className={classes.espacio}>
                         <Grid container direction="row" justify="flex-end">
                             <Grid item md={4} xs={6}>
-                                <Button>Cancelar</Button>
-                            </Grid>
-                            <Grid item  md={4} xs={6}>
-                                <Button variant="contained" color="primary">Confirmar</Button>
+                                <Button variant="contained" onClick={closeDialogModificar} color="primary">Modificar</Button>
+                                <Dialog open={dialogModificar} onClose={closeDialogModificar} >
+                                    <DialogTitle>Modificacion reserva</DialogTitle>
+                                    <DialogContent dividers>
+                                        <DialogContentText>
+                                            Se le confirmara por Correo electronico si el hotel puede realizar su modificacion.
+                                        </DialogContentText>
+
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button color="primary" onClick={closeDialogModificar}>Cerrar</Button>
+
+                                    </DialogActions>
+                                </Dialog>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -247,7 +312,9 @@ export default function AdminReserva(props) {
                                         placeholder="Asunto"
                                         fullWidth
                                         margin="normal"
-
+                                        error={asuntoVacio}
+                                        value={values.asunto}
+                                        onChange={handleChange("asunto")}
                                     />
                                 </Grid>
 
@@ -258,7 +325,10 @@ export default function AdminReserva(props) {
                                         placeholder="Escriba su mensaje aqui"
                                         fullWidth
                                         margin="normal"
+                                        error={mensajeVacio}
                                         multiline
+                                        value={values.mensaje}
+                                        onChange={handleChange("mensaje")}
                                     />
                                 </Grid>
                             </Grid>
@@ -267,7 +337,20 @@ export default function AdminReserva(props) {
                             <Grid container direction="row" justify="flex-end">
 
                                 <Grid item>
-                                    <Button variant="contained" color="primary">Enviar</Button>
+                                    <Button variant="contained" color="primary" onClick={botonContactar}>Enviar</Button>
+                                    <Dialog open={dialogContactar} onClose={closeDialogContactar} >
+                                        <DialogTitle>Cantactar Hotel</DialogTitle>
+                                        <DialogContent dividers>
+                                            <DialogContentText>
+                                                Su mensaje fue enviado, el hotel se contactara contigo lo antes posible.
+                                        </DialogContentText>
+
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button color="primary" onClick={closeDialogContactar}>Cerrar</Button>
+
+                                        </DialogActions>
+                                    </Dialog>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -287,7 +370,9 @@ export default function AdminReserva(props) {
                                     placeholder="#0000000"
                                     label="Codigo de reserva"
                                     fullWidth
-
+                                    error={cancelarError}
+                                    value={values.cancelar}
+                                    onChange={handleChange("cancelar")}
                                 />
                             </Grid>
 
@@ -295,7 +380,7 @@ export default function AdminReserva(props) {
                                 <Grid container direction="row" justify="flex-end">
 
                                     <Grid item>
-                                        <Button variant="contained" color="primary" onClick={closeDialog}>Confirmar</Button>
+                                        <Button variant="contained" color="primary" onClick={botonCancelar}>Confirmar</Button>
                                         <Dialog open={dialogCanelar} onClose={closeDialog} >
                                             <DialogTitle>Cancelar reserva</DialogTitle>
                                             <DialogContent dividers>
@@ -325,7 +410,7 @@ export default function AdminReserva(props) {
                                     Resumen
                                     </Typography>
 
-                                        <List disablePadding>
+                                <List disablePadding>
                                     {products.map((product) => (
                                         <ListItem className={classes.listItem} key={product.name}>
                                             <ListItemText primary={product.name} secondary={product.desc} />

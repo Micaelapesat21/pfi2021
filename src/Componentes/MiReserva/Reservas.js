@@ -31,10 +31,13 @@ class Reservas extends Component {
 
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
-                <Typography variant="h3">Reservas Activas</Typography>
+                <Grid item xs={12} md={8} lg={9}>
+                    <Typography variant="h3">Reservas Activas</Typography>
+                </Grid>
                 <Grid item xs={12} md={8} lg={9}>
                     <ReservaRender
                         id={this.props.id}
+                        nroReserva={"#1234568"}
                         logo={foto}
                         CheckIn={this.props.CheckIn}
                         CheckOut={this.props.CheckOut}
@@ -45,12 +48,16 @@ class Reservas extends Component {
                         modo={this.props.modo}
                         expanded={this.props.expanded}
                         contacto={this.props.contacto}
+                        callCheckIn={this.props.callCheckIn}
+                        callCheckOut={this.props.callCheckOut}
+                        callHuespedes={this.props.callHuespedes}
                     />
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
                     <ReservaRender
                         id={"Four Season"}
                         logo={foto2}
+                        nroReserva={"#1234567"}
                         CheckIn={"2020-12-24"}
                         CheckOut={"2020-12-30"}
                         huespedes={4}
@@ -58,6 +65,9 @@ class Reservas extends Component {
                         checkInOpen={this.props.checkInOpen}
                         checkOutOpen={this.props.checkOutOpen}
                         modo={this.props.modo}
+                        callCheckIn={this.props.callCheckIn}
+                        callCheckOut={this.props.callCheckOut}
+                        callHuespedes={this.props.callHuespedes}
                     />
                 </Grid>
             </Grid>
