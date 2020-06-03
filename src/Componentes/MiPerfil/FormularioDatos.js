@@ -107,11 +107,7 @@ class FormularioDatos extends Component {
             apellido: apellido,
         })
 
-        
-            
-            
-            
-       
+        this.getGuestInfo(user.email)
     }
 
     edicionOpen() {
@@ -145,16 +141,16 @@ class FormularioDatos extends Component {
 
     getGuestModel() {
         return {
-            name: this.state.nombre,
-            lastName: this.state.apellido,
-            personalIdType: this.state.tipo,
-            personalId: this.state.documento,
+            nombre: this.state.nombre,
+            apellido: this.state.apellido,
+            tipo: this.state.tipo,
+            documento: this.state.documento,
             email: this.state.correo,
-            country: this.state.pais,
-            state: this.state.estado,
-            city: this.state.ciudad,
-            zipCode: this.state.codigoPostal,
-            address1: this.state.direccion
+            pais: this.state.pais,
+            estado: this.state.estado,
+            ciudad: this.state.ciudad,
+            codigoPostal: this.state.codigoPostal,
+            direccion1: this.state.direccion
             // etc.
         };
     }
@@ -165,12 +161,43 @@ class FormularioDatos extends Component {
     GuestAPI.postGuestInfo(guestInfo,this.handlePostGuestInfo);
   }
 
-  handlePostGuestInfo = async(workout) => {
+  handlePostGuestInfo = async(guestInfo) => {
     this.setState({loading:false,});
-    if  (workout.error == null) {
-      this.setState({isOpen: false});
-    }else {
-      //retry
+    if  (guestInfo.error == null) {
+      //post was successful
+    } else {
+      //get user with email failed
+    }
+  }
+
+  getGuestInfo(email) {
+    GuestAPI.getGuestInfo(email,this.handleGetGuestInfo);
+  }
+
+  handleGetGuestInfo = async(guestInfo) => {
+    this.setState({loading:false,});
+    if  (guestInfo == null) {
+        //show error message
+        this.setState({isOpen: false});
+    }else { 
+        let userData = guestInfo.data.usuario;
+
+        if (userData != null) {
+          this.setState({
+              apellido: userData.apellido,
+              nombre: userData.nombre,
+              email: userData.email,
+              tipo: userData.tipo,
+              documento: userData.documento,
+              pais: userData.pais,
+              estado: userData.estado,
+              ciudad: userData.estado,
+              codigoPostal: userData.codigoPostal,
+              direccion: userData.direccion
+            });
+
+            GuestInfo.getInstance().setUserData(userData);
+        }
     }
   }
 
