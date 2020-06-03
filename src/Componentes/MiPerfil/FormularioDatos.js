@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography, TextField, ButtonBase, Button } from '@material-ui/core';
 import RenderAvatar from '../login/RenderAvatar';
+import GuestInfo from '../../Models/Guest/GuestInfo'
+import GuestAPI from './../../Network/Guest/GuestAPI'
 
 const styles = theme => ({
     large: {
@@ -105,11 +107,7 @@ class FormularioDatos extends Component {
             apellido: apellido,
         })
 
-        
-            
-            
-            
-       
+        this.getGuestInfo(user.email)
     }
 
     edicionOpen() {
@@ -130,8 +128,74 @@ class FormularioDatos extends Component {
             this.state.direccion !==""
             ){
                 this.props.callPerfilCompletado()
+                var dict = this.getGuestModel();
+                GuestInfo.getInstance().setUserData(dict);
+                this.postGuestInfo()
             }
     }
+
+
+    getGuestModel() {
+        return {
+            nombre: this.state.nombre,
+            apellido: this.state.apellido,
+            tipo: this.state.tipo,
+            documento: this.state.documento,
+            email: this.state.correo,
+            pais: this.state.pais,
+            estado: this.state.estado,
+            ciudad: this.state.ciudad,
+            codigoPostal: this.state.codigoPostal,
+            direccion1: this.state.direccion
+            // etc.
+        };
+    }
+
+    //Api Calls
+  postGuestInfo = (guestInfo) => {
+    this.setState({loading:true});
+    GuestAPI.postGuestInfo(guestInfo,this.handlePostGuestInfo);
+  }
+
+  handlePostGuestInfo = async(guestInfo) => {
+    this.setState({loading:false,});
+    if  (guestInfo.error == null) {
+      //post was successful
+    } else {
+      //get user with email failed
+    }
+  }
+
+  getGuestInfo(email) {
+    GuestAPI.getGuestInfo(email,this.handleGetGuestInfo);
+  }
+
+  handleGetGuestInfo = async(guestInfo) => {
+    this.setState({loading:false,});
+    if  (guestInfo == null) {
+        //show error message
+        this.setState({isOpen: false});
+    }else { 
+        let userData = guestInfo.data.usuario;
+
+        if (userData != null) {
+          this.setState({
+              apellido: userData.apellido,
+              nombre: userData.nombre,
+              email: userData.email,
+              tipo: userData.tipo,
+              documento: userData.documento,
+              pais: userData.pais,
+              estado: userData.estado,
+              ciudad: userData.estado,
+              codigoPostal: userData.codigoPostal,
+              direccion: userData.direccion
+            });
+
+            GuestInfo.getInstance().setUserData(userData);
+        }
+    }
+  }
 
     botonGuardar() {
         if (this.state.edicion) {

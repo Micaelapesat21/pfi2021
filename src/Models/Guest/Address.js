@@ -1,25 +1,41 @@
 class Address {
     constructor(props) {
       this.state = {
-        address1: props.address1,
-        address2: props.address2,
-        city: props.city,
-        state: props.state,
-        zipCode: props.zipCode,
-        country: props.country
+        direccion1: '',
+        direccion2: '',
+        ciudad: '',
+        estado: '',
+        codigoPostal: '',
+        pais: ''
+      };
+    }
+
+    setAddressInfo(props) {
+      var address2 = ""
+      if(props.direccion2 != null) {
+        address2 = props.direccion2
+      }
+
+      this.state = {
+        direccion1: props.direccion1,
+        direccion2: address2,
+        ciudad: props.ciudad,
+        estado: props.estado,
+        codigoPostal: props.codigoPostal,
+        pais: props.pais
       };
     }
 
     toJson() {
         return {
-            'address1':this.address1,
-            'address2': this.address2,
-            'city': this.city,
-            'state': this.state,
-            'zipCode': this.zipCode,
-            'country': this.country
+            direccion1 :this.state.direccion1,
+            direccion2: this.state.direccion2,
+            ciudad: this.state.ciudad,
+            estado: this.state.estado,
+            codigoPostal: this.state.codigoPostal,
+            pais: this.state.pais
 
-        }
+        };
     }
   }
 
