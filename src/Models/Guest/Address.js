@@ -1,8 +1,24 @@
 class Address {
     constructor(props) {
       this.state = {
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: ''
+      };
+    }
+
+    setAddressInfo(props) {
+      var address2 = ""
+      if(props.address2 != null) {
+        address2 = props.address2
+      }
+
+      this.state = {
         address1: props.address1,
-        address2: props.address2,
+        address2: address2,
         city: props.city,
         state: props.state,
         zipCode: props.zipCode,
@@ -12,14 +28,14 @@ class Address {
 
     toJson() {
         return {
-            'address1':this.address1,
-            'address2': this.address2,
-            'city': this.city,
-            'state': this.state,
-            'zipCode': this.zipCode,
-            'country': this.country
+            address1 :this.state.address1,
+            address2: this.state.address2,
+            city: this.state.city,
+            state: this.state.state,
+            zipCode: this.state.zipCode,
+            country: this.state.country
 
-        }
+        };
     }
   }
 

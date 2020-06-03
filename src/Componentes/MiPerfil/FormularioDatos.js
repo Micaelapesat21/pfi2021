@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography, TextField, ButtonBase, Button } from '@material-ui/core';
 import RenderAvatar from '../login/RenderAvatar';
+import GuestInfo from '../../Models/Guest/GuestInfo'
+import GuestAPI from './../../Network/Guest/GuestAPI'
 
 const styles = theme => ({
     large: {
@@ -129,11 +131,48 @@ class FormularioDatos extends Component {
             this.state.codigoPostal !==" " &&
             this.state.direccion !==" "
             ){
+                var dict = this.getGuestModel();
+                GuestInfo.getInstance().setUserData(dict);
+
+                this.postGuestInfo()
+
                 this.props.callPerfilCompletado(true)
             }else{
                 this.props.callPerfilCompletado(false)
             }
     }
+
+
+    getGuestModel() {
+        return {
+            name: this.state.nombre,
+            lastName: this.state.apellido,
+            personalIdType: this.state.tipo,
+            personalId: this.state.documento,
+            email: this.state.correo,
+            country: this.state.pais,
+            state: this.state.estado,
+            city: this.state.ciudad,
+            zipCode: this.state.codigoPostal,
+            address1: this.state.direccion
+            // etc.
+        };
+    }
+
+    //Api Calls
+  postGuestInfo = (guestInfo) => {
+    this.setState({loading:true});
+    GuestAPI.postGuestInfo(guestInfo,this.handlePostGuestInfo);
+  }
+
+  handlePostGuestInfo = async(workout) => {
+    this.setState({loading:false,});
+    if  (workout.error == null) {
+      this.setState({isOpen: false});
+    }else {
+      //retry
+    }
+  }
 
     botonGuardar() {
         if (this.state.edicion) {
