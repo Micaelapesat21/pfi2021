@@ -10,6 +10,8 @@ import firebase from '../firebaseConfig'
 import AuthController from '../Componentes/login/AuthController'
 import Registro from '../Componentes/login/Registro'
 import Home from './Home'
+import GuestAPI from '../Network/Guest/GuestAPI'
+import GuestInfo from '../Models/Guest/GuestInfo'
 
 
 
@@ -48,6 +50,7 @@ class Inicio extends Component {
             CheckOut: "",
             huespedes: "",
             precio: "",
+            completado:false,
         };
 
     }
@@ -56,6 +59,7 @@ class Inicio extends Component {
             this.setState({
                 user: user
             });
+            this.getGuestInfo(user.email)
         });
 
 
@@ -67,7 +71,7 @@ class Inicio extends Component {
                 huespedes,
                 precio,
             } = this.props.location.state
-
+            //this.getGuestInfo(this.state.user.email)
             this.setState({
                 id: id,
                 CheckIn: CheckIn,
@@ -76,7 +80,38 @@ class Inicio extends Component {
                 precio: precio,
             })
         }
+       // this.getGuestInfo(this.state.user.email)
 
+    }
+
+
+    getGuestInfo(email) {
+        GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
+    }
+
+     handleGetGuestInfo = async (guestInfo) => {
+   
+        if (guestInfo.data === undefined || guestInfo === null) {
+            //show error message
+    
+        } else {
+            let userData = guestInfo.data.usuario;
+            console.log(userData.email)
+            if (userData !== null) {
+                if ((userData.apellido && 
+                    userData.nombre && userData.email 
+                    && userData.tipo && userData.documento 
+                    && userData.pais && userData.estado 
+                    && userData.ciudad && userData.codigoPostal 
+                    && userData.direccion) !== "")
+                    this.callPerfilCompletado()
+                GuestInfo.getInstance().setUserData(userData);
+            }
+        }
+    }
+
+    callPerfilCompletado = () => {
+        this.setState({ completado: true })
     }
 
     callbackInicio = (x) => {
@@ -141,6 +176,8 @@ class Inicio extends Component {
                         callCheckIn={this.callCheckIn}
                         callCheckOut={this.callCheckOut}
                         callHuespedes={this.callHuespedes}
+                        perfilCompletado={this.state.completado}
+                        callPerfilCompletado={this.callPerfilCompletado}
                     />
                 )
             } else {

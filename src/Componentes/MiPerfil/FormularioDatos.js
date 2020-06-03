@@ -30,8 +30,6 @@ const styles = theme => ({
             },
         },
     },
-
-
     imageBackdrop: {
         position: 'absolute',
         left: 0,
@@ -88,7 +86,7 @@ class FormularioDatos extends Component {
             compañia: "",
             edicion: false,
             redOnly: true,
-            completado:false,
+            completado: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -116,22 +114,22 @@ class FormularioDatos extends Component {
 
     guardar() {
         this.setState({ edicion: false, redOnly: true })
-        if(this.state.nombre !=="" && 
-            this.state.apellido !=="" && 
-            this.state.tipo !=="" && 
-            this.state.documento !=="" && 
-            this.state.correo !=="" &&
-            this.state.pais !=="" &&
-            this.state.estado !=="" &&
-            this.state.ciudad !=="" &&
-            this.state.codigoPostal !=="" &&
-            this.state.direccion !==""
-            ){
-                this.props.callPerfilCompletado()
-                var dict = this.getGuestModel();
-                GuestInfo.getInstance().setUserData(dict);
-                this.postGuestInfo()
-            }
+        if (this.state.nombre !== "" &&
+            this.state.apellido !== "" &&
+            this.state.tipo !== "" &&
+            this.state.documento !== "" &&
+            this.state.correo !== "" &&
+            this.state.pais !== "" &&
+            this.state.estado !== "" &&
+            this.state.ciudad !== "" &&
+            this.state.codigoPostal !== "" &&
+            this.state.direccion !== ""
+        ) {
+            this.props.callPerfilCompletado()
+            var dict = this.getGuestModel();
+            GuestInfo.getInstance().setUserData(dict);
+            this.postGuestInfo()
+        }
     }
 
 
@@ -152,50 +150,51 @@ class FormularioDatos extends Component {
     }
 
     //Api Calls
-  postGuestInfo = (guestInfo) => {
-    this.setState({loading:true});
-    GuestAPI.postGuestInfo(guestInfo,this.handlePostGuestInfo);
-  }
-
-  handlePostGuestInfo = async(guestInfo) => {
-    this.setState({loading:false,});
-    if  (guestInfo.error == null) {
-      //post was successful
-    } else {
-      //get user with email failed
+    postGuestInfo = (guestInfo) => {
+        this.setState({ loading: true });
+        GuestAPI.postGuestInfo(guestInfo, this.handlePostGuestInfo);
     }
-  }
 
-  getGuestInfo(email) {
-    GuestAPI.getGuestInfo(email,this.handleGetGuestInfo);
-  }
-
-  handleGetGuestInfo = async(guestInfo) => {
-    this.setState({loading:false,});
-    if  (guestInfo == null) {
-        //show error message
-        this.setState({isOpen: false});
-    }else { 
-        let userData = guestInfo.data.usuario;
-
-        if (userData != null) {
-          this.setState({
-              apellido: userData.apellido,
-              nombre: userData.nombre,
-              email: userData.email,
-              tipo: userData.tipo,
-              documento: userData.documento,
-              pais: userData.pais,
-              estado: userData.estado,
-              ciudad: userData.estado,
-              codigoPostal: userData.codigoPostal,
-              direccion: userData.direccion
-            });
-
-            GuestInfo.getInstance().setUserData(userData);
+    handlePostGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false, });
+        if (guestInfo.error == null) {
+            //post was successful
+        } else {
+            //get user with email failed
         }
     }
-  }
+
+    getGuestInfo(email) {
+        GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
+    }
+
+    handleGetGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false, });
+  
+        if (guestInfo.data === undefined || guestInfo ===null) {
+            //show error message
+            this.setState({ isOpen: false });
+        } else {
+            let userData = guestInfo.data.usuario;
+
+            if (userData !== null) {
+                this.setState({
+                    apellido: userData.apellido,
+                    nombre: userData.nombre,
+                    email: userData.email,
+                    tipo: userData.tipo,
+                    documento: userData.documento,
+                    pais: userData.pais,
+                    estado: userData.estado,
+                    ciudad: userData.ciudad,
+                    codigoPostal: userData.codigoPostal,
+                    direccion: userData.direccion
+                });
+                this.props.callPerfilCompletado()
+                GuestInfo.getInstance().setUserData(userData);
+            }
+        }
+    }
 
     botonGuardar() {
         if (this.state.edicion) {
@@ -448,7 +447,7 @@ class FormularioDatos extends Component {
                                 name="nombre"
                                 label="Nombre"
                                 fullWidth
-                                autoComplete="Nombre"                                                        
+                                autoComplete="Nombre"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -458,7 +457,7 @@ class FormularioDatos extends Component {
                                 name="apellido"
                                 label="Apellido"
                                 fullWidth
-                                autoComplete="Apellido"                                                
+                                autoComplete="Apellido"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -468,7 +467,7 @@ class FormularioDatos extends Component {
                                 name="tipo"
                                 label="Tipo Documento"
                                 fullWidth
-                                autoComplete="Tipo" 
+                                autoComplete="Tipo"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -478,7 +477,7 @@ class FormularioDatos extends Component {
                                 name="documento"
                                 label="Nro documento "
                                 fullWidth
-                                autoComplete="documento" 
+                                autoComplete="documento"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -488,10 +487,10 @@ class FormularioDatos extends Component {
                                 name="correo"
                                 label="Correo Electronico"
                                 fullWidth
-                                autoComplete="Correo"     
+                                autoComplete="Correo"
                             />
                         </Grid>
-    
+
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -499,7 +498,7 @@ class FormularioDatos extends Component {
                                 name="pais"
                                 label="País"
                                 fullWidth
-                                autoComplete="País"   
+                                autoComplete="País"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -507,7 +506,7 @@ class FormularioDatos extends Component {
                                 id="Estado"
                                 name="estado"
                                 label="Estado/Provincia/Región"
-                                fullWidth             
+                                fullWidth
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -517,7 +516,7 @@ class FormularioDatos extends Component {
                                 name="ciudad"
                                 label="Ciudad"
                                 fullWidth
-                                autoComplete="Ciudad"  
+                                autoComplete="Ciudad"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -527,7 +526,7 @@ class FormularioDatos extends Component {
                                 name="codigoPostal"
                                 label="Código Postal"
                                 fullWidth
-                                autoComplete="Código Postal"    
+                                autoComplete="Código Postal"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -537,7 +536,7 @@ class FormularioDatos extends Component {
                                 name="direccion"
                                 label="Direccion"
                                 fullWidth
-                                autoComplete="Direccion"        
+                                autoComplete="Direccion"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -549,8 +548,8 @@ class FormularioDatos extends Component {
                                 autoComplete="Compañia"
                             />
                         </Grid>
-    
-    
+
+
                     </Grid>
                 </Grid>
             );

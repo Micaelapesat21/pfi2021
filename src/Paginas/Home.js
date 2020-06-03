@@ -18,6 +18,7 @@ import Historial from '../Componentes/MiReserva/Historial';
 import Ayuda from '../Componentes/Ayuda';
 
 
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -54,12 +55,14 @@ export default function PanelControl(props) {
     const [perfil, setPer] = React.useState(0);
     const [expanded, setExpanded] = React.useState(false);
     const [contacto, setContacto] = React.useState(false);
-    const [perfilCompletado, setPerfilCompletado] = React.useState(false);
+ 
 
 
-    const callPerfilCompletado = () => {
-        setPerfilCompletado(true)
-    }
+
+ 
+
+
+    
 
     const generalOpen = () => {
         setmodoGeneral(true);
@@ -320,8 +323,8 @@ export default function PanelControl(props) {
                             ejecutivo={ejecutivo}
                             familia={familia}
                             preferencias={preferencias}
-                            perfilCompletado={perfilCompletado}
-                            callPerfilCompletado={callPerfilCompletado}
+                            perfilCompletado={props.perfilCompletado}
+                            callPerfilCompletado={props.callPerfilCompletado}
                         />}
                     </Container>
                 </main>
@@ -387,8 +390,8 @@ export default function PanelControl(props) {
                                     familiaOpen={familiaOpen}
                                     preferenciasOpen={preferenciasOpen}
                                     reservasOpenContacto={reservasOpenContacto}
-                                    perfilCompletado={perfilCompletado}
-                                    callPerfilCompletado={callPerfilCompletado}
+                                    perfilCompletado={props.perfilCompletado}
+                                    callPerfilCompletado={props.callPerfilCompletado}
                                 />}
                             </Container>
                         </main>
@@ -424,8 +427,8 @@ export default function PanelControl(props) {
                                         familiaOpen={familiaOpen}
                                         preferenciasOpen={preferenciasOpen}
                                         reservasOpenContacto={reservasOpenContacto}
-                                        perfilCompletado={perfilCompletado}
-                                        callPerfilCompletado={callPerfilCompletado}
+                                        perfilCompletado={props.perfilCompletado}
+                                        callPerfilCompletado={props.callPerfilCompletado}
                                     />
                                 </Container>
                             </main>
@@ -511,8 +514,8 @@ export default function PanelControl(props) {
                                                         familia={familia}
                                                         preferencias={preferencias}
                                                         modo={"General"}
-                                                        perfilCompletado={perfilCompletado}
-                                                        callPerfilCompletado={callPerfilCompletado}
+                                                        perfilCompletado={props.perfilCompletado}
+                                                        callPerfilCompletado={props.callPerfilCompletado}
                                                     />}
 
                                                 </Container>

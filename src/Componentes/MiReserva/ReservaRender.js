@@ -353,7 +353,7 @@ export default function ReservaRender(props) {
     }
     function habilitarServicios(fech1,fecha2){
 
-        var now = fechaNow()
+        /*var now = fechaNow()
         var aFecha1 = fech1.split("-");
         var aFecha2 = fecha2.split("-");
         var aNow = now.split("-");
@@ -368,7 +368,7 @@ export default function ReservaRender(props) {
 
         var Inicio = Math.floor(dif1 / (1000 * 60 * 60 * 24));
         var Fin = Math.floor(dif2 / (1000 * 60 * 60 * 24));
-        var Dias= Math.floor(dif3 / (1000 * 60 * 60 * 24));
+        var Dias= Math.floor(dif3 / (1000 * 60 * 60 * 24));*/
 
         
 
