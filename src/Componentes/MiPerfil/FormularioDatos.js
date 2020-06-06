@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography, TextField, ButtonBase, Button } from '@material-ui/core';
 import RenderAvatar from '../login/RenderAvatar';
-import GuestInfo from '../../Models/Guest/GuestInfo'
-import GuestAPI from './../../Network/Guest/GuestAPI'
+import GuestInfo from '../../Models/Guest/GuestInfo';
+import GuestAPI from './../../Network/Guest/GuestAPI';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorMessageModal from '../Commons/ErrorMessageModal';
+import '../../Styles/Common.css'
 
 const styles = theme => ({
     large: {
@@ -87,6 +90,9 @@ class FormularioDatos extends Component {
             edicion: false,
             redOnly: true,
             completado: false,
+            loading: false,
+            errorMessageIsOpen: false,
+            errorMessage: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -129,6 +135,10 @@ class FormularioDatos extends Component {
             var dict = this.getGuestModel();
             GuestInfo.getInstance().setUserData(dict);
             this.postGuestInfo()
+        } else {
+            this.setState({ errorMessageIsOpen: true,
+                errorMessage: "Verifique si lleno todos los datos."
+             });
         }
     }
 
@@ -156,7 +166,7 @@ class FormularioDatos extends Component {
     }
 
     handlePostGuestInfo = async (guestInfo) => {
-        this.setState({ loading: false, });
+        this.setState({ loading: false });
         if (guestInfo.error == null) {
             //post was successful
         } else {
@@ -165,6 +175,7 @@ class FormularioDatos extends Component {
     }
 
     getGuestInfo(email) {
+        this.setState({ loading: true });
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
     }
 
@@ -172,8 +183,7 @@ class FormularioDatos extends Component {
         this.setState({ loading: false, });
   
         if (guestInfo.data === undefined || guestInfo ===null) {
-            //show error message
-            this.setState({ isOpen: false });
+            //show error message if needed
         } else {
             let userData = guestInfo.data.usuario;
 
@@ -203,12 +213,31 @@ class FormularioDatos extends Component {
             )
         } else {
             return (
-                <div>
-
-                </div>
+                <div/>
             )
         }
 
+    }
+
+    showLoaderIfNeeded() {
+        if (this.state.loading) {
+            return (
+            <div className = "loader">
+                <CircularProgress />
+                <CircularProgress color="secondary" />
+            </div>
+            )
+        } else {
+            return (
+                <div/>
+            )
+        }
+
+    }
+
+    //Modal handlers
+    closeErrorModal() {
+        this.setState({ errorMessageIsOpen: false },this.forceUpdate());
     }
 
     handleChange(e) {
@@ -222,6 +251,8 @@ class FormularioDatos extends Component {
 
             return (
                 <Grid>
+                { this.showLoaderIfNeeded() }
+                <ErrorMessageModal title = { 'Algo salió mal' } errorMessage = { this.state.errorMessage } isOpen = { this.state.errorMessageIsOpen } closeErrorModal = { this.closeErrorModal.bind(this) } />
                     <Typography variant="h6" gutterBottom>
                         Datos Personales
              </Typography>
