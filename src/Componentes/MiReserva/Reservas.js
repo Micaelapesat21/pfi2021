@@ -37,6 +37,7 @@ class Reservas extends Component {
                 <Grid item xs={12} md={8} lg={9}>
                     <ReservaRender
                         id={this.props.id}
+                        user={this.props.user}
                         nroReserva={"#1234568"}
                         logo={foto}
                         CheckIn={this.props.CheckIn}
@@ -56,6 +57,7 @@ class Reservas extends Component {
                 <Grid item xs={12} md={8} lg={9}>
                     <ReservaRender
                         id={"Four Season"}
+                        user={this.props.user}
                         logo={foto2}
                         nroReserva={"#1234567"}
                         CheckIn={"2020-12-24"}

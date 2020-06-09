@@ -5,14 +5,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Galeria from '../Componentes/Galeria'
 import IniciarSesion from '../Componentes/login/IniciarSesion'
-import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog } from '@material-ui/core';
+import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog, Fab } from '@material-ui/core';
 import firebase from '../firebaseConfig'
 import AuthController from '../Componentes/login/AuthController'
 import Registro from '../Componentes/login/Registro'
 import Home from './Home'
 import GuestAPI from '../Network/Guest/GuestAPI'
 import GuestInfo from '../Models/Guest/GuestInfo'
-
+import HotelIcon from '@material-ui/icons/Hotel';
+import { Link } from 'react-router-dom'
 
 
 
@@ -50,7 +51,8 @@ class Inicio extends Component {
             CheckOut: "",
             huespedes: "",
             precio: "",
-            completado:false,
+            completado: false,
+            modoHotel:false,
         };
 
     }
@@ -80,7 +82,7 @@ class Inicio extends Component {
                 precio: precio,
             })
         }
-       // this.getGuestInfo(this.state.user.email)
+        // this.getGuestInfo(this.state.user.email)
 
     }
 
@@ -89,22 +91,27 @@ class Inicio extends Component {
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
     }
 
-     handleGetGuestInfo = async (guestInfo) => {
-   
+    handleGetGuestInfo = async (guestInfo) => {
+
         if (guestInfo.data === undefined || guestInfo === null) {
             //show error message
-    
+
         } else {
             let userData = guestInfo.data.usuario;
             console.log(userData.email)
             if (userData !== null) {
-                if ((userData.apellido && 
-                    userData.nombre && userData.email 
-                    && userData.tipo && userData.documento 
-                    && userData.pais && userData.estado 
-                    && userData.ciudad && userData.codigoPostal 
-                    && userData.direccion) !== "")
+                if ((userData.apellido &&
+                    userData.nombre && userData.email
+                    && userData.tipo && userData.documento
+                    && userData.pais && userData.estado
+                    && userData.ciudad && userData.codigoPostal
+                    && userData.direccion) !== "") {
                     this.callPerfilCompletado()
+
+                }
+                else {
+                    this.callPerfilNoCompletado()
+                }
                 GuestInfo.getInstance().setUserData(userData);
             }
         }
@@ -112,6 +119,9 @@ class Inicio extends Component {
 
     callPerfilCompletado = () => {
         this.setState({ completado: true })
+    }
+    callPerfilNoCompletado = () => {
+        this.setState({ completado: false })
     }
 
     callbackInicio = (x) => {
@@ -213,15 +223,19 @@ class Inicio extends Component {
         } else {
             return (
                 <Grid container component="main" className={classes.root}>
-
                     <CssBaseline />
                     <Grid item xs={false} sm={4} md={7} className={classes.sectionDesktop}>
                         <Galeria />
                     </Grid>
                     <Grid item xs={false} sm={4} md={7} className={classes.sectionMobile} />
                     <Grid item xs={12} sm={8} md={5} >
+                        <Fab variant="extended"  component={Link} to={"/Hotel"}>
+                            <HotelIcon />
+                          Hoteles
+                        </Fab>
                         {this.login()}
                     </Grid>
+
 
                 </Grid>
             );

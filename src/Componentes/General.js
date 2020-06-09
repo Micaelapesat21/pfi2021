@@ -256,7 +256,7 @@ class General extends Component {
                             <Paper className={fixedHeightPaper} elevation={3} >
                                 <Grid container direction="row" >
                                     <Grid item md={10} xs={10}>
-                                        <Typography align="left" variant="h4">Reserva actual</Typography>
+                                        <Typography component="h2" variant="h6" color="primary" gutterBottom>Reserva actual</Typography>
                                     </Grid>
                                     <Grid item md={2} xs={10}>
                                         <Button color="primary" onClick={this.props.reservasOpen}>administrar</Button>
@@ -292,7 +292,7 @@ class General extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <Paper className={classes.paper} elevation={3}>
-                                <Typography variant="h4">Avisos</Typography>
+                                <Typography component="h2" variant="h6" color="primary" gutterBottom>Avisos</Typography>
                                 <Divider />
                                 <Grid container direction="row" >
 
@@ -316,7 +316,7 @@ class General extends Component {
 
                 <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaperDatos} elevation={3}>
-                        <Typography variant="h4">Mi Perfil</Typography>
+                        <Typography component="h2" variant="h6" color="primary" gutterBottom>Mi Perfil</Typography>
                         <Divider />
                         <br />
                         <Typography style={{ fontWeight: "bold" }}>Nombre y apellido: </Typography>
@@ -327,7 +327,7 @@ class General extends Component {
                         <Button variant="outlined" onClick={this.props.perfilOpen}>Editar Datos</Button>
                         <br />
                         <Divider />
-                        <Typography variant="h5">Perfil</Typography>
+                        <Typography component="h2" variant="h6" color="primary" gutterBottom>Perfil</Typography>
                         <FormControl component="fieldset" className={classes.formControl}>
                             {/*PERFILES*/}
                             <FormLabel component="legend">Perfil seleccionado</FormLabel>

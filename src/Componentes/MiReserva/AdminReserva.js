@@ -303,7 +303,7 @@ export default function AdminReserva(props) {
                                     <Typography variant="h6" gutterBottom>Enviar consulta</Typography>
                                 </Grid>
                                 <Grid item md={12}>
-                                    <Typography>De: Esteban Gueicha (estebnauquito181@gmail.com)</Typography>
+                                    <Typography>De: {props.user.displayName} ({props.user.email})</Typography>
                                 </Grid>
 
                                 <Grid item md={12}>

@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
+        backgroundColor:"#fafafa"
     },
     container: {
         paddingTop: theme.spacing(4),
@@ -56,14 +57,6 @@ export default function PanelControl(props) {
     const [expanded, setExpanded] = React.useState(false);
     const [contacto, setContacto] = React.useState(false);
  
-
-
-
- 
-
-
-    
-
     const generalOpen = () => {
         setmodoGeneral(true);
         reservasClose();
