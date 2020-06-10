@@ -5,15 +5,16 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Galeria from '../Componentes/Galeria'
 import IniciarSesion from '../Componentes/login/IniciarSesion'
-import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog, Fab } from '@material-ui/core';
+import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog, IconButton } from '@material-ui/core';
 import firebase from '../firebaseConfig'
 import AuthController from '../Componentes/login/AuthController'
 import Registro from '../Componentes/login/Registro'
 import Home from './Home'
 import GuestAPI from '../Network/Guest/GuestAPI'
 import GuestInfo from '../Models/Guest/GuestInfo'
-import HotelIcon from '@material-ui/icons/Hotel';
-import { Link } from 'react-router-dom'
+import HotelHome from './HotelHome'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 
 
@@ -34,7 +35,7 @@ const styles = theme => ({
         },
     },
     inicio: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(5),
     }
 })
 
@@ -52,7 +53,7 @@ class Inicio extends Component {
             huespedes: "",
             precio: "",
             completado: false,
-            modoHotel:false,
+            modoHotel: true,
         };
 
     }
@@ -143,6 +144,9 @@ class Inicio extends Component {
     callHuespedes = (x) => {
         this.setState({ huespedes: x });
     }
+    callHotel = (x) => {
+        this.setState({ modoHotel: x })
+    }
 
     isloginFacebook() {
         var face = firebase.auth().currentUser.providerData[0].providerId
@@ -157,16 +161,43 @@ class Inicio extends Component {
         if (this.state.inicio === true) {
             return (
                 <Grid className={classes.inicio}>
-                    <IniciarSesion inicio={this.callbackInicio} />
+                    <IniciarSesion modoHotel={this.state.modoHotel} inicio={this.state.inicio} callHotel={this.callHotel} callInicio={this.callbackInicio} />
                 </Grid>
 
             )
         }
         else {
-            return (
-                <Registro inicio={this.callbackInicio} verificar={this.callbackVerificar} />
-            )
+            if (this.state.modoHotel === true) {
+                return (
+                    <Grid className={classes.inicio}>
+                        <IniciarSesion modoHotel={this.state.modoHotel} inicio={this.callbackInicio} />
+                    </Grid>
+                )
+            } else {
+                return (
+                    <Registro inicio={this.callbackInicio} verificar={this.callbackVerificar} />
+                )
+            }
+
         }
+    }
+    volver() {
+        if (this.state.modoHotel) {
+            return (
+                <IconButton onClick={()=>this.callHotel(false)}>
+                    <ArrowBackIcon />
+                </IconButton>
+            )
+        } else {
+            if (this.state.inicio === false) {
+                return (
+                    <IconButton onClick={()=>this.callbackInicio(true)}>
+                        <ArrowBackIcon />
+                    </IconButton>
+                )
+            }
+        }
+
     }
 
 
@@ -174,52 +205,59 @@ class Inicio extends Component {
     render() {
         const { classes } = this.props;
         if (this.state.user) {
-            if (this.state.user.emailVerified || this.isloginFacebook() === true) {
+            if (this.state.modoHotel) {
                 return (
-                    <Home
+                    <HotelHome
                         user={this.state.user}
-                        id={this.state.id}
-                        CheckIn={this.state.CheckIn}
-                        CheckOut={this.state.CheckOut}
-                        huespedes={this.state.huespedes}
-                        precio={this.state.precio}
-                        callCheckIn={this.callCheckIn}
-                        callCheckOut={this.callCheckOut}
-                        callHuespedes={this.callHuespedes}
-                        perfilCompletado={this.state.completado}
-                        callPerfilCompletado={this.callPerfilCompletado}
                     />
                 )
             } else {
-                return (
-                    <Grid container component="main" className={classes.root}>
+                if (this.state.user.emailVerified || this.isloginFacebook() === true) {
+                    return (
+                        <Home
+                            user={this.state.user}
+                            id={this.state.id}
+                            CheckIn={this.state.CheckIn}
+                            CheckOut={this.state.CheckOut}
+                            huespedes={this.state.huespedes}
+                            precio={this.state.precio}
+                            callCheckIn={this.callCheckIn}
+                            callCheckOut={this.callCheckOut}
+                            callHuespedes={this.callHuespedes}
+                            perfilCompletado={this.state.completado}
+                            callPerfilCompletado={this.callPerfilCompletado}
+                        />
+                    )
+                } else {
+                    return (
+                        <Grid container component="main" className={classes.root}>
 
-                        <CssBaseline />
-                        <Grid item xs={false} sm={4} md={7} className={classes.sectionDesktop}>
-                            <Galeria />
-                        </Grid>
-                        <Grid item xs={false} sm={4} md={7} className={classes.sectionMobile} />
-                        <Grid item xs={12} sm={8} md={5}  >
-                            {this.login()}
-                        </Grid>
-                        <Dialog open={this.state.verificar} onClose={this.handleCloseVerificar} >
-                            <DialogTitle >{"Verificar correo electronico"}</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText >
-                                    Por favor verificar su correo electronico para poder iniciar sesion. Si no aparece verifique su casilla de spam.
+                            <CssBaseline />
+                            <Grid item xs={false} sm={4} md={7} className={classes.sectionDesktop}>
+                                <Galeria />
+                            </Grid>
+                            <Grid item xs={false} sm={4} md={7} className={classes.sectionMobile} />
+                            <Grid item xs={12} sm={8} md={5}  >
+                                {this.login()}
+                            </Grid>
+                            <Dialog open={this.state.verificar} onClose={this.handleCloseVerificar} >
+                                <DialogTitle >{"Verificar correo electronico"}</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText >
+                                        Por favor verificar su correo electronico para poder iniciar sesion. Si no aparece verifique su casilla de spam.
                          </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={this.handleCloseVerificar} color="primary">
-                                    Cerrar
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={this.handleCloseVerificar} color="primary">
+                                        Cerrar
                         </Button>
 
-                            </DialogActions>
-                        </Dialog>
-                    </Grid>
-                )
+                                </DialogActions>
+                            </Dialog>
+                        </Grid>
+                    )
+                }
             }
-
         } else {
             return (
                 <Grid container component="main" className={classes.root}>
@@ -229,10 +267,7 @@ class Inicio extends Component {
                     </Grid>
                     <Grid item xs={false} sm={4} md={7} className={classes.sectionMobile} />
                     <Grid item xs={12} sm={8} md={5} >
-                        <Fab variant="extended"  component={Link} to={"/Hotel"}>
-                            <HotelIcon />
-                          Hoteles
-                        </Fab>
+                        {this.volver()}
                         {this.login()}
                     </Grid>
 

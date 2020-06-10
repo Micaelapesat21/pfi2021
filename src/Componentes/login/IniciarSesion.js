@@ -30,7 +30,7 @@ const styles = theme => ({
     },
   },
   paper: {
-  
+
     marginBottom: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
@@ -49,6 +49,7 @@ const styles = theme => ({
   },
   botonicono: {
     margin: theme.spacing(1, 0, 1),
+    minHeight: theme.spacing(5)
   },
   icono: {
     margin: theme.spacing(1),
@@ -59,7 +60,7 @@ const styles = theme => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(2),
   },
-  lineas:{
+  lineas: {
     height: "3px",
     backgroundColor: "black"
   }
@@ -96,7 +97,7 @@ class IniciarSesion extends React.Component {
   };
 
   handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
+    if (event.key === 'Enter') {
       this.loginCorreo()
     }
   }
@@ -117,11 +118,87 @@ class IniciarSesion extends React.Component {
   }
 
   handleOpenRegistro = () => {
-    this.props.inicio(false)
+    this.props.callInicio(false)
+  }
+  handleOpenHotel = () => {
+    this.props.callHotel(true)
   }
 
   handleCloseRegistro = () => {
     this.setState({ openRegistro: false });
+  }
+
+  modoHotel() {
+    const { classes } = this.props;
+
+    if (this.props.modoHotel) {
+      return (
+        <div></div>
+      )
+    } else {
+      return (
+        <Grid>
+          <Grid container direction="row" justify="center" alignItems="center" className={classes.separador}>
+            <Grid item xs={5}>
+              <hr className={classes.lineas} />
+            </Grid>
+            <Grid item xs={2}>
+              <Typography align="center">O sino</Typography>
+            </Grid>
+            <Grid item xs={5}>
+              <hr className={classes.lineas} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs>
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.botonicono}
+                onClick={AuthController.handleAuthGoogle}>
+                <img src={LogoGoogle} alt="LogoGoogle" className={classes.icono} />
+                Ingresá con Google
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.botonicono}
+                onClick={AuthController.handleAuthFace}>
+                <FacebookIcon fontSize="large" />
+                Ingresá con Facebook
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.botonicono}
+                onClick={this.handleOpenHotel}>
+
+                ¿Sos Hotel?
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      )
+    }
+
+  }
+  titulo() {
+    if (this.props.modoHotel) {
+      return (
+        <Typography component="h1" variant="h5">
+          Iniciar Sesion como Hotel
+        </Typography>
+      )
+    } else {
+      return (
+        <Typography component="h1" variant="h5">
+          Iniciar Sesion
+        </Typography>
+      )
+    }
   }
 
 
@@ -141,9 +218,7 @@ class IniciarSesion extends React.Component {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Iniciar Sesion
-        </Typography>
+          {this.titulo()}
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
@@ -218,39 +293,7 @@ class IniciarSesion extends React.Component {
               </Dialog>
 
             </Grid>
-            <Grid container direction="row" justify="center" alignItems="center" className={classes.separador}>
-              <Grid item xs={5}>
-                <hr className={classes.lineas} />
-              </Grid>
-              <Grid item xs={2}>
-                <Typography align="center">O sino</Typography>
-              </Grid>
-              <Grid item xs={5}>
-                <hr className={classes.lineas} />
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="secondary"
-                  className={classes.botonicono}
-                  onClick={AuthController.handleAuthGoogle}>
-                  <img src={LogoGoogle} alt="LogoGoogle" className={classes.icono} />
-                Ingresá con Google
-              </Button>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.botonicono}
-                  onClick={AuthController.handleAuthFace}>
-                  <FacebookIcon fontSize="large" />
-                Ingresá con Facebook
-              </Button>
-              </Grid>
-            </Grid>
+            {this.modoHotel()}
           </form>
         </div>
 

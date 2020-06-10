@@ -190,16 +190,6 @@ class Registro extends React.Component {
             >
               Registrarse
           </Button>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={this.handleOpenInicio}
-            >
-              O Inicie sesion
-            </Button>
-
           </form>
         </div>
 

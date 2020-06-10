@@ -3,6 +3,8 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
+import { Grid } from '@material-ui/core';
+import ChipServicios from './ChipServicios'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -18,9 +20,9 @@ export default function Deposits() {
       <Typography component="p" variant="h4">
         
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-       
-      </Typography>
+      <Grid className={classes.depositContext}>
+       <ChipServicios/>
+      </Grid>
       <div>
         <Link color="primary" href="">
           Ver Mas Servicios

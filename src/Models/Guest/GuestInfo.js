@@ -1,5 +1,5 @@
 import Address from './Address.js'
-import PaymentMethod from './../PaymentMethod.js'
+//import PaymentMethod from './../PaymentMethod.js'
 
 class GuestInfo {
 

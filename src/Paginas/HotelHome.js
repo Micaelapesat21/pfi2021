@@ -17,6 +17,9 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from '../Componentes/Hotel/listItems';
 import General from '../Componentes/Hotel/General';
 import DatosHotel from '../Componentes/Hotel/DatosHotel';
+import ServiciosHotel from '../Componentes/Hotel/ServiciosHotel';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AuthController from '../Componentes/login/AuthController'
 
 
 
@@ -85,10 +88,12 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
+        backgroundColor:"#fafafa"
     },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+        backgroundColor:"#fafafa"
     },
     paper: {
         padding: theme.spacing(2),
@@ -104,8 +109,8 @@ const useStyles = makeStyles(theme => ({
 export default function PanelControl() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
-    const [modoGeneral, setmodoGeneral] = React.useState(false);
-    const [modoDatos, setmodoDatos] = React.useState(true);
+    const [modoGeneral, setmodoGeneral] = React.useState(true);
+    const [modoDatos, setmodoDatos] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
 
@@ -178,6 +183,9 @@ export default function PanelControl() {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
+                        <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                            <ExitToAppIcon />
+                        </IconButton>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -205,7 +213,7 @@ export default function PanelControl() {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
-                        <DatosHotel/>
+                        <DatosHotel />
                     </Container>
                 </main>
             </div>
@@ -233,6 +241,9 @@ export default function PanelControl() {
                                 <Badge badgeContent={0} color="secondary">
                                     <NotificationsIcon />
                                 </Badge>
+                            </IconButton>
+                            <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                <ExitToAppIcon />
                             </IconButton>
                         </Toolbar>
                     </AppBar>
@@ -262,7 +273,7 @@ export default function PanelControl() {
                         <div className={classes.appBarSpacer} />
 
                         <Container maxWidth="lg" className={classes.container}>
-
+                            <ServiciosHotel />
                         </Container>
                     </main>
                 </div>
@@ -290,6 +301,9 @@ export default function PanelControl() {
                                     <Badge badgeContent={0} color="secondary">
                                         <NotificationsIcon />
                                     </Badge>
+                                </IconButton>
+                                <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                    <ExitToAppIcon />
                                 </IconButton>
                             </Toolbar>
                         </AppBar>
@@ -347,6 +361,9 @@ export default function PanelControl() {
                                         <Badge badgeContent={0} color="secondary">
                                             <NotificationsIcon />
                                         </Badge>
+                                    </IconButton>
+                                    <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                        <ExitToAppIcon />
                                     </IconButton>
                                 </Toolbar>
                             </AppBar>
