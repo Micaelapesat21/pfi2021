@@ -20,7 +20,7 @@ import DatosHotel from '../Componentes/Hotel/DatosHotel';
 import ServiciosHotel from '../Componentes/Hotel/ServiciosHotel';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
-
+import ReservasHotel from '../Componentes/Hotel/ReservasHotel'
 
 
 const drawerWidth = 240;
@@ -333,7 +333,7 @@ export default function PanelControl() {
                             <div className={classes.appBarSpacer} />
 
                             <Container maxWidth="lg" className={classes.container}>
-
+                            <ReservasHotel/>
                             </Container>
                         </main>
                     </div>
@@ -393,7 +393,10 @@ export default function PanelControl() {
                                 <div className={classes.appBarSpacer} />
 
                                 <Container maxWidth="lg" className={classes.container}>
-                                    <General />
+                                    <General
+                                    reservasOpen={reservasOpen}
+                                    serviciosOpen={serviciosOpen}
+                                     />
                                 </Container>
                             </main>
                         </div>

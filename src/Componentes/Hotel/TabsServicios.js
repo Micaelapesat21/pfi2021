@@ -11,6 +11,8 @@ import HotelServicios from './Servicios/HotelServicios';
 import Comodidades from './Servicios/Comodidades';
 import Bienestar from './Servicios/Bienestar';
 import Actividades from './Servicios/Actividades';
+import AddIcon from '@material-ui/icons/Add';
+import { Zoom, Fab } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,6 +50,13 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    minHeight: 300,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
 }));
 
@@ -62,6 +71,37 @@ export default function FullWidthTabs(props) {
 
   const handleChangeIndex = (index) => {
     setValue(index);
+  };
+
+  const fabs = [
+    {
+      color: 'primary',
+      className: classes.fab,
+      icon: <AddIcon />,
+      label: 'Add',
+    },
+    {
+      color: 'primary',
+      className: classes.fab,
+      icon: <AddIcon />,
+      label: 'Add',
+    },
+    {
+      color: 'primary',
+      className: classes.fab,
+      icon: <AddIcon />,
+      label: 'Add',
+    },
+    {
+      color: 'primary',
+      className: classes.fab,
+      icon: <AddIcon />,
+      label: 'Add',
+    },
+  ];
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
   };
 
   return (
@@ -125,6 +165,21 @@ export default function FullWidthTabs(props) {
           />
         </TabPanel>
       </SwipeableViews>
+      {fabs.map((fab, index) => (
+        <Zoom
+          key={fab.color}
+          in={value === index}
+          timeout={transitionDuration}
+          style={{
+            transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
+          }}
+          unmountOnExit
+        >
+          <Fab aria-label={fab.label} className={fab.className} color={fab.color}>
+            {fab.icon}
+          </Fab>
+        </Zoom>
+      ))}
     </div>
   );
 }

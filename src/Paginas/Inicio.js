@@ -207,7 +207,7 @@ class Inicio extends Component {
         if (this.state.user) {
             if (this.state.modoHotel) {
                 return (
-                    <HotelHome
+               <HotelHome
                         user={this.state.user}
                     />
                 )

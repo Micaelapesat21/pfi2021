@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Orders() {
+export default function Orders(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -55,7 +55,7 @@ export default function Orders() {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="">
+        <Link color="primary"  onClick={props.reservasOpen}>
           Ver Mas Reservas
         </Link>
       </div>

@@ -112,7 +112,7 @@ class Comodidades extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('limpieza')} checked={this.props.limpieza} name="limpieza" />} label="limpieza" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('limpieza')} checked={this.props.limpieza} name="limpieza" />} label="Limpieza" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
@@ -127,7 +127,7 @@ class Comodidades extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('comidas')} checked={this.props.tintoreria} name="comidas" />} label="comidas" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('comidas')} checked={this.props.tintoreria} name="comidas" />} label="Comidas" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>

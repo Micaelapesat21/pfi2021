@@ -119,7 +119,7 @@ class Bienestar extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('spa')} checked={this.props.restaurante} name="spa" />} label="spa" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('spa')} checked={this.props.restaurante} name="spa" />} label="Spa" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
@@ -132,7 +132,7 @@ class Bienestar extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('gimnasio')} checked={this.props.estacionamiento} name="gimnasio" />} label="gimnasio" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('gimnasio')} checked={this.props.estacionamiento} name="gimnasio" />} label="Gimnasio" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
@@ -145,7 +145,7 @@ class Bienestar extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('masajes')} checked={this.props.masajes} name="masajes" />} label="masajes" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('masajes')} checked={this.props.masajes} name="masajes" />} label="Masajes" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
@@ -158,7 +158,7 @@ class Bienestar extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('tratamiento')} checked={this.props.tratamiento} name="tratamiento" />} label="tratamiento" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('tratamiento')} checked={this.props.tratamiento} name="tratamiento" />} label="Tratamientos" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>

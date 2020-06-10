@@ -37,13 +37,18 @@ class General extends Component {
                 {/* Recent Deposits */}
                 <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaper}>
-                        <Deposits />
+                        <Deposits 
+                             serviciosOpen={this.props.serviciosOpen}
+                        />
                     </Paper>
                 </Grid>
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Orders />
+                        <Orders
+                        reservasOpen={this.props.reservasOpen}
+                                   
+                         />
                     </Paper>
                 </Grid>
             </Grid>

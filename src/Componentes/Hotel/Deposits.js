@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function Deposits(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -24,7 +24,7 @@ export default function Deposits() {
        <ChipServicios/>
       </Grid>
       <div>
-        <Link color="primary" href="">
+        <Link color="primary" onClick={props.serviciosOpen}>
           Ver Mas Servicios
         </Link>
       </div>
