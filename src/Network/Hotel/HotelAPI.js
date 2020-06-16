@@ -5,7 +5,7 @@ import HotelInfo from './../../Models/Hotel/HotelInfo';
 class HotelAPI extends Component {
 
     postHotelInfo(handlePostHotelInfo) {
-      let url =  Constants.BASE_URL + '/api/v1.0/hotel';
+      let url =  Constants.BASE_URL + '/api/v1.0/hoteles';
       let hotelData = HotelInfo.getInstance().toJson();
         fetch(url,{
           method: 'PUT', 
