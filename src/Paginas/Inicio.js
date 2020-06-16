@@ -53,7 +53,7 @@ class Inicio extends Component {
             huespedes: "",
             precio: "",
             completado: false,
-            modoHotel: true,
+            modoHotel: false,
         };
 
     }

@@ -12,7 +12,7 @@ import CheckIn from '../Componentes/MiReserva/CheckIn';
 import CheckOut from '../Componentes/MiReserva/CheckOut';
 import Servicios from '../Componentes/MiReserva/Servicios';
 import Resenas from '../Componentes/MiPerfil/Resenas';
-import Pagos from '../Componentes/MiPerfil/Pagos';
+import Tarjetas from '../Componentes/MiPerfil/Tarjetas';
 import Deslizable from '../Componentes/Deslizable'
 import Historial from '../Componentes/MiReserva/Historial';
 import Ayuda from '../Componentes/Ayuda';
@@ -33,19 +33,20 @@ const useStyles = makeStyles(theme => ({
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+        
     },
 }));
 
 export default function PanelControl(props) {
     const classes = useStyles();
-    const [modoGeneral, setmodoGeneral] = React.useState(true);
+    const [modoGeneral, setmodoGeneral] = React.useState(false);
     const [modoPerfil, setmodoPerfil] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
-    const [modoPagos, setmodoPagos] = React.useState(false);
+    const [modoPagos, setmodoPagos] = React.useState(true);
     const [modoHistorial, setmodoHistorial] = React.useState(false);
     const [modoAyuda, setmodoAyuda] = React.useState(false);
 
@@ -471,11 +472,11 @@ export default function PanelControl(props) {
                                 return (
                                     <div className={classes.root}>
                                         <CssBaseline />
-                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Pagos"} />
+                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Tarjetas"} />
                                         <main className={classes.content}>
                                             <div className={classes.appBarSpacer} />
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <Pagos />
+                                                <Tarjetas />
                                             </Container>
                                         </main>
                                     </div>

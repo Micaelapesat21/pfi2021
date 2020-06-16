@@ -3,9 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid, Typography, Divider, IconButton, TextField, Link, Button } from '@material-ui/core';
+import { Grid, Typography, Divider, IconButton, TextField, Link, Button, Dialog, DialogContent } from '@material-ui/core';
 import Hora from './Hora'
 import HoraTraslado from './HoraTraslado'
+import MiniBar from './Servicios/MiniBar'
+import Tarjetas from '../MiPerfil/Tarjetas';
 
 
 
@@ -46,7 +48,7 @@ const useStyles = makeStyles(theme => ({
             display: "none",
         },
     },
-    perfilDatos:{
+    perfilDatos: {
         marginBottom: theme.spacing(1),
     }
 }));
@@ -55,12 +57,16 @@ const useStyles = makeStyles(theme => ({
 export default function AdminReserva(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(true);
+    const [pagar, setpagar] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-   
-    
+    const handlePagar = () => {
+        setpagar(!pagar);
+    };
+
+
 
     return (
         <Grid>
@@ -108,15 +114,84 @@ export default function AdminReserva(props) {
                         {<Link onClick={props.reservasOpenContacto}> CONTACTAR HOTEL</Link>}
                         </Typography>
                     </Grid>
-                    
-                   
+                    <Grid item md={11} xs={12}>
+                        <Divider />
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Typography variant="h5">Consumo de MiniBar</Typography>
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                        <Typography >Seleccione lo que consumio en el MiniBar</Typography>
+                        <Typography variant="subtitle2" color="error" >*obligatorio</Typography>
+                    </Grid>
+                    <Grid item md={3} xs={12}>
+                      <MiniBar/>
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                        <Typography variant="subtitle2" align="justify" style={{ color: "#9e9e9e" }} >
+                            *Acuerdese que se revisara la habitacion para corrobar si consumio algo y se le hara un recargo a su tarjera si es necesario.
+                       
+                        </Typography>
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Divider />
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Typography variant="h5">Resumen de su estadia</Typography>
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Grid container alignItems="flex-end" justify="flex-end">
+                            <Grid item md={12}>
+                                <Typography style={{ color: "#9e9e9e" }}>
+                                    Servicios contratados
+                             </Typography>
+                            </Grid>
+                            <Grid item md={6}>
+                                <Typography >
+                                    Tintoreia
+                               </Typography>
+                            </Grid>
+                            <Grid item md={6}>
+                                <Typography align="right">
+                                    $200
+                                </Typography>
+                            </Grid>
+                            <Grid item md={6}>
+                                <Typography>
+                                    Alquiler de Auto
+                               </Typography>
+                                
+                            </Grid>
+                            <Grid item md={6}>
+                                <Typography align="right">
+                                    $20000
+                                </Typography>
+                            </Grid>
+                            <Grid item md={6}>
+                                
+                            </Grid>
+                            
+                        </Grid>
+                    </Grid>
+                    <Grid item md={11} xs={12}>
+                        <Grid container justify="flex-end">
+                            <Grid item >
+                                <Button variant="contained" color="primary" onClick={handlePagar} >Pagar</Button>
+                                <Dialog open={pagar} onClose={handlePagar} maxWidth="lg">
+                                <DialogContent>
+                                <Tarjetas/>
+                                </DialogContent>                               
+                                </Dialog>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                     <Grid item md={11} xs={12}>
                         <Divider />
                     </Grid>
                     <Grid item md={12} xs={12}>
                         <Typography variant="h5">Adicionales</Typography>
                     </Grid>
-                   
+
                     <Grid item md={4} xs={12}>
                         <Typography>Traslados al Aeropuerto</Typography>
                     </Grid>

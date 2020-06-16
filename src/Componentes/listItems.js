@@ -93,7 +93,7 @@ export default function ListItems(props) {
             <ListItemIcon>
               <PaymentIcon />
             </ListItemIcon>
-            <ListItemText primary="Pagos" />
+            <ListItemText primary="Tarjetas" />
           </ListItem>
         </List>
       </Collapse>
