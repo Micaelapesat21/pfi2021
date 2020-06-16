@@ -1,36 +1,30 @@
-import Address from './Address.js'
-//import PaymentMethod from './../PaymentMethod.js'
+import Address from '../Guest/Address'
 
-class GuestInfo {
+class HotelInfo {
 
     static myInstance = null
     _userID = ""
     _name = ""
     _lastName = ""
     _email = ""
-    _personalIdType = ""
-    _personalId = ""
     _addressInfo = null
     _paymentInfo = []
 
     static getInstance() {
-        if (GuestInfo.myInstance == null) {
-            GuestInfo.myInstance = new GuestInfo();
+        if (HotelInfo.myInstance == null) {
+            HotelInfo.myInstance = new HotelInfo();
         }
 
         return this.myInstance;
     }
 
-    setUserData(props) {
+    setHotelData(props) {
       if(props.id != null) {
         this._userID = props.id
       }
 
       this._name = props.nombre
-      this._lastName = props.apellido
       this._email = props.email
-      this._personalIdType = props.tipo
-      this._personalId = props.documento
       var address = new Address()
       address.setAddressInfo(props)
       this._addressInfo = address
@@ -59,36 +53,30 @@ class GuestInfo {
       this._userType = userType;
     }
 
-    toJson() {
-      let dict 
+    toJson() {      
+      let dict
 
       if(this._addressInfo !== null) {
-          let addressInfo = this._addressInfo.toJson();
+         let addressInfo = this._addressInfo.toJson();
           dict = {
             email: this._email,
             nombre: this._name,
-            apellido: this._lastName,
-            tipo: this._personalIdType,
-            documento: this._personalId,
             pais: addressInfo.pais , 
             estado: addressInfo.estado,
             ciudad: addressInfo.ciudad,
             codigoPostal: addressInfo.codigoPostal,
             direccion: addressInfo.direccion1
           };
-        } else {
-            dict = {
-              email: this._email,
-              nombre: this._name,
-              apellido: this._lastName,
-              tipo: this._personalIdType,
-              documento: this._personalId,
-            };
-        }
+      } else {
+        dict = {
+          email: this._email,
+          nombre: this._name,
+        };
+      }
 
-        console.log("guestInfo", dict);
-        return dict;
+    console.log("Hotel info", dict);
+      return dict;
     }
-  }
+}
 
-  export default GuestInfo;
+  export default HotelInfo;

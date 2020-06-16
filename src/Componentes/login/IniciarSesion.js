@@ -102,11 +102,11 @@ class IniciarSesion extends React.Component {
     }
   }
 
-
   loginCorreo() {
     const Correo = this.state.correo;
     const Contrasena = this.state.contra;
-    AuthController.handleIniciar(Correo, Contrasena);
+    let isHotel = this.props.modoHotel != null ;
+    AuthController.handleIniciar(Correo, Contrasena, isHotel);
   }
 
   handleOpenContra = () => {
