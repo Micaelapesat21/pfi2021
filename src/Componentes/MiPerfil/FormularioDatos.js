@@ -160,9 +160,9 @@ class FormularioDatos extends Component {
     }
 
     //Api Calls
-    postGuestInfo = (guestInfo) => {
+    postGuestInfo = () => {
         this.setState({ loading: true });
-        GuestAPI.postGuestInfo(guestInfo, this.handlePostGuestInfo);
+        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
     }
 
     handlePostGuestInfo = async (guestInfo) => {
@@ -232,7 +232,6 @@ class FormularioDatos extends Component {
                 <div/>
             )
         }
-
     }
 
     //Modal handlers

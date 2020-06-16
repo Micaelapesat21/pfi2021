@@ -2,6 +2,10 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
+import HotelInfo from '../../Models/Hotel/HotelInfo'
+import HotelAPI from '../../Network/Hotel/HotelAPI'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorMessageModal from '../Commons/ErrorMessageModal';
 
 const styles = theme => ({
     paper: {
@@ -89,16 +93,48 @@ class DatosHotel extends Component {
             estrellas: "",
             url: "",
             edicion: false,
-            redOnly: true,            
+            redOnly: true,  
+            lastResponse: null,    
+            loading: false,
+            errorMessageIsOpen: false,
+            errorMessage: ""      
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
         this.guardar = this.guardar.bind(this);
     }
 
+    componentWillMount() {
+        if(this.state.lastResponse === null) {
+            this.getHotelInfo()
+        }
+    } 
+
     guardar() {
-        this.setState({ edicion: false, redOnly: true })
+        if (this.state.nombre !== "" &&
+            this.state.apellido !== "" &&
+            this.state.tipo !== "" &&
+            this.state.documento !== "" &&
+            this.state.correo !== "" &&
+            this.state.pais !== "" &&
+            this.state.estado !== "" &&
+            this.state.ciudad !== "" &&
+            this.state.codigoPostal !== "" &&
+            this.state.direccion !== "" &&
+            this.state.telefono1 !== "" &&
+            this.state.estrellas !== "" &&
+            this.state.url !== "" 
+        ) {
+            var dict = this.getHotelModel();
+            HotelInfo.getInstance().setHotelData(dict);
+            this.postGuestInfo()
+        } else {
+            this.setState({ errorMessageIsOpen: true,
+                errorMessage: "Verifique si lleno todos los datos."
+             });
+        }
     }
+
     edicionOpen() {
         this.setState({ edicion: true, redOnly: false })
     }
@@ -115,15 +151,107 @@ class DatosHotel extends Component {
 
     }
 
+    showLoaderIfNeeded() {
+        if (this.state.loading) {
+            return (
+            <div className = "loader">
+                <CircularProgress />
+                <CircularProgress color="secondary" />
+            </div>
+            )
+        } else {
+            return (
+                <div/>
+            )
+        }
+    }
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    //Api Calls
+    getHotelInfo(email) {
+        this.setState({ loading: true });
+        HotelAPI.getHotelInfo(HotelInfo.getInstance().getMail(), this.handleGetHotelInfo);
+    }
+
+    handleGetHotelInfo = async (hotelInfo) => {
+        this.setState({ loading: false, });
+  
+        if (hotelInfo.data === undefined || hotelInfo ===null) {
+            //show error message if needed
+        } else {
+            let hotelData = hotelInfo.data.hotel;
+
+            if (hotelData !== null) {
+                this.setState({
+                    nombre: hotelData.nombre,
+                    apellido: hotelData.apellido,
+                    email: hotelData.email,
+                    tipo: hotelData.tipo,
+                    documento: hotelData.documento,
+                    pais: hotelData.pais,
+                    estado: hotelData.estado,
+                    ciudad: hotelData.ciudad,
+                    codigoPostal: hotelData.codigoPostal,
+                    direccion: hotelData.direccion,
+                    telefono1: hotelData.telefono1,
+                    telefono2: hotelData.telefono2,
+                    estrellas: hotelData.estrellas,
+                    url: hotelData.url,
+                });
+
+                HotelInfo.getInstance().setUserData(hotelInfo);
+            }
+        }
+    }
+
+    postHotelInfo = () => {
+        this.setState({ loading: true });
+        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
+    }
+
+    handlePostHotelInfo = async (guestInfo) => {
+        this.setState({ loading: false });
+        if (guestInfo.error == null) {
+            //post was successful
+            this.setState({ edicion: false, redOnly: true })
+        } else {
+            //get user with email failed
+        }
+    }
+
+    getHotelModel() {
+        return {
+            nombre: this.state.nombre,
+            apellido: this.state.apellido,
+            email: this.state.correo,
+            tipo: this.state.tipo,
+            documento: this.state.documento,
+            pais: this.state.pais,
+            estado: this.state.estado,
+            ciudad: this.state.ciudad,
+            codigoPostal: this.state.codigoPostal,
+            direccion1: this.state.direccion,
+            telefono1: this.state.telefono1,
+            telefono2: this.state.telefono2,
+            estrellas: this.state.estrellas,
+            url: this.state.url
+        };
+    }
+
+    //Modal handlers
+    closeErrorModal() {
+        this.setState({ errorMessageIsOpen: false },this.forceUpdate());
     }
 
     render() {
         const { classes } = this.props;
         return (
             <Grid>
+            { this.showLoaderIfNeeded() }
+                <ErrorMessageModal title = { 'Algo salió mal' } errorMessage = { this.state.errorMessage } isOpen = { this.state.errorMessageIsOpen } closeErrorModal = { this.closeErrorModal.bind(this) } />
                 <Grid container spacing={2}>
                     <Grid item >
                         <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>

@@ -1,12 +1,12 @@
 class Address {
     constructor(props) {
       this.state = {
-        direccion1: '',
-        direccion2: '',
-        ciudad: '',
-        estado: '',
-        codigoPostal: '',
-        pais: ''
+        direccion1: "",
+        direccion2: "",
+        ciudad: "",
+        estado: "",
+        codigoPostal: "",
+        pais: ""
       };
     }
 
