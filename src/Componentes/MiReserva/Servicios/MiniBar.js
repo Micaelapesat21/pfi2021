@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300,
+    maxWidth: 350,
   },
   chips: {
     display: 'flex',
@@ -39,13 +39,13 @@ const MenuProps = {
 };
 
 const names = [
-  'No consumi nada',
-  'Agua',
-  'Gaseosa',
-  'Caramelos',
-  'Chocolates',
-  'Cerveza',
-  'Champagne',
+  'No consumi nada ',
+  'Agua $100',
+  'Gaseosa $120',
+  'Caramelos $60',
+  'Chocolates $50',
+  'Cerveza $150',
+  'Champagne $200',
 ];
 
 

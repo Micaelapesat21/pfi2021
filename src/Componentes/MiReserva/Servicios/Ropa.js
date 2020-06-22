@@ -39,27 +39,28 @@ const MenuProps = {
 };
 
 const names = [
-  'Camisa',
-  'Traje',
-  'Medias',
-  'Corbatas',
-  'Ropa interior',
-  'Vestidos',
-  'Pantalones',
-  'Remeras',
-  'Abrigo',
-  'Buzos',
+  'Camisa ',
+  'Traje ',
+  'Medias ',
+  'Corbatas ',
+  'Ropa interior ',
+  'Vestidos ',
+  'Pantalones ',
+  'Remeras ',
+  'Abrigo ',
+  'Buzos ',
 ];
 
 
 
-export default function MultipleSelect() {
+export default function MultipleSelect(props) {
   const classes = useStyles();
 
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
     setPersonName(event.target.value);
+    props.callPrenda(event.target.value)
   };
 
   

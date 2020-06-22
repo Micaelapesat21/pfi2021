@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     },
     reservaChekIn: {
         marginTop: theme.spacing(4),
+        marginLeft: theme.spacing(2),
         [theme.breakpoints.down('xs')]: {
             //marginBottom: theme.spacing(2),
         },
@@ -101,7 +102,9 @@ export default function ReservaRender(props) {
         var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
         var dif = fFecha1 - fFecha2;
         var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-        if (dias <= 2)
+        console.log(dias)
+        console.log(checkIn)
+        if (dias <= 2 && dias >= 0)
             return true
         else
             return false
@@ -109,73 +112,143 @@ export default function ReservaRender(props) {
     function habilitarCheckIN(fecha) {
         var habilitar = difDias(fecha)
         if (habilitar) {
-            return (
-                <Grid>
-                    <Grid container direction="row"  >
-                        {/*IZQUIERDA */}
-                        <Grid item md={3} xs={12} className={classes.izq} >
-                            <Grid container direction="row" justify="center" alignItems="center" >
-                                <Grid item md={12} xs={12}>
-                                    <Typography align="center">Reserva: {props.nroReserva}</Typography>
-                                </Grid>
-                                <Grid item md={8} xs={5}>
-                                    <img src={props.logo} alt="logo" width className={classes.logo} />
-                                </Grid>
-                                <Grid item md={12} xs={7} className={classes.tituloMobile}>
-                                    <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+            if (props.checkInOK) {
+                return (
+                    <Grid>
+                        <Grid container direction="row"  >
+                            {/*IZQUIERDA */}
+                            <Grid item md={3} xs={12} className={classes.izq} >
+                                <Grid container direction="row" justify="center" alignItems="center" >
+                                    <Grid item md={12} xs={12}>
+                                        <Typography align="center">Reserva: #1234567</Typography>
+                                    </Grid>
+                                    <Grid item md={8} xs={5}>
+                                        <img src={props.logo} alt="logo" width className={classes.logo} />
+                                    </Grid>
+                                    <Grid item md={12} xs={7} >
+                                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        {/*Derecha */}
-                        <Grid item md={8} xs={12}>
-                            <Grid container direction="row">
-                                <Grid item md={12} className={classes.reserva}>
-                                    <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
-                                        <Grid item md={6} xs={12}>
-                                            <Grid container direction="row" alignItems="center" justify="center">
-                                                <Grid item md={6} xs={8}>
-                                                    <Button
-                                                        size="small"
-                                                        className={classes.botones}
-                                                        startIcon={<AssignmentTurnedInIcon />}
-                                                        onClick={props.checkInOpen}
-                                                    >
-                                                        Check-In:
-                                                        </Button>
-                                                </Grid>
-                                                <Grid item md={4} xs={2}>
-                                                    <Typography >{fechas(props.CheckIn)}</Typography>
+                            {/*Derecha */}
+                            <Grid item md={8} xs={12}>
+                                <Grid container direction="row" alignItems="center" justify="center">
+                                    <Grid item md={12} className={classes.reserva}>
+                                        <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                            <Grid item md={6} xs={12}>
+                                                <Grid container direction="row" alignItems="center" justify="center">
+                                                    <Grid item md={6} xs={8}>
+                                                        <Button
+                                                            size="small"
+                                                            className={classes.botones}
+                                                            startIcon={<AssignmentTurnedInIcon />}
+                                                            onClick={props.checkInOpen}
+                                                        >
+                                                            Check-In:
+                                                            </Button>
+                                                    </Grid>
+                                                    <Grid item md={4} xs={2}>
+                                                        <Typography >{fechas(props.CheckIn)}</Typography>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
 
-                                <Grid item md={12} xs={12} className={classes.reservaChekIn}>
-                                    <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Ya puede hacer su Check-In</Typography>
+                                    <Grid item md={10} xs={12} className={classes.reservaChekIn}>
+                                        <Typography align="justify" variant="subtitle1" style={{ color: "#4caf50" }}>
+                                            Su Check-In se ah realizado con exito, le hemos enviado a su mail {props.user.email} el QR para poder presentar en recepcion para que le entreguen su llave. Tambien puede presentar el que aparece aca abajo.
+                                        </Typography>
+
+                                    </Grid>
+                                    <Grid item md={12} >
+                                        <Grid container direction="row" justify="center" alignItems="center">
+                                            <Grid item md={6} xs={6}>
+                                                <div id="qrcode">
+                                                    <img src="https://www.codigos-qr.com/qr/php/qr_img.php?d=https%3A%2F%2Fseminario-1-uade.firebaseapp.com%2F&s=8&e=m" alt="Generador de Códigos QR Codes" />
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
+
                     </Grid>
-                    {<AdminCheckIn
-                        user={props.user}
-                        romantico={props.romantico}
-                        ejecutivo={props.ejecutivo}
-                        familia={props.familia}
-                        preferencias={props.preferencias}
-                        perfil={props.perfil}
-                        romanticoOpen={props.romanticoOpen}
-                        ejecutivoOpen={props.ejecutivoOpen}
-                        familiaOpen={props.familiaOpen}
-                        preferenciasOpen={props.preferenciasOpen}
-                        reservasOpenContacto={props.reservasOpenContacto}
-                        id={props.id}
-                        huespedes={props.huespedes}
-                        callPerfilCompletado={props.callPerfilCompletado}
-                        perfilCompletado={props.perfilCompletado}
-                    />}
-                </Grid>
-            )
+                )
+            } else {
+                return (
+                    <Grid>
+                        <Grid container direction="row"  >
+                            {/*IZQUIERDA */}
+                            <Grid item md={3} xs={12} className={classes.izq} >
+                                <Grid container direction="row" justify="center" alignItems="center" >
+                                    <Grid item md={12} xs={12}>
+                                        <Typography align="center">Reserva: {props.nroReserva}</Typography>
+                                    </Grid>
+                                    <Grid item md={8} xs={5}>
+                                        <img src={props.logo} alt="logo" width className={classes.logo} />
+                                    </Grid>
+                                    <Grid item md={12} xs={7} className={classes.tituloMobile}>
+                                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            {/*Derecha */}
+                            <Grid item md={8} xs={12}>
+                                <Grid container direction="row">
+                                    <Grid item md={12} className={classes.reserva}>
+                                        <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                            <Grid item md={6} xs={12}>
+                                                <Grid container direction="row" alignItems="center" justify="center">
+                                                    <Grid item md={6} xs={8}>
+                                                        <Button
+                                                            size="small"
+                                                            className={classes.botones}
+                                                            startIcon={<AssignmentTurnedInIcon />}
+                                                            onClick={props.checkInOpen}
+                                                        >
+                                                            Check-In:
+                                                            </Button>
+                                                    </Grid>
+                                                    <Grid item md={4} xs={2}>
+                                                        <Typography >{fechas(props.CheckIn)}</Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                        <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Ya puede hacer su Check-In</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        {<AdminCheckIn
+                            user={props.user}
+                            romantico={props.romantico}
+                            ejecutivo={props.ejecutivo}
+                            familia={props.familia}
+                            preferencias={props.preferencias}
+                            perfil={props.perfil}
+                            romanticoOpen={props.romanticoOpen}
+                            ejecutivoOpen={props.ejecutivoOpen}
+                            familiaOpen={props.familiaOpen}
+                            preferenciasOpen={props.preferenciasOpen}
+                            reservasOpenContacto={props.reservasOpenContacto}
+                            id={props.id}
+                            huespedes={props.huespedes}
+                            callPerfilCompletado={props.callPerfilCompletado}
+                            perfilCompletado={props.perfilCompletado}
+                            checkInOK={props.checkInOK}
+                            handleCheckIn={props.handleCheckIn}
+                        />}
+                    </Grid>
+                )
+
+            }
+
         } else {
             return (
                 <Grid>
@@ -242,62 +315,119 @@ export default function ReservaRender(props) {
         var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
         if (dias === 0) {
-            return (
-                <Grid>
-                    <Grid container direction="row"  >
-                        {/*IZQUIERDA */}
-                        <Grid item md={3} xs={12} className={classes.izq} >
-                            <Grid container direction="row" justify="center" alignItems="center" >
-                                <Grid item md={12} xs={12}>
-                                    <Typography align="center">Reserva: {props.nroReserva}</Typography>
-                                </Grid>
-                                <Grid item md={8} xs={5}>
-                                    <img src={props.logo} alt="logo" width className={classes.logo} />
-                                </Grid>
-                                <Grid item md={12} xs={7} className={classes.tituloMobile}>
-                                    <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+            if (props.checkOutOK) {
+                return (
+                    <Grid>
+                        <Grid container direction="row"  >
+                            {/*IZQUIERDA */}
+                            <Grid item md={3} xs={12} className={classes.izq} >
+                                <Grid container direction="row" justify="center" alignItems="center" >
+                                    <Grid item md={12} xs={12}>
+                                        <Typography align="center">Reserva: #1234567</Typography>
+                                    </Grid>
+                                    <Grid item md={8} xs={5}>
+                                        <img src={props.logo} alt="logo" width className={classes.logo} />
+                                    </Grid>
+                                    <Grid item md={12} xs={7} >
+                                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        {/*Derecha */}
-                        <Grid item md={8} xs={12}>
-                            <Grid container direction="row">
-                                <Grid item md={12} className={classes.reserva}>
-                                    <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
-                                        <Grid item md={6} xs={12}>
-                                            <Grid container direction="row" alignItems="center" justify="center">
-                                                <Grid item md={6} xs={8}>
-                                                    <Button
-                                                        size="small"
-                                                        className={classes.botones}
-                                                        startIcon={<AssignmentTurnedInIcon />}
-                                                        onClick={props.checkInOpen}
-                                                    >
-                                                        Check-Out:
-                                                        </Button>
-                                                </Grid>
-                                                <Grid item md={4} xs={2}>
-                                                    <Typography >{fechas(props.CheckOut)}</Typography>
+                            {/*Derecha */}
+                            <Grid item md={8} xs={12}>
+                                <Grid container direction="row">
+                                    <Grid item md={12} className={classes.reserva}>
+                                        <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                            <Grid item md={6} xs={12}>
+                                                <Grid container direction="row" alignItems="center" justify="center">
+                                                    <Grid item md={6} xs={8}>
+                                                        <Button
+                                                            size="small"
+                                                            className={classes.botones}
+                                                            startIcon={<AssignmentTurnedInIcon />}
+                                                            onClick={props.checkInOpen}
+                                                        >
+                                                            Check-Out:
+                                                            </Button>
+                                                    </Grid>
+                                                    <Grid item md={4} xs={2}>
+                                                        <Typography >{fechas(props.CheckOut)}</Typography>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
 
-                                <Grid item md={12} xs={12} className={classes.reservaChekIn}>
-                                    <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Ya puede hacer su Check-Out</Typography>
+                                    <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                        <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Check-Out Realizado con exito, por favor dirigase a recepcion y entregue su llave</Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
+
                     </Grid>
+                )
+            } else {
+                return (
+                    <Grid>
+                        <Grid container direction="row"  >
+                            {/*IZQUIERDA */}
+                            <Grid item md={3} xs={12} className={classes.izq} >
+                                <Grid container direction="row" justify="center" alignItems="center" >
+                                    <Grid item md={12} xs={12}>
+                                        <Typography align="center">Reserva: {props.nroReserva}</Typography>
+                                    </Grid>
+                                    <Grid item md={8} xs={5}>
+                                        <img src={props.logo} alt="logo" width className={classes.logo} />
+                                    </Grid>
+                                    <Grid item md={12} xs={7} className={classes.tituloMobile}>
+                                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            {/*Derecha */}
+                            <Grid item md={8} xs={12}>
+                                <Grid container direction="row">
+                                    <Grid item md={12} className={classes.reserva}>
+                                        <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                            <Grid item md={6} xs={12}>
+                                                <Grid container direction="row" alignItems="center" justify="center">
+                                                    <Grid item md={6} xs={8}>
+                                                        <Button
+                                                            size="small"
+                                                            className={classes.botones}
+                                                            startIcon={<AssignmentTurnedInIcon />}
+                                                            onClick={props.checkInOpen}
+                                                        >
+                                                            Check-Out:
+                                                            </Button>
+                                                    </Grid>
+                                                    <Grid item md={4} xs={2}>
+                                                        <Typography >{fechas(props.CheckOut)}</Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
 
-                    <AdminCheckOut
-                        id={props.id}
-                        reservasOpenContacto={props.reservasOpenContacto}
-                    />
+                                    <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                        <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Ya puede hacer su Check-Out</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
 
-                </Grid>
-            )
+                        <AdminCheckOut
+                            id={props.id}
+                            reservasOpenContacto={props.reservasOpenContacto}
+                            checkOutOK={props.checkOutOK}
+                            handleCheckOut={props.handleCheckOut}
+                        />
+
+                    </Grid>
+                )
+            }
+
         } else {
             return (
                 <Grid>
@@ -352,7 +482,7 @@ export default function ReservaRender(props) {
             )
         }
     }
-    
+
 
 
 
@@ -798,6 +928,89 @@ export default function ReservaRender(props) {
                                 )
                             }
 
+                        } else {
+                            if (props.modo === "faltaChekIn") {
+                                if (props.id !== "") {
+                                    return (
+                                        <Card >
+                                            <CardContent>
+                                                <Grid container direction="row"  >
+                                                    {/*IZQUIERDA */}
+                                                    <Grid item md={3} xs={12} className={classes.izq} >
+                                                        <Grid container direction="row" justify="center" alignItems="center" >
+                                                            <Grid item md={12} xs={12}>
+                                                                <Typography align="center">Reserva: {props.nroReserva}</Typography>
+                                                            </Grid>
+                                                            <Grid item md={8} xs={5}>
+                                                                <img src={props.logo} alt="logo" width className={classes.logo} />
+                                                            </Grid>
+                                                            <Grid item md={12} xs={7} className={classes.tituloMobile}>
+                                                                <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                                                            </Grid>
+
+                                                        </Grid>
+                                                    </Grid>
+                                                    {/*Derecha */}
+                                                    <Grid item md={8} xs={12}>
+                                                        <Grid container direction="row">
+
+                                                            <Grid item md={12} className={classes.reserva}>
+                                                                <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                                                    <Grid item md={6} xs={12}>
+                                                                        <Grid container direction="row" alignItems="center" justify="center">
+                                                                            <Grid item md={6} xs={6}>
+                                                                                <Button
+                                                                                    size="small"
+                                                                                    className={classes.botones}
+                                                                                    startIcon={<AssignmentTurnedInIcon />}
+                                                                                    onClick={props.checkInOpen}
+                                                                                >
+                                                                                    Check-In:
+                                                                                 </Button>
+                                                                            </Grid>
+                                                                            <Grid item md={4} xs={4}>
+                                                                                <Typography >{fechas(props.CheckIn)}</Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item md={6} xs={12}>
+                                                                        <Grid container direction="row" alignItems="center" justify="center">
+                                                                            <Grid item md={6} xs={6}>
+                                                                                <Button
+                                                                                    size="small"
+                                                                                    className={classes.botones}
+                                                                                    startIcon={<MeetingRoomIcon />}
+                                                                                    onClick={props.checkOutOpen}
+                                                                                >
+                                                                                    Check-Out:
+                                                                                </Button>
+                                                                            </Grid>
+                                                                            <Grid item md={6} xs={4}>
+                                                                                <Typography >{fechas(props.CheckOut)}</Typography>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                                                <Typography align="center" variant="h5" color="error">Realice su Check-In primero para empezar a utilizar sus servicios</Typography>
+                                                            </Grid>
+
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </CardContent>
+                                        </Card>
+                                    )
+                                } else {
+                                    return (
+                                        <div>
+
+                                        </div>
+                                    )
+                                }
+                            }
                         }
                     }
                 }

@@ -44,7 +44,8 @@ class CheckOut extends Component {
                     checkInOpen={this.props.checkInOpen}
                     checkOutOpen={this.props.checkOutOpen}
                     modo={this.props.modo}
-          
+                    checkOutOK={this.props.checkOutOK}
+                    handleCheckOut={this.props.handleCheckOut}
                 />
             </Grid>
             <Grid item xs={12} md={8} lg={9}>

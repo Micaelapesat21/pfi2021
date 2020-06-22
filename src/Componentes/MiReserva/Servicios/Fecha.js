@@ -5,11 +5,11 @@ import { DatePicker } from "@material-ui/pickers";
 function Fecha(props) {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  
+
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-   
+    props.callFecha(date)
   };
 
   return (

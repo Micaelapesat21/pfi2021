@@ -43,10 +43,10 @@ export default function PanelControl(props) {
     const [modoPerfil, setmodoPerfil] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
-    const [modoServicios, setmodoServicios] = React.useState(false);
+    const [modoServicios, setmodoServicios] = React.useState(true);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
-    const [modoPagos, setmodoPagos] = React.useState(true);
+    const [modoPagos, setmodoPagos] = React.useState(false);
     const [modoHistorial, setmodoHistorial] = React.useState(false);
     const [modoAyuda, setmodoAyuda] = React.useState(false);
 
@@ -57,6 +57,15 @@ export default function PanelControl(props) {
     const [perfil, setPer] = React.useState(0);
     const [expanded, setExpanded] = React.useState(false);
     const [contacto, setContacto] = React.useState(false);
+    const [checkOutOK, setCheckOutOK] = React.useState(false);
+    const [checkInOK, setCheckInOK] = React.useState(true);
+
+    const handleCheckOut = () => {
+        setCheckOutOK(!checkOutOK);
+    };
+    const handleCheckIn = () => {
+        setCheckInOK(!checkInOK);
+    };
  
     const generalOpen = () => {
         setmodoGeneral(true);
@@ -386,6 +395,8 @@ export default function PanelControl(props) {
                                     reservasOpenContacto={reservasOpenContacto}
                                     perfilCompletado={props.perfilCompletado}
                                     callPerfilCompletado={props.callPerfilCompletado}
+                                    checkInOK={checkInOK}
+                                    handleCheckIn={handleCheckIn}
                                 />}
                             </Container>
                         </main>
@@ -423,6 +434,7 @@ export default function PanelControl(props) {
                                         reservasOpenContacto={reservasOpenContacto}
                                         perfilCompletado={props.perfilCompletado}
                                         callPerfilCompletado={props.callPerfilCompletado}
+                                        checkInOK={checkInOK}
                                     />
                                 </Container>
                             </main>
@@ -449,6 +461,8 @@ export default function PanelControl(props) {
                                             checkOutOpen={checkOutOpen}
                                             modo={"Check-Out"}
                                             reservasOpenContacto={reservasOpenContacto}
+                                            checkOutOK={checkOutOK}
+                                            handleCheckOut={handleCheckOut}
                                         />
                                     </Container>
                                 </main>
@@ -476,7 +490,7 @@ export default function PanelControl(props) {
                                         <main className={classes.content}>
                                             <div className={classes.appBarSpacer} />
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <Tarjetas />
+                                                <Tarjetas  modo={"Tarjetas"}/>
                                             </Container>
                                         </main>
                                     </div>

@@ -51,11 +51,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     minHeight: 300,
   },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
 }));
 
 export default function FullWidthTabs(props) {
@@ -82,7 +77,8 @@ export default function FullWidthTabs(props) {
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
-          variant="fullWidth"
+          variant="scrollable"
+          scrollButtons="on"
           aria-label="full width tabs example"
         >
           <Tab label="Servicios del Hotel" {...a11yProps(0)} />
@@ -102,6 +98,8 @@ export default function FullWidthTabs(props) {
             estacionamiento={props.estacionamiento}
             tintoreria={props.tintoreria}
             handleChange={props.handleChange}
+            add={props.add}
+            array={props.data}
           />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
@@ -110,6 +108,8 @@ export default function FullWidthTabs(props) {
             limpieza={props.limpieza}
             comidas={props.comidas}
             handleChange={props.handleChange}
+            add={props.add}
+            array={props.data}
           />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
@@ -119,6 +119,8 @@ export default function FullWidthTabs(props) {
             masajes={props.masajes}
             tratamiento={props.tratamiento}
             handleChange={props.handleChange}
+            add={props.add}
+            array={props.data}
           />
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
@@ -132,6 +134,8 @@ export default function FullWidthTabs(props) {
             eventos={props.eventos}
             actividades={props.actividades}
             handleChange={props.handleChange}
+            add={props.add}
+            array={props.data}
           />
         </TabPanel>
       </SwipeableViews>

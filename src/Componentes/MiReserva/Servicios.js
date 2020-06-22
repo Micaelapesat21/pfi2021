@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Paper, Typography, Button, Divider } from '@material-ui/core';
+import { Grid, Paper, Typography, Button, Divider, ButtonBase } from '@material-ui/core';
 import clsx from 'clsx';
 import foto from '../../Imagenes/logoHotel.png'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
@@ -10,6 +10,7 @@ import TabsServicios from './Servicios/TabsServicios'
 import Solicitados from './Servicios/Solicitados';
 import ReservaRender from './ReservaRender';
 import foto2 from '../../Imagenes/logoFourSeason.jpg'
+import DialogSolicitudes from './Servicios/DialogSolicitudes';
 //import Prueba from './Prueba'
 
 
@@ -21,10 +22,18 @@ const styles = theme => ({
         overflow: 'auto',
         flexDirection: 'column',
     },
+    paperSolicitudes: {
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+    },
+    titleSolicitudes: {
+        padding: theme.spacing(1),
+    },
     fixedHeight: {
         height: 100,
         [theme.breakpoints.down('xs')]: {
-            height: 400,
+            height: 150,
         },
     },
     fixedHeightDatos: {
@@ -51,6 +60,28 @@ const styles = theme => ({
         height: 60,
         width: 60,
 
+    },
+    base: {
+        width: "100%",
+        padding: theme.spacing(2),
+        [theme.breakpoints.down('xs')]: {
+        },
+        '&:hover, &$focusVisible': {
+            zIndex: 1,
+            '& $imageBackdrop': {
+                opacity: 0.1,
+            },
+        },
+    },
+    imageBackdrop: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: theme.palette.common.black,
+        opacity: 0,
+        transition: theme.transitions.create('opacity'),
     },
 
 })
@@ -80,9 +111,26 @@ class Servicios extends Component {
             Buceo: false,
             eventos: false,
             actividades: false,
+            open: false,
+            data: [
+                {
+                    categoria: "",
+                }
+            ],
         }
+        this.add = this.add.bind(this);
     }
 
+    add(newData) {
+        this.setState({ data: newData });
+        //console.log(this.state.data)
+    }
+    handleOpen = () => {
+        this.setState({ open: true })
+    }
+    handleClose = () => {
+        this.setState({ open: false })
+    }
 
 
     handleChange = name => event => {
@@ -120,7 +168,7 @@ class Servicios extends Component {
     render() {
         const { classes } = this.props;
         const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-        const fixedHeightPaperDatos = clsx(classes.paper, classes.fixedHeightDatos);
+        const fixedHeightPaperDatos = clsx(classes.paperSolicitudes, classes.fixedHeightDatos);
         var now = this.fechaNow()
         var aFecha1 = this.props.CheckIn.split("-");
         var aFecha2 = this.props.CheckOut.split("-");
@@ -137,62 +185,62 @@ class Servicios extends Component {
         // var Inicio = Math.floor(dif1 / (1000 * 60 * 60 * 24));
         var Fin = Math.floor(dif2 / (1000 * 60 * 60 * 24));
         var Dias = Math.floor(dif3 / (1000 * 60 * 60 * 24));
-        console.log(Fin)
+        
 
         if (Dias >= 0 && Fin > 0) {
+            if (this.props.checkInOK) {
+                return (
+                    <Grid container spacing={2}>
 
+                        <Grid item xs={12} md={8} lg={9}>
+                            <Grid container spacing={2}>
 
-            return (
-                <Grid container spacing={2}>
-
-                    <Grid item xs={12} md={8} lg={9}>
-                        <Grid container spacing={2}>
-
-                            <Grid item xs={12} >
-                                <Paper className={fixedHeightPaper} elevation={3} >
-                                    <Grid container>
-                                        <Grid item md={1} className={classes.izq}>
-                                            <img src={foto} alt="logo" className={classes.logo} />
-                                        </Grid>
-                                        <Grid item md={11}>
-                                            <Grid container>
-                                                <Grid item md={12} className={classes.arriba}>
-                                                    <Typography component="h2" variant="h6" color="primary">Estadia Hotel Paihuen #1234567</Typography>
-                                                </Grid>
-                                                <Grid item md={12}>
-                                                    <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
-                                                        <Grid item md={6} xs={12}>
-                                                            <Grid container direction="row" alignItems="center" justify="center">
-                                                                <Grid item md={5} xs={6}>
-                                                                    <Button
-                                                                        size="small"
-                                                                        className={classes.botones}
-                                                                        startIcon={<AssignmentTurnedInIcon />}
-                                                                        onClick={this.props.checkInOpen}
-                                                                    >
-                                                                        Check-In:
-                                                                </Button>
-                                                                </Grid>
-                                                                <Grid item md={4} xs={4}>
-                                                                    <Typography >{this.fechas(this.props.CheckIn)}</Typography>
+                                <Grid item xs={12} >
+                                    <Paper className={fixedHeightPaper} elevation={3} >
+                                        <Grid container>
+                                            <Grid item md={1} xs={2} className={classes.izq}>
+                                                <img src={foto} alt="logo" className={classes.logo} />
+                                            </Grid>
+                                            <Grid item md={11} xs={10}>
+                                                <Grid container>
+                                                    <Grid item md={12} className={classes.arriba}>
+                                                        <Typography component="h2" variant="h6" color="primary">Estadia Hotel Paihuen #1234567</Typography>
+                                                    </Grid>
+                                                    <Grid item md={12}>
+                                                        <Grid container direction="row" alignItems="center" justify="center" spacing={1}>
+                                                            <Grid item md={6} xs={12}>
+                                                                <Grid container direction="row" alignItems="center" justify="center">
+                                                                    <Grid item md={5} xs={6}>
+                                                                        <Button
+                                                                            size="small"
+                                                                            className={classes.botones}
+                                                                            startIcon={<AssignmentTurnedInIcon />}
+                                                                            onClick={this.props.checkInOpen}
+                                                                        >
+                                                                            Check-In:
+                                                                    </Button>
+                                                                    </Grid>
+                                                                    <Grid item md={4} xs={4}>
+                                                                        <Typography >{this.fechas(this.props.CheckIn)}</Typography>
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
 
-                                                        <Grid item md={6} xs={12}>
-                                                            <Grid container direction="row" alignItems="center" justify="center">
-                                                                <Grid item md={6} xs={6}>
-                                                                    <Button
-                                                                        size="small"
-                                                                        className={classes.botones}
-                                                                        startIcon={<MeetingRoomIcon />}
-                                                                        onClick={this.props.checkOutOpen}
-                                                                    >
-                                                                        Check-Out:
-                                                                </Button>
-                                                                </Grid>
-                                                                <Grid item md={4} xs={4}>
-                                                                    <Typography >{this.fechas(this.props.CheckOut)}</Typography>
+                                                            <Grid item md={6} xs={12}>
+                                                                <Grid container direction="row" alignItems="center" justify="center">
+                                                                    <Grid item md={6} xs={6}>
+                                                                        <Button
+                                                                            size="small"
+                                                                            className={classes.botones}
+                                                                            startIcon={<MeetingRoomIcon />}
+                                                                            onClick={this.props.checkOutOpen}
+                                                                        >
+                                                                            Check-Out:
+                                                                    </Button>
+                                                                    </Grid>
+                                                                    <Grid item md={4} xs={4}>
+                                                                        <Typography >{this.fechas(this.props.CheckOut)}</Typography>
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -200,58 +248,100 @@ class Servicios extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
-                                </Paper>
+                                    </Paper>
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper} elevation={3}>
+                                        <Typography component="h2" variant="h6" color="primary" gutterBottom>Seleccione sus servicios</Typography>
+                                        <Divider />
+
+                                        <TabsServicios
+                                            restaurante={this.state.restaurante}
+                                            estacionamiento={this.state.estacionamiento}
+                                            tintoreria={this.state.tintoreria}
+                                            servicio={this.state.servicio}
+                                            limpieza={this.state.limpieza}
+                                            comidas={this.state.comidas}
+                                            spa={this.state.spa}
+                                            gimnasio={this.state.gimnasio}
+                                            masajes={this.state.masajes}
+                                            tratamiento={this.state.tratamiento}
+                                            botes={this.state.botes}
+                                            bicicletas={this.state.bicicletas}
+                                            autos={this.state.autos}
+                                            motos={this.state.motos}
+                                            ski={this.state.ski}
+                                            Buceo={this.state.Buceo}
+                                            eventos={this.state.eventos}
+                                            actividades={this.state.actividades}
+                                            handleChange={this.handleChange}
+                                            add={this.add}
+                                            data={this.state.data}
+                                        />
+                                    </Paper>
+                                </Grid>
+
                             </Grid>
-                            <Grid item xs={12}>
-                                <Paper className={classes.paper} elevation={3}>
-                                    <Typography component="h2" variant="h6" color="primary" gutterBottom>Seleccione sus servicios</Typography>
-                                    <Divider />
+                        </Grid>
 
-                                    <TabsServicios
-                                        restaurante={this.state.restaurante}
-                                        estacionamiento={this.state.estacionamiento}
-                                        tintoreria={this.state.tintoreria}
-                                        servicio={this.state.servicio}
-                                        limpieza={this.state.limpieza}
-                                        comidas={this.state.comidas}
-                                        spa={this.state.spa}
-                                        gimnasio={this.state.gimnasio}
-                                        masajes={this.state.masajes}
-                                        tratamiento={this.state.tratamiento}
-                                        botes={this.state.botes}
-                                        bicicletas={this.state.bicicletas}
-                                        autos={this.state.autos}
-                                        motos={this.state.motos}
-                                        ski={this.state.ski}
-                                        Buceo={this.state.Buceo}
-                                        eventos={this.state.eventos}
-                                        actividades={this.state.actividades}
-                                        handleChange={this.handleChange}
-
-                                    />
-                                </Paper>
-                            </Grid>
-
+                        <Grid item xs={12} md={4} lg={3}>
+                            <Paper className={fixedHeightPaperDatos} elevation={3}>
+                                <Typography component="h2" variant="h6" color="primary" className={classes.titleSolicitudes} gutterBottom>Servicios Solicitados</Typography>
+                                <Divider />
+                                {this.state.data.map((item, index) => {
+                                    if (item.categoria !== "")
+                                        return (
+                                            <div key={index}>
+                                                <ButtonBase className={classes.base} onClick={this.handleOpen} focusVisibleClassName>
+                                                    <Solicitados item={item} />
+                                                    <span className={classes.imageBackdrop} />
+                                                </ButtonBase>
+                                                <Divider />
+                                                <DialogSolicitudes item={item} open={this.state.open} onClose={this.handleClose} />
+                                            </div>
+                                        )
+                                    else
+                                        return (<div></div>)
+                                })}
+                                {/* <ButtonBase className={classes.base}>
+                                    <Solicitados />
+                                    <span className={classes.imageBackdrop} />
+                                </ButtonBase>
+                                <Divider />
+                                <ButtonBase className={classes.base}>
+                                    <Solicitados />
+                                    <span className={classes.imageBackdrop} />
+                                </ButtonBase>
+                                <Divider />*/}
+                            </Paper>
                         </Grid>
                     </Grid>
-
-                    <Grid item xs={12} md={4} lg={3}>
-                        <Paper className={fixedHeightPaperDatos} elevation={3}>
-                            <Typography component="h2" variant="h6" color="primary" gutterBottom>Servicios Solicitados</Typography>
-                            <Divider />
-                            <Solicitados />
-                            <Divider />
-                            <Solicitados />
-                            <Divider />
-                        </Paper>
+                );
+            } else {
+                return (
+                    <Grid container spacing={3} justify="center" alignItems="center">
+                        <Grid item xs={12} md={8} lg={9}>
+                            <Typography variant="h3">Servicios</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={8} lg={9}>
+                            <ReservaRender
+                                user={this.props.user}
+                                id={this.props.id}
+                                nroReserva={"#1234568"}
+                                logo={foto}
+                                CheckIn={this.props.CheckIn}
+                                CheckOut={this.props.CheckOut}
+                                huespedes={this.props.huespedes}
+                                precio={this.props.precio}
+                                checkInOpen={this.props.checkInOpen}
+                                checkOutOpen={this.props.checkOutOpen}
+                                modo={"faltaChekIn"}
+                            />
+                        </Grid>
                     </Grid>
-
-                    <Grid item xs={12} md={8} lg={9}>
-
-                    </Grid>
-                </Grid>
-            );
+                )
+            }
         } else {
             return (
                 <Grid container spacing={3} justify="center" alignItems="center">

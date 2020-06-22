@@ -12,11 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import SeleccionarFechas from './SeleccionarFechas';
 import Review from './ReviewForm';
 import { Link } from 'react-router-dom'
-import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
+//import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
 import { IconButton } from '@material-ui/core';
 import RenderAvatar from '../login/RenderAvatar';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../login/AuthController'
+import Tarjetas from '../MiPerfil/Tarjetas';
 
 
 
@@ -80,13 +81,14 @@ function getStepContent(step, props) {
         callCheckOut={props.callCheckOut}
       />;
     case 1:
-      return <TarjetaCheta
+      return <Tarjetas
         callNumeroTarjeta={props.callNumeroTarjeta}
         callNombreTarjeta={props.callNombreTarjeta}
         callMesTarjeta={props.callMesTarjeta}
         callAñoTarjeta={props.callAñoTarjeta}
         callCodTarjeta={props.callCodTarjeta}
         callTipoTarjeta={props.callTipoTarjeta}
+        modo={"ReservaApi"}
       />;
     case 2:
       return <Review

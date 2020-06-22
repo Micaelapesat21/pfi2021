@@ -247,7 +247,7 @@ export default function AdminReserva(props) {
                     <Grid item md={11} xs={12}>
                         <Grid container justify="flex-end">
                             <Grid item >
-                                <Button variant="contained" color="primary">Confirmar</Button>
+                                <Button variant="contained" color="primary" onClick={props.handleCheckIn}>Confirmar</Button>
                             </Grid>
                         </Grid>
                     </Grid>

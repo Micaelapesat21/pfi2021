@@ -55,7 +55,7 @@ const styles = theme => ({
             '& $imageBackdrop': {
                 opacity: 0.1,
                 borderLeft: "6px solid #01579b",
-            },            
+            },
         },
     },
     imageBackdrop: {
@@ -65,11 +65,11 @@ const styles = theme => ({
         top: 0,
         bottom: 0,
         backgroundColor: theme.palette.common.black,
-        opacity: 0,       
+        opacity: 0,
         transition: theme.transitions.create('opacity'),
         borderLeft: "6px solid #01579b",
 
-    }, 
+    },
 })
 
 class Tarjetas extends Component {
@@ -85,17 +85,37 @@ class Tarjetas extends Component {
 
     agregarTarjeta() {
         if (this.state.open)
-            return (
-                <Grid>
-                    <TarjetaCheta />
-                    <Grid container alignItems="flex-end" justify="flex-end">
-                        <Grid item md={4} xs={5}>
-                            <Button variant="contained" color="primary">Agregar</Button>
-                        </Grid>
+            if (this.props.modo === "ReservaApi")
+                return (
+                    <Grid>
+                        <TarjetaCheta />
                     </Grid>
+                )
+            else
+                if (this.props.modo === "CheckOut")
+                    return (
+                        <Grid>
+                            <TarjetaCheta />
+                            <Grid container alignItems="flex-end" justify="flex-end">
+                                <Grid item md={3} xs={5}>
+                                    <Button variant="contained" color="primary" onClick={this.props.handleCheckOut}>Pagar</Button>
+                                </Grid>
+                            </Grid>
 
-                </Grid>
-            )
+                        </Grid>
+                    )
+                else
+                    return (
+                        <Grid>
+                            <TarjetaCheta />
+                            <Grid container alignItems="flex-end" justify="flex-end">
+                                <Grid item md={3} xs={5}>
+                                    <Button variant="contained" color="primary" size="large">Agregar</Button>
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                    )
         else
             return (
                 <div></div>
@@ -103,58 +123,114 @@ class Tarjetas extends Component {
 
     }
 
+
     render() {
         const { classes } = this.props;
 
-        return (
-            <Grid container spacing={3} justify="center" alignItems="center">
-                <Grid item xs={12} md={8} lg={9}>
 
-                    <Typography variant="h4">Tarjetas</Typography>
+        if (this.props.modo === "ReservaApi" || this.props.modo === "CheckOut") {
 
-                </Grid>
-                <Grid item xs={12} md={7} lg={7}>
-                    <Paper>
 
-                        <ButtonBase className={classes.image} focusRipple >
-                            <Grid container justify="center" alignItems="center" >
-                                <Grid item md={3} xs={3}>
-                                    <img src={visa} alt="visa" className={classes.logoVisa} />
+            return (
+                <Grid container spacing={3} justify="center" alignItems="center">
+                    <Grid item xs={12} md={8} lg={9}>
+
+                        <Typography variant="h6">Tus Tarjetas</Typography>
+
+                    </Grid>
+                    <Grid item xs={12} md={12} lg={12}>
+                        <Paper>
+
+                            <ButtonBase className={classes.image} focusRipple >
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={3} xs={4}>
+                                        <img src={visa} alt="visa" className={classes.logoVisa} />
+                                    </Grid>
+                                    <Grid item md={9} xs={8}>
+                                        <Typography variant="h6">Visa Débito terminada en 4787</Typography>
+                                    </Grid>
                                 </Grid>
-                                <Grid item md={9} xs={9}>
-                                    <Typography variant="h6">Visa Débito terminada en 4787</Typography>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                            <Divider />
+                            <ButtonBase className={classes.image} >
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={3} xs={4}>
+                                        <img src={mp} alt="visa" className={classes.logoMp} />
+                                    </Grid>
+                                    <Grid item md={9} xs={8}>
+                                        <Typography variant="body1" style={{ color: "#009ee3" }}>Pague con su cuenta de MercadoPago</Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <span className={classes.imageBackdrop} /> 
-                        </ButtonBase>
-                        <Divider />
-                        <ButtonBase className={classes.image} >
-                            <Grid container justify="center" alignItems="center" >
-                                <Grid item md={3} xs={3}>
-                                    <img src={mp} alt="visa" className={classes.logoMp} />
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                            <Divider />
+                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}>
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={11} xs={10}>
+                                        <Typography variant="body1" color="primary" align="left">Pagar con otra tarjeta</Typography>
+                                    </Grid>
                                 </Grid>
-                                <Grid item md={9} xs={9}>
-                                    <Typography variant="body1" style={{ color: "#009ee3" }}>Pague con su cuenta de MercadoPago</Typography>
-                                </Grid>
-                            </Grid>
-                            <span className={classes.imageBackdrop} /> 
-                        </ButtonBase>
-                        <Divider />
-                        <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}>
-                            <Grid container justify="center" alignItems="center" >
-                                <Grid item md={11} xs={10}>
-                                    <Typography variant="body1" color="primary" align="left">Agregar otra tarjeta</Typography>
-                                </Grid>
-                            </Grid>
-                            <span className={classes.imageBackdrop} /> 
-                        </ButtonBase>
-                    </Paper>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={12} lg={12}>
+                        {this.agregarTarjeta()}
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={7} lg={7}>
-                    {this.agregarTarjeta()}
+            );
+        } else {
+            return (
+                <Grid container spacing={3} justify="center" alignItems="center">
+                    <Grid item xs={12} md={8} lg={9}>
+
+                        <Typography variant="h5">Tus Tarjetas</Typography>
+
+                    </Grid>
+                    <Grid item xs={12} md={7} lg={7}>
+                        <Paper>
+
+                            <ButtonBase className={classes.image} focusRipple >
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={3} xs={3}>
+                                        <img src={visa} alt="visa" className={classes.logoVisa} />
+                                    </Grid>
+                                    <Grid item md={9} xs={9}>
+                                        <Typography variant="h6">Visa Débito terminada en 4787</Typography>
+                                    </Grid>
+                                </Grid>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                            <Divider />
+                            <ButtonBase className={classes.image} >
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={3} xs={3}>
+                                        <img src={mp} alt="visa" className={classes.logoMp} />
+                                    </Grid>
+                                    <Grid item md={9} xs={9}>
+                                        <Typography variant="body1" style={{ color: "#009ee3" }}>Cuenta de MercadoPago</Typography>
+                                    </Grid>
+                                </Grid>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                            <Divider />
+                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}>
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={11} xs={10}>
+                                        <Typography variant="body1" color="primary" align="left">Agregar otra tarjeta</Typography>
+                                    </Grid>
+                                </Grid>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={7} lg={7}>
+                        {this.agregarTarjeta()}
+                    </Grid>
                 </Grid>
-            </Grid>
-        );
+            );
+        }
     }
 }
 
