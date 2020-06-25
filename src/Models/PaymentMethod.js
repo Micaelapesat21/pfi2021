@@ -2,6 +2,7 @@ class PaymentMethod {
     constructor(props) {
       this.state = {
         name: props.name,
+        name: props.lastName,
         cardNumber: props.cardNumber,
         expirationDate: props.expirationDate,
         securityCode: props.securityCode,
