@@ -7,6 +7,7 @@ import ReservaRender from './MiReserva/ReservaRender.js';
 import foto from '../Imagenes/logoHotel.png'
 import foto2 from '../Imagenes/logoFourSeason.jpg'
 import InfoIcon from '@material-ui/icons/Info';
+//import Prueba from './Prueba'
 
 
 
@@ -18,7 +19,7 @@ const styles = theme => ({
         flexDirection: 'column',
     },
     fixedHeight: {
-        height: 260,
+        height: 280,
         [theme.breakpoints.down('xs')]: {
             height: 400,
         },
@@ -275,7 +276,7 @@ class General extends Component {
                                     checkOutOpen={this.props.checkOutOpen}
                                     modo={this.props.modo}
                                 />
-                                <Divider className={classes.divider} />
+
                                 <ReservaRender
                                     id={"Four Season"}
                                     nroReserva={"#1234567"}
@@ -288,6 +289,13 @@ class General extends Component {
                                     checkOutOpen={this.props.checkOutOpen}
                                     modo={this.props.modo}
                                 />
+
+                                {/* <Prueba
+                                    checkInOpen={this.props.checkInOpen}
+                                    checkOutOpen={this.props.checkOutOpen}
+                                    modo={this.props.modo}
+
+                                />*/}
                             </Paper>
                         </Grid>
                         <Grid item xs={12}>
@@ -311,6 +319,7 @@ class General extends Component {
                                 </Grid>
                             </Paper>
                         </Grid>
+
                     </Grid>
                 </Grid>
 

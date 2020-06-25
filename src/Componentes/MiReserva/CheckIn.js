@@ -60,6 +60,8 @@ class CheckIn extends Component {
                         reservasOpenContacto={this.props.reservasOpenContacto}
                         perfilCompletado={this.props.perfilCompletado}
                         callPerfilCompletado={this.props.callPerfilCompletado}
+                        checkInOK={this.props.checkInOK}
+                        handleCheckIn={this.props.handleCheckIn}
                     />
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
