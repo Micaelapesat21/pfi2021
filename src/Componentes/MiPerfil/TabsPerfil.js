@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -68,10 +68,14 @@ const useStyles = makeStyles((theme) => ({
 export default function TabsPerfil(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const [value, setValue] = React.useState(0);
-
-
-
+    const [value, setValue] = React.useState(1);
+    const [state, setState] = React.useState({
+        romantico: false,
+        ejecutivo: false,
+        familia: false,
+        preferencias: false,
+        elegido: "",
+    });
     const [bienvenida, setBienvenida] = React.useState({
         aguaFria: false,
         champagne: false,
@@ -81,25 +85,24 @@ export default function TabsPerfil(props) {
         golosinas: false,
         fiambres: false,
         pasteleria: false,
+        elegido1:"",
+        elegido2:"",
     });
-
     const [houseKeeping, setHouseKeeping] = React.useState({
         siete: false,
         nueve: false,
         once: false,
         trece: false,
+        elegido:"",
     });
-
     const [tintoreria, setTintoreria] = React.useState({
         uno: false,
         dos: false,
         tres: false,
         cuatro: false,
+        elegido:"",
     });
 
-    useEffect(() => {
-        setValue(props.perfil)
-    }, [props.perfil]);
 
 
 
@@ -113,6 +116,16 @@ export default function TabsPerfil(props) {
     const handleChangeIndex = (index) => {
         setValue(index);
     };
+
+   
+    const handleChangeSwitch = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked, elegido: event.target.name });
+    };
+
+    
+
+
+   
 
     return (
         <div className={classes.root}>
@@ -144,27 +157,29 @@ export default function TabsPerfil(props) {
                         perfilCompletado={props.perfilCompletado}
                         callPerfilCompletado={props.callPerfilCompletado}
                     />
+
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     <Grid container  >
                         <Grid item xs={12} md={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                {/*PERFILES*/}               <FormLabel component="legend">Seleccione su tipo de Perfil</FormLabel>
+                                {/*PERFILES*/}
+                                <FormLabel component="legend">Seleccione su tipo de Perfil</FormLabel>
                                 <FormGroup tag="div">
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={props.romantico} onChange={props.romanticoOpen} name="romantico" />}
+                                        control={<Switch color="primary" checked={state.romantico} onChange={handleChangeSwitch} name="romantico" />}
                                         label="Romantico"
                                     />
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={props.ejecutivo} onChange={props.ejecutivoOpen} name="ejecutivo" />}
+                                        control={<Switch color="primary" checked={state.ejecutivo} onChange={handleChangeSwitch} name="ejecutivo" />}
                                         label="Ejecutivo"
                                     />
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={props.familia} onChange={props.familiaOpen} name="familia" />}
+                                        control={<Switch color="primary" checked={state.familia} onChange={handleChangeSwitch} name="familia" />}
                                         label="Familia"
                                     />
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={props.preferencias} onChange={props.preferenciasOpen} name="preferencias" />}
+                                        control={<Switch color="primary" checked={state.preferencias} onChange={handleChangeSwitch} name="preferencias" />}
                                         label="Mis Preferencias"
                                     />
                                 </FormGroup>
@@ -196,6 +211,7 @@ export default function TabsPerfil(props) {
                     />
                 </TabPanel>
             </SwipeableViews>
+          
         </div>
     )
 }

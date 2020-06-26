@@ -23,12 +23,12 @@ export default function Tintoreria(props) {
   const tintoreria=props.tintoreria
 
   const handleChange = (event) => {
-    setTintoreria({ ...tintoreria, [event.target.name]: event.target.checked });
+    setTintoreria({ ...tintoreria, [event.target.name]: event.target.checked,elegido:event.target.name });
   };
 
   const { uno, dos, tres,cuatro } = tintoreria;
  
-
+ 
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>

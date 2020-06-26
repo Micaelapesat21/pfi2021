@@ -108,7 +108,7 @@ export default function PanelControl(props) {
             <nav className={classes.drawer} aria-label="mailbox folders">
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
-                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerToggle} open={false}  modo={props.modo} />
+                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerToggle} open={false}  modo={props.modo}  darkState={props.darkState}  handleThemeChange={props.handleThemeChange} />
                     <Drawer
                         container={container}
                         variant="temporary"
@@ -126,7 +126,7 @@ export default function PanelControl(props) {
                     </Drawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
-                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} modo={props.modo} />
+                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} modo={props.modo}  darkState={props.darkState}  handleThemeChange={props.handleThemeChange}/>
                     <Drawer
                         variant="permanent"
                         classes={{

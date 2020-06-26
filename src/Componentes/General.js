@@ -254,7 +254,7 @@ class General extends Component {
                     <Grid container spacing={3}>
 
                         <Grid item xs={12} >
-                            <Paper className={fixedHeightPaper} elevation={3} >
+                            <Paper className={fixedHeightPaper} elevation={10} >
                                 <Grid container direction="row" >
                                     <Grid item md={10} xs={10}>
                                         <Typography component="h2" variant="h6" color="primary" gutterBottom>Reserva actual</Typography>
@@ -299,7 +299,7 @@ class General extends Component {
                             </Paper>
                         </Grid>
                         <Grid item xs={12}>
-                            <Paper className={classes.paper} elevation={3}>
+                            <Paper className={classes.paper} elevation={10}>
                                 <Typography component="h2" variant="h6" color="primary" gutterBottom>Avisos</Typography>
                                 <Divider />
                                 <Grid container direction="row" >
@@ -324,7 +324,7 @@ class General extends Component {
                 </Grid>
 
                 <Grid item xs={12} md={4} lg={3}>
-                    <Paper className={fixedHeightPaperDatos} elevation={3}>
+                    <Paper className={fixedHeightPaperDatos} elevation={10}>
                         <Typography component="h2" variant="h6" color="primary" gutterBottom>Mi Perfil</Typography>
                         <Divider />
                         <br />

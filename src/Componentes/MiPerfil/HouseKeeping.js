@@ -23,7 +23,7 @@ export default function HouseKeeping(props) {
   const houseKeeping=props.houseKeeping
 
   const handleChange = (event) => {
-    setHouseKeeping({ ...houseKeeping, [event.target.name]: event.target.checked });
+    setHouseKeeping({ ...houseKeeping, [event.target.name]: event.target.checked, elegido:event.target.name });
   };
 
   const { siete, nueve, once,trece } = houseKeeping;

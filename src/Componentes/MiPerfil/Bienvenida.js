@@ -25,7 +25,7 @@ export default function Bienvenida(props) {
   const bienvenida=props.bienvenida
 
   const handleChange = (event) => {
-    setBienvenida({ ...props.bienvenida, [event.target.name]: event.target.checked });
+    setBienvenida({ ...props.bienvenida, [event.target.name]: event.target.checked, elegido:event.target.name });
   };
 
   

@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Typography, TextField, ButtonBase, Button } from '@material-ui/core';
+import { Grid, Typography, TextField, ButtonBase, Button, Backdrop } from '@material-ui/core';
 import RenderAvatar from '../login/RenderAvatar';
 import GuestInfo from '../../Models/Guest/GuestInfo';
 import GuestAPI from './../../Network/Guest/GuestAPI';
@@ -136,9 +136,10 @@ class FormularioDatos extends Component {
             GuestInfo.getInstance().setUserData(dict);
             this.postGuestInfo()
         } else {
-            this.setState({ errorMessageIsOpen: true,
+            this.setState({
+                errorMessageIsOpen: true,
                 errorMessage: "Verifique si lleno todos los datos."
-             });
+            });
         }
     }
 
@@ -169,8 +170,10 @@ class FormularioDatos extends Component {
         this.setState({ loading: false });
         if (guestInfo.error == null) {
             //post was successful
+            console.log("Guardado con exito")
         } else {
             //get user with email failed
+            console.log("Errrooor pa")
         }
     }
 
@@ -181,8 +184,8 @@ class FormularioDatos extends Component {
 
     handleGetGuestInfo = async (guestInfo) => {
         this.setState({ loading: false, });
-  
-        if (guestInfo.data === undefined || guestInfo ===null) {
+
+        if (guestInfo.data === undefined || guestInfo === null) {
             //show error message if needed
         } else {
             let userData = guestInfo.data.usuario;
@@ -213,7 +216,7 @@ class FormularioDatos extends Component {
             )
         } else {
             return (
-                <div/>
+                <div />
             )
         }
 
@@ -222,21 +225,23 @@ class FormularioDatos extends Component {
     showLoaderIfNeeded() {
         if (this.state.loading) {
             return (
-            <div className = "loader">
-                <CircularProgress />
-                <CircularProgress color="secondary" />
-            </div>
+                <div className="loader">
+                    <Backdrop  open={!this.state.loadingpen} >
+                        <CircularProgress color="secondary" />
+                    </Backdrop>
+
+                </div>
             )
         } else {
             return (
-                <div/>
+                <div />
             )
         }
     }
 
     //Modal handlers
     closeErrorModal() {
-        this.setState({ errorMessageIsOpen: false },this.forceUpdate());
+        this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
 
     handleChange(e) {
@@ -250,8 +255,8 @@ class FormularioDatos extends Component {
 
             return (
                 <Grid>
-                { this.showLoaderIfNeeded() }
-                <ErrorMessageModal title = { 'Algo salió mal' } errorMessage = { this.state.errorMessage } isOpen = { this.state.errorMessageIsOpen } closeErrorModal = { this.closeErrorModal.bind(this) } />
+                    {this.showLoaderIfNeeded()}
+                   <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                     <Typography variant="h6" gutterBottom>
                         Datos Personales
              </Typography>

@@ -114,7 +114,7 @@ export default function ReservaRender(props) {
         if (habilitar) {
             if (props.checkInOK) {
                 return (
-                    <Grid>
+                    <Grid elevation={10}>
                         <Grid container direction="row"  >
                             {/*IZQUIERDA */}
                             <Grid item md={3} xs={12} className={classes.izq} >
@@ -489,7 +489,7 @@ export default function ReservaRender(props) {
     if (props.modo === "Reservas") {
         if (props.id !== "") {
             return (
-                <Card >
+                <Card elevation={10}>
                     <CardContent>
                         <Grid container direction="row"  >
                             {/*IZQUIERDA */}
@@ -609,7 +609,7 @@ export default function ReservaRender(props) {
         if (props.modo === "Check-In") {
             if (props.id !== "") {
                 return (
-                    <Card >
+                    <Card elevation={10}>
                         <CardContent>
                             {habilitarCheckIN(props.CheckIn)}
                         </CardContent>
@@ -729,7 +729,7 @@ export default function ReservaRender(props) {
                 if (props.modo === "Historial") {
                     if (props.id !== "") {
                         return (
-                            <Card >
+                            <Card elevation={10}>
                                 <CardContent>
                                     <Grid container direction="row"  >
                                         {/*IZQUIERDA */}
@@ -832,7 +832,7 @@ export default function ReservaRender(props) {
                     if (props.modo === "Check-Out") {
                         if (props.id !== "") {
                             return (
-                                <Card >
+                                <Card elevation={10}>
                                     <CardContent>
                                         {habilitarCheckOut(props.CheckOut)}
                                     </CardContent>
@@ -849,7 +849,7 @@ export default function ReservaRender(props) {
                         if (props.modo === "Servicios") {
                             if (props.id !== "") {
                                 return (
-                                    <Card >
+                                    <Card elevation={10}>
                                         <CardContent>
                                             <Grid container direction="row"  >
                                                 {/*IZQUIERDA */}
@@ -932,7 +932,7 @@ export default function ReservaRender(props) {
                             if (props.modo === "faltaChekIn") {
                                 if (props.id !== "") {
                                     return (
-                                        <Card >
+                                        <Card elevation={10}>
                                             <CardContent>
                                                 <Grid container direction="row"  >
                                                     {/*IZQUIERDA */}

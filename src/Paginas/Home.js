@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -28,22 +28,22 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
-        backgroundColor:"#fafafa"
+       
     },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
-        
+
     },
 }));
 
 export default function PanelControl(props) {
     const classes = useStyles();
     const [modoGeneral, setmodoGeneral] = React.useState(false);
-    const [modoPerfil, setmodoPerfil] = React.useState(false);
+    const [modoPerfil, setmodoPerfil] = React.useState(true);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
-    const [modoServicios, setmodoServicios] = React.useState(true);
+    const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
     const [modoPagos, setmodoPagos] = React.useState(false);
@@ -58,7 +58,28 @@ export default function PanelControl(props) {
     const [expanded, setExpanded] = React.useState(false);
     const [contacto, setContacto] = React.useState(false);
     const [checkOutOK, setCheckOutOK] = React.useState(false);
-    const [checkInOK, setCheckInOK] = React.useState(true);
+    const [checkInOK, setCheckInOK] = React.useState(false);
+
+    const [darkState, setDarkState] = React.useState(false);
+    const palletType = darkState ? "dark" : "light";
+    const mainPrimaryColor = darkState ? "#1565c0" : "#1565c0";
+    const mainSecondaryColor = darkState ? "#fafafa" : "#ff9800";
+    const darkTheme = createMuiTheme({
+        palette: {
+            type: palletType,
+            primary: {
+                main: mainPrimaryColor
+            },
+            secondary: {
+                main: mainSecondaryColor
+            }
+        }
+    });
+
+    const handleThemeChange = () => {
+        setDarkState(!darkState);
+        console.log("hola")
+    };
 
     const handleCheckOut = () => {
         setCheckOutOK(!checkOutOK);
@@ -66,7 +87,7 @@ export default function PanelControl(props) {
     const handleCheckIn = () => {
         setCheckInOK(!checkInOK);
     };
- 
+
     const generalOpen = () => {
         setmodoGeneral(true);
         reservasClose();
@@ -245,6 +266,7 @@ export default function PanelControl(props) {
     const ayudaClose = () => {
         setmodoAyuda(false);
     };
+    
     const romanticoOpen = () => {
         setRomantico(true);
         ejecutivoClose();
@@ -254,7 +276,6 @@ export default function PanelControl(props) {
     const romanticoClose = () => {
         setRomantico(false);
     };
-
     const ejecutivoOpen = () => {
         setEjecutivo(true);
         romanticoClose();
@@ -308,71 +329,44 @@ export default function PanelControl(props) {
 
     if (modoPerfil) {
         return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Mi Perfil"} />
-                <main className={classes.content}>
-                    <div className={classes.appBarSpacer} />
+            <ThemeProvider theme={darkTheme}>
+                <div className={classes.root}>
+                    <CssBaseline />
+                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Mi Perfil"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                    <main className={classes.content}>
+                        <div className={classes.appBarSpacer} />
 
-                    <Container maxWidth="lg" className={classes.container}>
-                        {<Perfil
-                            user={props.user}
-                            perfil={perfil}
-                            romanticoOpen={romanticoOpen}
-                            ejecutivoOpen={ejecutivoOpen}
-                            familiaOpen={familiaOpen}
-                            preferenciasOpen={preferenciasOpen}
-                            romantico={romantico}
-                            ejecutivo={ejecutivo}
-                            familia={familia}
-                            preferencias={preferencias}
-                            perfilCompletado={props.perfilCompletado}
-                            callPerfilCompletado={props.callPerfilCompletado}
-                        />}
-                    </Container>
-                </main>
-            </div>
+                        <Container maxWidth="lg" className={classes.container}>
+                            {<Perfil
+                                user={props.user}
+                                perfil={perfil}
+                                romanticoOpen={romanticoOpen}
+                                ejecutivoOpen={ejecutivoOpen}
+                                familiaOpen={familiaOpen}
+                                preferenciasOpen={preferenciasOpen}
+                                romantico={romantico}
+                                ejecutivo={ejecutivo}
+                                familia={familia}
+                                preferencias={preferencias}
+                                perfilCompletado={props.perfilCompletado}
+                                callPerfilCompletado={props.callPerfilCompletado}
+                            />}
+                        </Container>
+                    </main>
+                </div>
+            </ThemeProvider>
         )
     } else {
         if (modoReservas) {
             return (
-                <div className={classes.root}>
-                    <CssBaseline />
-                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reservas"} />
-                    <main className={classes.content}>
-                        <div className={classes.appBarSpacer} />
-                        <Container maxWidth="lg" className={classes.container}>
-                            <Reservas
-                                user={props.user}
-                                id={props.id}
-                                CheckIn={props.CheckIn}
-                                CheckOut={props.CheckOut}
-                                huespedes={props.huespedes}
-                                precio={props.precio}
-                                reservasOpen={reservasOpen}
-                                checkInOpen={checkInOpen}
-                                checkOutOpen={checkOutOpen}
-                                expanded={expanded}
-                                contacto={contacto}
-                                modo={"Reservas"}
-                                callCheckIn={props.callCheckIn}
-                                callCheckOut={props.callCheckOut}
-                                callHuespedes={props.callHuespedes}
-                            />
-                        </Container>
-                    </main>
-                </div>
-            )
-        } else {
-            if (modoCheckIn) {
-                return (
+                <ThemeProvider theme={darkTheme}>
                     <div className={classes.root}>
                         <CssBaseline />
-                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-In"} />
+                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reservas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
                         <main className={classes.content}>
                             <div className={classes.appBarSpacer} />
                             <Container maxWidth="lg" className={classes.container}>
-                                {<CheckIn
+                                <Reservas
                                     user={props.user}
                                     id={props.id}
                                     CheckIn={props.CheckIn}
@@ -382,36 +376,29 @@ export default function PanelControl(props) {
                                     reservasOpen={reservasOpen}
                                     checkInOpen={checkInOpen}
                                     checkOutOpen={checkOutOpen}
-                                    modo={"Check-In"}
-                                    romantico={romantico}
-                                    ejecutivo={ejecutivo}
-                                    familia={familia}
-                                    preferencias={preferencias}
-                                    perfil={perfil}
-                                    romanticoOpen={romanticoOpen}
-                                    ejecutivoOpen={ejecutivoOpen}
-                                    familiaOpen={familiaOpen}
-                                    preferenciasOpen={preferenciasOpen}
-                                    reservasOpenContacto={reservasOpenContacto}
-                                    perfilCompletado={props.perfilCompletado}
-                                    callPerfilCompletado={props.callPerfilCompletado}
-                                    checkInOK={checkInOK}
-                                    handleCheckIn={handleCheckIn}
-                                />}
+                                    expanded={expanded}
+                                    contacto={contacto}
+                                    modo={"Reservas"}
+                                    callCheckIn={props.callCheckIn}
+                                    callCheckOut={props.callCheckOut}
+                                    callHuespedes={props.callHuespedes}
+                                />
                             </Container>
                         </main>
                     </div>
-                )
-            } else {
-                if (modoServicios) {
-                    return (
+                </ThemeProvider>
+            )
+        } else {
+            if (modoCheckIn) {
+                return (
+                    <ThemeProvider theme={darkTheme}>
                         <div className={classes.root}>
                             <CssBaseline />
-                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Servicios"} />
+                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-In"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
                             <main className={classes.content}>
                                 <div className={classes.appBarSpacer} />
                                 <Container maxWidth="lg" className={classes.container}>
-                                    <Servicios
+                                    {<CheckIn
                                         user={props.user}
                                         id={props.id}
                                         CheckIn={props.CheckIn}
@@ -421,7 +408,7 @@ export default function PanelControl(props) {
                                         reservasOpen={reservasOpen}
                                         checkInOpen={checkInOpen}
                                         checkOutOpen={checkOutOpen}
-                                        modo={"Servicios"}
+                                        modo={"Check-In"}
                                         romantico={romantico}
                                         ejecutivo={ejecutivo}
                                         familia={familia}
@@ -435,21 +422,25 @@ export default function PanelControl(props) {
                                         perfilCompletado={props.perfilCompletado}
                                         callPerfilCompletado={props.callPerfilCompletado}
                                         checkInOK={checkInOK}
-                                    />
+                                        handleCheckIn={handleCheckIn}
+                                    />}
                                 </Container>
                             </main>
                         </div>
-                    )
-                } else {
-                    if (modoCheckOut) {
-                        return (
+                    </ThemeProvider>
+                )
+            } else {
+
+                if (modoServicios) {
+                    return (
+                        <ThemeProvider theme={darkTheme}>
                             <div className={classes.root}>
                                 <CssBaseline />
-                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-Out"} />
+                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Servicios"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
                                 <main className={classes.content}>
                                     <div className={classes.appBarSpacer} />
                                     <Container maxWidth="lg" className={classes.container}>
-                                        <CheckOut
+                                        <Servicios
                                             user={props.user}
                                             id={props.id}
                                             CheckIn={props.CheckIn}
@@ -459,112 +450,163 @@ export default function PanelControl(props) {
                                             reservasOpen={reservasOpen}
                                             checkInOpen={checkInOpen}
                                             checkOutOpen={checkOutOpen}
-                                            modo={"Check-Out"}
+                                            modo={"Servicios"}
+                                            romantico={romantico}
+                                            ejecutivo={ejecutivo}
+                                            familia={familia}
+                                            preferencias={preferencias}
+                                            perfil={perfil}
+                                            romanticoOpen={romanticoOpen}
+                                            ejecutivoOpen={ejecutivoOpen}
+                                            familiaOpen={familiaOpen}
+                                            preferenciasOpen={preferenciasOpen}
                                             reservasOpenContacto={reservasOpenContacto}
-                                            checkOutOK={checkOutOK}
-                                            handleCheckOut={handleCheckOut}
+                                            perfilCompletado={props.perfilCompletado}
+                                            callPerfilCompletado={props.callPerfilCompletado}
+                                            checkInOK={checkInOK}
                                         />
                                     </Container>
                                 </main>
                             </div>
+                        </ThemeProvider>
+                    )
+                } else {
+                    if (modoCheckOut) {
+                        return (
+                            <ThemeProvider theme={darkTheme}>
+                                <div className={classes.root}>
+                                    <CssBaseline />
+                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-Out"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                    <main className={classes.content}>
+                                        <div className={classes.appBarSpacer} />
+                                        <Container maxWidth="lg" className={classes.container}>
+                                            <CheckOut
+                                                user={props.user}
+                                                id={props.id}
+                                                CheckIn={props.CheckIn}
+                                                CheckOut={props.CheckOut}
+                                                huespedes={props.huespedes}
+                                                precio={props.precio}
+                                                reservasOpen={reservasOpen}
+                                                checkInOpen={checkInOpen}
+                                                checkOutOpen={checkOutOpen}
+                                                modo={"Check-Out"}
+                                                reservasOpenContacto={reservasOpenContacto}
+                                                checkOutOK={checkOutOK}
+                                                handleCheckOut={handleCheckOut}
+                                            />
+                                        </Container>
+                                    </main>
+                                </div>
+                            </ThemeProvider>
                         )
                     } else {
                         if (modoResenas) {
                             return (
-                                <div className={classes.root}>
-                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reseñas"} />
-                                    <main className={classes.content}>
-                                        <div className={classes.appBarSpacer} />
-                                        <Container maxWidth="lg" className={classes.container}>
-                                            <Resenas />
-                                        </Container>
-                                    </main>
-                                </div>
+                                <ThemeProvider theme={darkTheme}>
+                                    <div className={classes.root}>
+                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reseñas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                        <main className={classes.content}>
+                                            <div className={classes.appBarSpacer} />
+                                            <Container maxWidth="lg" className={classes.container}>
+                                                <Resenas />
+                                            </Container>
+                                        </main>
+                                    </div>
+                                </ThemeProvider>
                             )
                         } else {
                             if (modoPagos) {
                                 return (
-                                    <div className={classes.root}>
-                                        <CssBaseline />
-                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Tarjetas"} />
-                                        <main className={classes.content}>
-                                            <div className={classes.appBarSpacer} />
-                                            <Container maxWidth="lg" className={classes.container}>
-                                                <Tarjetas  modo={"Tarjetas"}/>
-                                            </Container>
-                                        </main>
-                                    </div>
+                                    <ThemeProvider theme={darkTheme}>
+                                        <div className={classes.root}>
+                                            <CssBaseline />
+                                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Tarjetas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                            <main className={classes.content}>
+                                                <div className={classes.appBarSpacer} />
+                                                <Container maxWidth="lg" className={classes.container}>
+                                                    <Tarjetas modo={"Tarjetas"} />
+                                                </Container>
+                                            </main>
+                                        </div>
+                                    </ThemeProvider>
                                 )
                             } else {
                                 if (modoGeneral) {
                                     return (
-                                        <div className={classes.root}>
-                                            <CssBaseline />
-                                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Panel General"} />
-                                            <main className={classes.content}>
-                                                <div className={classes.appBarSpacer} />
-                                                <Container maxWidth="lg" className={classes.container}>
-
-                                                    {<General
-                                                        user={props.user}
-                                                        perfilOpen={perfilOpen}
-                                                        id={props.id}
-                                                        CheckIn={props.CheckIn}
-                                                        CheckOut={props.CheckOut}
-                                                        huespedes={props.huespedes}
-                                                        precio={props.precio}
-                                                        reservasOpen={reservasOpen}
-                                                        checkInOpen={checkInOpen}
-                                                        checkOutOpen={checkOutOpen}
-                                                        perfilOpenPerfil={perfilOpenPerfil}
-                                                        romantico={romantico}
-                                                        ejecutivo={ejecutivo}
-                                                        familia={familia}
-                                                        preferencias={preferencias}
-                                                        modo={"General"}
-                                                        perfilCompletado={props.perfilCompletado}
-                                                        callPerfilCompletado={props.callPerfilCompletado}
-                                                    />}
-
-                                                </Container>
-                                            </main>
-                                        </div>
-                                    )
-                                } else {
-                                    if (modoHistorial) {
-                                        return (
+                                        <ThemeProvider theme={darkTheme}>
                                             <div className={classes.root}>
                                                 <CssBaseline />
-                                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Historial de reservas"} />
+                                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Panel General"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
                                                 <main className={classes.content}>
                                                     <div className={classes.appBarSpacer} />
                                                     <Container maxWidth="lg" className={classes.container}>
-                                                        {<Historial
+
+                                                        {<General
                                                             user={props.user}
+                                                            perfilOpen={perfilOpen}
                                                             id={props.id}
                                                             CheckIn={props.CheckIn}
                                                             CheckOut={props.CheckOut}
                                                             huespedes={props.huespedes}
                                                             precio={props.precio}
-                                                            modo={"Historial"}
+                                                            reservasOpen={reservasOpen}
+                                                            checkInOpen={checkInOpen}
+                                                            checkOutOpen={checkOutOpen}
+                                                            perfilOpenPerfil={perfilOpenPerfil}
+                                                            romantico={romantico}
+                                                            ejecutivo={ejecutivo}
+                                                            familia={familia}
+                                                            preferencias={preferencias}
+                                                            modo={"General"}
+                                                            perfilCompletado={props.perfilCompletado}
+                                                            callPerfilCompletado={props.callPerfilCompletado}
                                                         />}
+
                                                     </Container>
                                                 </main>
                                             </div>
+                                        </ThemeProvider>
+                                    )
+                                } else {
+                                    if (modoHistorial) {
+                                        return (
+                                            <ThemeProvider theme={darkTheme}>
+                                                <div className={classes.root}>
+                                                    <CssBaseline />
+                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Historial de reservas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                                    <main className={classes.content}>
+                                                        <div className={classes.appBarSpacer} />
+                                                        <Container maxWidth="lg" className={classes.container}>
+                                                            {<Historial
+                                                                user={props.user}
+                                                                id={props.id}
+                                                                CheckIn={props.CheckIn}
+                                                                CheckOut={props.CheckOut}
+                                                                huespedes={props.huespedes}
+                                                                precio={props.precio}
+                                                                modo={"Historial"}
+                                                            />}
+                                                        </Container>
+                                                    </main>
+                                                </div>
+                                            </ThemeProvider>
                                         )
                                     } else {
                                         if (modoAyuda) {
                                             return (
-                                                <div className={classes.root}>
-                                                    <CssBaseline />
-                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Ayuda"} />
-                                                    <main className={classes.content}>
-                                                        <div className={classes.appBarSpacer} />
-                                                        <Container maxWidth="lg" className={classes.container}>
-                                                            <Ayuda />
-                                                        </Container>
-                                                    </main>
-                                                </div>
+                                                <ThemeProvider theme={darkTheme}>
+                                                    <div className={classes.root}>
+                                                        <CssBaseline />
+                                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Ayuda"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                                        <main className={classes.content}>
+                                                            <div className={classes.appBarSpacer} />
+                                                            <Container maxWidth="lg" className={classes.container}>
+                                                                <Ayuda />
+                                                            </Container>
+                                                        </main>
+                                                    </div>
+                                                </ThemeProvider>
                                             )
                                         }
                                     }

@@ -39,7 +39,7 @@ class GuestAPI extends Component {
         });
       }
 
-    postGuestInfo(guestInfo,handlePostGuestInfo) {
+    postGuestInfo(handlePostGuestInfo) {
       let url =  Constants.BASE_URL + '/api/v1.0/usuarios';
       let guestData = GuestInfo.getInstance().toJson();
         fetch(url,{

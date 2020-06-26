@@ -154,7 +154,6 @@ class IniciarSesion extends React.Component {
               <Button
                 fullWidth
                 variant="contained"
-                color="secondary"
                 className={classes.botonicono}
                 onClick={AuthController.handleAuthGoogle}>
                 <img src={LogoGoogle} alt="LogoGoogle" className={classes.icono} />

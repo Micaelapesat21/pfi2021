@@ -10,6 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { Switch } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -46,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function BarraPrincipal(props) {
     const classes = useStyles();
-    
+
     return (
         <AppBar position="absolute" className={clsx(classes.appBar, props.open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
@@ -60,8 +62,13 @@ export default function BarraPrincipal(props) {
                     <MenuIcon />
                 </IconButton>
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                 {props.modo}
+                    {props.modo}
                 </Typography>
+               
+                    <Brightness4Icon />
+                    <Switch checked={props.darkState} onChange={props.handleThemeChange} />
+               
+
                 <IconButton color="inherit">
                     <Badge badgeContent={0} color="secondary">
                         <NotificationsIcon />

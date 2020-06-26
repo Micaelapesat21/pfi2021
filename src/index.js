@@ -6,47 +6,17 @@ import { LocalizationProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import esLocale from "date-fns/locale/es";
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
-
 const localeMap = {
   es: esLocale,
-
 };
 
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#5e92f3',
-      main: '#1565c0',
-      dark: '#003c8f',
-      contrastText: '#ffffff',
-    },
-    secondary: {
-      light: '#ffffff',
-      main: '#fafafa',
-      dark: '#c7c7c7',
-      contrastText: '#000000',
-    },
-    textPrimary: {
-      main: '#ff8f00',
-    },
-  }
-
-})
-
-
-
 ReactDOM.render(
-
-  <MuiThemeProvider theme={theme}>
-    <LocalizationProvider dateAdapter={DateFnsUtils} locale={localeMap.es}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </LocalizationProvider>
-  </MuiThemeProvider>,
-
+  <LocalizationProvider dateAdapter={DateFnsUtils} locale={localeMap.es}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </LocalizationProvider>,
   document.getElementById('root')
 );
 
