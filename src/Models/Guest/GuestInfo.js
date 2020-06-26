@@ -62,7 +62,7 @@ class GuestInfo {
     }
 
     toJson() {
-      var dict
+      var dict = []
       dict["email"] = this._email;
       dict["nombre"] = this._name;
       dict["apellido"] = this._lastName;
