@@ -58,39 +58,23 @@ class GuestInfo {
     return this._userID;
   }
 
-  getAddress() {
-    return this._addressInfo;
-  }
-  getPerfil() {
-    return this._perfilInfo;
-  }
-
-
-  setUserType(userType) {
-    this._userType = userType;
-  }
-
-  toJson() {
-    var dict
-
-
-    if (this._addressInfo !== null) {
-      let addressInfo = this._addressInfo.toJson();
-
-
-      dict = {
-        email: this._email,
-        nombre: this._name,
-        apellido: this._lastName,
-        tipo: this._personalIdType,
-        documento: this._personalId,
-        pais: addressInfo.pais,
-        estado: addressInfo.estado,
-        ciudad: addressInfo.ciudad,
-        codigoPostal: addressInfo.codigoPostal,
-        direccion: addressInfo.direccion1
+    toJson() {
+      var dict = []
+      dict["email"] = this._email;
+      dict["nombre"] = this._name;
+      dict["apellido"] = this._lastName;
+      dict["tipo"] = this._personalIdType;
+      dict["documento"] = this._personalId;
+    
+      if(this._addressInfo !== null) {
+          let addressInfo = this._addressInfo.toJson();
+          dict["pais"] = addressInfo.pais;
+          dict["estado"] = addressInfo.estado;
+          dict["ciudad"] = addressInfo.ciudad;
+          dict["codigoPostal"] = addressInfo.codigoPostal;
+          dict["direccion"] = addressInfo.direccion1;
       }
-    }
+    
     
     if (this._perfilInfo !== null) {
       let perfilInfo = this._perfilInfo.toJson();
