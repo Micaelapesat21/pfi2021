@@ -25,7 +25,9 @@ class GuestInfo {
 
   addPaymentMethod(paymentMethod) {
     let method = new PaymentMethod(paymentMethod);
-    this._paymentInfo.concat(method);
+    this._paymentInfo.push(method.state);
+    console.log(method.state)
+    console.log(this._paymentInfo)
   }
 
   setUserData(props) {
@@ -58,47 +60,49 @@ class GuestInfo {
     return this._userID;
   }
 
-    toJson() {
-      var dict = []
-      dict["email"] = this._email;
-      dict["nombre"] = this._name;
-      dict["apellido"] = this._lastName;
-      dict["tipo"] = this._personalIdType;
-      dict["documento"] = this._personalId;
-    
-      if(this._addressInfo !== null) {
-          let addressInfo = this._addressInfo.toJson();
-          dict["pais"] = addressInfo.pais;
-          dict["estado"] = addressInfo.estado;
-          dict["ciudad"] = addressInfo.ciudad;
-          dict["codigoPostal"] = addressInfo.codigoPostal;
-          dict["direccion"] = addressInfo.direccion1;
-      }
-    
-    
-    if (this._perfilInfo !== null) {
-      let perfilInfo = this._perfilInfo.toJson();
-      dict = {
+  toJson() {
+    var tar = {}
+    var dict = {}
+    dict["email"] = this._email;
+    dict["nombre"] = this._name;
+    dict["apellido"] = this._lastName;
+    dict["tipo"] = this._personalIdType;
+    dict["documento"] = this._personalId;
 
-        pais: perfilInfo.pais,
-        estado: perfilInfo.estado,
-        ciudad: perfilInfo.ciudad,
-        codigoPostal: perfilInfo.codigoPostal,
-        direccion: perfilInfo.direccion1
-      }
+    if (this._addressInfo !== null) {
+      let addressInfo = this._addressInfo.toJson();
+      dict["pais"] = addressInfo.pais;
+      dict["estado"] = addressInfo.estado;
+      dict["ciudad"] = addressInfo.ciudad;
+      dict["codigoPostal"] = addressInfo.codigoPostal;
+      dict["direccion1"] = addressInfo.direccion1;
     }
+
+
+    /*if (this._perfilInfo !== null) {
+      let perfilInfo = this._perfilInfo.toJson();
+      dict["perfil"] = perfilInfo.perfil;
+      dict["bebida"] = perfilInfo.bebida;
+      dict["acompañamiento"] = perfilInfo.acompañamiento;
+      dict["limpieza"] = perfilInfo.limpieza;
+      dict["tintoreria"] = perfilInfo.tintoreria;
+    }*/
+    dict["tarjeta"] = tar
 
     if (this._paymentInfo !== null) {
-      for (var method in this._paymentInfo) {
-        dict["name"] = method.name;
-        // dict["lastName"] = method.lastName;
-        dict["cardNumber"] = method.cardNumber;
-        dict["expirationDate"] = method.expirationDate;
-        dict["securityCode"] = method.securityCode;
-      }
+      var method = this._paymentInfo[0]
+      tar["name"] = method.name;
+      // dict["lastName"] = method.lastName;
+      tar["cardNumber"] = method.cardNumber;
+      tar["mes"] = method.mes;
+      tar["año"] = method.año;
+      tar["securityCode"] = method.securityCode;
+      tar["tipo"] = method.tipo;
+
+ 
     }
 
-    console.log("guestInfo", dict);
+    console.log("guestInfo", dict,tar);
     return dict;
   }
 }

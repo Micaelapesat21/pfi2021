@@ -4,8 +4,10 @@ class PaymentMethod {
         name: props.name,
        // name: props.lastName,
         cardNumber: props.cardNumber,
-        expirationDate: props.expirationDate,
+        mes:props.mes,
+        año:props.año,
         securityCode: props.securityCode,
+        tipo:props.tipo
       };
     }
 
@@ -13,8 +15,10 @@ class PaymentMethod {
         return {
             'name':this.name,
             'cardNumber': this.cardNumber,
-            'expirationDate': this.expirationDate,
-            'securityCode': this.securityCode
+            'mes':this.mes,
+            'año':this.año,
+            'securityCode': this.securityCode,
+            'tipo':this.tipo,
         }
     }
 

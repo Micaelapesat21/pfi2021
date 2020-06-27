@@ -32,6 +32,7 @@ export default function CForm({
     callMesTarjeta,
     callAñoTarjeta,
     callTipoTarjeta,
+    callCodTarjeta
 }) 
 {
     const [cardNumber, setCardNumber] = useState('');
@@ -41,6 +42,7 @@ export default function CForm({
         const { name, value } = event.target;
 
         onUpdateState(name, value);
+        callCodTarjeta(value)
      
     };
     const handleFormChangeMes = (event) => {
@@ -63,7 +65,7 @@ export default function CForm({
         callNombreTarjeta(value)
     };
 
-    const maskCardNumber = (x) => {
+    /*const maskCardNumber = (x) => {
         let cardNumberArr = x.split('');
         cardNumberArr.forEach((val, index) => {
             if (index > 1 && index < 14) {
@@ -74,7 +76,7 @@ export default function CForm({
         });
 
         return cardNumberArr;
-    };
+    };*/
     const cardType = (cardNumber) => {
         const number = cardNumber;
         let re;
@@ -113,7 +115,7 @@ export default function CForm({
 
         setCardNumber(cardNumber.trimRight());
         onUpdateState(name, cardNumber);
-        callNumeroTarjeta(maskCardNumber(cardNumber))
+        callNumeroTarjeta(cardNumber)
         callTipoTarjeta(cardType(cardNumber))
         
     };

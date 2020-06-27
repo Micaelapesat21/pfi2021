@@ -5,7 +5,8 @@ import { Grid, Typography, Paper, ButtonBase, Divider, Button } from '@material-
 import visa from '../../Imagenes/Visa.png'
 import mp from '../../Imagenes/mercadopago-logo.png'
 import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
-
+import GuestInfo from '../../Models/Guest/GuestInfo';
+import GuestAPI from './../../Network/Guest/GuestAPI';
 
 
 
@@ -77,25 +78,139 @@ class Tarjetas extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            numeroTarjeta: "",
+            nombreTarjeta: "",
+            mesTarjeta: "",
+            añoTarjeta: "",
+            codTarjeta: "",
+            tipoTarjeta: "",
+            loading: false,
+        }
+    }
+
+    componentWillMount() {
+        const user = this.props.user
+        this.getGuestInfo(user.email)
+    }
+    getGuestInfo(email) {
+        this.setState({ loading: true });
+        GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
+    }
+    handleGetGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false, });
+
+        if (guestInfo.data === undefined || guestInfo === null) {
+            //show error message if needed
+        } else {
+            let userData = guestInfo.data.usuario.tarjeta;
+            console.log(userData)
+            /*if (userData !== null) {
+                this.setState({
+                    numeroTarjeta: userData.cardNumber,
+                    nombreTarjeta: userData.name,
+                    mesTarjeta: userData.mes,
+                    añoTarjeta: userData.año,
+                    codTarjeta: userData.securityCode,
+                    tipoTarjeta: userData.tipo,
+                });
+                GuestInfo.getInstance().setUserData(userData);
+            }*/
+        }
+    }
+
+    agregar() {
+        if (this.state.numeroTarjeta !== "" &&
+            this.state.nombreTarjeta !== "" &&
+            this.state.mesTarjeta !== "" &&
+            this.state.añoTarjeta !== "" &&
+            this.state.codTarjeta !== "" &&
+            this.state.tipoTarjeta !== ""
+        ) {
+            var dict = this.getGuestModel();
+            console.log(dict)
+            GuestInfo.getInstance().addPaymentMethod(dict);
+            this.postGuestInfo()
+        } else {
+            alert("error")
+        }
+        //console.log(this.state.nombreTarjeta, this.state.numeroTarjeta,this.state.añoTarjeta,this.state.mesTarjeta,this.state.codTarjeta,this.state.tipoTarjeta)
+    }
+    getGuestModel() {
+        return {
+            cardNumber: this.state.numeroTarjeta,
+            name: this.state.nombreTarjeta,
+            mes: this.state.mesTarjeta,
+            año: this.state.añoTarjeta,
+            securityCode: this.state.codTarjeta,
+            tipo: this.state.tipoTarjeta,
+            // etc.
+        };
+    }
+    postGuestInfo = () => {
+        this.setState({ loading: true });
+        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
+    }
+
+    handlePostGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false });
+        if (guestInfo.error == null) {
+            //post was successful
+            console.log("Guardado con exito")
+        } else {
+            //get user with email failed
+            console.log("Errrooor pa")
         }
     }
 
 
 
+
+    callNumeroTarjeta = (x) => {
+        this.setState({ numeroTarjeta: x });
+    }
+    callNombreTarjeta = (x) => {
+        this.setState({ nombreTarjeta: x });
+    }
+    callMesTarjeta = (x) => {
+        this.setState({ mesTarjeta: x });
+    }
+    callAñoTarjeta = (x) => {
+        this.setState({ añoTarjeta: x });
+    }
+    callCodTarjeta = (x) => {
+        this.setState({ codTarjeta: x });
+    }
+    callTipoTarjeta = (x) => {
+        this.setState({ tipoTarjeta: x });
+    }
     agregarTarjeta() {
         if (this.state.open)
             if (this.props.modo === "ReservaApi")
                 return (
                     <Grid>
-                        <TarjetaCheta />
+                        <TarjetaCheta
+                            callNumeroTarjeta={this.callNumeroTarjeta}
+                            callNombreTarjeta={this.callNombreTarjeta}
+                            callMesTarjeta={this.callMesTarjeta}
+                            callAñoTarjeta={this.callAñoTarjeta}
+                            callCodTarjeta={this.callCodTarjeta}
+                            callTipoTarjeta={this.callTipoTarjeta}
+                        />
                     </Grid>
                 )
             else
                 if (this.props.modo === "CheckOut")
                     return (
                         <Grid>
-                            <TarjetaCheta />
+                            <TarjetaCheta
+                                callNumeroTarjeta={this.callNumeroTarjeta}
+                                callNombreTarjeta={this.callNombreTarjeta}
+                                callMesTarjeta={this.callMesTarjeta}
+                                callAñoTarjeta={this.callAñoTarjeta}
+                                callCodTarjeta={this.callCodTarjeta}
+                                callTipoTarjeta={this.callTipoTarjeta}
+                            />
                             <Grid container alignItems="flex-end" justify="flex-end">
                                 <Grid item md={3} xs={5}>
                                     <Button variant="contained" color="primary" onClick={this.props.handleCheckOut}>Pagar</Button>
@@ -107,10 +222,17 @@ class Tarjetas extends Component {
                 else
                     return (
                         <Grid>
-                            <TarjetaCheta />
+                            <TarjetaCheta
+                                callNumeroTarjeta={this.callNumeroTarjeta}
+                                callNombreTarjeta={this.callNombreTarjeta}
+                                callMesTarjeta={this.callMesTarjeta}
+                                callAñoTarjeta={this.callAñoTarjeta}
+                                callCodTarjeta={this.callCodTarjeta}
+                                callTipoTarjeta={this.callTipoTarjeta}
+                            />
                             <Grid container alignItems="flex-end" justify="flex-end">
                                 <Grid item md={3} xs={5}>
-                                    <Button variant="contained" color="primary" size="large">Agregar</Button>
+                                    <Button variant="contained" color="primary" size="large" onClick={this.agregar.bind(this)}>Agregar</Button>
                                 </Grid>
                             </Grid>
 
