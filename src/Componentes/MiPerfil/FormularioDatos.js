@@ -99,7 +99,7 @@ class FormularioDatos extends Component {
         this.guardar = this.guardar.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const user = this.props.user
         var array = user.displayName.split(" ");
         var nombre = array[0]

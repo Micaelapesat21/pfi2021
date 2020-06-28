@@ -25,9 +25,9 @@ class GuestInfo {
 
   addPaymentMethod(paymentMethod) {
     let method = new PaymentMethod(paymentMethod);
-    this._paymentInfo.push(method.state);
-    console.log(method.state)
-    console.log(this._paymentInfo)
+    //this._paymentInfo.push(array);
+    this._paymentInfo.push(method)
+
   }
 
   setUserData(props) {
@@ -88,21 +88,22 @@ class GuestInfo {
       dict["tintoreria"] = perfilInfo.tintoreria;
     }*/
     dict["tarjeta"] = tar
-
+    
     if (this._paymentInfo !== null) {
-      var method = this._paymentInfo[0]
+      /*var method = this._paymentInfo[0]
       tar["name"] = method.name;
       // dict["lastName"] = method.lastName;
       tar["cardNumber"] = method.cardNumber;
       tar["mes"] = method.mes;
       tar["año"] = method.año;
       tar["securityCode"] = method.securityCode;
-      tar["tipo"] = method.tipo;
+      tar["tipo"] = method.tipo;*/
+      tar["PaymentMethod"] =this._paymentInfo
+      console.log(this._paymentInfo);
 
- 
     }
 
-    console.log("guestInfo", dict,tar);
+    console.log("guestInfo", dict, tar);
     return dict;
   }
 }
