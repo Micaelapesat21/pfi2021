@@ -25,9 +25,8 @@ class GuestInfo {
 
   addPaymentMethod(paymentMethod) {
     let method = new PaymentMethod(paymentMethod);
-    this._paymentInfo.push(method.state);
-    console.log(method.state)
-    console.log(this._paymentInfo)
+    this._paymentInfo.push(method)
+
   }
 
   setUserData(props) {
@@ -104,6 +103,7 @@ class GuestInfo {
     dict["tarjeta"] = paymentMethods;
 
     console.log("guestInfo", dict);
+
     return dict;
   }
 }

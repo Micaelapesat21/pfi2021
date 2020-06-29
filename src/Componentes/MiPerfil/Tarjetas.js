@@ -51,7 +51,7 @@ const styles = theme => ({
         minHeight: 60,
         [theme.breakpoints.down('xs')]: {
         },
-        '&:hover, &$focusVisible': {
+        '&:hover': {
             zIndex: 1,
             '& $imageBackdrop': {
                 opacity: 0.1,
@@ -85,14 +85,30 @@ class Tarjetas extends Component {
             añoTarjeta: "",
             codTarjeta: "",
             tipoTarjeta: "",
+            tarjetas: [],
             loading: false,
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const user = this.props.user
         this.getGuestInfo(user.email)
+  
     }
+    maskCardNumber = (x) => {
+        let cardNumberArr = x.split('');
+        cardNumberArr.forEach((val, index) => {
+            if (index > 1 && index < 4) {
+                if (cardNumberArr[index] !== ' ') {
+                    cardNumberArr[index] = 'x';
+                }
+            }
+        });
+
+        return cardNumberArr;
+    };
+
+
     getGuestInfo(email) {
         this.setState({ loading: true });
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
@@ -103,19 +119,21 @@ class Tarjetas extends Component {
         if (guestInfo.data === undefined || guestInfo === null) {
             //show error message if needed
         } else {
-            let userData = guestInfo.data.usuario.tarjeta;
-            console.log(userData)
-            /*if (userData !== null) {
-                this.setState({
+            let userData = guestInfo.data.usuario.tarjeta.PaymentMethod;
+            //console.log(userData)
+            if (userData !== null) {
+                /*this.setState({
                     numeroTarjeta: userData.cardNumber,
                     nombreTarjeta: userData.name,
                     mesTarjeta: userData.mes,
                     añoTarjeta: userData.año,
                     codTarjeta: userData.securityCode,
                     tipoTarjeta: userData.tipo,
-                });
+                });*/
+                this.setState({ tarjetas: userData })
+                //console.log(this.state.tarjetas)
                 GuestInfo.getInstance().setUserData(userData);
-            }*/
+            }
         }
     }
 
@@ -134,7 +152,6 @@ class Tarjetas extends Component {
         } else {
             alert("error")
         }
-        //console.log(this.state.nombreTarjeta, this.state.numeroTarjeta,this.state.añoTarjeta,this.state.mesTarjeta,this.state.codTarjeta,this.state.tipoTarjeta)
     }
     getGuestModel() {
         return {
@@ -157,6 +174,7 @@ class Tarjetas extends Component {
         if (guestInfo.error == null) {
             //post was successful
             console.log("Guardado con exito")
+            this.setState({ open: false })
         } else {
             //get user with email failed
             console.log("Errrooor pa")
@@ -245,6 +263,20 @@ class Tarjetas extends Component {
 
     }
 
+    ultimosTres(x) {
+
+        let cardNumberArr = x.split('');
+        cardNumberArr.forEach((val, index) => {
+            if (index > -1 && index < 14) {
+                if (cardNumberArr[index] !== ' ') {
+                    cardNumberArr[index] = '';
+                }
+            }
+        });
+
+        return cardNumberArr;
+    }
+
 
     render() {
         const { classes } = this.props;
@@ -263,19 +295,19 @@ class Tarjetas extends Component {
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper>
 
-                            <ButtonBase className={classes.image} focusRipple >
+                            <ButtonBase className={classes.image} >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={3} xs={4}>
                                         <img src={visa} alt="visa" className={classes.logoVisa} />
                                     </Grid>
                                     <Grid item md={9} xs={8}>
-                                        <Typography variant="h6">Visa Débito terminada en 4787</Typography>
+                                        <Typography variant="h6">Visa Débito terminada en </Typography>
                                     </Grid>
                                 </Grid>
                                 <span className={classes.imageBackdrop} />
                             </ButtonBase>
                             <Divider />
-                            <ButtonBase className={classes.image} >
+                            <ButtonBase className={classes.image}     >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={3} xs={4}>
                                         <img src={mp} alt="visa" className={classes.logoMp} />
@@ -287,7 +319,7 @@ class Tarjetas extends Component {
                                 <span className={classes.imageBackdrop} />
                             </ButtonBase>
                             <Divider />
-                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}>
+                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}    >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={11} xs={10}>
                                         <Typography variant="body1" color="primary" align="left">Pagar con otra tarjeta</Typography>
@@ -312,20 +344,25 @@ class Tarjetas extends Component {
                     </Grid>
                     <Grid item xs={12} md={7} lg={7}>
                         <Paper>
+                            {this.state.tarjetas.map((item, index) =>
+                                <div key={index}>
+                                    <ButtonBase className={classes.image}      >
+                                        <Grid container justify="center" alignItems="center" >
+                                            <Grid item md={3} xs={3}>
+                                                <img src={visa} alt="visa" className={classes.logoVisa} />
+                                            </Grid>
+                                            <Grid item md={9} xs={9}>
+                                                <Typography variant="h6">Visa Débito terminada en {this.ultimosTres(item.state.cardNumber)}</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <span className={classes.imageBackdrop} />
+                                    </ButtonBase>
+                                    <Divider />
+                                </div>
 
-                            <ButtonBase className={classes.image} focusRipple >
-                                <Grid container justify="center" alignItems="center" >
-                                    <Grid item md={3} xs={3}>
-                                        <img src={visa} alt="visa" className={classes.logoVisa} />
-                                    </Grid>
-                                    <Grid item md={9} xs={9}>
-                                        <Typography variant="h6">Visa Débito terminada en 4787</Typography>
-                                    </Grid>
-                                </Grid>
-                                <span className={classes.imageBackdrop} />
-                            </ButtonBase>
-                            <Divider />
-                            <ButtonBase className={classes.image} >
+                            )}
+
+                            <ButtonBase className={classes.image}   >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={3} xs={3}>
                                         <img src={mp} alt="visa" className={classes.logoMp} />
@@ -337,7 +374,7 @@ class Tarjetas extends Component {
                                 <span className={classes.imageBackdrop} />
                             </ButtonBase>
                             <Divider />
-                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}>
+                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}    >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={11} xs={10}>
                                         <Typography variant="body1" color="primary" align="left">Agregar otra tarjeta</Typography>
@@ -350,7 +387,7 @@ class Tarjetas extends Component {
                     <Grid item xs={12} md={7} lg={7}>
                         {this.agregarTarjeta()}
                     </Grid>
-                </Grid>
+                </Grid >
             );
         }
     }
