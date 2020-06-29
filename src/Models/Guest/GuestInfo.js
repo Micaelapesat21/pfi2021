@@ -39,7 +39,7 @@ class GuestInfo {
     this._email = props.email
     this._personalIdType = props.tipo
     this._personalId = props.documento
-    
+
     //set address info
     var address = new Address()
     address.setAddressInfo(props)
@@ -51,9 +51,9 @@ class GuestInfo {
     this._perfilInfo = perfil
 
     //set payment methods info
-    if(props.tarjetas !== undefined) {
+    if (props.tarjetas !== undefined) {
       var methods = props.tarjetas;
-      methods.forEach( m => {
+      methods.forEach(m => {
         var method = new PaymentMethod(m);
         this._paymentInfo.push(method);
       })
@@ -92,20 +92,20 @@ class GuestInfo {
       dict["codigoPostal"] = addressInfo.codigoPostal;
       dict["direccion1"] = addressInfo.direccion1;
     }
-    
+
     var paymentMethods = [];
     if (this._paymentInfo !== null) {
       this._paymentInfo.forEach(m => {
-      var tar = {}
-      let method = m.toJson();
-      tar["name"] = method.name;
-      tar["cardNumber"] = method.cardNumber;
-      tar["mes"] = method.mes;
-      tar["año"] = method.año;
-      tar["securityCode"] = method.securityCode;
-      tar["tipo"] = method.tipo;
-      paymentMethods.push(tar);  
-    });
+        var tar = {}
+        let method = m.toJson();
+        tar["name"] = method.name;
+        tar["cardNumber"] = method.cardNumber;
+        tar["mes"] = method.mes;
+        tar["año"] = method.año;
+        tar["securityCode"] = method.securityCode;
+        tar["tipo"] = method.tipo;
+        paymentMethods.push(tar);
+      });
     }
 
     dict["tarjetas"] = paymentMethods;

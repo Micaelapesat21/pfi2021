@@ -139,8 +139,11 @@ export default function TabsPerfil(props) {
                                         label="Mis Preferencias"
                                     />
                                 </FormGroup>
-                                <Button variant="outlined" color="secondary" onClick={() => console.log(props.perfilElegido)} >Guardar</Button>
+
                             </FormControl>
+                            <Grid container justify="center" alignItems="center">
+                                <Button variant="outlined" color="secondary" onClick={props.guardarPerfil} >Guardar</Button>
+                            </Grid>
 
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -171,6 +174,10 @@ export default function TabsPerfil(props) {
                                 tintoreriaElegida={props.tintoreriaElegida}
                                 handleTintoreria={props.handleTintoreria}
                                 openPreferencias={openPreferencias}
+                                sinseleccionarB={props.sinseleccionarB}
+                                sinseleccionarA={props.sinseleccionarA}
+                                sinseleccionarL={props.sinseleccionarL}
+                                sinseleccionarT={props.sinseleccionarT}
                             />
                         </Grid>
                     </Grid>
@@ -203,6 +210,10 @@ export default function TabsPerfil(props) {
                         cuatro={props.cuatro}
                         tintoreriaElegida={props.tintoreriaElegida}
                         handleTintoreria={props.handleTintoreria}
+                        sinseleccionarB={props.sinseleccionarB}
+                        sinseleccionarA={props.sinseleccionarA}
+                        sinseleccionarL={props.sinseleccionarL}
+                        sinseleccionarT={props.sinseleccionarT}
                     />
                 </TabPanel>
             </SwipeableViews>

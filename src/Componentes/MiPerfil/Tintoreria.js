@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Tintoreria(props) {
   const classes = useStyles();
-  const { uno, dos, tres,cuatro } = props;
- 
+  const { uno, dos, tres, cuatro, sinseleccionarT } = props;
+
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
@@ -42,11 +42,15 @@ export default function Tintoreria(props) {
             control={<Checkbox color="primary" checked={cuatro} onChange={props.handleTintoreria} name="cuatro" />}
             label="4 Veces a la semana"
           />
+          <FormControlLabel
+            control={<Checkbox color="primary" checked={sinseleccionarT} onChange={props.handleTintoreria} name="sinseleccionarT" />}
+            label="Sin Seleccionar"
+          />
         </FormGroup>
         <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
       </FormControl>
-      
-     
+
+
     </div>
   );
 }

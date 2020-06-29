@@ -40,21 +40,25 @@ class Perfil extends Component {
             champagne: false,
             gaseosa: false,
             vino: false,
+            sinseleccionarB: true,
             bebidaElegida: "",
             chocolates: false,
             golosinas: false,
             fiambres: false,
             pasteleria: false,
+            sinseleccionarA: true,
             acompañamientoElegido: "",
             siete: false,
             nueve: false,
             once: false,
             trece: false,
+            sinseleccionarL: true,
             limpiezaElegida: "",
             uno: false,
             dos: false,
             tres: false,
             cuatro: false,
+            sinseleccionarT: true,
             tintoreriaElegida: "",
         }
     }
@@ -70,6 +74,16 @@ class Perfil extends Component {
     }
     callTintoreriaElegida = (x) => {
         this.setState({ tintoreriaElegida: x })
+    }
+    guardarPerfil(){
+        //Para guardar con el post
+        console.log(
+            this.state.perfilElegido,
+            this.state.bebidaElegida,
+            this.state.acompañamientoElegido,
+            this.state.limpiezaElegida,
+            this.state.tintoreriaElegida
+        )
     }
 
     handleChangeSwitch = (event) => {
@@ -116,6 +130,7 @@ class Perfil extends Component {
                 champagne: false,
                 gaseosa: false,
                 vino: false,
+                sinseleccionarB: false,
                 bebidaElegida: "aguaFria",
             });
         else
@@ -125,6 +140,7 @@ class Perfil extends Component {
                     champagne: true,
                     gaseosa: false,
                     vino: false,
+                    sinseleccionarB: false,
                     bebidaElegida: "champagne",
                 });
             else
@@ -134,6 +150,7 @@ class Perfil extends Component {
                         champagne: false,
                         gaseosa: true,
                         vino: false,
+                        sinseleccionarB: false,
                         bebidaElegida: "gaseosa",
                     });
                 else
@@ -143,6 +160,7 @@ class Perfil extends Component {
                             champagne: false,
                             gaseosa: false,
                             vino: true,
+                            sinseleccionarB: false,
                             bebidaElegida: "vino",
                         });
 
@@ -154,6 +172,7 @@ class Perfil extends Component {
                 golosinas: false,
                 fiambres: false,
                 pasteleria: false,
+                sinseleccionarA: false,
                 acompañamientoElegido: "chocolates",
             });
         else
@@ -163,6 +182,7 @@ class Perfil extends Component {
                     golosinas: true,
                     fiambres: false,
                     pasteleria: false,
+                    sinseleccionarA: false,
                     acompañamientoElegido: "golosinas",
                 });
             else
@@ -172,6 +192,7 @@ class Perfil extends Component {
                         golosinas: false,
                         fiambres: true,
                         pasteleria: false,
+                        sinseleccionarA: false,
                         acompañamientoElegido: "fiambres",
                     });
                 else
@@ -181,6 +202,7 @@ class Perfil extends Component {
                             golosinas: false,
                             fiambres: false,
                             pasteleria: true,
+                            sinseleccionarA: false,
                             acompañamientoElegido: "pasteleria",
                         });
 
@@ -192,6 +214,7 @@ class Perfil extends Component {
                 nueve: false,
                 once: false,
                 trece: false,
+                sinseleccionarL: false,
                 limpiezaElegida: "siete",
             });
         else
@@ -201,6 +224,7 @@ class Perfil extends Component {
                     nueve: true,
                     once: false,
                     trece: false,
+                    sinseleccionarL: false,
                     limpiezaElegida: "nueve",
                 });
             else
@@ -210,6 +234,7 @@ class Perfil extends Component {
                         nueve: false,
                         once: true,
                         trece: false,
+                        sinseleccionarL: false,
                         limpiezaElegida: "once",
                     });
                 else
@@ -219,6 +244,7 @@ class Perfil extends Component {
                             nueve: false,
                             once: false,
                             trece: true,
+                            sinseleccionarL: false,
                             limpiezaElegida: "trece",
                         });
 
@@ -230,6 +256,7 @@ class Perfil extends Component {
                 dos: false,
                 tres: false,
                 cuatro: false,
+                sinseleccionarT: false,
                 tintoreriaElegida: "uno",
             });
         else
@@ -239,6 +266,7 @@ class Perfil extends Component {
                     dos: true,
                     tres: false,
                     cuatro: false,
+                    sinseleccionarT: false,
                     tintoreriaElegida: "dos",
                 });
             else
@@ -248,6 +276,7 @@ class Perfil extends Component {
                         dos: false,
                         tres: true,
                         cuatro: false,
+                        sinseleccionarT: false,
                         tintoreriaElegida: "tres",
                     });
                 else
@@ -257,6 +286,7 @@ class Perfil extends Component {
                             dos: false,
                             tres: false,
                             cuatro: true,
+                            sinseleccionarT: false,
                             tintoreriaElegida: "cuatro",
                         });
     }
@@ -289,6 +319,7 @@ class Perfil extends Component {
                                     gaseosa={this.state.gaseosa}
                                     vino={this.state.vino}
                                     bebidaElegida={this.state.bebidaElegida}
+                                    sinseleccionarB={this.state.sinseleccionarB}
                                     handleBebida={this.handleBebida}
 
                                     chocolates={this.state.chocolates}
@@ -296,6 +327,7 @@ class Perfil extends Component {
                                     fiambres={this.state.fiambres}
                                     pasteleria={this.state.pasteleria}
                                     acompañamientoElegido={this.state.acompañamientoElegido}
+                                    sinseleccionarA={this.state.sinseleccionarA}
                                     handleAcompañamiento={this.handleAcompañamiento}
 
                                     siete={this.state.siete}
@@ -303,6 +335,7 @@ class Perfil extends Component {
                                     once={this.state.once}
                                     trece={this.state.trece}
                                     limpiezaElegida={this.state.limpiezaElegida}
+                                    sinseleccionarL={this.state.sinseleccionarL}
                                     handleLimpieza={this.handleLimpieza}
 
                                     uno={this.state.uno}
@@ -310,11 +343,15 @@ class Perfil extends Component {
                                     tres={this.state.tres}
                                     cuatro={this.state.cuatro}
                                     tintoreriaElegida={this.state.tintoreriaElegida}
+                                    sinseleccionarT={this.state.sinseleccionarT}
                                     handleTintoreria={this.handleTintoreria}
 
+
+                                    guardarPerfil={this.guardarPerfil.bind(this)}
                                     perfilCompletado={this.props.perfilCompletado}
                                     callPerfilCompletado={this.props.callPerfilCompletado}
                                     data={this.props.data}
+
                                 />
                             </Paper>
                         </Grid>

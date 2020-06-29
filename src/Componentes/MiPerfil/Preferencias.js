@@ -91,6 +91,9 @@ export default function ScrollableTabsButtonForce(props) {
           pasteleria={props.pasteleria}
           acompañamientoElegido={props.acompañamientoElegido}
           handleAcompañamiento={props.handleAcompañamiento}
+          sinseleccionarB={props.sinseleccionarB}
+          sinseleccionarA={props.sinseleccionarA}
+
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -101,6 +104,7 @@ export default function ScrollableTabsButtonForce(props) {
           trece={props.trece}
           limpiezaElegida={props.limpiezaElegida}
           handleLimpieza={props.handleLimpieza}
+          sinseleccionarL={props.sinseleccionarL}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -111,6 +115,7 @@ export default function ScrollableTabsButtonForce(props) {
           cuatro={props.cuatro}
           tintoreriaElegida={props.tintoreriaElegida}
           handleTintoreria={props.handleTintoreria}
+          sinseleccionarT={props.sinseleccionarT}
         />
       </TabPanel>
 

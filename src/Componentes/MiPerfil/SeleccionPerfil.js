@@ -1,7 +1,11 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Typography, FormControl, FormLabel, FormControlLabel, Checkbox, FormHelperText } from '@material-ui/core';
+import { Grid, Typography, FormControl, FormLabel, FormControlLabel, FormHelperText, IconButton } from '@material-ui/core';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import KingBedIcon from '@material-ui/icons/KingBed';
+import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
 
 
 const styles = theme => ({
@@ -17,10 +21,10 @@ class SeleccionPerfil extends Component {
     constructor(props){
         super(props);
         this.state={
-            bienvenida:"A eleccion",
-            acompañamiento:"A eleccion",
-            limpieza:"A eleccion",
-            tintoreria:"A eleccion",
+            bienvenida:"Sin Seleccionar",
+            acompañamiento:"Sin Seleccionar",
+            limpieza:"Sin Seleccionar",
+            tintoreria:"Sin Seleccionar",
         }
     }
     
@@ -60,8 +64,6 @@ class SeleccionPerfil extends Component {
                 }
             }
         }
-
-
 
         if(siete){
             this.setState({limpieza:"07:00 - 09:00 Hs"})
@@ -106,25 +108,25 @@ class SeleccionPerfil extends Component {
                     <Grid item xs={12} >
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel >Bebida de bienvenida</FormLabel>
-                            <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="Champagne" />
+                            <FormControlLabel  control={<IconButton ><LocalBarIcon/></IconButton>} label="Champagne" />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} >
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel component="legend">Acompañamiento</FormLabel>
-                            <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="Chocolates" />
+                            <FormControlLabel  control={<IconButton ><FastfoodIcon/></IconButton>} label="Chocolates" />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel component="legend">Horario de limpieza</FormLabel>
-                            <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="13:00 - 15:00" />
+                            <FormControlLabel  control={<IconButton ><KingBedIcon/></IconButton>} label="13:00 - 15:00" />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl component="fieldset" className={classes.formControl}>
-                            <FormLabel component="legend">Dias a la semana</FormLabel>
-                            <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE"  />} label="1 Vez a la semana" />
+                            <FormLabel component="legend">Tintoreria a la semana</FormLabel>
+                            <FormControlLabel  control={<IconButton ><LocalLaundryServiceIcon/></IconButton>} label="1 Vez a la semana" />
                             <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                         </FormControl>
                     </Grid>
@@ -137,25 +139,25 @@ class SeleccionPerfil extends Component {
                         <Grid item xs={12}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 <FormLabel component="legend">Bebida de bienvenida</FormLabel>
-                                <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="Vino" />
+                                <FormControlLabel  control={<IconButton ><LocalBarIcon/></IconButton>} label="Vino" />
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 <FormLabel component="legend">Acompañamiento</FormLabel>
-                                <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="Tabla de fiambres" />
+                                <FormControlLabel  control={<IconButton ><FastfoodIcon/></IconButton>} label="Tabla de fiambres" />
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} >
                             <FormControl component="fieldset" className={classes.formControl}>
                                 <FormLabel component="legend">Horario de limpieza</FormLabel>
-                                <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="07:00 - 09:00" />
+                                <FormControlLabel  control={<IconButton ><KingBedIcon/></IconButton>} label="07:00 - 09:00" />
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormLabel component="legend">Dias a la semana</FormLabel>
-                                <FormControlLabel  control={<Checkbox  color="primary" checked name="checkedE" />} label="4 Veces a la semana" />
+                                <FormLabel component="legend">Tintoreria a la semana</FormLabel>
+                                <FormControlLabel  control={<IconButton ><LocalLaundryServiceIcon/></IconButton>} label="4 Veces a la semana" />
                                 <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                             </FormControl>
                         </Grid>
@@ -168,25 +170,25 @@ class SeleccionPerfil extends Component {
                             <Grid item xs={12}>
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">Bebida de bienvenida</FormLabel>
-                                    <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="Gaseosa" />
+                                    <FormControlLabel  control={<IconButton ><LocalBarIcon/></IconButton>} label="Gaseosa" />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">Acompañamiento</FormLabel>
-                                    <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="Golosinas" />
+                                    <FormControlLabel  control={<IconButton ><FastfoodIcon/></IconButton>} label="Golosinas" />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">Horario de limpieza</FormLabel>
-                                    <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="09:00 - 11:00 Hs" />
+                                    <FormControlLabel  control={<IconButton ><KingBedIcon/></IconButton>} label="09:00 - 11:00 Hs" />
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} >
                                 <FormControl component="fieldset" className={classes.formControl}>
-                                    <FormLabel component="legend">Dias a la semana</FormLabel>
-                                    <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="2 Veces a la semana" />
+                                    <FormLabel component="legend">Tintoreria a la semana</FormLabel>
+                                    <FormControlLabel  control={<IconButton ><LocalLaundryServiceIcon/></IconButton>} label="2 Veces a la semana" />
                                     <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -199,25 +201,25 @@ class SeleccionPerfil extends Component {
                                 <Grid item xs={12}>
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Bebida de bienvenida</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" onClick={this.props.openPreferencias} />} label={this.state.bienvenida}/>
+                                        <FormControlLabel  control={<IconButton onClick={this.props.openPreferencias}><LocalBarIcon/></IconButton>} label={this.state.bienvenida}/>
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} >
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Acompañamiento</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" onClick={this.props.openPreferencias}/>} label={this.state.acompañamiento}  />
+                                        <FormControlLabel  control={<IconButton onClick={this.props.openPreferencias}><FastfoodIcon/></IconButton>} label={this.state.acompañamiento}  />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Horario de limpieza</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" onClick={this.props.openPreferencias}/>} label={this.state.limpieza}  />
+                                        <FormControlLabel  control={<IconButton onClick={this.props.openPreferencias}><KingBedIcon/></IconButton>} label={this.state.limpieza}  />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} >
                                     <FormControl component="fieldset" className={classes.formControl}>
-                                        <FormLabel component="legend">Dias a la semana</FormLabel>
-                                        <FormControlLabel  control={<Checkbox checked color="primary" name="checkedE" onClick={this.props.openPreferencias}/>} label={this.state.tintoreria}  />
+                                        <FormLabel component="legend">Tintoreria a la semana</FormLabel>
+                                        <FormControlLabel  control={<IconButton onClick={this.props.openPreferencias}><LocalLaundryServiceIcon/></IconButton>} label={this.state.tintoreria}  />
                                         <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                                     </FormControl>
                                 </Grid>

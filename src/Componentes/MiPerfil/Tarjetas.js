@@ -2,7 +2,9 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography, Paper, ButtonBase, Divider, Button } from '@material-ui/core';
-import visa from '../../Imagenes/Visa.png'
+import visa from '../../Imagenes/visa.png'
+import mastercard from '../../Imagenes/mastercard.png'
+import amex from '../../Imagenes/amex.png'
 import mp from '../../Imagenes/mercadopago-logo.png'
 import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
 import GuestInfo from '../../Models/Guest/GuestInfo';
@@ -29,9 +31,25 @@ const styles = theme => ({
     },
     logoVisa: {
         width: 100,
-        height: 50,
+        height: 45,
         [theme.breakpoints.down('xs')]: {
-            width: 80,
+            width: 70,
+            height: 30,
+        },
+    },
+    logoMaster: {
+        width: 90,
+        height: 45,
+        [theme.breakpoints.down('xs')]: {
+            width: 70,
+            height: 40,
+        },
+    },
+    logoAmex: {
+        width: 60,
+        height: 45,
+        [theme.breakpoints.down('xs')]: {
+            width: 70,
             height: 40,
         },
     },
@@ -90,7 +108,7 @@ class Tarjetas extends Component {
         }
     }
 
-    componentDidMount() {        
+    componentDidMount() {
         let methods = GuestInfo.getInstance().getPaymentMethods()
         this.setState({ tarjetas: methods })
     }
@@ -150,10 +168,6 @@ class Tarjetas extends Component {
             console.log("Errrooor pa")
         }
     }
-
-
-
-
     callNumeroTarjeta = (x) => {
         this.setState({ numeroTarjeta: x });
     }
@@ -232,9 +246,18 @@ class Tarjetas extends Component {
             )
 
     }
-
+    tipoTarjeta(tipo) {
+        const { classes } = this.props;
+        if (tipo === "visa")
+            return <img src={visa} alt="visa" className={classes.logoVisa} />
+        else
+            if (tipo === "mastercard")
+                return <img src={mastercard} alt="visa" className={classes.logoMaster} />
+            else
+                if (tipo === "amex")
+                    return <img src={amex} alt="visa" className={classes.logoAmex} />
+    }
     ultimosTres(x) {
-
         let cardNumberArr = x.split('');
         cardNumberArr.forEach((val, index) => {
             if (index > -1 && index < 14) {
@@ -243,7 +266,6 @@ class Tarjetas extends Component {
                 }
             }
         });
-
         return cardNumberArr;
     }
 
@@ -265,12 +287,12 @@ class Tarjetas extends Component {
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper>
 
-                        {this.state.tarjetas.map((item, index) =>
+                            {this.state.tarjetas.map((item, index) =>
                                 <div key={index}>
                                     <ButtonBase className={classes.image}      >
                                         <Grid container justify="center" alignItems="center" >
                                             <Grid item md={3} xs={3}>
-                                                <img src={visa} alt="visa" className={classes.logoVisa} />
+                                                {this.tipoTarjeta(item.state.tipo)}
                                             </Grid>
                                             <Grid item md={9} xs={9}>
                                                 <Typography variant="h6">Visa Débito terminada en {this.ultimosTres(item.state.cardNumber)}</Typography>
@@ -324,7 +346,7 @@ class Tarjetas extends Component {
                                     <ButtonBase className={classes.image}      >
                                         <Grid container justify="center" alignItems="center" >
                                             <Grid item md={3} xs={3}>
-                                                <img src={visa} alt="visa" className={classes.logoVisa} />
+                                                {this.tipoTarjeta(item.state.tipo)}
                                             </Grid>
                                             <Grid item md={9} xs={9}>
                                                 <Typography variant="h6">Visa Débito terminada en {this.ultimosTres(item.state.cardNumber)}</Typography>

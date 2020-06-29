@@ -46,6 +46,10 @@ export default function Bienvenida(props) {
                 control={<Checkbox color="primary" checked={props.vino} onChange={props.handleBebida} name="vino" />}
                 label="Vino"
               />
+              <FormControlLabel
+                control={<Checkbox color="primary" checked={props.sinseleccionarB} onChange={props.handleBebida} name="sinseleccionarB" />}
+                label="Sin Seleccionar"
+              />
             </FormGroup>
             <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
           </FormControl>
@@ -69,6 +73,10 @@ export default function Bienvenida(props) {
               <FormControlLabel
                 control={<Checkbox color="primary" checked={props.pasteleria} onChange={props.handleAcompañamiento} name="pasteleria" />}
                 label="Pasteleria"
+              />
+              <FormControlLabel
+                control={<Checkbox color="primary" checked={props.sinseleccionarA} onChange={props.handleAcompañamiento} name="sinseleccionarA" />}
+                label="Sin Seleccionar"
               />
             </FormGroup>
           </FormControl>

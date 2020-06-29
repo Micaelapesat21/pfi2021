@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HouseKeeping(props) {
   const classes = useStyles();
-  const { siete, nueve, once,trece } = props;
- 
+  const { siete, nueve, once, trece, sinseleccionarL } = props;
+
 
   return (
     <div className={classes.root}>
@@ -43,11 +43,15 @@ export default function HouseKeeping(props) {
             control={<Checkbox color="primary" checked={trece} onChange={props.handleLimpieza} name="trece" />}
             label="13:00 - 15:00 Hs"
           />
+          <FormControlLabel
+            control={<Checkbox color="primary" checked={sinseleccionarL} onChange={props.handleLimpieza} name="sinseleccionarL" />}
+            label="Sin Seleccionar"
+          />
         </FormGroup>
         <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
       </FormControl>
-      
-     
+
+
     </div>
   );
 }
