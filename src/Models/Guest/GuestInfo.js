@@ -61,7 +61,6 @@ class GuestInfo {
   }
 
   toJson() {
-    var tar = {}
     var dict = {}
     dict["email"] = this._email;
     dict["nombre"] = this._name;
@@ -87,22 +86,24 @@ class GuestInfo {
       dict["limpieza"] = perfilInfo.limpieza;
       dict["tintoreria"] = perfilInfo.tintoreria;
     }*/
-    dict["tarjeta"] = tar
-
+    
+    var paymentMethods = []
     if (this._paymentInfo !== null) {
-      var method = this._paymentInfo[0]
+      this._paymentInfo.forEach(method => {
+      var tar = {}
       tar["name"] = method.name;
-      // dict["lastName"] = method.lastName;
       tar["cardNumber"] = method.cardNumber;
       tar["mes"] = method.mes;
       tar["año"] = method.año;
       tar["securityCode"] = method.securityCode;
       tar["tipo"] = method.tipo;
-
- 
+      this._paymentInfo.push(tar);  
+    });
     }
 
-    console.log("guestInfo", dict,tar);
+    dict["tarjeta"] = paymentMethods;
+
+    console.log("guestInfo", dict);
     return dict;
   }
 }
