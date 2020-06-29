@@ -21,14 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Bienvenida(props) {
   const classes = useStyles();
-  const setBienvenida=props.setBienvenida
-  const bienvenida=props.bienvenida
-
-  const handleChange = (event) => {
-    setBienvenida({ ...props.bienvenida, [event.target.name]: event.target.checked, elegido:event.target.name });
-  };
-
-  
 
 
   return (
@@ -39,19 +31,19 @@ export default function Bienvenida(props) {
             <FormLabel component="legend">Bebida de bienvenida</FormLabel>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.aguaFria} onChange={handleChange} name="aguaFria" />}
+                control={<Checkbox color="primary" checked={props.aguaFria} onChange={props.handleBebida} name="aguaFria" />}
                 label="Agua fria"
               />
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.champagne} onChange={handleChange} name="champagne" />}
+                control={<Checkbox color="primary" checked={props.champagne} onChange={props.handleBebida} name="champagne" />}
                 label="Champagne"
               />
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.gaseosa} onChange={handleChange} name="gaseosa" />}
+                control={<Checkbox color="primary" checked={props.gaseosa} onChange={props.handleBebida} name="gaseosa" />}
                 label="Gaseosa"
               />
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.vino} onChange={handleChange} name="vino" />}
+                control={<Checkbox color="primary" checked={props.vino} onChange={props.handleBebida} name="vino" />}
                 label="Vino"
               />
             </FormGroup>
@@ -63,19 +55,19 @@ export default function Bienvenida(props) {
             <FormLabel component="legend">Acompañamiento</FormLabel>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.chocolates} onChange={handleChange} name="chocolates" />}
+                control={<Checkbox color="primary" checked={props.chocolates} onChange={props.handleAcompañamiento} name="chocolates" />}
                 label="Chocolates"
               />
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.golosinas} onChange={handleChange} name="golosinas" />}
+                control={<Checkbox color="primary" checked={props.golosinas} onChange={props.handleAcompañamiento} name="golosinas" />}
                 label="Golosinas"
               />
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.fiambres} onChange={handleChange} name="fiambres" />}
+                control={<Checkbox color="primary" checked={props.fiambres} onChange={props.handleAcompañamiento} name="fiambres" />}
                 label="Tabla de fiambres"
               />
               <FormControlLabel
-                control={<Checkbox color="primary" checked={bienvenida.pasteleria} onChange={handleChange} name="pasteleria" />}
+                control={<Checkbox color="primary" checked={props.pasteleria} onChange={props.handleAcompañamiento} name="pasteleria" />}
                 label="Pasteleria"
               />
             </FormGroup>

@@ -79,30 +79,39 @@ export default function ScrollableTabsButtonForce(props) {
 
       <TabPanel value={value} index={0}>
         <Bienvenida
-          bienvenida={props.bienvenida}
-          setBienvenida={props.setBienvenida}
-          houseKeeping={props.houseKeeping}
-          setHouseKeeping={props.setHouseKeeping}
-          tintoreria={props.tintoreria}
-          setTintoreria={props.setTintoreria} />
+          aguaFria={props.aguaFria}
+          champagne={props.champagne}
+          gaseosa={props.gaseosa}
+          vino={props.vino}
+          bebidaElegida={props.bebidaElegida}
+          handleBebida={props.handleBebida}
+          chocolates={props.chocolates}
+          golosinas={props.golosinas}
+          fiambres={props.fiambres}
+          pasteleria={props.pasteleria}
+          acompañamientoElegido={props.acompañamientoElegido}
+          handleAcompañamiento={props.handleAcompañamiento}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <HouseKeeping
-          bienvenida={props.bienvenida}
-          setBienvenida={props.setBienvenida}
-          houseKeeping={props.houseKeeping}
-          setHouseKeeping={props.setHouseKeeping}
-          tintoreria={props.tintoreria}
-          setTintoreria={props.setTintoreria} />
+          siete={props.siete}
+          nueve={props.nueve}
+          once={props.once}
+          trece={props.trece}
+          limpiezaElegida={props.limpiezaElegida}
+          handleLimpieza={props.handleLimpieza}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Tintoreria
-          bienvenida={props.bienvenida}
-          setBienvenida={props.setBienvenida}
-          houseKeeping={props.houseKeeping}
-          setHouseKeeping={props.setHouseKeeping}
-          tintoreria={props.tintoreria}
-          setTintoreria={props.setTintoreria} />
+          uno={props.uno}
+          dos={props.dos}
+          tres={props.tres}
+          cuatro={props.cuatro}
+          tintoreriaElegida={props.tintoreriaElegida}
+          handleTintoreria={props.handleTintoreria}
+        />
       </TabPanel>
 
     </div>

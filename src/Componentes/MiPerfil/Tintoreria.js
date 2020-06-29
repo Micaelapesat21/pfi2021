@@ -19,15 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Tintoreria(props) {
   const classes = useStyles();
-  const setTintoreria=props.setTintoreria
-  const tintoreria=props.tintoreria
-
-  const handleChange = (event) => {
-    setTintoreria({ ...tintoreria, [event.target.name]: event.target.checked,elegido:event.target.name });
-  };
-
-  const { uno, dos, tres,cuatro } = tintoreria;
- 
+  const { uno, dos, tres,cuatro } = props;
  
   return (
     <div className={classes.root}>
@@ -35,19 +27,19 @@ export default function Tintoreria(props) {
         <FormLabel component="legend">Dias a la semana</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox color="primary" checked={uno} onChange={handleChange} name="uno" />}
+            control={<Checkbox color="primary" checked={uno} onChange={props.handleTintoreria} name="uno" />}
             label="1 Vez a la semana"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={dos} onChange={handleChange} name="dos" />}
+            control={<Checkbox color="primary" checked={dos} onChange={props.handleTintoreria} name="dos" />}
             label="2 Veces a la semana"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={tres} onChange={handleChange} name="tres" />}
+            control={<Checkbox color="primary" checked={tres} onChange={props.handleTintoreria} name="tres" />}
             label="3 Veces a la semana"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={cuatro} onChange={handleChange} name="cuatro" />}
+            control={<Checkbox color="primary" checked={cuatro} onChange={props.handleTintoreria} name="cuatro" />}
             label="4 Veces a la semana"
           />
         </FormGroup>

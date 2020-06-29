@@ -18,7 +18,7 @@ const styles = theme => ({
         position: 'relative',
         [theme.breakpoints.down('xs')]: {
         },
-        '&:hover, &$focusVisible': {
+        '&:hover': {
             zIndex: 1,
             '& $imageBackdrop': {
                 opacity: 0.6,
@@ -104,14 +104,22 @@ class FormularioDatos extends Component {
         var array = user.displayName.split(" ");
         var nombre = array[0]
         var apellido = array[1]
+        const userData = this.props.data
 
         this.setState({
             correo: user.email,
             nombre: nombre,
             apellido: apellido,
+            tipo: userData.tipo,
+            documento: userData.documento,
+            pais: userData.pais,
+            estado: userData.estado,
+            ciudad: userData.ciudad,
+            codigoPostal: userData.codigoPostal,
+            direccion: userData.direccion1
         })
 
-        this.getGuestInfo(user.email)
+        //this.getGuestInfo(user.email)
     }
 
     edicionOpen() {
@@ -155,7 +163,7 @@ class FormularioDatos extends Component {
             estado: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
-            direccion1: this.state.direccion
+            direccion1: this.state.direccion1
             // etc.
         };
     }
@@ -210,33 +218,23 @@ class FormularioDatos extends Component {
     }
 
     botonGuardar() {
-        if (this.state.edicion) {
+        if (this.state.edicion)
             return (
                 <Button variant="outlined" onClick={this.guardar} >Guardar</Button>
             )
-        } else {
-            return (
-                <div />
-            )
-        }
-
     }
 
     showLoaderIfNeeded() {
-        if (this.state.loading) {
+        if (this.state.loading)
             return (
                 <div className="loader">
-                    <Backdrop  open={!this.state.loadingpen} >
+                    <Backdrop open={!this.state.loadingpen} >
                         <CircularProgress color="secondary" />
                     </Backdrop>
 
                 </div>
             )
-        } else {
-            return (
-                <div />
-            )
-        }
+
     }
 
     //Modal handlers
@@ -256,10 +254,8 @@ class FormularioDatos extends Component {
             return (
                 <Grid>
                     {this.showLoaderIfNeeded()}
-                   <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
-                    <Typography variant="h6" gutterBottom>
-                        Datos Personales
-             </Typography>
+                    <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+                  
                     <Grid container spacing={3}>
                         <Grid item xs={4} md={3}>
                             <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>

@@ -14,7 +14,7 @@ import GuestAPI from '../Network/Guest/GuestAPI'
 import GuestInfo from '../Models/Guest/GuestInfo'
 import HotelHome from './HotelHome'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import LoadinPage from './LoadingPage/Index'
 
 
 
@@ -54,6 +54,8 @@ class Inicio extends Component {
             precio: "",
             completado: false,
             modoHotel: false,
+            loading: false,
+            data: [],
         };
 
     }
@@ -89,11 +91,12 @@ class Inicio extends Component {
 
 
     getGuestInfo(email) {
+        this.setState({ loading: true });
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
     }
 
     handleGetGuestInfo = async (guestInfo) => {
-
+        this.setState({ loading: false, });
         if (guestInfo.data === undefined || guestInfo === null) {
             //show error message
 
@@ -108,7 +111,7 @@ class Inicio extends Component {
                     && userData.ciudad && userData.codigoPostal
                     && userData.direccion) !== "") {
                     this.callPerfilCompletado()
-
+                    this.setState({ data: userData })
                 }
                 else {
                     this.callPerfilNoCompletado()
@@ -184,14 +187,14 @@ class Inicio extends Component {
     volver() {
         if (this.state.modoHotel) {
             return (
-                <IconButton onClick={()=>this.callHotel(false)}>
+                <IconButton onClick={() => this.callHotel(false)}>
                     <ArrowBackIcon />
                 </IconButton>
             )
         } else {
             if (this.state.inicio === false) {
                 return (
-                    <IconButton onClick={()=>this.callbackInicio(true)}>
+                    <IconButton onClick={() => this.callbackInicio(true)}>
                         <ArrowBackIcon />
                     </IconButton>
                 )
@@ -207,27 +210,33 @@ class Inicio extends Component {
         if (this.state.user) {
             if (this.state.modoHotel) {
                 return (
-               <HotelHome
+                    <HotelHome
                         user={this.state.user}
                     />
                 )
             } else {
                 if (this.state.user.emailVerified || this.isloginFacebook() === true) {
-                    return (
-                        <Home
-                            user={this.state.user}
-                            id={this.state.id}
-                            CheckIn={this.state.CheckIn}
-                            CheckOut={this.state.CheckOut}
-                            huespedes={this.state.huespedes}
-                            precio={this.state.precio}
-                            callCheckIn={this.callCheckIn}
-                            callCheckOut={this.callCheckOut}
-                            callHuespedes={this.callHuespedes}
-                            perfilCompletado={this.state.completado}
-                            callPerfilCompletado={this.callPerfilCompletado}
-                        />
-                    )
+                    if (this.state.loading)
+                        return (
+                            <LoadinPage/>
+                        )
+                    else
+                        return (
+                            <Home
+                                user={this.state.user}
+                                id={this.state.id}
+                                CheckIn={this.state.CheckIn}
+                                CheckOut={this.state.CheckOut}
+                                huespedes={this.state.huespedes}
+                                precio={this.state.precio}
+                                callCheckIn={this.callCheckIn}
+                                callCheckOut={this.callCheckOut}
+                                callHuespedes={this.callHuespedes}
+                                perfilCompletado={this.state.completado}
+                                callPerfilCompletado={this.callPerfilCompletado}
+                                data={this.state.data}
+                            />
+                        )
                 } else {
                     return (
                         <Grid container component="main" className={classes.root}>

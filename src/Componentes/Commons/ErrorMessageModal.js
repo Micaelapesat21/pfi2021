@@ -10,8 +10,8 @@ class ErrorMessageModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
-       text: ''
+    this.state = {
+      text: ''
     };
   }
 
@@ -21,24 +21,24 @@ class ErrorMessageModal extends Component {
 
   render() {
     return (
-      <div>
-          <Dialog
-          open={ this.props.isOpen }
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          >
-          <DialogTitle id="alert-dialog-title" style = { { fontWeight: 'bold', textAlign: 'center' } }  > { this.props.title } </DialogTitle>
-          <DialogContent className = "smallDialogStyle">
-           { this.props.errorMessage }
-          </DialogContent>
-          <DialogActions>
-          <Button onClick={ this.handleClose.bind() } color="primary" autoFocus>
+
+      <Dialog
+        open={this.props.isOpen}
+        onClose={this.handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > {this.props.title} </DialogTitle>
+        <DialogContent className="smallDialogStyle">
+          {this.props.errorMessage}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleClose.bind()} color="primary" autoFocus>
             OK
           </Button>
-          </DialogActions>
-          </Dialog>
-      </div>
+        </DialogActions>
+      </Dialog>
+
     );
   }
 }

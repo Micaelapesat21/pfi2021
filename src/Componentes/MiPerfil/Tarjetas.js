@@ -131,7 +131,7 @@ class Tarjetas extends Component {
                     tipoTarjeta: userData.tipo,
                 });*/
                 this.setState({ tarjetas: userData })
-                //console.log(this.state.tarjetas)
+                console.log(this.state.tarjetas)
                 GuestInfo.getInstance().setUserData(userData);
             }
         }
@@ -295,18 +295,23 @@ class Tarjetas extends Component {
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper>
 
-                            <ButtonBase className={classes.image} >
-                                <Grid container justify="center" alignItems="center" >
-                                    <Grid item md={3} xs={4}>
-                                        <img src={visa} alt="visa" className={classes.logoVisa} />
-                                    </Grid>
-                                    <Grid item md={9} xs={8}>
-                                        <Typography variant="h6">Visa Débito terminada en </Typography>
-                                    </Grid>
-                                </Grid>
-                                <span className={classes.imageBackdrop} />
-                            </ButtonBase>
-                            <Divider />
+                        {this.state.tarjetas.map((item, index) =>
+                                <div key={index}>
+                                    <ButtonBase className={classes.image}      >
+                                        <Grid container justify="center" alignItems="center" >
+                                            <Grid item md={3} xs={3}>
+                                                <img src={visa} alt="visa" className={classes.logoVisa} />
+                                            </Grid>
+                                            <Grid item md={9} xs={9}>
+                                                <Typography variant="h6">Visa Débito terminada en {this.ultimosTres(item.state.cardNumber)}</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <span className={classes.imageBackdrop} />
+                                    </ButtonBase>
+                                    <Divider />
+                                </div>
+
+                            )}
                             <ButtonBase className={classes.image}     >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={3} xs={4}>

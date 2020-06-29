@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Grid, Typography, Paper, } from '@material-ui/core';
 
 import TabsPerfil from './TabsPerfil';
+//import GuestAPI from '../../Network/Guest/GuestAPI';
+//import GuestInfo from '../../Models/Guest/GuestInfo';
 
 
 
@@ -25,7 +27,239 @@ const styles = theme => ({
 
 class Perfil extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            romantico: false,
+            ejecutivo: false,
+            familia: false,
+            preferencias: false,
+            perfilElegido: "",
+            aguaFria: false,
+            champagne: false,
+            gaseosa: false,
+            vino: false,
+            bebidaElegida: "",
+            chocolates: false,
+            golosinas: false,
+            fiambres: false,
+            pasteleria: false,
+            acompañamientoElegido: "",
+            siete: false,
+            nueve: false,
+            once: false,
+            trece: false,
+            limpiezaElegida: "",
+            uno: false,
+            dos: false,
+            tres: false,
+            cuatro: false,
+            tintoreriaElegida: "",
+        }
+    }
 
+    callBebidaElegida = (x) => {
+        this.setState({ bebidaElegida: x })
+    }
+    callAcompañamientoElegido = (x) => {
+        this.setState({ acompañamientoElegido: x })
+    }
+    callLimpiezaElegida = (x) => {
+        this.setState({ limpiezaElegida: x })
+    }
+    callTintoreriaElegida = (x) => {
+        this.setState({ tintoreriaElegida: x })
+    }
+
+    handleChangeSwitch = (event) => {
+        if (event.target.name === "romantico")
+            this.setState({
+                romantico: true,
+                ejecutivo: false,
+                familia: false,
+                preferencias: false,
+                perfilElegido: "romantico",
+            });
+        else
+            if (event.target.name === "ejecutivo")
+                this.setState({
+                    romantico: false,
+                    ejecutivo: true,
+                    familia: false,
+                    preferencias: false,
+                    perfilElegido: "ejecutivo",
+                });
+            else
+                if (event.target.name === "familia")
+                    this.setState({
+                        romantico: false,
+                        ejecutivo: false,
+                        familia: true,
+                        preferencias: false,
+                        perfilElegido: "familia",
+                    });
+                else
+                    if (event.target.name === "preferencias")
+                        this.setState({
+                            romantico: false,
+                            ejecutivo: false,
+                            familia: false,
+                            preferencias: true,
+                            perfilElegido: "preferencias",
+                        });
+    };
+    handleBebida = (event) => {
+        if (event.target.name === "aguaFria")
+            this.setState({
+                aguaFria: true,
+                champagne: false,
+                gaseosa: false,
+                vino: false,
+                bebidaElegida: "aguaFria",
+            });
+        else
+            if (event.target.name === "champagne")
+                this.setState({
+                    aguaFria: false,
+                    champagne: true,
+                    gaseosa: false,
+                    vino: false,
+                    bebidaElegida: "champagne",
+                });
+            else
+                if (event.target.name === "gaseosa")
+                    this.setState({
+                        aguaFria: false,
+                        champagne: false,
+                        gaseosa: true,
+                        vino: false,
+                        bebidaElegida: "gaseosa",
+                    });
+                else
+                    if (event.target.name === "vino")
+                        this.setState({
+                            aguaFria: false,
+                            champagne: false,
+                            gaseosa: false,
+                            vino: true,
+                            bebidaElegida: "vino",
+                        });
+
+    }
+    handleAcompañamiento = (event) => {
+        if (event.target.name === "chocolates")
+            this.setState({
+                chocolates: true,
+                golosinas: false,
+                fiambres: false,
+                pasteleria: false,
+                acompañamientoElegido: "chocolates",
+            });
+        else
+            if (event.target.name === "golosinas")
+                this.setState({
+                    chocolates: false,
+                    golosinas: true,
+                    fiambres: false,
+                    pasteleria: false,
+                    acompañamientoElegido: "golosinas",
+                });
+            else
+                if (event.target.name === "fiambres")
+                    this.setState({
+                        chocolates: false,
+                        golosinas: false,
+                        fiambres: true,
+                        pasteleria: false,
+                        acompañamientoElegido: "fiambres",
+                    });
+                else
+                    if (event.target.name === "pasteleria")
+                        this.setState({
+                            chocolates: false,
+                            golosinas: false,
+                            fiambres: false,
+                            pasteleria: true,
+                            acompañamientoElegido: "pasteleria",
+                        });
+
+    }
+    handleLimpieza = (event) => {
+        if (event.target.name === "siete")
+            this.setState({
+                siete: true,
+                nueve: false,
+                once: false,
+                trece: false,
+                limpiezaElegida: "siete",
+            });
+        else
+            if (event.target.name === "nueve")
+                this.setState({
+                    siete: false,
+                    nueve: true,
+                    once: false,
+                    trece: false,
+                    limpiezaElegida: "nueve",
+                });
+            else
+                if (event.target.name === "once")
+                    this.setState({
+                        siete: false,
+                        nueve: false,
+                        once: true,
+                        trece: false,
+                        limpiezaElegida: "once",
+                    });
+                else
+                    if (event.target.name === "trece")
+                        this.setState({
+                            siete: false,
+                            nueve: false,
+                            once: false,
+                            trece: true,
+                            limpiezaElegida: "trece",
+                        });
+
+    }
+    handleTintoreria = (event) => {
+        if (event.target.name === "uno")
+            this.setState({
+                uno: true,
+                dos: false,
+                tres: false,
+                cuatro: false,
+                tintoreriaElegida: "uno",
+            });
+        else
+            if (event.target.name === "dos")
+                this.setState({
+                    uno: false,
+                    dos: true,
+                    tres: false,
+                    cuatro: false,
+                    tintoreriaElegida: "dos",
+                });
+            else
+                if (event.target.name === "tres")
+                    this.setState({
+                        uno: false,
+                        dos: false,
+                        tres: true,
+                        cuatro: false,
+                        tintoreriaElegida: "tres",
+                    });
+                else
+                    if (event.target.name === "cuatro")
+                        this.setState({
+                            uno: false,
+                            dos: false,
+                            tres: false,
+                            cuatro: true,
+                            tintoreriaElegida: "cuatro",
+                        });
+    }
     render() {
         const { classes } = this.props;
 
@@ -40,19 +274,47 @@ class Perfil extends Component {
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item xs={12} md={12} lg={12}>
                             <Paper>
-                                <TabsPerfil 
-                                user={this.props.user} 
-                                perfil={this.props.perfil}
-                                romanticoOpen={this.props.romanticoOpen}
-                                ejecutivoOpen={this.props.ejecutivoOpen}
-                                familiaOpen={this.props.familiaOpen}
-                                preferenciasOpen={this.props.preferenciasOpen}
-                                romantico={this.props.romantico}
-                                ejecutivo={this.props.ejecutivo}
-                                familia={this.props.familia}
-                                preferencias={this.props.preferencias}
-                                perfilCompletado={this.props.perfilCompletado}
-                                callPerfilCompletado={this.props.callPerfilCompletado}
+                                <TabsPerfil
+                                    user={this.props.user}
+                                    perfil={this.props.perfil}
+                                    romantico={this.state.romantico}
+                                    ejecutivo={this.state.ejecutivo}
+                                    familia={this.state.familia}
+                                    preferencias={this.state.preferencias}
+                                    perfilElegido={this.state.perfilElegido}
+
+                                    handleChangeSwitch={this.handleChangeSwitch}
+                                    aguaFria={this.state.aguaFria}
+                                    champagne={this.state.champagne}
+                                    gaseosa={this.state.gaseosa}
+                                    vino={this.state.vino}
+                                    bebidaElegida={this.state.bebidaElegida}
+                                    handleBebida={this.handleBebida}
+
+                                    chocolates={this.state.chocolates}
+                                    golosinas={this.state.golosinas}
+                                    fiambres={this.state.fiambres}
+                                    pasteleria={this.state.pasteleria}
+                                    acompañamientoElegido={this.state.acompañamientoElegido}
+                                    handleAcompañamiento={this.handleAcompañamiento}
+
+                                    siete={this.state.siete}
+                                    nueve={this.state.nueve}
+                                    once={this.state.once}
+                                    trece={this.state.trece}
+                                    limpiezaElegida={this.state.limpiezaElegida}
+                                    handleLimpieza={this.handleLimpieza}
+
+                                    uno={this.state.uno}
+                                    dos={this.state.dos}
+                                    tres={this.state.tres}
+                                    cuatro={this.state.cuatro}
+                                    tintoreriaElegida={this.state.tintoreriaElegida}
+                                    handleTintoreria={this.handleTintoreria}
+
+                                    perfilCompletado={this.props.perfilCompletado}
+                                    callPerfilCompletado={this.props.callPerfilCompletado}
+                                    data={this.props.data}
                                 />
                             </Paper>
                         </Grid>

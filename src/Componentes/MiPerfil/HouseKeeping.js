@@ -19,14 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HouseKeeping(props) {
   const classes = useStyles();
-  const setHouseKeeping=props.setHouseKeeping
-  const houseKeeping=props.houseKeeping
-
-  const handleChange = (event) => {
-    setHouseKeeping({ ...houseKeeping, [event.target.name]: event.target.checked, elegido:event.target.name });
-  };
-
-  const { siete, nueve, once,trece } = houseKeeping;
+  const { siete, nueve, once,trece } = props;
  
 
   return (
@@ -35,19 +28,19 @@ export default function HouseKeeping(props) {
         <FormLabel component="legend">Horario de limpieza</FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox color="primary" checked={siete} onChange={handleChange} name="siete" />}
+            control={<Checkbox color="primary" checked={siete} onChange={props.handleLimpieza} name="siete" />}
             label="07:00 - 09:00 Hs"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={nueve} onChange={handleChange} name="nueve" />}
+            control={<Checkbox color="primary" checked={nueve} onChange={props.handleLimpieza} name="nueve" />}
             label="09:00 - 11:00 Hs"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={once} onChange={handleChange} name="once" />}
+            control={<Checkbox color="primary" checked={once} onChange={props.handleLimpieza} name="once" />}
             label="11:00 - 13:00 Hs"
           />
           <FormControlLabel
-            control={<Checkbox color="primary" checked={trece} onChange={handleChange} name="trece" />}
+            control={<Checkbox color="primary" checked={trece} onChange={props.handleLimpieza} name="trece" />}
             label="13:00 - 15:00 Hs"
           />
         </FormGroup>

@@ -104,7 +104,7 @@ class DatosHotel extends Component {
         this.guardar = this.guardar.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if(this.state.lastResponse === null) {
             this.getHotelInfo()
         }

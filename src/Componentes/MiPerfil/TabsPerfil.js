@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Preferencias from './Preferencias';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import SeleccionPerfil from './SeleccionPerfil'
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -68,46 +68,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TabsPerfil(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const [value, setValue] = React.useState(1);
-    const [state, setState] = React.useState({
-        romantico: false,
-        ejecutivo: false,
-        familia: false,
-        preferencias: false,
-        elegido: "",
-    });
-    const [bienvenida, setBienvenida] = React.useState({
-        aguaFria: false,
-        champagne: false,
-        gaseosa: false,
-        vino: false,
-        chocolates: false,
-        golosinas: false,
-        fiambres: false,
-        pasteleria: false,
-        elegido1:"",
-        elegido2:"",
-    });
-    const [houseKeeping, setHouseKeeping] = React.useState({
-        siete: false,
-        nueve: false,
-        once: false,
-        trece: false,
-        elegido:"",
-    });
-    const [tintoreria, setTintoreria] = React.useState({
-        uno: false,
-        dos: false,
-        tres: false,
-        cuatro: false,
-        elegido:"",
-    });
-
-
-
-
-
-
+    const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -116,16 +77,10 @@ export default function TabsPerfil(props) {
     const handleChangeIndex = (index) => {
         setValue(index);
     };
-
-   
-    const handleChangeSwitch = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked, elegido: event.target.name });
+    const openPreferencias = () => {
+        setValue(2);
     };
 
-    
-
-
-   
 
     return (
         <div className={classes.root}>
@@ -156,6 +111,7 @@ export default function TabsPerfil(props) {
                         modo={"Perfil"}
                         perfilCompletado={props.perfilCompletado}
                         callPerfilCompletado={props.callPerfilCompletado}
+                        data={props.data}
                     />
 
                 </TabPanel>
@@ -167,23 +123,25 @@ export default function TabsPerfil(props) {
                                 <FormLabel component="legend">Seleccione su tipo de Perfil</FormLabel>
                                 <FormGroup tag="div">
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={state.romantico} onChange={handleChangeSwitch} name="romantico" />}
+                                        control={<Switch color="primary" checked={props.romantico} onChange={props.handleChangeSwitch} name="romantico" />}
                                         label="Romantico"
                                     />
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={state.ejecutivo} onChange={handleChangeSwitch} name="ejecutivo" />}
+                                        control={<Switch color="primary" checked={props.ejecutivo} onChange={props.handleChangeSwitch} name="ejecutivo" />}
                                         label="Ejecutivo"
                                     />
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={state.familia} onChange={handleChangeSwitch} name="familia" />}
+                                        control={<Switch color="primary" checked={props.familia} onChange={props.handleChangeSwitch} name="familia" />}
                                         label="Familia"
                                     />
                                     <FormControlLabel
-                                        control={<Switch color="primary" checked={state.preferencias} onChange={handleChangeSwitch} name="preferencias" />}
+                                        control={<Switch color="primary" checked={props.preferencias} onChange={props.handleChangeSwitch} name="preferencias" />}
                                         label="Mis Preferencias"
                                     />
                                 </FormGroup>
+                                <Button variant="outlined" color="secondary" onClick={() => console.log(props.perfilElegido)} >Guardar</Button>
                             </FormControl>
+
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <SeleccionPerfil
@@ -191,9 +149,29 @@ export default function TabsPerfil(props) {
                                 ejecutivo={props.ejecutivo}
                                 familia={props.familia}
                                 preferencias={props.preferencias}
-                                bienvenida={bienvenida}
-                                houseKeeping={houseKeeping}
-                                tintoreria={tintoreria} />
+                                aguaFria={props.aguaFria}
+                                champagne={props.champagne}
+                                gaseosa={props.gaseosa}
+                                vino={props.vino}
+                                bebidaElegida={props.bebidaElegida}
+                                chocolates={props.chocolates}
+                                golosinas={props.golosinas}
+                                fiambres={props.fiambres}
+                                pasteleria={props.pasteleria}
+                                siete={props.siete}
+                                nueve={props.nueve}
+                                once={props.once}
+                                trece={props.trece}
+                                limpiezaElegida={props.limpiezaElegida}
+                                handleLimpieza={props.handleLimpieza}
+                                uno={props.uno}
+                                dos={props.dos}
+                                tres={props.tres}
+                                cuatro={props.cuatro}
+                                tintoreriaElegida={props.tintoreriaElegida}
+                                handleTintoreria={props.handleTintoreria}
+                                openPreferencias={openPreferencias}
+                            />
                         </Grid>
                     </Grid>
 
@@ -201,17 +179,34 @@ export default function TabsPerfil(props) {
                 <TabPanel value={value} index={2} dir={theme.direction}>
                     {/*PREFERENCIAS*/}
                     <Preferencias
-                        bienvenida={bienvenida}
-                        setBienvenida={setBienvenida}
-                        houseKeeping={houseKeeping}
-                        setHouseKeeping={setHouseKeeping}
-                        tintoreria={tintoreria}
-                        setTintoreria={setTintoreria}
-
+                        aguaFria={props.aguaFria}
+                        champagne={props.champagne}
+                        gaseosa={props.gaseosa}
+                        vino={props.vino}
+                        bebidaElegida={props.bebidaElegida}
+                        handleBebida={props.handleBebida}
+                        chocolates={props.chocolates}
+                        golosinas={props.golosinas}
+                        fiambres={props.fiambres}
+                        pasteleria={props.pasteleria}
+                        acompañamientoElegido={props.acompañamientoElegido}
+                        handleAcompañamiento={props.handleAcompañamiento}
+                        siete={props.siete}
+                        nueve={props.nueve}
+                        once={props.once}
+                        trece={props.trece}
+                        limpiezaElegida={props.limpiezaElegida}
+                        handleLimpieza={props.handleLimpieza}
+                        uno={props.uno}
+                        dos={props.dos}
+                        tres={props.tres}
+                        cuatro={props.cuatro}
+                        tintoreriaElegida={props.tintoreriaElegida}
+                        handleTintoreria={props.handleTintoreria}
                     />
                 </TabPanel>
             </SwipeableViews>
-          
+
         </div>
     )
 }

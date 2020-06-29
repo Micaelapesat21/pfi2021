@@ -634,7 +634,7 @@ export default function ReservaRender(props) {
                                         <Typography align="center">Reserva: {props.nroReserva}</Typography>
                                     </Grid>
                                     <Grid item md={8} xs={5}>
-                                        <img src={props.logo} alt="logo" width className={classes.logo} />
+                                        <img src={props.logo} alt="logo"  className={classes.logo} />
                                     </Grid>
                                     <Grid item md={12} xs={7}>
                                         <Typography variant="body1" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
@@ -693,7 +693,7 @@ export default function ReservaRender(props) {
                                             </Grid>
                                             <Grid item md={5} xs={3}>
                                                 <Grid container  >
-                                                    {huespedes(props.huespedes).map(index => (
+                                                    {huespedes(props.huespedes).map((item,index) => (
                                                         <Grid item key={index}>
                                                             <PersonIcon color="primary" />
                                                         </Grid>

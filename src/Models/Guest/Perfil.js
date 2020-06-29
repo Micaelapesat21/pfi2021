@@ -16,7 +16,6 @@ class Perfil {
         acompañamiento: props.acompañamiento,
         limpieza: props.limpieza,
         tintoreria: props.tintoreria,
-       
       };
     }
 

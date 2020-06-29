@@ -39,14 +39,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function PanelControl(props) {
     const classes = useStyles();
-    const [modoGeneral, setmodoGeneral] = React.useState(false);
+    const [modoGeneral, setmodoGeneral] = React.useState(true);
     const [modoPerfil, setmodoPerfil] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
-    const [modoPagos, setmodoPagos] = React.useState(true);
+    const [modoPagos, setmodoPagos] = React.useState(false);
     const [modoHistorial, setmodoHistorial] = React.useState(false);
     const [modoAyuda, setmodoAyuda] = React.useState(false);
 
@@ -350,6 +350,8 @@ export default function PanelControl(props) {
                                 preferencias={preferencias}
                                 perfilCompletado={props.perfilCompletado}
                                 callPerfilCompletado={props.callPerfilCompletado}
+                                data={props.data}
+
                             />}
                         </Container>
                     </main>
@@ -382,6 +384,7 @@ export default function PanelControl(props) {
                                     callCheckIn={props.callCheckIn}
                                     callCheckOut={props.callCheckOut}
                                     callHuespedes={props.callHuespedes}
+                                    data={props.data}
                                 />
                             </Container>
                         </main>
@@ -423,6 +426,7 @@ export default function PanelControl(props) {
                                         callPerfilCompletado={props.callPerfilCompletado}
                                         checkInOK={checkInOK}
                                         handleCheckIn={handleCheckIn}
+                                        data={props.data}
                                     />}
                                 </Container>
                             </main>
@@ -464,6 +468,7 @@ export default function PanelControl(props) {
                                             perfilCompletado={props.perfilCompletado}
                                             callPerfilCompletado={props.callPerfilCompletado}
                                             checkInOK={checkInOK}
+                                            data={props.data}
                                         />
                                     </Container>
                                 </main>
@@ -494,6 +499,8 @@ export default function PanelControl(props) {
                                                 reservasOpenContacto={reservasOpenContacto}
                                                 checkOutOK={checkOutOK}
                                                 handleCheckOut={handleCheckOut}
+                                                data={props.data}
+
                                             />
                                         </Container>
                                     </main>
@@ -509,7 +516,7 @@ export default function PanelControl(props) {
                                         <main className={classes.content}>
                                             <div className={classes.appBarSpacer} />
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <Resenas />
+                                                <Resenas      data={props.data}/>
                                             </Container>
                                         </main>
                                     </div>
@@ -525,7 +532,7 @@ export default function PanelControl(props) {
                                             <main className={classes.content}>
                                                 <div className={classes.appBarSpacer} />
                                                 <Container maxWidth="lg" className={classes.container}>
-                                                    <Tarjetas  user={props.user} modo={"Tarjetas"} />
+                                                    <Tarjetas      data={props.data}  user={props.user} modo={"Tarjetas"} />
                                                 </Container>
                                             </main>
                                         </div>
@@ -561,6 +568,7 @@ export default function PanelControl(props) {
                                                             modo={"General"}
                                                             perfilCompletado={props.perfilCompletado}
                                                             callPerfilCompletado={props.callPerfilCompletado}
+                                                            data={props.data}
                                                         />}
 
                                                     </Container>
@@ -586,6 +594,8 @@ export default function PanelControl(props) {
                                                                 huespedes={props.huespedes}
                                                                 precio={props.precio}
                                                                 modo={"Historial"}
+                                                                data={props.data}
+
                                                             />}
                                                         </Container>
                                                     </main>

@@ -88,6 +88,7 @@ function getStepContent(step, props) {
         callAñoTarjeta={props.callAñoTarjeta}
         callCodTarjeta={props.callCodTarjeta}
         callTipoTarjeta={props.callTipoTarjeta}
+        user={props.user}
         modo={"ReservaApi"}
       />;
     case 2:

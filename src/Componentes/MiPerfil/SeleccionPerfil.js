@@ -24,10 +24,10 @@ class SeleccionPerfil extends Component {
         }
     }
     
-    componentWillMount(){
-        const { aguaFria, champagne, gaseosa, vino,chocolates,golosinas,fiambres,pasteleria } = this.props.bienvenida;
-        const { siete, nueve, once,trece } = this.props.houseKeeping;
-        const { uno, dos, tres,cuatro } = this.props.tintoreria;
+    componentDidMount(){
+        const { aguaFria, champagne, gaseosa, vino,chocolates,golosinas,fiambres,pasteleria } = this.props;
+        const { siete, nueve, once,trece } = this.props;
+        const { uno, dos, tres,cuatro } = this.props;
     
         if(aguaFria){
             this.setState({bienvenida:"Agua fria"})
@@ -124,7 +124,7 @@ class SeleccionPerfil extends Component {
                     <Grid item xs={12}>
                         <FormControl component="fieldset" className={classes.formControl}>
                             <FormLabel component="legend">Dias a la semana</FormLabel>
-                            <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label="1 Vez a la semana" />
+                            <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE"  />} label="1 Vez a la semana" />
                             <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                         </FormControl>
                     </Grid>
@@ -199,25 +199,25 @@ class SeleccionPerfil extends Component {
                                 <Grid item xs={12}>
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Bebida de bienvenida</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label={this.state.bienvenida}/>
+                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" onClick={this.props.openPreferencias} />} label={this.state.bienvenida}/>
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} >
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Acompañamiento</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label={this.state.acompañamiento}  />
+                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" onClick={this.props.openPreferencias}/>} label={this.state.acompañamiento}  />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Horario de limpieza</FormLabel>
-                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" />} label={this.state.limpieza}  />
+                                        <FormControlLabel  control={<Checkbox color="primary" checked name="checkedE" onClick={this.props.openPreferencias}/>} label={this.state.limpieza}  />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} >
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">Dias a la semana</FormLabel>
-                                        <FormControlLabel  control={<Checkbox checked color="primary" name="checkedE" />} label={this.state.tintoreria}  />
+                                        <FormControlLabel  control={<Checkbox checked color="primary" name="checkedE" onClick={this.props.openPreferencias}/>} label={this.state.tintoreria}  />
                                         <FormHelperText>*Sujeto a disponibilidad del Hotel </FormHelperText>
                                     </FormControl>
                                 </Grid>
