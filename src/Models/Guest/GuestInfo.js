@@ -25,13 +25,12 @@ class GuestInfo {
 
   addPaymentMethod(paymentMethod) {
     let method = new PaymentMethod(paymentMethod);
-    //this._paymentInfo.push(array);
     this._paymentInfo.push(method)
     console.log(this._paymentInfo)
   }
 
   setUserData(props) {
-    if (props.id != null) {
+    if (props.id !== undefined) {
       this._userID = props.id
     }
 
@@ -40,12 +39,25 @@ class GuestInfo {
     this._email = props.email
     this._personalIdType = props.tipo
     this._personalId = props.documento
+    
+    //set address info
     var address = new Address()
     address.setAddressInfo(props)
     this._addressInfo = address
+
+    //set profile info
     var perfil = new Perfil()
     perfil.setPerfilInfo(props)
     this._perfilInfo = perfil
+
+    //set payment methods info
+    if(props.tarjetas !== undefined) {
+      var methods = props.tarjetas;
+      methods.forEach( m => {
+        var method = new PaymentMethod(m);
+        this._paymentInfo.push(method);
+      })
+    }
   }
 
   getName() {
@@ -60,8 +72,11 @@ class GuestInfo {
     return this._userID;
   }
 
+  getPaymentMethods() {
+    return this._paymentInfo;
+  }
+
   toJson() {
-   
     var dict = {}
     dict["email"] = this._email;
     dict["nombre"] = this._name;
@@ -77,35 +92,26 @@ class GuestInfo {
       dict["codigoPostal"] = addressInfo.codigoPostal;
       dict["direccion1"] = addressInfo.direccion1;
     }
-
-
-    /*if (this._perfilInfo !== null) {
-      let perfilInfo = this._perfilInfo.toJson();
-      dict["perfil"] = perfilInfo.perfil;
-      dict["bebida"] = perfilInfo.bebida;
-      dict["acompañamiento"] = perfilInfo.acompañamiento;
-      dict["limpieza"] = perfilInfo.limpieza;
-      dict["tintoreria"] = perfilInfo.tintoreria;
-    }*/
-   
-
+    
+    var paymentMethods = [];
     if (this._paymentInfo !== null) {
+      this._paymentInfo.forEach(m => {
       var tar = {}
-      dict["tarjeta"] = tar
-      /*var method = this._paymentInfo[0]
+      let method = m.toJson();
       tar["name"] = method.name;
-      // dict["lastName"] = method.lastName;
       tar["cardNumber"] = method.cardNumber;
       tar["mes"] = method.mes;
       tar["año"] = method.año;
       tar["securityCode"] = method.securityCode;
-      tar["tipo"] = method.tipo;*/
-      tar["PaymentMethod"] = this._paymentInfo
-      console.log(this._paymentInfo);
-
+      tar["tipo"] = method.tipo;
+      paymentMethods.push(tar);  
+    });
     }
 
-    console.log("guestInfo", dict, tar);
+    dict["tarjetas"] = paymentMethods;
+
+    console.log("guestInfo", dict);
+
     return dict;
   }
 }

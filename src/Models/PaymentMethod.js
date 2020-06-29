@@ -13,13 +13,13 @@ class PaymentMethod {
 
     toJson() {
         return {
-            'name':this.name,
-            'cardNumber': this.cardNumber,
-            'mes':this.mes,
-            'año':this.año,
-            'securityCode': this.securityCode,
-            'tipo':this.tipo,
-        }
+            name: this.state.name,
+            cardNumber: this.state.cardNumber,
+            mes: this.state.mes,
+            año: this.state.año,
+            securityCode: this.state.securityCode,
+            tipo: this.state.tipo,
+        };
     }
 
     parsePaymentMethods(data) {
