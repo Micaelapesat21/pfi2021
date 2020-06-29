@@ -90,10 +90,9 @@ class Tarjetas extends Component {
         }
     }
 
-    componentDidMount() {
-        const user = this.props.user
-        this.getGuestInfo(user.email)
-  
+    componentDidMount() {        
+        let methods = GuestInfo.getInstance().getPaymentMethods()
+        this.setState({ tarjetas: methods })
     }
     maskCardNumber = (x) => {
         let cardNumberArr = x.split('');
@@ -107,35 +106,6 @@ class Tarjetas extends Component {
 
         return cardNumberArr;
     };
-
-
-    getGuestInfo(email) {
-        this.setState({ loading: true });
-        GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
-    }
-    handleGetGuestInfo = async (guestInfo) => {
-        this.setState({ loading: false, });
-
-        if (guestInfo.data === undefined || guestInfo === null) {
-            //show error message if needed
-        } else {
-            let userData = guestInfo.data.usuario.tarjeta.PaymentMethod;
-            //console.log(userData)
-            if (userData !== null) {
-                /*this.setState({
-                    numeroTarjeta: userData.cardNumber,
-                    nombreTarjeta: userData.name,
-                    mesTarjeta: userData.mes,
-                    añoTarjeta: userData.año,
-                    codTarjeta: userData.securityCode,
-                    tipoTarjeta: userData.tipo,
-                });*/
-                this.setState({ tarjetas: userData })
-                //console.log(this.state.tarjetas)
-                GuestInfo.getInstance().setUserData(userData);
-            }
-        }
-    }
 
     agregar() {
         if (this.state.numeroTarjeta !== "" &&
