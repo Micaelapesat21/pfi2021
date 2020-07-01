@@ -143,15 +143,10 @@ function logueado(classes, props) {
 }
 
 
-
-
 export default function GuestInfoForm(props) {
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-
-
-
 
 
   const handleNext = () => {
@@ -166,15 +161,11 @@ export default function GuestInfoForm(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-
-
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
         {logueado(classes, props)}
-
-
       </AppBar>
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={10}>
           <Typography component="h1" variant="h4" align="center">
             Tu Reserva
           </Typography>
