@@ -2,7 +2,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography, Paper, ButtonBase, Divider, Button } from '@material-ui/core';
-import visa from '../../Imagenes/visa.png'
+import visa from '../../Imagenes/Visa.png'
 import mastercard from '../../Imagenes/mastercard.png'
 import amex from '../../Imagenes/amex.png'
 import mp from '../../Imagenes/mercadopago-logo.png'

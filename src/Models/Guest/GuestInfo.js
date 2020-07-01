@@ -12,7 +12,7 @@ class GuestInfo {
   _personalIdType = ""
   _personalId = ""
   _addressInfo = null
-  _perfilInfo = null
+  _profiles = []
   _paymentInfo = []
 
   static getInstance() {
@@ -27,6 +27,13 @@ class GuestInfo {
     let method = new PaymentMethod(paymentMethod);
     this._paymentInfo.push(method)
     console.log(this._paymentInfo)
+  }
+
+  addProfile(profile) {
+    var newProfile = new Perfil(profile);
+    newProfile.setPerfilInfo(profile);
+    this._profiles.push(newProfile);
+    console.log(this._profiles);
   }
 
   setUserData(props) {
@@ -49,6 +56,14 @@ class GuestInfo {
     var perfil = new Perfil()
     perfil.setPerfilInfo(props)
     this._perfilInfo = perfil
+
+    if (props.perfiles !== undefined) {
+      var profiles = props.perfiles;
+      profiles.forEach(p => {
+        var perfil = new Perfil(p);
+        this._profiles.push(perfil);
+      })
+    }
 
     //set payment methods info
     if (props.tarjetas !== undefined) {
@@ -76,6 +91,10 @@ class GuestInfo {
     return this._paymentInfo;
   }
 
+  getProfiles() {
+    return this._profiles;
+  }
+
   toJson() {
     var dict = {}
     dict["email"] = this._email;
@@ -84,6 +103,7 @@ class GuestInfo {
     dict["tipo"] = this._personalIdType;
     dict["documento"] = this._personalId;
 
+    //Address
     if (this._addressInfo !== null) {
       let addressInfo = this._addressInfo.toJson();
       dict["pais"] = addressInfo.pais;
@@ -93,8 +113,9 @@ class GuestInfo {
       dict["direccion1"] = addressInfo.direccion1;
     }
 
+    //Payment methods
     var paymentMethods = [];
-    if (this._paymentInfo !== null) {
+    if (this._paymentInfo !== []) {
       this._paymentInfo.forEach(m => {
         var tar = {}
         let method = m.toJson();
@@ -109,6 +130,18 @@ class GuestInfo {
     }
 
     dict["tarjetas"] = paymentMethods;
+
+    //Profiles
+    var profiles = [];
+    if (this._profiles !== []) {
+      this._profiles.forEach(p => {
+        // var perfil = {}
+        let perfil = p.toJson();
+        profiles.push(perfil);
+      });
+    }
+
+    dict["perfiles"] = profiles;
 
     console.log("guestInfo", dict);
 

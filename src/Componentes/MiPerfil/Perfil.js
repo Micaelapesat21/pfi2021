@@ -4,10 +4,8 @@ import React, { Component } from 'react';
 import { Grid, Typography, Paper, } from '@material-ui/core';
 
 import TabsPerfil from './TabsPerfil';
-//import GuestAPI from '../../Network/Guest/GuestAPI';
-//import GuestInfo from '../../Models/Guest/GuestInfo';
-
-
+import GuestInfo from '../../Models/Guest/GuestInfo';
+import GuestAPI from '../../Network/Guest/GuestAPI';
 
 const styles = theme => ({
     paper: {
@@ -60,6 +58,9 @@ class Perfil extends Component {
             cuatro: false,
             sinseleccionarT: true,
             tintoreriaElegida: "",
+
+            loading: false,
+            open: false,
         }
     }
 
@@ -76,14 +77,37 @@ class Perfil extends Component {
         this.setState({ tintoreriaElegida: x })
     }
     guardarPerfil(){
-        //Para guardar con el post
-        console.log(
-            this.state.perfilElegido,
-            this.state.bebidaElegida,
-            this.state.acompañamientoElegido,
-            this.state.limpiezaElegida,
-            this.state.tintoreriaElegida
-        )
+        let perfil = {
+            "perfil": this.state.perfilElegido,
+            "bebida": this.state.bebidaElegida,
+            "acompaniamiento": this.state.acompañamientoElegido,
+            "limpieza": this.state.limpiezaElegida,
+            "tintoreria": this.state.tintoreriaElegida
+        };
+
+        GuestInfo.getInstance().addProfile(perfil);
+        this.postGuestInfo()
+    }
+
+    postGuestInfo = () => {
+        this.setState({ loading: true });
+        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
+    }
+
+    handlePostGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false });
+        if (guestInfo.error == null) {
+            //post was successful
+            console.log("Guardado con exito")
+            this.setState({ open: false })
+        } else {
+            //get user with email failed
+            console.log("Errrooor pa")
+        }
+    }
+
+    handlePostGuestInfo() {
+
     }
 
     handleChangeSwitch = (event) => {
