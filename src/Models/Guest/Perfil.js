@@ -3,7 +3,7 @@ class Perfil {
       this.state = {
         perfil: "",
         bebida: "",
-        acompañamiento: "",
+        acompaniamiento: "",
         limpieza: "",
         tintoreria: "",
       };
@@ -13,7 +13,7 @@ class Perfil {
       this.state = {
         perfil: props.perfil,
         bebida: props.bebida,
-        acompañamiento: props.acompañamiento,
+        acompaniamiento: props.acompañamiento,
         limpieza: props.limpieza,
         tintoreria: props.tintoreria,
       };
@@ -23,7 +23,7 @@ class Perfil {
         return {
             perfil :this.state.perfil,
             bebida: this.state.bebida,
-            acompañamiento: this.state.acompañamiento,
+            acompaniamiento: this.state.acompaniamiento,
             limpieza: this.state.limpieza,
             tintoreria: this.state.tintoreria,
         };
