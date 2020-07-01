@@ -33,21 +33,11 @@ class AuthController extends Component {
       .catch(error => console.log(`Error ${error.code}: ${error.message}`));
   }
 
-  handleIniciar(correo, contrasena, isHotel) {
-    let handlePostGuestInfo = this.handlePostGuestInfo
+  handleIniciar(correo, contrasena) {
     firebase.auth().languageCode = 'es_ES';
     firebase.auth().signInWithEmailAndPassword(correo, contrasena)
       .then(result => 
         console.log(`${result.user.email} ha iniciado sesion`))
-      .then( function() {
-        if(isHotel === true) {
-          HotelInfo.getInstance().setHotelData({
-            email: correo
-          });
-        
-          HotelAPI.postHotelInfo(handlePostGuestInfo);
-        }
-      })
       .catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -71,19 +61,7 @@ class AuthController extends Component {
       .then(function () {
         user = firebase.auth().currentUser;
         user.sendEmailVerification();
-
-
-        GuestInfo.getInstance().setUserData({
-          nombre: nombre,
-          apellido: apellido,
-          email: correo
-      });
-      
-        GuestAPI.postGuestInfo(handlePostGuestInfo);
-
-        user.updateProfile({
-          displayName: nom + " " + ape,
-        });
+        user.updateProfile({ displayName: nom + " " + ape, });
       })
       .catch(function (error) {
         var errorCode = error.code;
@@ -96,14 +74,6 @@ class AuthController extends Component {
 
         console.log(error);
       });
-  }
-
-  handlePostGuestInfo = async (guestInfo) => {
-      if (guestInfo.error == null) {
-          //post was successful
-      } else {
-          //get user with email failed
-      }
   }
 
   handleRecupero(correo) {
