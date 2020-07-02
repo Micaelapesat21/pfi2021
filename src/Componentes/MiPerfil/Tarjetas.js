@@ -9,6 +9,7 @@ import mp from '../../Imagenes/mercadopago-logo.png'
 import TarjetaCheta from '../TarjetaCheta/TarjetaCheta';
 import GuestInfo from '../../Models/Guest/GuestInfo';
 import GuestAPI from './../../Network/Guest/GuestAPI';
+import TarjetaVerificar from '../TarjetaVerificar/TarjetaCheta'
 
 
 
@@ -105,6 +106,14 @@ class Tarjetas extends Component {
             tipoTarjeta: "",
             tarjetas: [],
             loading: false,
+            verificar: false,
+            codVerificar: false,
+            ver: {
+                cardNumber: '#### #### #### ####',
+                name: 'FULL NAME',
+                mes: '',
+                año: '',
+            },
         }
     }
 
@@ -183,9 +192,13 @@ class Tarjetas extends Component {
     callCodTarjeta = (x) => {
         this.setState({ codTarjeta: x });
     }
+    callVerificaCod = (x) => {
+        this.setState({ codVerificar: x });
+    }
     callTipoTarjeta = (x) => {
         this.setState({ tipoTarjeta: x });
     }
+
     agregarTarjeta() {
         if (this.state.open)
             if (this.props.modo === "ReservaApi")
@@ -240,12 +253,36 @@ class Tarjetas extends Component {
 
                         </Grid>
                     )
-        else
-            return (
-                <div></div>
-            )
 
     }
+
+    verificarTarjeta(state) {
+
+        this.setState({ verificar: true, ver: state })
+    }
+
+    renderVerificar() {
+        if (this.state.verificar)
+            return (
+                <Grid>
+                    <TarjetaVerificar
+                        cardNumber={this.state.ver.cardNumber}
+                        cardHolder={this.state.ver.name}
+                        cardMonth={this.state.ver.mes}
+                        cardYear={this.state.ver.año}
+                        callCodTarjeta={this.callVerificaCod}
+                    />
+                    <Grid container alignItems="flex-end" justify="flex-end">
+                        <Grid item md={3} xs={5}>
+                            <Button variant="contained" color="primary" >Pagar</Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            )
+    }
+
+
+
     tipoTarjeta(tipo) {
         const { classes } = this.props;
         if (tipo === "visa")
@@ -273,7 +310,6 @@ class Tarjetas extends Component {
     render() {
         const { classes } = this.props;
 
-
         if (this.props.modo === "ReservaApi" || this.props.modo === "CheckOut") {
 
 
@@ -289,7 +325,7 @@ class Tarjetas extends Component {
 
                             {this.state.tarjetas.map((item, index) =>
                                 <div key={index}>
-                                    <ButtonBase className={classes.image}      >
+                                    <ButtonBase className={classes.image} onClick={() => this.verificarTarjeta(item.state)}>
                                         <Grid container justify="center" alignItems="center" >
                                             <Grid item md={3} xs={3}>
                                                 {this.tipoTarjeta(item.state.tipo)}
@@ -328,6 +364,7 @@ class Tarjetas extends Component {
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>
                         {this.agregarTarjeta()}
+                        {this.renderVerificar()}
                     </Grid>
                 </Grid>
             );
@@ -383,6 +420,7 @@ class Tarjetas extends Component {
                     </Grid>
                     <Grid item xs={12} md={7} lg={7}>
                         {this.agregarTarjeta()}
+
                     </Grid>
                 </Grid >
             );

@@ -6,7 +6,9 @@ import CompletarReserva from '../Componentes/ReservApi/CompletarReserva'
 import firebase from '../firebaseConfig'
 import DialogLogin from './../Componentes/login/DialogLogin.js'
 import AuthController from '../Componentes/login/AuthController';
-
+import GuestAPI from '../Network/Guest/GuestAPI';
+import GuestInfo from '../Models/Guest/GuestInfo';
+import LoadinPage from './LoadingPage/Index'
 
 
 
@@ -34,6 +36,8 @@ class General extends Component {
             showLogin: true,
             user: null,
             verificar: false,
+            loading: false,
+            data: [],
         }
     }
 
@@ -43,6 +47,7 @@ class General extends Component {
             this.setState({
                 user: user,
             });
+            this.getGuestInfo(user.email)
         });
 
 
@@ -62,6 +67,26 @@ class General extends Component {
             precio: precio,
         })
 
+    }
+
+    getGuestInfo(email) {
+        this.setState({ loading: true });
+        GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
+    }
+
+    handleGetGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false, });
+        if (guestInfo.data === undefined || guestInfo === null) {
+            //show error message
+
+        } else {
+            let userData = guestInfo.data.usuario;
+            console.log(userData.email)
+            if (userData !== null) {
+                this.setState({ data: userData })
+                GuestInfo.getInstance().setUserData(userData);
+            }
+        }
     }
 
     callHuespedes = (x) => {
@@ -124,36 +149,41 @@ class General extends Component {
 
         if (this.state.user) {
             if (this.state.user.emailVerified || this.isloginFacebook() === true) {
-                return (
-                    <Grid container justify="center" alignItems="center">
-                        <Grid item xs={12} md={8} lg={9}>
-                            <CompletarReserva
-                                id={this.state.id}
-                                CheckIn={this.state.CheckIn}
-                                CheckOut={this.state.CheckOut}
-                                huespedes={this.state.huespedes}
-                                precio={this.state.precio}
-                                callNumeroTarjeta={this.callNumeroTarjeta}
-                                callNombreTarjeta={this.callNombreTarjeta}
-                                callMesTarjeta={this.callMesTarjeta}
-                                callAñoTarjeta={this.callAñoTarjeta}
-                                callCodTarjeta={this.callCodTarjeta}
-                                callTipoTarjeta={this.callTipoTarjeta}
-                                callHuespedes={this.callHuespedes}
-                                callCheckIn={this.callCheckIn}
-                                callCheckOut={this.callCheckOut}
-                                user={this.state.user}
-                                numeroTarjeta={this.state.numeroTarjeta}
-                                nombreTarjeta={this.state.nombreTarjeta}
-                                mesTarjeta={this.state.mesTarjeta}
-                                añoTarjeta={this.state.añoTarjeta}
-                                codTarjeta={this.state.codTarjeta}
-                                tipoTarjeta={this.state.tipoTarjeta}
-                            />
-                        </Grid>
+                if (this.state.loading)
+                    return (
+                        <LoadinPage />
+                    )
+                else
+                    return (
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item xs={12} md={8} lg={9}>
+                                <CompletarReserva
+                                    id={this.state.id}
+                                    CheckIn={this.state.CheckIn}
+                                    CheckOut={this.state.CheckOut}
+                                    huespedes={this.state.huespedes}
+                                    precio={this.state.precio}
+                                    callNumeroTarjeta={this.callNumeroTarjeta}
+                                    callNombreTarjeta={this.callNombreTarjeta}
+                                    callMesTarjeta={this.callMesTarjeta}
+                                    callAñoTarjeta={this.callAñoTarjeta}
+                                    callCodTarjeta={this.callCodTarjeta}
+                                    callTipoTarjeta={this.callTipoTarjeta}
+                                    callHuespedes={this.callHuespedes}
+                                    callCheckIn={this.callCheckIn}
+                                    callCheckOut={this.callCheckOut}
+                                    user={this.state.user}
+                                    numeroTarjeta={this.state.numeroTarjeta}
+                                    nombreTarjeta={this.state.nombreTarjeta}
+                                    mesTarjeta={this.state.mesTarjeta}
+                                    añoTarjeta={this.state.añoTarjeta}
+                                    codTarjeta={this.state.codTarjeta}
+                                    tipoTarjeta={this.state.tipoTarjeta}
+                                />
+                            </Grid>
 
-                    </Grid>
-                )
+                        </Grid>
+                    )
             } else {
                 return (
                     <DialogLogin
