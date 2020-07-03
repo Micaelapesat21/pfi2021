@@ -1,33 +1,35 @@
 class Perfil {
     constructor(props) {
-      this.state = {
-        perfil: "",
-        bebida: "",
-        acompaniamiento: "",
-        limpieza: "",
-        tintoreria: "",
-      };
+      this._perfil = "";
+      this._bebida = "";
+      this._acompaniamiento = "";
+      this._limpieza = "";
+      this._tintoreria = "";
     }
 
     setPerfilInfo(props) {
-      this.state = {
-        perfil: props.perfil,
-        bebida: props.bebida,
-        acompaniamiento: props.acompañamiento,
-        limpieza: props.limpieza,
-        tintoreria: props.tintoreria,
-      };
+      this._perfil = props.perfil;
+      this._bebida = props.bebida;
+      this._acompaniamiento = props.acompañamiento;
+      this._limpieza = props.limpieza;
+      this._tintoreria = props.tintoreria;
     }
 
     toJson() {
         return {
-            perfil :this.state.perfil,
-            bebida: this.state.bebida,
-            acompaniamiento: this.state.acompaniamiento,
-            limpieza: this.state.limpieza,
-            tintoreria: this.state.tintoreria,
+            perfil :this._perfil,
+            bebida: this._bebida,
+            acompaniamiento: this._acompaniamiento,
+            limpieza: this._limpieza,
+            tintoreria: this._tintoreria,
         };
     }
+
+    //Getters
+  get perfil() {
+    return this._perfil;
   }
+}
+
 
   export default Perfil;

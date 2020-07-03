@@ -1,11 +1,16 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Typography, Paper, } from '@material-ui/core';
+import { Grid, Typography, Paper, Backdrop } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import TabsPerfil from './TabsPerfil';
 import GuestInfo from '../../Models/Guest/GuestInfo';
 import GuestAPI from '../../Network/Guest/GuestAPI';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorMessageModal from '../Commons/ErrorMessageModal';
+import '../../Styles/Common.css'
 
 const styles = theme => ({
     paper: {
@@ -61,21 +66,61 @@ class Perfil extends Component {
 
             loading: false,
             open: false,
+            errorMessageIsOpen: false,
+            errorMessage: ""
         }
     }
 
+    //Life Cycle methods
+    componentDidMount() {
+        this.getSelectedProfile();
+    }
+
+    getSelectedProfile() {
+        let profile = GuestInfo.getInstance().getSelectedProfile();
+
+        if(profile !== null) {
+            // let perfilSeleccionado = String();
+            switch(profile.perfil) {
+                case "romantico":
+                    this.setState({ romantico: true });
+                    break;
+                case "ejecutivo:":
+                    this.setState({ ejecutivo: true });
+                    break;
+                case "familia":
+                    this.setState({ familia: true });
+                    break;
+                case "preferencias":
+                    this.setState({ preferencias: true });
+                    break;
+                default:
+                    break;           
+            }
+        }
+    }
+
+    //Handle Button Actions
     callBebidaElegida = (x) => {
         this.setState({ bebidaElegida: x })
     }
+
     callAcompañamientoElegido = (x) => {
         this.setState({ acompañamientoElegido: x })
     }
+
     callLimpiezaElegida = (x) => {
         this.setState({ limpiezaElegida: x })
     }
+
     callTintoreriaElegida = (x) => {
         this.setState({ tintoreriaElegida: x })
     }
+
+    closeErrorModal() {
+        this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
+    }
+
     guardarPerfil(){
         let perfil = {
             "perfil": this.state.perfilElegido,
@@ -85,29 +130,8 @@ class Perfil extends Component {
             "tintoreria": this.state.tintoreriaElegida
         };
 
-        GuestInfo.getInstance().addProfile(perfil);
+        GuestInfo.getInstance().saveSelectedProfile(perfil);
         this.postGuestInfo()
-    }
-
-    postGuestInfo = () => {
-        this.setState({ loading: true });
-        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
-    }
-
-    handlePostGuestInfo = async (guestInfo) => {
-        this.setState({ loading: false });
-        if (guestInfo.error == null) {
-            //post was successful
-            console.log("Guardado con exito")
-            this.setState({ open: false })
-        } else {
-            //get user with email failed
-            console.log("Errrooor pa")
-        }
-    }
-
-    handlePostGuestInfo() {
-
     }
 
     handleChangeSwitch = (event) => {
@@ -273,6 +297,7 @@ class Perfil extends Component {
                         });
 
     }
+
     handleTintoreria = (event) => {
         if (event.target.name === "uno")
             this.setState({
@@ -314,12 +339,62 @@ class Perfil extends Component {
                             tintoreriaElegida: "cuatro",
                         });
     }
+
+    //Service Calls
+    postGuestInfo = () => {
+        this.setState({ loading: true });
+        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
+    }
+
+    handlePostGuestInfo = async (guestInfo) => {
+        this.setState({ loading: false });
+        if (guestInfo.error == null) {
+            //post was successful
+            console.log("Guardado con exito")
+            this.setState({ open: false })
+        } else {
+            //get user with email failed
+            console.log("Errrooor pa")
+        }
+    }
+
+    handlePostGuestInfo(guestInfo) {
+        this.setState({ loading: false });
+        if (guestInfo.error == null) {
+            //post was successful
+            console.log("Guardado con exito")
+        } else {
+            //get user with email failed
+            this.setState({
+                errorMessageIsOpen: true,
+                errorMessage: "Intentelo de nuevo por favor."
+            });
+        }
+    }
+
+    //Render view
+    showLoaderIfNeeded() {
+        if (this.state.loading) {
+            return (
+                <div className="loader">
+                    <CircularProgress disableShrink />;
+                </div>
+            );
+        } else { 
+            return null;
+        }        
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
+            <div>
+                <div>
+                { this.showLoaderIfNeeded() }
+                <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+                </div>
             <Grid container>
-
                 <Grid item xs={12} md={12} lg={12}>
                     <Typography variant="h3">Hola {this.props.user.displayName}!</Typography>
                 </Grid>
@@ -383,6 +458,8 @@ class Perfil extends Component {
 
                 </Grid>
             </Grid>
+
+            </div>
         );
     }
 }
