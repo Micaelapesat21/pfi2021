@@ -21,7 +21,7 @@ import Tarjetas from '../MiPerfil/Tarjetas';
 import SnackError from '../Snacks/SnackError';
 import Lottie from 'react-lottie';
 import SendEmail from '../../AnimationJson/sendEmail.json'
-import ReservaHelper from '../../Utils/ReservaHelper';
+
 
 
 
@@ -159,9 +159,7 @@ export default function GuestInfoForm(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [values, setValue] = React.useState(false)
 
-  function getTotalPrice(checkIn, checkOut, precio) {
-    return ReservaHelper.total(checkIn, checkOut, precio);
-  }
+ 
   function noches(checkIn, checkOut) {
 
     var aFecha1 = checkIn.split("-");
@@ -211,7 +209,7 @@ export default function GuestInfoForm(props) {
     const tipoHabitacion = props.habitacion;
     const night = noches(props.CheckIn, props.CheckOut);
     const precioNoche = props.precio;
-    const total = getTotalPrice(props.CheckIn, props.CheckOut,props.precio);
+    const total = noches(props.CheckIn, props.CheckOut)*props.precio
 
 
     fetch(url +

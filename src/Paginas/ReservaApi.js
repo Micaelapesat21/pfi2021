@@ -27,7 +27,7 @@ class General extends Component {
             CheckOut: "",
             huespedes: 0,
             precio: "",
-            habitacion: "",
+            habitacion: "Ejecutivo",
             numeroTarjeta: "",
             nombreTarjeta: "",
             mesTarjeta: "",
