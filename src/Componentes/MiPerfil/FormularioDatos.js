@@ -228,13 +228,9 @@ class FormularioDatos extends Component {
         if (this.state.loading)
             return (
                 <div className="loader">
-                    <Backdrop open={!this.state.loadingpen} >
-                        <CircularProgress color="secondary" />
-                    </Backdrop>
-
+                    <CircularProgress disableShrink />;
                 </div>
             )
-
     }
 
     //Modal handlers

@@ -12,7 +12,7 @@ class GuestInfo {
   _personalIdType = ""
   _personalId = ""
   _addressInfo = null
-  _profiles = []
+  _selectedProfile = null
   _paymentInfo = []
 
   static getInstance() {
@@ -23,19 +23,22 @@ class GuestInfo {
     return this.myInstance;
   }
 
+  //Payment Methods
   addPaymentMethod(paymentMethod) {
     let method = new PaymentMethod(paymentMethod);
     this._paymentInfo.push(method)
     console.log(this._paymentInfo)
   }
 
-  addProfile(profile) {
+  //Profiles
+  saveSelectedProfile(profile) {
     var newProfile = new Perfil(profile);
     newProfile.setPerfilInfo(profile);
-    this._profiles.push(newProfile);
-    console.log(this._profiles);
+    this._selectedProfile = newProfile;
+    console.log(this._selectedProfile);
   }
 
+  //Init
   setUserData(props) {
     if (props.id !== undefined) {
       this._userID = props.id
@@ -53,16 +56,10 @@ class GuestInfo {
     this._addressInfo = address
 
     //set profile info
-    var perfil = new Perfil()
-    perfil.setPerfilInfo(props)
-    this._perfilInfo = perfil
-
     if (props.perfiles !== undefined) {
-      var profiles = props.perfiles;
-      profiles.forEach(p => {
-        var perfil = new Perfil(p);
-        this._profiles.push(perfil);
-      })
+      let profile = new Perfil(props.perfiles);
+      profile.setPerfilInfo(props.perfiles);
+      this._selectedProfile = profile;
     }
 
     //set payment methods info
@@ -75,6 +72,7 @@ class GuestInfo {
     }
   }
 
+  //Getters
   getName() {
     return this._name;
   }
@@ -91,8 +89,8 @@ class GuestInfo {
     return this._paymentInfo;
   }
 
-  getProfiles() {
-    return this._profiles;
+  getSelectedProfile() {
+    return this._selectedProfile;
   }
 
   toJson() {
@@ -132,16 +130,10 @@ class GuestInfo {
     dict["tarjetas"] = paymentMethods;
 
     //Profiles
-    var profiles = [];
-    if (this._profiles !== []) {
-      this._profiles.forEach(p => {
-        // var perfil = {}
-        let perfil = p.toJson();
-        profiles.push(perfil);
-      });
+    if (this._selectedProfile !== null) {
+      let perfil = this._selectedProfile.toJson();
+      dict["perfiles"] = perfil;
     }
-
-    dict["perfiles"] = profiles;
 
     console.log("guestInfo", dict);
 
