@@ -20,7 +20,7 @@ export default function AddressForm(props) {
 
 
   const [huespedes, setHuespedes] = React.useState(0);
-  const [habitacion, setHabitacion] = React.useState(1);
+  const [habitacion, setHabitacion] = React.useState('Ejecutiva');
 
   useEffect(() => {
     setHuespedes(props.huespedes)
@@ -44,6 +44,7 @@ export default function AddressForm(props) {
   };
   const handleChangeHabitacion = (event) => {
     setHabitacion(event.target.value);
+    props.callHabitacion(event.target.value)
   };
 
   const classes = useStyles();
@@ -114,10 +115,9 @@ export default function AddressForm(props) {
                   onChange={handleChangeHabitacion}
                   label="Huespedes"
                 >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={1}>Normal</MenuItem>
-                  <MenuItem value={2}>Deluxe</MenuItem>
-                  <MenuItem value={3}>Premium</MenuItem>
+                  <MenuItem value={"Ejecutiva"}>Ejecutiva</MenuItem>
+                  <MenuItem value={"Deluxe"}>Deluxe</MenuItem>
+                  <MenuItem value={"Premium"}>Premium</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

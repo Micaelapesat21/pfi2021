@@ -90,7 +90,7 @@ export default function Review(props) {
               <Typography gutterBottom>Tipo Habitacion:</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography  align="left" gutterBottom>Normal</Typography>
+              <Typography  align="left" gutterBottom>{props.habitacion}</Typography>
             </Grid>
           </Grid>
 

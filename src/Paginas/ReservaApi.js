@@ -22,6 +22,7 @@ class General extends Component {
         super();
         this.state = {
             id: "",
+            emailHotel:"",
             CheckIn: "",
             CheckOut: "",
             huespedes: 0,
@@ -55,6 +56,7 @@ class General extends Component {
 
         const query = new URLSearchParams(this.props.location.search);
         const id = query.get('id')
+        const emailHotel = query.get('email')
         const CheckIn = query.get('CheckIn')
         const CheckOut = query.get('CheckOut')
         const huespedes = query.get('huespedes')
@@ -63,6 +65,7 @@ class General extends Component {
 
         this.setState({
             id: id,
+            emailHotel:emailHotel,
             CheckIn: CheckIn,
             CheckOut: CheckOut,
             huespedes: +num,
@@ -121,6 +124,9 @@ class General extends Component {
     callTipoTarjeta = (x) => {
         this.setState({ tipoTarjeta: x });
     }
+    callHabitacion = (x) => {
+        this.setState({ habitacion: x });
+    }
 
     openDialogLogin = () => {
         this.setState({ showLogin: true });
@@ -177,10 +183,13 @@ class General extends Component {
                             <Grid item xs={12} md={8} lg={9}>
                                 <CompletarReserva
                                     id={this.state.id}
+                                    emailHotel={this.state.emailHotel}
                                     CheckIn={this.state.CheckIn}
                                     CheckOut={this.state.CheckOut}
                                     huespedes={this.state.huespedes}
                                     precio={this.state.precio}
+                                    habitacion={this.state.habitacion}
+                                    callHabitacion={this.callHabitacion}
                                     callNumeroTarjeta={this.callNumeroTarjeta}
                                     callNombreTarjeta={this.callNombreTarjeta}
                                     callMesTarjeta={this.callMesTarjeta}

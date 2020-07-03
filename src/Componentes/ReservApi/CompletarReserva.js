@@ -21,6 +21,7 @@ import Tarjetas from '../MiPerfil/Tarjetas';
 import SnackError from '../Snacks/SnackError';
 import Lottie from 'react-lottie';
 import SendEmail from '../../AnimationJson/sendEmail.json'
+import ReservaHelper from '../../Utils/ReservaHelper';
 
 
 
@@ -82,6 +83,7 @@ function getStepContent(step, props) {
         callHuespedes={props.callHuespedes}
         callCheckIn={props.callCheckIn}
         callCheckOut={props.callCheckOut}
+        callHabitacion={props.callHabitacion}
       />;
     case 1:
       return <Tarjetas
@@ -104,6 +106,7 @@ function getStepContent(step, props) {
         CheckOut={props.CheckOut}
         huespedes={props.huespedes}
         precio={props.precio}
+        habitacion={props.habitacion}
         numeroTarjeta={props.numeroTarjeta}
         nombreTarjeta={props.nombreTarjeta}
         mesTarjeta={props.mesTarjeta}
@@ -156,6 +159,20 @@ export default function GuestInfoForm(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [values, setValue] = React.useState(false)
 
+  function getTotalPrice(checkIn, checkOut, precio) {
+    return ReservaHelper.total(checkIn, checkOut, precio);
+  }
+  function noches(checkIn, checkOut) {
+
+    var aFecha1 = checkIn.split("-");
+    var aFecha2 = checkOut.split("-");
+    var fFecha1 = Date.UTC(aFecha1[0], aFecha1[1] - 1, aFecha1[2]);
+    var fFecha2 = Date.UTC(aFecha2[0], aFecha2[1] - 1, aFecha2[2]);
+    var dif = fFecha2 - fFecha1;
+    var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+
+    return dias
+  }
 
   const handleNext = () => {
     if (activeStep === 1) {
@@ -191,10 +208,10 @@ export default function GuestInfoForm(props) {
     const tipoTarjeta = props.tipoTarjeta;
     const nombre = props.nombreTarjeta;
     const numeroTarjeta = props.numeroTarjeta;
-    const tipoHabitacion = "normal";
-    const noches = "9";
-    const precioNoche = "4564";
-    const total = "4564";
+    const tipoHabitacion = props.habitacion;
+    const night = noches(props.CheckIn, props.CheckOut);
+    const precioNoche = props.precio;
+    const total = getTotalPrice(props.CheckIn, props.CheckOut,props.precio);
 
 
     fetch(url +
@@ -209,24 +226,38 @@ export default function GuestInfoForm(props) {
       '&nombre=' + nombre +
       '&numeroTarjeta=' + numeroTarjeta +
       '&tipoHabitacion=' + tipoHabitacion +
-      '&noches=' + noches +
+      '&noches=' + night +
       '&precioNoche=' + precioNoche +
       '&total=' + total
     )
-    .then(responseData => {
-      if (responseData.Response !== '') {
-        if (responseData.error === '') {
-          alert("no Enviado");
+      .then(responseData => {
+        if (responseData.Response !== '') {
+          if (responseData.error === '') {
+            alert("no Enviado");
 
+          } else {
+            console.log("Enviado");
+          }
         } else {
-          alert("Enviado");
+          alert("No se pudo mandar");
         }
-      } else {
-        alert("No se pudo mandar");
-      }
-    });
+      });
   }
+  
 
+  const continuar = () => {
+    //Para guardar en reserva api POST
+    console.log(
+      props.emailHotel,
+      props.user.email,
+      props.CheckIn,
+      props.CheckOut,
+      props.huespedes,
+      props.habitacion,
+      props.precio,
+      props.numeroTarjeta,
+    )
+  }
 
 
   const handleError = () => {
@@ -280,7 +311,7 @@ export default function GuestInfoForm(props) {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  onClick={continuar}
                   className={classes.button}
                   component={Link}
                   to={{

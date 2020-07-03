@@ -187,7 +187,7 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                              <td class="es-m-p20b" align="left" style="padding:0;Margin:0;width:270px"> 
                               <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="left" style="padding:0;Margin:0"><h1 style="Margin:0;line-height:47px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:39px;font-style:normal;font-weight:bold;color:#333333;text-align:center">Hotel&nbsp; ´${hotel }´</h1></td> 
+                                 <td align="left" style="padding:0;Margin:0"><h1 style="Margin:0;line-height:47px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:39px;font-style:normal;font-weight:bold;color:#333333;text-align:center">Hotel&nbsp; ${hotel}</h1></td> 
                                 </tr> 
                               </table></td> 
                             </tr> 
@@ -201,7 +201,7 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                                  <td align="center" style="Margin:0;padding-top:5px;padding-bottom:10px;padding-left:10px;padding-right:10px"><span class="es-button-border es-button-border-4" style="border-style:solid;border-color:#2CB543;background:#1565C0;border-width:0px;display:inline-block;border-radius:0px;width:auto"><a href="https://commudus.web.app/" class="es-button es-button-3" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#1565C0;border-width:10px 20px;display:inline-block;background:#1565C0;border-radius:0px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center">Tu Reserva</a></span></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:25px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:38px;color:#333333"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:25px;text-decoration:none;color:#333333" href="tel:123456789">#´${nroReserva}´</a></p></td> 
+                                 <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:25px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:38px;color:#333333"><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:25px;text-decoration:none;color:#333333" href="tel:123456789">#${nroReserva}</a></p></td> 
                                 </tr> 
                               </table></td> 
                             </tr> 
@@ -249,13 +249,13 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                                   </table></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="left" class="es-m-txt-l" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">#´${nroReserva}´</p></td> 
+                                 <td align="left" class="es-m-txt-l" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">#${nroReserva}</p></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
                                  <td align="left" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333"><strong>Reserva</strong></p></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">Check-In: ´${checkIn}´<br>Check-Out: ´${checkOut}´<br>Huespedes: ´${huespedes}´</p></td> 
+                                 <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">Check-In: ${checkIn}<br>Check-Out: ${checkOut}<br>Huespedes: ${huespedes}</p></td> 
                                 </tr> 
                               </table></td> 
                             </tr> 
@@ -277,13 +277,13 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                                   </table></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">´${fechaHoy}´</p></td> 
+                                 <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">${fechaHoy}</p></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
                                  <td align="left" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333"><strong>Tarjeta de reserva</strong></p></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">´${tipoTarjeta}´<br>´${nombre}´<br>´${numeroTarjeta}´</p></td> 
+                                 <td align="left" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333">${tipoTarjeta}<br>${nombre}<br>${numeroTarjeta}</p></td> 
                                 </tr> 
                               </table></td> 
                             </tr> 
@@ -354,7 +354,7 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                                  <td align="left" style="padding:0;Margin:0;width:271px"> 
                                   <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
                                     <tr style="border-collapse:collapse"> 
-                                     <td align="left" style="padding:0;Margin:0"><h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif">´${tipoHabitacion}´</h4></td> 
+                                     <td align="left" style="padding:0;Margin:0"><h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif">${tipoHabitacion}</h4></td> 
                                     </tr> 
                                   </table></td> 
                                  <td style="padding:0;Margin:0;width:20px"></td> 
@@ -369,8 +369,8 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                                      <td align="left" style="padding:0;Margin:0"> 
                                       <table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%" class="cke_show_border" cellspacing="1" cellpadding="1" border="0" role="presentation"> 
                                         <tr style="border-collapse:collapse"> 
-                                         <td style="padding:0;Margin:0;text-align:center;font-size:13px;line-height:13px" width="15%" align="center"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333"><b>´${noches }´</b></p></td> 
-                                         <td style="padding:0;Margin:0;text-align:center;font-size:13px;line-height:13px" width="30%"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333"><strong>$´${precioNoche}´</strong></p></td> 
+                                         <td style="padding:0;Margin:0;text-align:center;font-size:13px;line-height:13px" width="15%" align="center"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333"><b>${noches}</b></p></td> 
+                                         <td style="padding:0;Margin:0;text-align:center;font-size:13px;line-height:13px" width="30%"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333"><strong>$ ${precioNoche}</strong></p></td> 
                                         </tr> 
                                       </table></td> 
                                     </tr> 
@@ -395,7 +395,7 @@ exports.sendMailVocucher = functions.https.onRequest((req, res) => {
                                   </table></td> 
                                 </tr> 
                                 <tr style="border-collapse:collapse"> 
-                                 <td align="right" class="es-m-txt-r" style="padding:0;Margin:0;padding-left:20px;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:20px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333"><strong>Total: $´${total}´</strong></p></td> 
+                                 <td align="right" class="es-m-txt-r" style="padding:0;Margin:0;padding-left:20px;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:20px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333"><strong>Total: $ ${total}</strong></p></td> 
                                 </tr> 
                               </table></td> 
                             </tr> 

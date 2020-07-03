@@ -1,8 +1,8 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Typography, Paper, Backdrop } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography, Paper } from '@material-ui/core';
+//import { makeStyles } from '@material-ui/core/styles';
 
 import TabsPerfil from './TabsPerfil';
 import GuestInfo from '../../Models/Guest/GuestInfo';
@@ -78,24 +78,27 @@ class Perfil extends Component {
 
     getSelectedProfile() {
         let profile = GuestInfo.getInstance().getSelectedProfile();
-
-        if(profile !== null) {
+        if (profile !== null) {
             // let perfilSeleccionado = String();
-            switch(profile.perfil) {
+            switch (profile.perfil) {
                 case "romantico":
-                    this.setState({ romantico: true });
+                    this.handleChangeSwitch(profile.perfil)
                     break;
-                case "ejecutivo:":
-                    this.setState({ ejecutivo: true });
+                case "ejecutivo":
+                    this.handleChangeSwitch(profile.perfil)
                     break;
                 case "familia":
-                    this.setState({ familia: true });
+                    this.handleChangeSwitch(profile.perfil)
                     break;
                 case "preferencias":
-                    this.setState({ preferencias: true });
+                    this.handleChangeSwitch(profile.perfil)
+                    this.handleBebida(profile._bebida)
+                    this.handleAcompañamiento(profile._acompaniamiento)
+                    this.handleLimpieza(profile._limpieza)
+                    this.handleTintoreria(profile._tintoreria)
                     break;
                 default:
-                    break;           
+                    break;
             }
         }
     }
@@ -121,7 +124,7 @@ class Perfil extends Component {
         this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
 
-    guardarPerfil(){
+    guardarPerfil() {
         let perfil = {
             "perfil": this.state.perfilElegido,
             "bebida": this.state.bebidaElegida,
@@ -135,7 +138,14 @@ class Perfil extends Component {
     }
 
     handleChangeSwitch = (event) => {
-        if (event.target.name === "romantico")
+        var handle = ""
+        if (event.target !== undefined) {
+            handle = event.target.name
+        } else
+            handle = event
+
+
+        if (handle === "romantico")
             this.setState({
                 romantico: true,
                 ejecutivo: false,
@@ -144,7 +154,7 @@ class Perfil extends Component {
                 perfilElegido: "romantico",
             });
         else
-            if (event.target.name === "ejecutivo")
+            if (handle === "ejecutivo")
                 this.setState({
                     romantico: false,
                     ejecutivo: true,
@@ -153,7 +163,7 @@ class Perfil extends Component {
                     perfilElegido: "ejecutivo",
                 });
             else
-                if (event.target.name === "familia")
+                if (handle === "familia")
                     this.setState({
                         romantico: false,
                         ejecutivo: false,
@@ -162,7 +172,7 @@ class Perfil extends Component {
                         perfilElegido: "familia",
                     });
                 else
-                    if (event.target.name === "preferencias")
+                    if (handle === "preferencias")
                         this.setState({
                             romantico: false,
                             ejecutivo: false,
@@ -172,7 +182,14 @@ class Perfil extends Component {
                         });
     };
     handleBebida = (event) => {
-        if (event.target.name === "aguaFria")
+
+        var handle = ""
+        if (event.target !== undefined) {
+            handle = event.target.name
+        } else
+            handle = event
+
+        if (handle === "aguaFria") {
             this.setState({
                 aguaFria: true,
                 champagne: false,
@@ -181,8 +198,9 @@ class Perfil extends Component {
                 sinseleccionarB: false,
                 bebidaElegida: "aguaFria",
             });
+        }
         else
-            if (event.target.name === "champagne")
+            if (handle === "champagne")
                 this.setState({
                     aguaFria: false,
                     champagne: true,
@@ -192,7 +210,7 @@ class Perfil extends Component {
                     bebidaElegida: "champagne",
                 });
             else
-                if (event.target.name === "gaseosa")
+                if (handle === "gaseosa")
                     this.setState({
                         aguaFria: false,
                         champagne: false,
@@ -202,7 +220,7 @@ class Perfil extends Component {
                         bebidaElegida: "gaseosa",
                     });
                 else
-                    if (event.target.name === "vino")
+                    if (handle === "vino")
                         this.setState({
                             aguaFria: false,
                             champagne: false,
@@ -214,7 +232,13 @@ class Perfil extends Component {
 
     }
     handleAcompañamiento = (event) => {
-        if (event.target.name === "chocolates")
+        var handle = ""
+        if (event.target !== undefined) {
+            handle = event.target.name
+        } else
+            handle = event
+
+        if (handle === "chocolates")
             this.setState({
                 chocolates: true,
                 golosinas: false,
@@ -224,7 +248,7 @@ class Perfil extends Component {
                 acompañamientoElegido: "chocolates",
             });
         else
-            if (event.target.name === "golosinas")
+            if (handle === "golosinas")
                 this.setState({
                     chocolates: false,
                     golosinas: true,
@@ -234,7 +258,7 @@ class Perfil extends Component {
                     acompañamientoElegido: "golosinas",
                 });
             else
-                if (event.target.name === "fiambres")
+                if (handle === "fiambres")
                     this.setState({
                         chocolates: false,
                         golosinas: false,
@@ -244,7 +268,7 @@ class Perfil extends Component {
                         acompañamientoElegido: "fiambres",
                     });
                 else
-                    if (event.target.name === "pasteleria")
+                    if (handle === "pasteleria")
                         this.setState({
                             chocolates: false,
                             golosinas: false,
@@ -256,7 +280,13 @@ class Perfil extends Component {
 
     }
     handleLimpieza = (event) => {
-        if (event.target.name === "siete")
+        var handle = ""
+        if (event.target !== undefined) {
+            handle = event.target.name
+        } else
+            handle = event
+
+        if (handle === "siete")
             this.setState({
                 siete: true,
                 nueve: false,
@@ -266,7 +296,7 @@ class Perfil extends Component {
                 limpiezaElegida: "siete",
             });
         else
-            if (event.target.name === "nueve")
+            if (handle === "nueve")
                 this.setState({
                     siete: false,
                     nueve: true,
@@ -276,7 +306,7 @@ class Perfil extends Component {
                     limpiezaElegida: "nueve",
                 });
             else
-                if (event.target.name === "once")
+                if (handle === "once")
                     this.setState({
                         siete: false,
                         nueve: false,
@@ -286,7 +316,7 @@ class Perfil extends Component {
                         limpiezaElegida: "once",
                     });
                 else
-                    if (event.target.name === "trece")
+                    if (handle === "trece")
                         this.setState({
                             siete: false,
                             nueve: false,
@@ -297,9 +327,15 @@ class Perfil extends Component {
                         });
 
     }
-
     handleTintoreria = (event) => {
-        if (event.target.name === "uno")
+        var handle = ""
+        if (event.target !== undefined) {
+            handle = event.target.name
+        } else
+            handle = event
+
+
+        if (handle === "uno")
             this.setState({
                 uno: true,
                 dos: false,
@@ -309,7 +345,7 @@ class Perfil extends Component {
                 tintoreriaElegida: "uno",
             });
         else
-            if (event.target.name === "dos")
+            if (handle === "dos")
                 this.setState({
                     uno: false,
                     dos: true,
@@ -319,7 +355,7 @@ class Perfil extends Component {
                     tintoreriaElegida: "dos",
                 });
             else
-                if (event.target.name === "tres")
+                if (handle === "tres")
                     this.setState({
                         uno: false,
                         dos: false,
@@ -329,7 +365,7 @@ class Perfil extends Component {
                         tintoreriaElegida: "tres",
                     });
                 else
-                    if (event.target.name === "cuatro")
+                    if (handle === "cuatro")
                         this.setState({
                             uno: false,
                             dos: false,
@@ -380,9 +416,9 @@ class Perfil extends Component {
                     <CircularProgress disableShrink />;
                 </div>
             );
-        } else { 
+        } else {
             return null;
-        }        
+        }
     }
 
     render() {
@@ -391,73 +427,73 @@ class Perfil extends Component {
         return (
             <div>
                 <div>
-                { this.showLoaderIfNeeded() }
-                <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+                    {this.showLoaderIfNeeded()}
+                    <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 </div>
-            <Grid container>
-                <Grid item xs={12} md={12} lg={12}>
-                    <Typography variant="h3">Hola {this.props.user.displayName}!</Typography>
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={12} className={classes.espacio}>
-                    <Grid container direction="column" justify="center" alignItems="center">
-                        <Grid item xs={12} md={12} lg={12}>
-                            <Paper>
-                                <TabsPerfil
-                                    user={this.props.user}
-                                    perfil={this.props.perfil}
-                                    romantico={this.state.romantico}
-                                    ejecutivo={this.state.ejecutivo}
-                                    familia={this.state.familia}
-                                    preferencias={this.state.preferencias}
-                                    perfilElegido={this.state.perfilElegido}
-
-                                    handleChangeSwitch={this.handleChangeSwitch}
-                                    aguaFria={this.state.aguaFria}
-                                    champagne={this.state.champagne}
-                                    gaseosa={this.state.gaseosa}
-                                    vino={this.state.vino}
-                                    bebidaElegida={this.state.bebidaElegida}
-                                    sinseleccionarB={this.state.sinseleccionarB}
-                                    handleBebida={this.handleBebida}
-
-                                    chocolates={this.state.chocolates}
-                                    golosinas={this.state.golosinas}
-                                    fiambres={this.state.fiambres}
-                                    pasteleria={this.state.pasteleria}
-                                    acompañamientoElegido={this.state.acompañamientoElegido}
-                                    sinseleccionarA={this.state.sinseleccionarA}
-                                    handleAcompañamiento={this.handleAcompañamiento}
-
-                                    siete={this.state.siete}
-                                    nueve={this.state.nueve}
-                                    once={this.state.once}
-                                    trece={this.state.trece}
-                                    limpiezaElegida={this.state.limpiezaElegida}
-                                    sinseleccionarL={this.state.sinseleccionarL}
-                                    handleLimpieza={this.handleLimpieza}
-
-                                    uno={this.state.uno}
-                                    dos={this.state.dos}
-                                    tres={this.state.tres}
-                                    cuatro={this.state.cuatro}
-                                    tintoreriaElegida={this.state.tintoreriaElegida}
-                                    sinseleccionarT={this.state.sinseleccionarT}
-                                    handleTintoreria={this.handleTintoreria}
-
-
-                                    guardarPerfil={this.guardarPerfil.bind(this)}
-                                    perfilCompletado={this.props.perfilCompletado}
-                                    callPerfilCompletado={this.props.callPerfilCompletado}
-                                    data={this.props.data}
-
-                                />
-                            </Paper>
-                        </Grid>
+                <Grid container>
+                    <Grid item xs={12} md={12} lg={12}>
+                        <Typography variant="h3">Hola {this.props.user.displayName}!</Typography>
                     </Grid>
 
+                    <Grid item xs={12} md={12} lg={12} className={classes.espacio}>
+                        <Grid container direction="column" justify="center" alignItems="center">
+                            <Grid item xs={12} md={12} lg={12}>
+                                <Paper>
+                                    <TabsPerfil
+                                        user={this.props.user}
+                                        perfil={this.props.perfil}
+                                        romantico={this.state.romantico}
+                                        ejecutivo={this.state.ejecutivo}
+                                        familia={this.state.familia}
+                                        preferencias={this.state.preferencias}
+                                        perfilElegido={this.state.perfilElegido}
+
+                                        handleChangeSwitch={this.handleChangeSwitch}
+                                        aguaFria={this.state.aguaFria}
+                                        champagne={this.state.champagne}
+                                        gaseosa={this.state.gaseosa}
+                                        vino={this.state.vino}
+                                        bebidaElegida={this.state.bebidaElegida}
+                                        sinseleccionarB={this.state.sinseleccionarB}
+                                        handleBebida={this.handleBebida}
+
+                                        chocolates={this.state.chocolates}
+                                        golosinas={this.state.golosinas}
+                                        fiambres={this.state.fiambres}
+                                        pasteleria={this.state.pasteleria}
+                                        acompañamientoElegido={this.state.acompañamientoElegido}
+                                        sinseleccionarA={this.state.sinseleccionarA}
+                                        handleAcompañamiento={this.handleAcompañamiento}
+
+                                        siete={this.state.siete}
+                                        nueve={this.state.nueve}
+                                        once={this.state.once}
+                                        trece={this.state.trece}
+                                        limpiezaElegida={this.state.limpiezaElegida}
+                                        sinseleccionarL={this.state.sinseleccionarL}
+                                        handleLimpieza={this.handleLimpieza}
+
+                                        uno={this.state.uno}
+                                        dos={this.state.dos}
+                                        tres={this.state.tres}
+                                        cuatro={this.state.cuatro}
+                                        tintoreriaElegida={this.state.tintoreriaElegida}
+                                        sinseleccionarT={this.state.sinseleccionarT}
+                                        handleTintoreria={this.handleTintoreria}
+
+
+                                        guardarPerfil={this.guardarPerfil.bind(this)}
+                                        perfilCompletado={this.props.perfilCompletado}
+                                        callPerfilCompletado={this.props.callPerfilCompletado}
+
+
+                                    />
+                                </Paper>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
                 </Grid>
-            </Grid>
 
             </div>
         );

@@ -1,33 +1,45 @@
 class Reserva {
-    constructor(props) {
-      this.state = {
-        perfil: "",
-        bebida: "",
-        acompaniamiento: "",
-        limpieza: "",
-        tintoreria: "",
-      };
-    }
-
-    setReservaInfo(props) {
-      this.state = {
-        perfil: props.perfil,
-        bebida: props.bebida,
-        acompaniamiento: props.acompañamiento,
-        limpieza: props.limpieza,
-        tintoreria: props.tintoreria,
-      };
-    }
-
-    toJson() {
-        return {
-            perfil :this.state.perfil,
-            bebida: this.state.bebida,
-            acompaniamiento: this.state.acompaniamiento,
-            limpieza: this.state.limpieza,
-            tintoreria: this.state.tintoreria,
-        };
-    }
+  constructor(props) {
+    this.state = {
+      hotel: "",
+      huesped: "",
+      checkIn: "",
+      checkOut: "",
+      cantHuespedes: "",
+      tipoHabitacion: "",
+      precioNoche: "",
+      numeroTarjeta: "",
+      //seviciosSolicitados: [],
+    };
   }
 
-  export default Reserva;
+
+
+  setReservaInfo(props) {
+    this.state = {
+      hotel: props.hotel,
+      huesped: props.huesped,
+      checkIn: props.checkIn,
+      checkOut: props.checkOut,
+      cantHuespedes: props.cantHuespedes,
+      tipoHabitacion: props.tipoHabitacion,
+      precioNoche: props.precioNoche,
+      numeroTarjeta: props.numeroTarjeta,
+    };
+  }
+
+  toJson() {
+    return {
+      hotel: this.state.hotel,
+      huesped: this.state.huesped,
+      checkIn: this.state.checkIn,
+      checkOut: this.state.checkOut,
+      cantHuespedes: this.state.cantHuespedes,
+      tipoHabitacion: this.state.tipoHabitacion,
+      precioNoche: this.state.precioNoche,
+      numeroTarjeta: this.state.numeroTarjeta,
+    };
+  }
+}
+
+export default Reserva;

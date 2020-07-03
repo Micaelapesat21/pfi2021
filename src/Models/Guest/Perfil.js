@@ -10,7 +10,7 @@ class Perfil {
     setPerfilInfo(props) {
       this._perfil = props.perfil;
       this._bebida = props.bebida;
-      this._acompaniamiento = props.acompañamiento;
+      this._acompaniamiento = props.acompaniamiento;
       this._limpieza = props.limpieza;
       this._tintoreria = props.tintoreria;
     }

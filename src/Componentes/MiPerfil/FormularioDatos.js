@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Typography, TextField, ButtonBase, Button, Backdrop } from '@material-ui/core';
+import { Grid, Typography, TextField, ButtonBase, Button } from '@material-ui/core';
 import RenderAvatar from '../login/RenderAvatar';
 import GuestInfo from '../../Models/Guest/GuestInfo';
 import GuestAPI from './../../Network/Guest/GuestAPI';
@@ -104,22 +104,17 @@ class FormularioDatos extends Component {
         var array = user.displayName.split(" ");
         var nombre = array[0]
         var apellido = array[1]
-        const userData = this.props.data
+       
+ 
 
         this.setState({
             correo: user.email,
             nombre: nombre,
             apellido: apellido,
-            tipo: userData.tipo,
-            documento: userData.documento,
-            pais: userData.pais,
-            estado: userData.estado,
-            ciudad: userData.ciudad,
-            codigoPostal: userData.codigoPostal,
-            direccion: userData.direccion1
+            
         })
 
-        //this.getGuestInfo(user.email)
+        this.getGuestInfo(user.email)
     }
 
     edicionOpen() {
