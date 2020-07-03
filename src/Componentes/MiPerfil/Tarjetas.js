@@ -113,6 +113,8 @@ class Tarjetas extends Component {
                 name: 'FULL NAME',
                 mes: '',
                 año: '',
+                securityCode: '',
+                tipo: ""
             },
         }
     }
@@ -120,6 +122,7 @@ class Tarjetas extends Component {
     componentDidMount() {
         let methods = GuestInfo.getInstance().getPaymentMethods()
         this.setState({ tarjetas: methods })
+
     }
     maskCardNumber = (x) => {
         let cardNumberArr = x.split('');
@@ -179,29 +182,42 @@ class Tarjetas extends Component {
     }
     callNumeroTarjeta = (x) => {
         this.setState({ numeroTarjeta: x });
+        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+            this.props.callNumeroTarjeta(x)
     }
     callNombreTarjeta = (x) => {
         this.setState({ nombreTarjeta: x });
+        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+            this.props.callNombreTarjeta(x)
     }
     callMesTarjeta = (x) => {
         this.setState({ mesTarjeta: x });
+        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+            this.props.callMesTarjeta(x)
     }
     callAñoTarjeta = (x) => {
         this.setState({ añoTarjeta: x });
+        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+            this.props.callAñoTarjeta(x)
     }
     callCodTarjeta = (x) => {
         this.setState({ codTarjeta: x });
+        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+            this.props.closeVerfyCard()
     }
     callVerificaCod = (x) => {
         this.setState({ codVerificar: x });
+        this.props.callVerTarjeta(x)
     }
     callTipoTarjeta = (x) => {
         this.setState({ tipoTarjeta: x });
+        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+            this.props.callTipoTarjeta(x)
     }
 
     agregarTarjeta() {
         if (this.state.open)
-            if (this.props.modo === "ReservaApi")
+            if (this.props.modo === "ReservaApi") {
                 return (
                     <Grid>
                         <TarjetaCheta
@@ -214,6 +230,7 @@ class Tarjetas extends Component {
                         />
                     </Grid>
                 )
+            }
             else
                 if (this.props.modo === "CheckOut")
                     return (
@@ -257,12 +274,26 @@ class Tarjetas extends Component {
     }
 
     verificarTarjeta(state) {
+        this.setState({ open: false, verificar: true, ver: state })
+        if (this.props.modo === "ReservaApi") {
+            this.props.openVerfyCard()
+            this.props.callNumeroTarjeta(state.cardNumber)
+            this.props.callNombreTarjeta(state.name)
+            this.props.callMesTarjeta(state.mes)
+            this.props.callAñoTarjeta(state.año)
+            this.props.callTipoTarjeta(state.tipo)
+            this.props.callCodTarjeta(state.securityCode)
+        }
+    }
 
-        this.setState({ verificar: true, ver: state })
+    nuevaTarjeta() {
+        this.setState({ open: true, verificar: false })
+        if (this.props.modo === "ReservaApi")
+            this.props.closeVerfyCard()
     }
 
     renderVerificar() {
-        if (this.state.verificar)
+        if (this.state.verificar) {
             return (
                 <Grid>
                     <TarjetaVerificar
@@ -272,13 +303,9 @@ class Tarjetas extends Component {
                         cardYear={this.state.ver.año}
                         callCodTarjeta={this.callVerificaCod}
                     />
-                    <Grid container alignItems="flex-end" justify="flex-end">
-                        <Grid item md={3} xs={5}>
-                            <Button variant="contained" color="primary" >Pagar</Button>
-                        </Grid>
-                    </Grid>
                 </Grid>
             )
+        }
     }
 
 
@@ -352,7 +379,7 @@ class Tarjetas extends Component {
                                 <span className={classes.imageBackdrop} />
                             </ButtonBase>
                             <Divider />
-                            <ButtonBase className={classes.image} onClick={() => this.setState({ open: true })}    >
+                            <ButtonBase className={classes.image} onClick={() => this.nuevaTarjeta()}    >
                                 <Grid container justify="center" alignItems="center" >
                                     <Grid item md={11} xs={10}>
                                         <Typography variant="body1" color="primary" align="left">Pagar con otra tarjeta</Typography>

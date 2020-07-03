@@ -29,7 +29,7 @@ export default function SnackError(props) {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={props.openSnack} autoHideDuration={6000} onClose={handleClose}  anchorOrigin={{ vertical:"bottom", horizontal:"left" }} >
+      <Snackbar open={props.openSnack} autoHideDuration={4000} onClose={handleClose}  anchorOrigin={{ vertical:"bottom", horizontal:"left" }} >
         <Alert severity="error" onClose={handleClose}>{props.mensaje}</Alert>
       </Snackbar>
     </div>

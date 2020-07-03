@@ -18,6 +18,9 @@ import RenderAvatar from '../login/RenderAvatar';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../login/AuthController'
 import Tarjetas from '../MiPerfil/Tarjetas';
+import SnackError from '../Snacks/SnackError';
+import Lottie from 'react-lottie';
+import SendEmail from '../../AnimationJson/sendEmail.json'
 
 
 
@@ -66,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const steps = ['Confirme las fechas', 'Pago', 'Ver tu reserva'];
-
+const url = "https://us-central1-commudus.cloudfunctions.net/sendMailVocucher?"
 function getStepContent(step, props) {
 
   switch (step) {
@@ -87,7 +90,11 @@ function getStepContent(step, props) {
         callMesTarjeta={props.callMesTarjeta}
         callAñoTarjeta={props.callAñoTarjeta}
         callCodTarjeta={props.callCodTarjeta}
+        callVerTarjeta={props.callVerTarjeta}
         callTipoTarjeta={props.callTipoTarjeta}
+        openVerfyCard={props.openVerfyCard}
+        closeVerfyCard={props.closeVerfyCard}
+        verifyCard={props.verifyCard}
         user={props.user}
         modo={"ReservaApi"}
       />;
@@ -147,16 +154,96 @@ export default function GuestInfoForm(props) {
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [values, setValue] = React.useState(false)
 
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (activeStep === 1) {
+      if (props.verifyCard)
+        if (props.codTarjeta === props.verTarjeta) {
+          setActiveStep(activeStep + 1);
+        }
+        else
+          handleError()
+      else
+        setActiveStep(activeStep + 1);
+    }
+    else
+      if (activeStep === 2) {
+        enviarMail()
+        setActiveStep(activeStep + 1);
+      }
+
+      else
+        setActiveStep(activeStep + 1);
 
   };
+
+  function enviarMail() {
+
+    const email = props.user.email;
+    const hotel = props.id;
+    const nroReserva = "212121";
+    const fechaHoy = props.fechaHoy;
+    const checkIn = props.CheckIn;
+    const checkOut = props.CheckOut;
+    const huespedes = props.huespedes;
+    const tipoTarjeta = props.tipoTarjeta;
+    const nombre = props.nombreTarjeta;
+    const numeroTarjeta = props.numeroTarjeta;
+    const tipoHabitacion = "normal";
+    const noches = "9";
+    const precioNoche = "4564";
+    const total = "4564";
+
+
+    fetch(url +
+      'email=' + email +
+      '&hotel=' + hotel +
+      '&nroReserva=' + nroReserva +
+      '&fechaHoy=' + fechaHoy +
+      '&checkIn=' + checkIn +
+      '&checkOut=' + checkOut +
+      '&huespedes=' + huespedes +
+      '&tipoTarjeta=' + tipoTarjeta +
+      '&nombre=' + nombre +
+      '&numeroTarjeta=' + numeroTarjeta +
+      '&tipoHabitacion=' + tipoHabitacion +
+      '&noches=' + noches +
+      '&precioNoche=' + precioNoche +
+      '&total=' + total
+    )
+    .then(responseData => {
+      if (responseData.Response !== '') {
+        if (responseData.error === '') {
+          alert("no Enviado");
+
+        } else {
+          alert("Enviado");
+        }
+      } else {
+        alert("No se pudo mandar");
+      }
+    });
+  }
+
+
+
+  const handleError = () => {
+    setValue(!values)
+  }
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: SendEmail,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    },
+  }
 
   return (
     <React.Fragment>
@@ -179,10 +266,15 @@ export default function GuestInfoForm(props) {
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Gracias por reservar con nosotros
+                <Typography variant="h5" gutterBottom align="center">
+                  ¡Gracias por reservar con nosotros!
                 </Typography>
-                <Typography variant="subtitle1">
+                <Lottie
+                  options={defaultOptions}
+                  height={150}
+                  width={150}
+                />
+                <Typography variant="subtitle1" align="justify">
                   Tu numero de reserva es #2001539. Te hemos enviado un mail a {props.user.email} con tu vocher, si desea puede editar sus preferencias y realizar su Check-In
                 </Typography>
                 <Button
@@ -228,6 +320,7 @@ export default function GuestInfoForm(props) {
         </Paper>
 
       </main>
+      <SnackError openSnack={values} closeSnack={handleError} mensaje="Codigo de verificacion Incorrecto" />
     </React.Fragment>
   );
 }

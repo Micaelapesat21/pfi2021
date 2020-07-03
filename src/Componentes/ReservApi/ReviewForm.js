@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import ReservaHelper from './../../Utils/ReservaHelper.js'
+import { Divider } from '@material-ui/core';
 
 
 
@@ -25,87 +26,109 @@ const useStyles = makeStyles((theme) => ({
 export default function Review(props) {
   const classes = useStyles();
 
-  function getTotalPrice(checkIn,checkOut,precio) {
-    return ReservaHelper.total(checkIn,checkOut,precio);
+  function getTotalPrice(checkIn, checkOut, precio) {
+    return ReservaHelper.total(checkIn, checkOut, precio);
   }
-  
+
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Divider />
+      <Typography variant="h6" gutterBottom className={classes.title}>
         Resumen
       </Typography>
       <List disablePadding>
-        
+
         <ListItem className={classes.listItem}>
           <ListItemText primary="Noches" />
           <Typography variant="subtitle1" className={classes.total}>
-            {getTotalPrice(props.CheckIn,props.CheckOut)}
+            {getTotalPrice(props.CheckIn, props.CheckOut)}
           </Typography>
-         
         </ListItem>
+
         <ListItem className={classes.listItem}>
-          
           <ListItemText primary="Precio por Noche" />
           <Typography variant="subtitle1" className={classes.total}>
             ${parseInt(props.precio)}
           </Typography>
         </ListItem>
+
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            ${getTotalPrice(props.CheckIn,props.CheckOut)*parseInt(props.precio)}
+            ${getTotalPrice(props.CheckIn, props.CheckOut) * parseInt(props.precio)}
           </Typography>
         </ListItem>
+
       </List>
       <Grid container spacing={2}>
+
         <Grid item xs={12} sm={6}>
+          <Divider />
           <Typography variant="h6" gutterBottom className={classes.title}>
             Reserva
           </Typography>
-          <Typography gutterBottom>Ckeck-In: {props.CheckIn}</Typography>
-          <Typography gutterBottom>Ckeck-Out: {props.CheckOut}</Typography>
-          <Typography gutterBottom>Huespedes: {props.huespedes}</Typography>
-          <Typography gutterBottom>Tipo Habitacion: Premium</Typography>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography  gutterBottom>Ckeck-In: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  align="left" gutterBottom>{props.CheckIn}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>Ckeck-Out: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  align="left" gutterBottom>{props.CheckOut}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography   gutterBottom>Huespedes: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  align="left" gutterBottom>{props.huespedes}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>Tipo Habitacion:</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  align="left" gutterBottom>Normal</Typography>
+            </Grid>
+          </Grid>
+
+
+
+
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
+          <Divider />
           <Typography variant="h6" gutterBottom className={classes.title}>
-           Tarjeta de Reserva
+            Tarjeta de Reserva
           </Typography>
-          <Grid container>
-         
-              <React.Fragment >
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Tipo de tarjeta</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{props.tipoTarjeta}</Typography>
-                </Grid>
-              </React.Fragment>
-              <React.Fragment >
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Nombre y apellido</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{props.nombreTarjeta}</Typography>
-                </Grid>
-              </React.Fragment>
-              <React.Fragment >
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Numero de la Tajeta</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{props.numeroTarjeta}</Typography>
-                </Grid>
-              </React.Fragment>
-              <React.Fragment >
-                <Grid item xs={6}>
-                  <Typography gutterBottom>Fecha de Vencimiento</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{props.mesTarjeta}/{props.añoTarjeta}</Typography>
-                </Grid>
-              </React.Fragment>
-          
+          <Grid container alignItems="center">
+            <Grid item xs={6}>
+              <Typography gutterBottom>Tipo: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  gutterBottom>{props.tipoTarjeta}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>Nombre y apellido:</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>{props.nombreTarjeta}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>Numero:</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  gutterBottom>{props.numeroTarjeta}</Typography>
+            </Grid>
+
+            <Grid item xs={6}>
+              <Typography gutterBottom>Vencimiento: </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography  gutterBottom>{props.mesTarjeta}/{props.añoTarjeta}</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

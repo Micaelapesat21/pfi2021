@@ -64,6 +64,11 @@ class Perfil extends Component {
         }
     }
 
+    componentDidMount(){
+        let methods = GuestInfo.getInstance()
+        console.log(methods)
+    }
+
     callBebidaElegida = (x) => {
         this.setState({ bebidaElegida: x })
     }
@@ -106,9 +111,7 @@ class Perfil extends Component {
         }
     }
 
-    handlePostGuestInfo() {
-
-    }
+   
 
     handleChangeSwitch = (event) => {
         if (event.target.name === "romantico")

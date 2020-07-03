@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import GuestAPI from '../../Network/Guest/GuestAPI'
-import GuestInfo from '../../Models/Guest/GuestInfo'
+//import GuestAPI from '../../Network/Guest/GuestAPI'
+//import GuestInfo from '../../Models/Guest/GuestInfo'
 
-import HotelAPI from '../../Network/Hotel/HotelAPI'
-import HotelInfo from '../../Models/Hotel/HotelInfo'
+//import HotelAPI from '../../Network/Hotel/HotelAPI'
+//import HotelInfo from '../../Models/Hotel/HotelInfo'
 
 const firebase = require("firebase/app");
 require("firebase/auth");
@@ -54,7 +54,7 @@ class AuthController extends Component {
     var user = null;
     var nom = nombre;
     var ape = apellido;
-    let handlePostGuestInfo = this.handlePostGuestInfo
+    //let handlePostGuestInfo = this.handlePostGuestInfo
     firebase.auth().languageCode = 'es_ES';
     firebase.auth().createUserWithEmailAndPassword(correo, contrasena)
       .then(result => console.log(`${result.user.email} se ha registrado`))

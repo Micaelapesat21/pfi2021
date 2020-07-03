@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie';
-import animationData from './worldLoading.json'
+import animationData from '../../AnimationJson/worldLoading.json'
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 

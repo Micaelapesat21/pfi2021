@@ -39,14 +39,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function PanelControl(props) {
     const classes = useStyles();
-    const [modoGeneral, setmodoGeneral] = React.useState(false);
+    const [modoGeneral, setmodoGeneral] = React.useState(true);
     const [modoPerfil, setmodoPerfil] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
-    const [modoPagos, setmodoPagos] = React.useState(true);
+    const [modoPagos, setmodoPagos] = React.useState(false);
     const [modoHistorial, setmodoHistorial] = React.useState(false);
     const [modoAyuda, setmodoAyuda] = React.useState(false);
 

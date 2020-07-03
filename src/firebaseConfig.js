@@ -10,14 +10,14 @@ import * as firebase from 'firebase'
 
 
 firebase.initializeApp({
-    apiKey: "AIzaSyDPeJsBibFGIkKl5PLsBmlbXl_rudxeAlY",
-    authDomain: "seminario-1-uade.firebaseapp.com",
-    databaseURL: "https://seminario-1-uade.firebaseio.com",
-    projectId: "seminario-1-uade",
-    storageBucket: "seminario-1-uade.appspot.com",
-    messagingSenderId: "244147613999",
-    appId: "1:244147613999:web:1db6a512e9fe350cd271da",
-    measurementId: "G-MQ4LF02FEL"
+    apiKey: "AIzaSyA40ecBGdRCUOvWFrtWCKM-KX8qyPSe42w",
+    authDomain: "commudus.firebaseapp.com",
+    databaseURL: "https://commudus.firebaseio.com",
+    projectId: "commudus",
+    storageBucket: "commudus.appspot.com",
+    messagingSenderId: "947487858331",
+    appId: "1:947487858331:web:c842d231096ebd32d7703e",
+    measurementId: "G-345QVEQHYD"
 });
 
 firebase.analytics();

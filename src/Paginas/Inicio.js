@@ -64,7 +64,12 @@ class Inicio extends Component {
             this.setState({
                 user: user
             });
-            this.getGuestInfo(user.email)
+//Diferencia entre modo hotel y trae el correcto            
+            if (this.state.modoHotel)
+                this.getHotelInfo(user.email)
+            else
+
+                this.getGuestInfo(user.email)
         });
 
 
@@ -76,7 +81,6 @@ class Inicio extends Component {
                 huespedes,
                 precio,
             } = this.props.location.state
-            //this.getGuestInfo(this.state.user.email)
             this.setState({
                 id: id,
                 CheckIn: CheckIn,
@@ -85,8 +89,6 @@ class Inicio extends Component {
                 precio: precio,
             })
         }
-        // this.getGuestInfo(this.state.user.email)
-
     }
 
 
@@ -218,7 +220,7 @@ class Inicio extends Component {
                 if (this.state.user.emailVerified || this.isloginFacebook() === true) {
                     if (this.state.loading)
                         return (
-                            <LoadinPage/>
+                            <LoadinPage />
                         )
                     else
                         return (
@@ -254,13 +256,12 @@ class Inicio extends Component {
                                 <DialogContent>
                                     <DialogContentText >
                                         Por favor verificar su correo electronico para poder iniciar sesion. Si no aparece verifique su casilla de spam.
-                         </DialogContentText>
+                                   </DialogContentText>
                                 </DialogContent>
                                 <DialogActions>
                                     <Button onClick={this.handleCloseVerificar} color="primary">
                                         Cerrar
-                        </Button>
-
+                                    </Button>
                                 </DialogActions>
                             </Dialog>
                         </Grid>

@@ -122,24 +122,21 @@ export default function AddressForm(props) {
               </FormControl>
             </Grid>
           </Grid>
-
-          <Grid item md={12}>
-            <Typography variant="h6" gutterBottom className={classes.espacio}>
-              Resumen
+        </Grid>
+        <Grid item md={12}>
+          <Typography variant="h6" gutterBottom className={classes.espacio}>
+            Resumen
             </Typography>
-          </Grid>
+        </Grid>
 
-          <Grid item>
-            <Grid container direction="row" justify="center" alignItems="center">
-              <Grid item md={12}>
-                <Typography gutterBottom>Precio por noche: ${props.precio} </Typography>
-                <Typography gutterBottom>Cantidad de noches: {noches(props.CheckIn, props.CheckOut)}</Typography>
-                <Typography gutterBottom>Total: ${noches(props.CheckIn, props.CheckOut) * parseInt(props.precio)}</Typography>
-              </Grid>
+        <Grid item={12}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item md={12}>
+              <Typography gutterBottom>Precio por noche: ${props.precio} </Typography>
+              <Typography gutterBottom>Cantidad de noches: {noches(props.CheckIn, props.CheckOut)}</Typography>
+              <Typography gutterBottom>Total: ${noches(props.CheckIn, props.CheckOut) * parseInt(props.precio)}</Typography>
             </Grid>
           </Grid>
-
-
         </Grid>
 
       </Grid>

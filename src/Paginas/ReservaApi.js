@@ -31,8 +31,10 @@ class General extends Component {
             nombreTarjeta: "",
             mesTarjeta: "",
             añoTarjeta: "",
+            verTarjeta: "",
             codTarjeta: "",
             tipoTarjeta: "",
+            verifyCard:false,
             showLogin: true,
             user: null,
             verificar: false,
@@ -113,6 +115,9 @@ class General extends Component {
     callCodTarjeta = (x) => {
         this.setState({ codTarjeta: x });
     }
+    callVerTarjeta = (x) => {
+        this.setState({ verTarjeta: x });
+    }
     callTipoTarjeta = (x) => {
         this.setState({ tipoTarjeta: x });
     }
@@ -121,6 +126,7 @@ class General extends Component {
         this.setState({ showLogin: true });
     }
 
+    
     closeDialogLogin = () => {
         this.setState({ showLogin: false });
     }
@@ -130,6 +136,13 @@ class General extends Component {
     handleCloseVerificar = () => {
         this.setState({ verificar: false });
         AuthController.handleLogout()
+    }
+
+    verificacion() {
+        if (this.state.codTarjeta === this.state.verTarjeta)
+            return true
+        else
+            return false
     }
 
 
@@ -142,7 +155,12 @@ class General extends Component {
     }
 
 
-
+    openVerfyCard=()=>{
+        this.setState({verifyCard:true})
+    }
+    closeVerfyCard=()=>{
+        this.setState({verifyCard:false})
+    }
 
     render() {
         //const { classes } = this.props;
@@ -168,7 +186,9 @@ class General extends Component {
                                     callMesTarjeta={this.callMesTarjeta}
                                     callAñoTarjeta={this.callAñoTarjeta}
                                     callCodTarjeta={this.callCodTarjeta}
+                                    callVerTarjeta={this.callVerTarjeta}
                                     callTipoTarjeta={this.callTipoTarjeta}
+                                    verificacion={this.verificacion}
                                     callHuespedes={this.callHuespedes}
                                     callCheckIn={this.callCheckIn}
                                     callCheckOut={this.callCheckOut}
@@ -178,7 +198,11 @@ class General extends Component {
                                     mesTarjeta={this.state.mesTarjeta}
                                     añoTarjeta={this.state.añoTarjeta}
                                     codTarjeta={this.state.codTarjeta}
+                                    verTarjeta={this.state.verTarjeta}
                                     tipoTarjeta={this.state.tipoTarjeta}
+                                    verifyCard={this.state.verifyCard}
+                                    openVerfyCard={this.openVerfyCard}
+                                    closeVerfyCard={this.closeVerfyCard}
                                 />
                             </Grid>
 
