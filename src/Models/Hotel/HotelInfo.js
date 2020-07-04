@@ -1,4 +1,5 @@
 import Address from '../Guest/Address'
+import Reserva from './../Reserva'
 
 class HotelInfo {
 
@@ -9,6 +10,7 @@ class HotelInfo {
     _email = ""
     _addressInfo = null
     _paymentInfo = []
+    _reservas = []
 
     static getInstance() {
         if (HotelInfo.myInstance == null) {
@@ -28,10 +30,23 @@ class HotelInfo {
       var address = new Address()
       address.setAddressInfo(props)
       this._addressInfo = address
-      // this._paymentInfo = PaymentMethod().parsePaymentMethods(props);
+      
+      //set Bookings info
+      if (props.reservas !== undefined) {
+        var reservas = props.reservas;
+        reservas.forEach(r => {
+          var reserva = new Reserva(r);
+          this._reservas.push(reserva);
+        })
+      }
     }
 
-    
+  //Reservas
+  addReserva(booking) {
+    let reserva = new Reserva(booking);
+    this._reservas.push(reserva)
+    console.log(this._reservas);
+  } 
 
     getName()  {
       return this._name;
