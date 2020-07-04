@@ -6,7 +6,8 @@ import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import BarraPrincipal from './BarraPrincipal'
-import { Hidden } from '@material-ui/core';
+import { Hidden, Grid } from '@material-ui/core';
+import Logo from '../Imagenes/CommodusLogo.png'
 
 const drawerWidth = 240;
 
@@ -83,7 +84,7 @@ export default function PanelControl(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -91,7 +92,7 @@ export default function PanelControl(props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-   
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -99,7 +100,7 @@ export default function PanelControl(props) {
     const theme = useTheme();
     const container = window !== undefined ? () => window().document.body : undefined;
 
-    
+
 
 
     return (
@@ -108,7 +109,7 @@ export default function PanelControl(props) {
             <nav className={classes.drawer} aria-label="mailbox folders">
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
-                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerToggle} open={false}  modo={props.modo}  darkState={props.darkState}  handleThemeChange={props.handleThemeChange} />
+                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerToggle} open={false} modo={props.modo} darkState={props.darkState} handleThemeChange={props.handleThemeChange} />
                     <Drawer
                         container={container}
                         variant="temporary"
@@ -126,7 +127,7 @@ export default function PanelControl(props) {
                     </Drawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
-                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} modo={props.modo}  darkState={props.darkState}  handleThemeChange={props.handleThemeChange}/>
+                    <BarraPrincipal user={props.user} handleDrawerOpen={handleDrawerOpen} open={open} modo={props.modo} darkState={props.darkState} handleThemeChange={props.handleThemeChange} />
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -135,6 +136,12 @@ export default function PanelControl(props) {
                         open={open}
                     >
                         <div className={classes.toolbarIcon}>
+                            <Grid container justify="center" alignItems="center">
+                                <Grid item>
+                                    <img src={Logo} alt="logo" width={100} height={80} />
+                                </Grid>
+                            </Grid>
+
                             <IconButton onClick={handleDrawerClose}>
                                 <ChevronLeftIcon />
                             </IconButton>
@@ -143,7 +150,7 @@ export default function PanelControl(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-           
+
         </div>
     )
 }

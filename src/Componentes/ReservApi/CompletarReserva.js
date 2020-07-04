@@ -159,7 +159,7 @@ export default function GuestInfoForm(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [values, setValue] = React.useState(false)
 
- 
+
   function noches(checkIn, checkOut) {
 
     var aFecha1 = checkIn.split("-");
@@ -178,8 +178,12 @@ export default function GuestInfoForm(props) {
         if (props.codTarjeta === props.verTarjeta) {
           setActiveStep(activeStep + 1);
         }
-        else
+        else {
           handleError()
+          console.log(props.codTarjeta)
+          console.log(props.verTarjeta)
+        }
+
       else
         setActiveStep(activeStep + 1);
     }
@@ -209,7 +213,7 @@ export default function GuestInfoForm(props) {
     const tipoHabitacion = props.habitacion;
     const night = noches(props.CheckIn, props.CheckOut);
     const precioNoche = props.precio;
-    const total = noches(props.CheckIn, props.CheckOut)*props.precio
+    const total = noches(props.CheckIn, props.CheckOut) * props.precio
 
 
     fetch(url +
@@ -241,7 +245,7 @@ export default function GuestInfoForm(props) {
         }
       });
   }
-  
+
 
   const continuar = () => {
     //Para guardar en reserva api POST

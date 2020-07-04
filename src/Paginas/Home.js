@@ -39,13 +39,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function PanelControl(props) {
     const classes = useStyles();
-    const [modoGeneral, setmodoGeneral] = React.useState(true);
+    const [modoGeneral, setmodoGeneral] = React.useState(false);
     const [modoPerfil, setmodoPerfil] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
     const [modoCheckIn, setmodoCheckIn] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
-    const [modoResenas, setmodoResenas] = React.useState(false);
+    const [modoResenas, setmodoResenas] = React.useState(true);
     const [modoPagos, setmodoPagos] = React.useState(false);
     const [modoHistorial, setmodoHistorial] = React.useState(false);
     const [modoAyuda, setmodoAyuda] = React.useState(false);
@@ -62,7 +62,7 @@ export default function PanelControl(props) {
 
     const [darkState, setDarkState] = React.useState(false);
     const palletType = darkState ? "dark" : "light";
-    const mainPrimaryColor = darkState ? "#1565c0" : "#1565c0";
+    const mainPrimaryColor = darkState ? "#ff9800" : "#1565c0";
     const mainSecondaryColor = darkState ? "#fafafa" : "#ff9800";
     const darkTheme = createMuiTheme({
         palette: {

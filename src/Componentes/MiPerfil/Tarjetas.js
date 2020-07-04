@@ -182,36 +182,37 @@ class Tarjetas extends Component {
     }
     callNumeroTarjeta = (x) => {
         this.setState({ numeroTarjeta: x });
-        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+        if (this.props.modo === "ReservaApi")
             this.props.callNumeroTarjeta(x)
     }
     callNombreTarjeta = (x) => {
         this.setState({ nombreTarjeta: x });
-        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+        if (this.props.modo === "ReservaApi" )
             this.props.callNombreTarjeta(x)
     }
     callMesTarjeta = (x) => {
         this.setState({ mesTarjeta: x });
-        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+        if (this.props.modo === "ReservaApi" )
             this.props.callMesTarjeta(x)
     }
     callAñoTarjeta = (x) => {
         this.setState({ añoTarjeta: x });
-        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+        if (this.props.modo === "ReservaApi" )
             this.props.callAñoTarjeta(x)
     }
     callCodTarjeta = (x) => {
         this.setState({ codTarjeta: x });
-        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+        if (this.props.modo === "ReservaApi" )
             this.props.closeVerfyCard()
     }
     callVerificaCod = (x) => {
         this.setState({ codVerificar: x });
-        this.props.callVerTarjeta(x)
+        if (this.props.modo === "ReservaApi" )
+            this.props.callVerTarjeta(x)
     }
     callTipoTarjeta = (x) => {
         this.setState({ tipoTarjeta: x });
-        if (this.props.modo === "ReservaApi" && !this.props.verifyCard)
+        if (this.props.modo === "ReservaApi" )
             this.props.callTipoTarjeta(x)
     }
 
@@ -243,12 +244,6 @@ class Tarjetas extends Component {
                                 callCodTarjeta={this.callCodTarjeta}
                                 callTipoTarjeta={this.callTipoTarjeta}
                             />
-                            <Grid container alignItems="flex-end" justify="flex-end">
-                                <Grid item md={3} xs={5}>
-                                    <Button variant="contained" color="primary" onClick={this.props.handleCheckOut}>Pagar</Button>
-                                </Grid>
-                            </Grid>
-
                         </Grid>
                     )
                 else
@@ -342,11 +337,6 @@ class Tarjetas extends Component {
 
             return (
                 <Grid container spacing={3} justify="center" alignItems="center">
-                    <Grid item xs={12} md={8} lg={9}>
-
-                        <Typography variant="h6">Tus Tarjetas</Typography>
-
-                    </Grid>
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper>
 
@@ -400,7 +390,7 @@ class Tarjetas extends Component {
                 <Grid container spacing={3} justify="center" alignItems="center">
                     <Grid item xs={12} md={8} lg={9}>
 
-                        <Typography variant="h5">Tus Tarjetas</Typography>
+                        <Typography variant="h3">Tus Tarjetas</Typography>
 
                     </Grid>
                     <Grid item xs={12} md={7} lg={7}>

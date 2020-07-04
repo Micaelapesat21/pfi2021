@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Grid, Typography, Divider, IconButton, TextField, Link, Button, Dialog, DialogContent } from '@material-ui/core';
+import { Grid, Typography, Divider, IconButton, TextField, Link, Button, Dialog, DialogContent, DialogActions, DialogTitle } from '@material-ui/core';
 import Hora from './Hora'
 import HoraTraslado from './HoraTraslado'
 import MiniBar from './Servicios/MiniBar'
 import Tarjetas from '../MiPerfil/Tarjetas';
+import Cuestionario from './Cuestionario';
 
 
 
@@ -50,6 +51,9 @@ const useStyles = makeStyles(theme => ({
     },
     perfilDatos: {
         marginBottom: theme.spacing(1),
+    },
+    backContent:{
+        backgroundColor:"#ffe0b2"
     }
 }));
 
@@ -58,12 +62,16 @@ export default function AdminReserva(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(true);
     const [pagar, setpagar] = React.useState(false);
+    const [cuestionario, setCuestionario] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
     const handlePagar = () => {
         setpagar(!pagar);
+    };
+    const handleCuestionario = () => {
+        setCuestionario(!cuestionario);
     };
 
 
@@ -218,9 +226,23 @@ export default function AdminReserva(props) {
                             <Grid item >
                                 <Button variant="contained" color="primary"  onClick={handlePagar} >Confirmar</Button>
                                 <Dialog open={pagar} onClose={handlePagar} maxWidth="lg">
-                                    <DialogContent>
+                                <DialogTitle>Metodo de pago</DialogTitle>
+                                    <DialogContent dividers className={classes.backContent}>
                                         <Tarjetas modo={"CheckOut"} handleCheckOut={props.handleCheckOut}/>
-                                    </DialogContent>                               
+                                    </DialogContent>      
+                                    <DialogActions>
+                                        <Button variant="outlined" color="primary" onClick={handlePagar}>Cancelar</Button>
+                                        <Button variant="outlined" color="primary" onClick={handleCuestionario} >Pagar</Button>
+                                    </DialogActions>                         
+                                </Dialog>
+                                <Dialog open={cuestionario} onClose={handleCuestionario} maxWidth="lg">
+                                    <DialogTitle>Cuestionario</DialogTitle>
+                                    <DialogContent dividers className={classes.backContent}>
+                                        <Cuestionario/>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button variant="outlined" color="primary" onClick={props.handleCheckOut} >Finalizar</Button>
+                                    </DialogActions>
                                 </Dialog>
                             </Grid>
                         </Grid>
