@@ -22,7 +22,7 @@ class ReservasAPI extends Component {
 
     getBookingInfo(bookingID, handleGetBooking)
     {
-        let url =  Constants.BASE_URL + '/api/v1.0/reservas?id=' + bookingID;
+        let url =  Constants.BASE_URL + '/api/v1.0/reservas/' + bookingID;
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
