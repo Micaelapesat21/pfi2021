@@ -1,6 +1,7 @@
 import Address from './Address.js'
 import PaymentMethod from '../PaymentMethod.js'
 import Perfil from './Perfil'
+import Reserva from './../Reserva'
 
 class GuestInfo {
 
@@ -14,6 +15,7 @@ class GuestInfo {
   _addressInfo = null
   _selectedProfile = null
   _paymentInfo = []
+  _reservas = []
 
   static getInstance() {
     if (GuestInfo.myInstance == null) {
@@ -28,6 +30,13 @@ class GuestInfo {
     let method = new PaymentMethod(paymentMethod);
     this._paymentInfo.push(method)
     console.log(this._paymentInfo)
+  }
+
+  //Reservas
+  addReserva(booking) {
+    let reserva = new PaymentMethod(booking);
+    this._reservas.push(reserva)
+    console.log(this._reservas);
   }
 
   //Profiles
@@ -68,6 +77,15 @@ class GuestInfo {
       methods.forEach(m => {
         var method = new PaymentMethod(m);
         this._paymentInfo.push(method);
+      })
+    }
+
+    //set Bookings info
+    if (props.reservas !== undefined) {
+      var reservas = props.reservas;
+      reservas.forEach(r => {
+        var reserva = new Reserva(r);
+        this._reservas.push(reserva);
       })
     }
   }

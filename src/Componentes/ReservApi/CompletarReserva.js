@@ -22,8 +22,11 @@ import SnackError from '../Snacks/SnackError';
 import Lottie from 'react-lottie';
 import SendEmail from '../../AnimationJson/sendEmail.json'
 
-
-
+import Constants from '../../Utils/Constants'
+import ReservasAPI from '../../Network/Reserva/ReservasAPI'
+import GuestInfo from '../../Models/Guest/GuestInfo'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorMessageModal from '../Commons/ErrorMessageModal';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -70,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const steps = ['Confirme las fechas', 'Pago', 'Ver tu reserva'];
-const url = "https://us-central1-commudus.cloudfunctions.net/sendMailVocucher?"
 function getStepContent(step, props) {
 
   switch (step) {
@@ -158,6 +160,8 @@ export default function GuestInfoForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [values, setValue] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [errorMessageIsOpen, setErrorMessageIsOpen] = React.useState(false)
 
 
   function noches(checkIn, checkOut) {
@@ -189,7 +193,9 @@ export default function GuestInfoForm(props) {
     }
     else
       if (activeStep === 2) {
+        
         enviarMail()
+        ReservasAPI.bookHotel(getBookingDictionary(),handleBookHotel)
         setActiveStep(activeStep + 1);
       }
 
@@ -199,7 +205,6 @@ export default function GuestInfoForm(props) {
   };
 
   function enviarMail() {
-
     const email = props.user.email;
     const hotel = props.id;
     const nroReserva = "212121";
@@ -216,7 +221,7 @@ export default function GuestInfoForm(props) {
     const total = noches(props.CheckIn, props.CheckOut) * props.precio
 
 
-    fetch(url +
+    fetch(Constants.SEND_EMAIL_VOUCHER_URL +
       'email=' + email +
       '&hotel=' + hotel +
       '&nroReserva=' + nroReserva +
@@ -261,6 +266,20 @@ export default function GuestInfoForm(props) {
     )
   }
 
+  function handleBookHotel(booking) {
+    setLoading(false);
+
+    if (booking.error !== null) {
+        //show error message if needed
+        setErrorMessageIsOpen(true);
+    } else {
+      GuestInfo.getInstance().addReserva(getBookingDictionary())
+    }
+  }
+
+  function closeErrorModal() {
+    setErrorMessageIsOpen(false);
+  }
 
   const handleError = () => {
     setValue(!values)
@@ -277,6 +296,15 @@ export default function GuestInfoForm(props) {
       preserveAspectRatio: 'xMidYMid slice'
     },
   }
+
+  function showLoaderIfNeeded() {
+    if (loading)
+        return (
+            <div className="loader">
+                <CircularProgress disableShrink />;
+            </div>
+        )
+}
 
   return (
     <React.Fragment>
@@ -307,6 +335,11 @@ export default function GuestInfoForm(props) {
                   height={150}
                   width={150}
                 />
+
+                <div>
+                  {showLoaderIfNeeded()}
+                  <ErrorMessageModal title={'Algo salió mal'} errorMessage={"Hubo un error. Prueba de nuevo"} isOpen={errorMessageIsOpen} closeErrorModal={closeErrorModal.bind(this)} />
+                </div>
                 <Typography variant="subtitle1" align="justify">
                   Tu numero de reserva es #2001539. Te hemos enviado un mail a {props.user.email} con tu vocher, si desea puede editar sus preferencias y realizar su Check-In
                 </Typography>
