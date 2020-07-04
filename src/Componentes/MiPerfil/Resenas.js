@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Grid, Typography, Button, Paper } from '@material-ui/core';
+import { Grid, Typography, Paper } from '@material-ui/core';
 import foto from '../../Imagenes/logoHotel.png'
 
 

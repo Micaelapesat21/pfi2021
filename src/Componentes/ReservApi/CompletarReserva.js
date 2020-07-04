@@ -265,6 +265,21 @@ export default function GuestInfoForm(props) {
       props.numeroTarjeta,
     )
   }
+  
+  function getBookingDictionary() {
+    let booking = {
+      hotel: props.emailHotel,
+      huesped: props.user.email,
+      checkIn: props.CheckIn,
+      checkOut: props.CheckOut,
+      cantHuespedes: props.huespedes,
+      tipoHabitacion: props.habitacion,
+      precioNoche: props.precio,
+      numeroTarjeta: props.numeroTarjeta,
+    };
+
+    return booking;
+  }
 
   function handleBookHotel(booking) {
     setLoading(false);

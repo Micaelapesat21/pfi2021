@@ -64,12 +64,15 @@ class Inicio extends Component {
             this.setState({
                 user: user
             });
-//Diferencia entre modo hotel y trae el correcto            
-            if (this.state.modoHotel)
+            //Diferencia entre modo hotel y trae el correcto            
+            if (this.state.modoHotel) {
+                //GET RESERVA HOTEL
                 this.getHotelInfo(user.email)
-            else
-
+            }
+            else {
+                //GET RESERVA HUESPED
                 this.getGuestInfo(user.email)
+            }
         });
 
 
