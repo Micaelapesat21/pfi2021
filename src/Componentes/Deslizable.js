@@ -138,7 +138,7 @@ export default function PanelControl(props) {
                         <div className={classes.toolbarIcon}>
                             <Grid container justify="center" alignItems="center">
                                 <Grid item>
-                                    <img src={Logo} alt="logo" width={100} height={80} />
+                                    <img src={Logo} alt="logo" width={90} height={60} />
                                 </Grid>
                             </Grid>
 

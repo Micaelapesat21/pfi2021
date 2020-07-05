@@ -62,8 +62,8 @@ export default function PanelControl(props) {
 
     const [darkState, setDarkState] = React.useState(false);
     const palletType = darkState ? "dark" : "light";
-    const mainPrimaryColor = darkState ? "#ff9800" : "#1565c0";
-    const mainSecondaryColor = darkState ? "#fafafa" : "#ff9800";
+    const mainPrimaryColor = darkState ? "#ef6c00" : "#1565c0";
+    const mainSecondaryColor = darkState ? "#1565c0" : "#ef6c00";
     const darkTheme = createMuiTheme({
         palette: {
             type: palletType,

@@ -59,7 +59,7 @@ export default function ListItems(props) {
     <div>
       <ListItem button onClick={props.openGeneral}>
         <ListItemIcon>
-          <DashboardIcon />
+          <DashboardIcon color="secondary" />
         </ListItemIcon>
         <ListItemText primary="Panel General" />
       </ListItem>
@@ -67,7 +67,7 @@ export default function ListItems(props) {
 
       <ListItem button onClick={handleClickPeril}>
         <ListItemIcon>
-          <PersonIcon />
+          <PersonIcon color="secondary"/>
         </ListItemIcon>
         <ListItemText primary="Mi Perfil" />
         {openPer ? <ExpandLess /> : <ExpandMore />}
@@ -84,14 +84,14 @@ export default function ListItems(props) {
 
           <ListItem button onClick={props.resenasOpen} className={classes.nested}>
             <ListItemIcon>
-              <AssignmentIcon />
+              <AssignmentIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Reseñas" />
           </ListItem>
 
           <ListItem button onClick={props.pagosOpen} className={classes.nested}>
             <ListItemIcon>
-              <PaymentIcon />
+              <PaymentIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Tarjetas" />
           </ListItem>
@@ -100,7 +100,7 @@ export default function ListItems(props) {
       <Divider />
       <ListItem button onClick={handleClickReserva}>
         <ListItemIcon>
-          <VpnKeyIcon />
+          <VpnKeyIcon color="secondary"/>
         </ListItemIcon>
         <ListItemText primary="Reservas" />
         {openRes ? <ExpandLess /> : <ExpandMore />}
@@ -110,35 +110,35 @@ export default function ListItems(props) {
 
           <ListItem button onClick={props.reservasOpen} className={classes.nested}>
             <ListItemIcon>
-              <HotelIcon />
+              <HotelIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Activas" />
           </ListItem>
 
           <ListItem button onClick={props.checkInOpen} className={classes.nested}>
             <ListItemIcon>
-              <AssignmentTurnedInIcon />
+              <AssignmentTurnedInIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Check-in" />
           </ListItem>
 
           <ListItem button onClick={props.serviciosOpen} className={classes.nested}>
             <ListItemIcon>
-              <RoomServiceIcon />
+              <RoomServiceIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Servicios" />
           </ListItem>
 
           <ListItem button onClick={props.checkOutOpen} className={classes.nested}>
             <ListItemIcon>
-              <MeetingRoomIcon />
+              <MeetingRoomIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Check-Out" />
           </ListItem>
          
           <ListItem button onClick={props.historialOpen} className={classes.nested}>
             <ListItemIcon>
-              <HistoryIcon />
+              <HistoryIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Historial" />
           </ListItem>
@@ -148,7 +148,7 @@ export default function ListItems(props) {
 
       <ListItem button onClick={props.ayudaOpen}>
         <ListItemIcon>
-          <HelpIcon />
+          <HelpIcon color="secondary"/>
         </ListItemIcon>
         <ListItemText primary="Ayuda" />
       </ListItem>

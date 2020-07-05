@@ -129,7 +129,7 @@ export default function AddressForm(props) {
             </Typography>
         </Grid>
 
-        <Grid item={12}>
+        <Grid item md={12}>
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item md={12}>
               <Typography gutterBottom>Precio por noche: ${props.precio} </Typography>

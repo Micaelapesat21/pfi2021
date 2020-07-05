@@ -51,6 +51,18 @@ const styles = theme => ({
 
 class General extends Component {
 
+    constructor(){
+        super();
+        this.state={
+            reservas:[]
+        }
+    }
+
+    componentDidMount(){
+
+        //GET reservas, cuando los traigas dejalo en el array de arriba asi despues hago el map
+    }
+
 
 
     perfil() {

@@ -22,7 +22,7 @@ class General extends Component {
         super();
         this.state = {
             id: "",
-            emailHotel:"",
+            emailHotel: "",
             CheckIn: "",
             CheckOut: "",
             huespedes: 0,
@@ -35,7 +35,8 @@ class General extends Component {
             verTarjeta: "",
             codTarjeta: "",
             tipoTarjeta: "",
-            verifyCard:false,
+            fechaHoy: "",
+            verifyCard: false,
             showLogin: true,
             user: null,
             verificar: false,
@@ -65,13 +66,23 @@ class General extends Component {
 
         this.setState({
             id: id,
-            emailHotel:emailHotel,
+            emailHotel: emailHotel,
             CheckIn: CheckIn,
             CheckOut: CheckOut,
             huespedes: +num,
             precio: precio,
         })
 
+        var date = new Date()
+        var dia = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+        var fecha = year + "-" + this.pad(month) + "-" + dia;
+        this.setState({ fechaHoy: fecha })
+
+    }
+    pad(n) {
+        return n + 1
     }
 
     getGuestInfo(email) {
@@ -132,7 +143,7 @@ class General extends Component {
         this.setState({ showLogin: true });
     }
 
-    
+
     closeDialogLogin = () => {
         this.setState({ showLogin: false });
     }
@@ -161,11 +172,11 @@ class General extends Component {
     }
 
 
-    openVerfyCard=()=>{
-        this.setState({verifyCard:true})
+    openVerfyCard = () => {
+        this.setState({ verifyCard: true })
     }
-    closeVerfyCard=()=>{
-        this.setState({verifyCard:false})
+    closeVerfyCard = () => {
+        this.setState({ verifyCard: false })
     }
 
     render() {
@@ -212,6 +223,7 @@ class General extends Component {
                                     verifyCard={this.state.verifyCard}
                                     openVerfyCard={this.openVerfyCard}
                                     closeVerfyCard={this.closeVerfyCard}
+                                    fechaHoy={this.state.fechaHoy}
                                 />
                             </Grid>
 

@@ -52,7 +52,7 @@ class Cuestionario extends Component {
                 <Grid item xs={12}>
                     <Paper elevation={3} className={classes.paperTop}>
                         <Typography variant="h4" >Hotel Paihuen</Typography>
-                        <Typography align="justify">A continuacion le pedimos que complete el siguiente cuestionario sobre su estadia calificando del 1 al 10, siendo 1 no satisfecho y 10 muy satisfecho</Typography>
+                        <Typography align="justify">A continuacion le pedimos que complete el siguiente cuestionario sobre su estadia </Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
@@ -110,7 +110,7 @@ class Cuestionario extends Component {
                 <Grid item xs={12}>
                     <Paper elevation={3} className={classes.paper}>
                         <FormControl component="fieldset">
-                            <FormLabel component="legend" className={classes.formLabel}>5-¿Como calificaria la app?</FormLabel>
+                            <FormLabel component="legend" className={classes.formLabel}>5-¿Como calificaria el uso de la app en su estadia?</FormLabel>
                             <RadioGroup aria-label="gender" name="gender1" value={this.state.pregunta5} onChange={this.handleChange}>
                                 <FormControlLabel value="Excelente" name="pregunta5" control={<Radio />} label="Excelente" />
                                 <FormControlLabel value="Buena" name="pregunta5" control={<Radio />} label="Buena" />

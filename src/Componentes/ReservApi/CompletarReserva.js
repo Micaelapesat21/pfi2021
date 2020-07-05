@@ -27,6 +27,8 @@ import ReservasAPI from '../../Network/Reserva/ReservasAPI'
 import GuestInfo from '../../Models/Guest/GuestInfo'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../Commons/ErrorMessageModal';
+import LoadingReserva from '../Commons/LoadingReserva';
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -115,6 +117,7 @@ function getStepContent(step, props) {
         añoTarjeta={props.añoTarjeta}
         tipoTarjeta={props.tipoTarjeta}
       />;
+
     default:
       throw new Error('Unknown step');
   }
@@ -155,6 +158,8 @@ function logueado(classes, props) {
 }
 
 
+
+
 export default function GuestInfoForm(props) {
 
   const classes = useStyles();
@@ -162,6 +167,7 @@ export default function GuestInfoForm(props) {
   const [values, setValue] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [errorMessageIsOpen, setErrorMessageIsOpen] = React.useState(false)
+
 
 
   function noches(checkIn, checkOut) {
@@ -175,7 +181,6 @@ export default function GuestInfoForm(props) {
 
     return dias
   }
-
   const handleNext = () => {
     if (activeStep === 1) {
       if (props.verifyCard)
@@ -184,8 +189,6 @@ export default function GuestInfoForm(props) {
         }
         else {
           handleError()
-          console.log(props.codTarjeta)
-          console.log(props.verTarjeta)
         }
 
       else
@@ -193,9 +196,9 @@ export default function GuestInfoForm(props) {
     }
     else
       if (activeStep === 2) {
-        
-        enviarMail()
-        ReservasAPI.bookHotel(getBookingDictionary(),handleBookHotel)
+        ReservasAPI.bookHotel(getBookingDictionary(), handleBookHotel)
+        setLoading(true)
+        enviarMail(/*Hay poner el numero de reserva aca*/)
         setActiveStep(activeStep + 1);
       }
 
@@ -203,11 +206,12 @@ export default function GuestInfoForm(props) {
         setActiveStep(activeStep + 1);
 
   };
+ 
 
-  function enviarMail() {
+  function enviarMail(/*nro */) {
     const email = props.user.email;
     const hotel = props.id;
-    const nroReserva = "212121";
+    const nroReserva = "212121"//nro
     const fechaHoy = props.fechaHoy;
     const checkIn = props.CheckIn;
     const checkOut = props.CheckOut;
@@ -250,8 +254,6 @@ export default function GuestInfoForm(props) {
         }
       });
   }
-
-
   const continuar = () => {
     //Para guardar en reserva api POST
     console.log(
@@ -265,7 +267,6 @@ export default function GuestInfoForm(props) {
       props.numeroTarjeta,
     )
   }
-  
   function getBookingDictionary() {
     let booking = {
       hotel: props.emailHotel,
@@ -285,10 +286,10 @@ export default function GuestInfoForm(props) {
     setLoading(false);
 
     if (booking.error !== null) {
-        //show error message if needed
-        setErrorMessageIsOpen(true);
-    } else {
+      //show error message if needed
       GuestInfo.getInstance().addReserva(getBookingDictionary())
+    } else {
+      setErrorMessageIsOpen(true);
     }
   }
 
@@ -314,12 +315,12 @@ export default function GuestInfoForm(props) {
 
   function showLoaderIfNeeded() {
     if (loading)
-        return (
-            <div className="loader">
-                <CircularProgress disableShrink />;
-            </div>
-        )
-}
+      return (
+        <div className="loader">
+          <CircularProgress disableShrink />;
+        </div>
+      )
+  }
 
   return (
     <React.Fragment>
@@ -341,42 +342,49 @@ export default function GuestInfoForm(props) {
           </Stepper>
           <React.Fragment>
             {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom align="center">
-                  ¡Gracias por reservar con nosotros!
-                </Typography>
-                <Lottie
-                  options={defaultOptions}
-                  height={150}
-                  width={150}
-                />
 
-                <div>
-                  {showLoaderIfNeeded()}
-                  <ErrorMessageModal title={'Algo salió mal'} errorMessage={"Hubo un error. Prueba de nuevo"} isOpen={errorMessageIsOpen} closeErrorModal={closeErrorModal.bind(this)} />
-                </div>
-                <Typography variant="subtitle1" align="justify">
-                  Tu numero de reserva es #2001539. Te hemos enviado un mail a {props.user.email} con tu vocher, si desea puede editar sus preferencias y realizar su Check-In
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={continuar}
-                  className={classes.button}
-                  component={Link}
-                  to={{
-                    pathname: `/ReservaOk`,
-                    state: {
-                      id: props.id,
-                      CheckIn: props.CheckIn,
-                      CheckOut: props.CheckOut,
-                      huespedes: props.huespedes,
-                      precio: props.precio,
-                    }
-                  }}>
-                  Continuar
-                </Button>
+              <React.Fragment>
+                {loading ? (
+                  <LoadingReserva />
+                ) : (
+                    <React.Fragment>
+                      <Typography variant="h5" gutterBottom align="center">
+                        ¡Gracias por reservar con nosotros!
+                    </Typography>
+                      <Lottie
+                        options={defaultOptions}
+                        height={150}
+                        width={150}
+                      />
+                      <div>
+                        {showLoaderIfNeeded()}
+                        <ErrorMessageModal title={'Algo salió mal'} errorMessage={"Hubo un error. Prueba de nuevo"} isOpen={errorMessageIsOpen} closeErrorModal={closeErrorModal.bind(this)} />
+                      </div>
+                      <Typography variant="subtitle1" align="justify">
+                        Tu numero de reserva es #2001539. Te hemos enviado un mail a {props.user.email} con tu vocher, si desea puede editar sus preferencias y realizar su Check-In
+                    </Typography>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={continuar}
+                        className={classes.button}
+                        component={Link}
+                        to={{
+                          pathname: `/ReservaOk`,
+                          state: {
+                            id: props.id,
+                            CheckIn: props.CheckIn,
+                            CheckOut: props.CheckOut,
+                            huespedes: props.huespedes,
+                            precio: props.precio,
+                          }
+                        }}>
+                        Continuar
+                       </Button>
+                    </React.Fragment>
+                  )}
               </React.Fragment>
+
             ) : (
                 <React.Fragment>
                   {getStepContent(activeStep, props)}
