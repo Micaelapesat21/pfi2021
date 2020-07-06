@@ -7,6 +7,9 @@ import ReservaRender from './ReservaRender';
 import foto from '../../Imagenes/logoHotel.png'
 import foto2 from '../../Imagenes/logoFourSeason.jpg'
 
+import ReservasAPI from './../../Network/Reserva/ReservasAPI'
+import GuestInfo from './../../Models/Guest/GuestInfo'
+import Reserva from './../../Models/Reserva'
 
 
 const styles = theme => ({
@@ -22,7 +25,45 @@ const styles = theme => ({
 })
 
 class CheckOut extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            errorMessageIsOpen: false,
+            errorMessage: "",
+            reserva: new Reserva()
+        }
+      }
     
+    componentDidMount() {
+        this.getReserva()
+    }
+
+    //API Calls
+    getReserva() {    
+        this.setState({ loading: true });
+        let reservas = GuestInfo.getInstance().getReservas();
+        
+        //HERE USE THE BOOKING ID
+        ReservasAPI.getBookingInfo(reservas[0].id,this.handleGetReservas);
+    }
+
+    handleGetReservas = async (booking) => {
+        if(booking.error !== undefined) {
+            this.setState({ 
+                loading: false,
+                errorMessage: "No se pudo cargar el detalle de la reserva" 
+            });
+        }else {
+            let newReserva = GuestInfo.getInstance().updateReservaIfNeeded(booking);
+            this.setState({ 
+                loading: false,
+                reserva: newReserva 
+            });
+        }
+    }
+
     render() {
         //const { classes } = this.props;
 
@@ -33,38 +74,18 @@ class CheckOut extends Component {
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
                 <ReservaRender
-                    user={this.props.user}
-                    id={this.props.id}
-                    nroReserva={"#1234568"}
-                    logo={foto}
-                    CheckIn={this.props.CheckIn}
-                    CheckOut={this.props.CheckOut}
-                    huespedes={this.props.huespedes}
-                    precio={this.props.precio}
-                    checkInOpen={this.props.checkInOpen}
-                    checkOutOpen={this.props.checkOutOpen}
-                    modo={this.props.modo}
-                    checkOutOK={this.props.checkOutOK}
-                    handleCheckOut={this.props.handleCheckOut}
-                />
-            </Grid>
-            <Grid item xs={12} md={8} lg={9}>
-                <ReservaRender
-                    id={"Four Season"}
-                    nroReserva={"#1234567"}
+                    id={ this.state.reserva.hotelName }
+                    nroReserva={this.state.reserva.bookingNumber}
                     logo={foto2}
-                    CheckIn={"2020-12-24"}
-                    CheckOut={"2020-12-30"}
-                    huespedes={4}
-                    precio={"1234"}
+                    CheckIn={this.state.reserva.checkIn}
+                    CheckOut={this.state.reserva.checkOut}
+                    huespedes={this.state.reserva.cantidadHuespedes}
+                    precio={this.state.reserva.precioNoche}
                     checkInOpen={this.props.checkInOpen}
                     checkOutOpen={this.props.checkOutOpen}
                     modo={this.props.modo}
                 />
             </Grid>
-
-
-
         </Grid>
         );
     }

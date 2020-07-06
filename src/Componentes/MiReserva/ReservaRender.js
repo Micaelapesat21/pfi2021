@@ -122,7 +122,7 @@ export default function ReservaRender(props) {
                             <Grid item md={3} xs={12} className={classes.izq} >
                                 <Grid container direction="row" justify="center" alignItems="center" >
                                     <Grid item md={12} xs={12}>
-                                        <Typography align="center">Reserva: #1234567</Typography>
+                                        <Typography align="center">Reserva: {props.nroReserva}  </Typography>
                                     </Grid>
                                     <Grid item md={8} xs={5}>
                                         <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -260,7 +260,7 @@ export default function ReservaRender(props) {
                         <Grid item md={3} xs={12} className={classes.izq} >
                             <Grid container direction="row" justify="center" alignItems="center" >
                                 <Grid item md={12} xs={12}>
-                                    <Typography align="center">Reserva: #1234567</Typography>
+                                    <Typography align="center">Reserva: {props.nroReserva} </Typography>
                                 </Grid>
                                 <Grid item md={8} xs={5}>
                                     <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -326,7 +326,7 @@ export default function ReservaRender(props) {
                             <Grid item md={3} xs={12} className={classes.izq} >
                                 <Grid container direction="row" justify="center" alignItems="center" >
                                     <Grid item md={12} xs={12}>
-                                        <Typography align="center">Reserva: #1234567</Typography>
+                                        <Typography align="center">Reserva: {props.nroReserva} </Typography>
                                     </Grid>
                                     <Grid item md={8} xs={5}>
                                         <img src={props.logo} alt="logo" width className={classes.logo} />
@@ -440,7 +440,7 @@ export default function ReservaRender(props) {
                         <Grid item md={3} xs={12} className={classes.izq} >
                             <Grid container direction="row" justify="center" alignItems="center" >
                                 <Grid item md={12} xs={12}>
-                                    <Typography align="center">Reserva: #1234567</Typography>
+                                    <Typography align="center">Reserva: { props.nroReserva} </Typography>
                                 </Grid>
                                 <Grid item md={8} xs={5}>
                                     <img src={props.logo} alt="logo" width className={classes.logo} />
