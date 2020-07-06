@@ -2,7 +2,9 @@
 class HotelData {
     constructor(props) {
         this.state = {
+            nombre:"",           
             razon: "",
+            email:"",
             pais: "",
             estado: "",
             ciudad: "",
@@ -18,7 +20,9 @@ class HotelData {
     setHotelData(props) {
 
         this.state = {
+            nombre:props.nombre,
             razon: props.razon,
+            email:props.email,
             pais: props.pais,
             estado: props.estado,
             ciudad: props.ciudad,
@@ -33,7 +37,9 @@ class HotelData {
 
     toJson() {
         return {
+            nombre:this.state.nombre,
             razon: this.state.razon,
+            email:this.state.email,
             pais: this.state.pais,
             estado: this.state.estado,
             ciudad: this.state.ciudad,

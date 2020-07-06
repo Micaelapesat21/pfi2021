@@ -20,7 +20,7 @@ const styles = theme => ({
         position: 'relative',
         [theme.breakpoints.down('xs')]: {
         },
-        '&:hover, &$focusVisible': {
+        '&:hover': {
             zIndex: 1,
             '& $imageBackdrop': {
                 opacity: 0.6,
@@ -106,7 +106,7 @@ class DatosHotel extends Component {
         /* if(this.state.lastResponse === null) {
              this.getHotelInfo(this.props.user.email)
          }*/
-        this.getHotelInfo(this.props.user.email)
+         this.getHotelInfo()
     }
 
     guardar() {
@@ -172,16 +172,17 @@ class DatosHotel extends Component {
     //Api Calls
     getHotelInfo(email) {
         this.setState({ loading: true });
-        HotelAPI.getHotelInfo(email, this.handleGetHotelInfo);
+        let hotelInfo = HotelInfo.getInstance().getHotelData()         
+        this.handleGetHotelInfo(hotelInfo)
     }
 
-    handleGetHotelInfo = async (hotelInfo) => {
+    handleGetHotelInfo(hotelInfo) {
         this.setState({ loading: false, });
 
-        if (hotelInfo.data === undefined || hotelInfo === null) {
+        if (hotelInfo.state === undefined || hotelInfo === null) {
             //show error message if needed
         } else {
-            let hotelData = hotelInfo.data.hotel;
+            let hotelData = hotelInfo.state;
 
             if (hotelData !== null) {
                 this.setState({
@@ -197,9 +198,7 @@ class DatosHotel extends Component {
                     telefono2: hotelData.telefono2,
                     estrellas: hotelData.estrellas,
                     url: hotelData.url,
-                });
-
-                HotelInfo.getInstance().setUserData(hotelInfo);
+                });            
             }
         }
     }

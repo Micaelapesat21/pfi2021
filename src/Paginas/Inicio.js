@@ -140,7 +140,7 @@ class Inicio extends Component {
         } else {
             let userData = hotelInfo.data.hotel;
             console.log(userData.email)
-            if (userData !== null) {            
+            if (userData !== null) {
                 HotelInfo.getInstance().setHotelData(userData)
             }
         }
@@ -234,11 +234,16 @@ class Inicio extends Component {
         const { classes } = this.props;
         if (this.state.user) {
             if (this.state.modoHotel) {
-                return (
-                    <HotelHome
-                        user={this.state.user}
-                    />
-                )
+                if (this.state.loading)
+                    return (
+                        <LoadinPage />
+                    )
+                else
+                    return (
+                        <HotelHome
+                            user={this.state.user}
+                        />
+                    )
             } else {
                 if (this.state.user.emailVerified || this.isloginFacebook() === true) {
                     if (this.state.loading)
