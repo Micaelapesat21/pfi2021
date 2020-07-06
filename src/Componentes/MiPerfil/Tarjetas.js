@@ -120,7 +120,7 @@ class Tarjetas extends Component {
     }
 
     componentDidMount() {
-        let methods = GuestInfo.getInstance().getPaymentMethods()
+        let methods = GuestInfo.getInstance().getPaymentMethods();
         this.setState({ tarjetas: methods })
 
     }
