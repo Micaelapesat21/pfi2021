@@ -20,7 +20,7 @@ const styles = theme => ({
         position: 'relative',
         [theme.breakpoints.down('xs')]: {
         },
-        '&:hover, &$focusVisible': {
+        '&:hover': {
             zIndex: 1,
             '& $imageBackdrop': {
                 opacity: 0.6,
@@ -77,12 +77,10 @@ class DatosHotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fotoPerfil: "",
+            fotoHotel: "",
             nombre: "",
-            apellido: "",
-            tipo: "",
-            documento: "",
-            correo: "",
+            razon: "",
+            email: "",
             pais: "",
             estado: "",
             ciudad: "",
@@ -93,11 +91,11 @@ class DatosHotel extends Component {
             estrellas: "",
             url: "",
             edicion: false,
-            redOnly: true,  
-            lastResponse: null,    
+            redOnly: true,
+            lastResponse: null,
             loading: false,
             errorMessageIsOpen: false,
-            errorMessage: ""      
+            errorMessage: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -105,33 +103,34 @@ class DatosHotel extends Component {
     }
 
     componentDidMount() {
-        if(this.state.lastResponse === null) {
-            this.getHotelInfo()
-        }
-    } 
+        /* if(this.state.lastResponse === null) {
+             this.getHotelInfo(this.props.user.email)
+         }*/
+         this.getHotelInfo()
+    }
 
     guardar() {
         if (this.state.nombre !== "" &&
-            this.state.apellido !== "" &&
-            this.state.tipo !== "" &&
-            this.state.documento !== "" &&
-            this.state.correo !== "" &&
+            this.state.razon !== "" &&
+            this.state.email !== "" &&
             this.state.pais !== "" &&
             this.state.estado !== "" &&
             this.state.ciudad !== "" &&
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
+            this.state.telefono2 !== "" &&
             this.state.estrellas !== "" &&
-            this.state.url !== "" 
+            this.state.url !== ""
         ) {
             var dict = this.getHotelModel();
             HotelInfo.getInstance().setHotelData(dict);
-            this.postGuestInfo()
+            this.postHotelInfo()
         } else {
-            this.setState({ errorMessageIsOpen: true,
+            this.setState({
+                errorMessageIsOpen: true,
                 errorMessage: "Verifique si lleno todos los datos."
-             });
+            });
         }
     }
 
@@ -154,14 +153,14 @@ class DatosHotel extends Component {
     showLoaderIfNeeded() {
         if (this.state.loading) {
             return (
-            <div className = "loader">
-                <CircularProgress />
-                <CircularProgress color="secondary" />
-            </div>
+                <div className="loader">
+                    <CircularProgress />
+                    <CircularProgress color="secondary" />
+                </div>
             )
         } else {
             return (
-                <div/>
+                <div />
             )
         }
     }
@@ -173,24 +172,23 @@ class DatosHotel extends Component {
     //Api Calls
     getHotelInfo(email) {
         this.setState({ loading: true });
-        HotelAPI.getHotelInfo(HotelInfo.getInstance().getMail(), this.handleGetHotelInfo);
+        let hotelInfo = HotelInfo.getInstance().getHotelData()         
+        this.handleGetHotelInfo(hotelInfo)
     }
 
-    handleGetHotelInfo = async (hotelInfo) => {
+    handleGetHotelInfo(hotelInfo) {
         this.setState({ loading: false, });
-  
-        if (hotelInfo.data === undefined || hotelInfo ===null) {
+
+        if (hotelInfo.state === undefined || hotelInfo === null) {
             //show error message if needed
         } else {
-            let hotelData = hotelInfo.data.hotel;
+            let hotelData = hotelInfo.state;
 
             if (hotelData !== null) {
                 this.setState({
                     nombre: hotelData.nombre,
-                    apellido: hotelData.apellido,
+                    razon: hotelData.razon,
                     email: hotelData.email,
-                    tipo: hotelData.tipo,
-                    documento: hotelData.documento,
                     pais: hotelData.pais,
                     estado: hotelData.estado,
                     ciudad: hotelData.ciudad,
@@ -200,9 +198,7 @@ class DatosHotel extends Component {
                     telefono2: hotelData.telefono2,
                     estrellas: hotelData.estrellas,
                     url: hotelData.url,
-                });
-
-                HotelInfo.getInstance().setUserData(hotelInfo);
+                });            
             }
         }
     }
@@ -212,9 +208,9 @@ class DatosHotel extends Component {
         HotelAPI.postHotelInfo(this.handlePostHotelInfo);
     }
 
-    handlePostHotelInfo = async (guestInfo) => {
+    handlePostHotelInfo = async (hotelInfo) => {
         this.setState({ loading: false });
-        if (guestInfo.error == null) {
+        if (hotelInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
         } else {
@@ -225,33 +221,32 @@ class DatosHotel extends Component {
     getHotelModel() {
         return {
             nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            email: this.state.correo,
-            tipo: this.state.tipo,
-            documento: this.state.documento,
+            razon: this.state.razon,
+            email: this.state.email,
             pais: this.state.pais,
             estado: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
-            direccion1: this.state.direccion,
+            direccion: this.state.direccion,
             telefono1: this.state.telefono1,
             telefono2: this.state.telefono2,
             estrellas: this.state.estrellas,
             url: this.state.url
         };
+
     }
 
     //Modal handlers
     closeErrorModal() {
-        this.setState({ errorMessageIsOpen: false },this.forceUpdate());
+        this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
 
     render() {
         const { classes } = this.props;
         return (
             <Grid>
-            { this.showLoaderIfNeeded() }
-                <ErrorMessageModal title = { 'Algo salió mal' } errorMessage = { this.state.errorMessage } isOpen = { this.state.errorMessageIsOpen } closeErrorModal = { this.closeErrorModal.bind(this) } />
+                {this.showLoaderIfNeeded()}
+                <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Grid container spacing={2}>
                     <Grid item >
                         <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>
@@ -313,11 +308,11 @@ class DatosHotel extends Component {
                             <TextField
                                 required
                                 id="Apellido"
-                                name="apellido"
+                                name="razon"
                                 label="Razon social"
                                 fullWidth
-                                autoComplete="Apellido"
-                                value={this.state.apellido}
+                                autoComplete="razon"
+                                value={this.state.razon}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly
@@ -328,11 +323,11 @@ class DatosHotel extends Component {
                             <TextField
                                 required
                                 id="Correo"
-                                name="correo"
+                                name="email"
                                 label="Correo Electronico"
                                 fullWidth
                                 autoComplete="Correo"
-                                value={this.state.correo}
+                                value={this.state.email}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -463,7 +458,7 @@ class DatosHotel extends Component {
                                 name="url"
                                 label="URL / Pagina Web"
                                 fullWidth
-                                autoComplete="Código Postal"
+                                autoComplete="url"
                                 value={this.state.url}
                                 onChange={this.handleChange}
                                 InputProps={{

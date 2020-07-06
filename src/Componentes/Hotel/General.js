@@ -30,13 +30,13 @@ class General extends Component {
             <Grid container spacing={3}>
                 {/* Chart */}
                 <Grid item xs={12} md={8} lg={9}>
-                    <Paper className={fixedHeightPaper}>
+                    <Paper elevation={10} className={fixedHeightPaper}>
                         <Chart />
                     </Paper>
                 </Grid>
                 {/* Recent Deposits */}
                 <Grid item xs={12} md={4} lg={3}>
-                    <Paper className={fixedHeightPaper}>
+                    <Paper elevation={10} className={fixedHeightPaper}>
                         <Deposits 
                              serviciosOpen={this.props.serviciosOpen}
                         />
@@ -44,7 +44,7 @@ class General extends Component {
                 </Grid>
                 {/* Recent Orders */}
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}>
+                    <Paper elevation={10} className={classes.paper}>
                         <Orders
                         reservasOpen={this.props.reservasOpen}
                                    

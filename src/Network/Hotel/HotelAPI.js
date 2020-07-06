@@ -23,7 +23,7 @@ class HotelAPI extends Component {
 
     getHotelInfo(email, handleGetHotelInfo)
     {
-        let url =  Constants.BASE_URL + '/api/v1.0/hotel?email=' + email;
+        let url =  Constants.BASE_URL + '/api/v1.0/hoteles?email=' + email;
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

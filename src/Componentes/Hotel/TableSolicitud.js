@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import CheckIcon from '@material-ui/icons/Check';
+import BlockIcon from '@material-ui/icons/Block';
 import { IconButton, Paper, InputBase, AppBar, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -17,22 +19,19 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 const rows = [
-    createData(0, '15 Oct, 2019', '20 Oct, 2019', 'Fernado Palomo', 'VISA ⠀•••• 3719', 3120.44),
-    createData(1, '15 Oct, 2019', '20 Oct, 2019', 'Juan Fernandez', 'VISA ⠀•••• 2574', 8660.99),
-    createData(2, '15 Oct, 2019', '20 Oct, 2019', 'Martin Velazquez', 'MC ⠀•••• 1253', 1000.81),
-    createData(3, '15 Oct, 2019', '20 Oct, 2019', 'Sergio Perez', 'AMEX ⠀•••• 2000', 6540.39),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
+    createData(0, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(1, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(2, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(3, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(4, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(5, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(6, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(7, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(8, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(9, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(10, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+    createData(11, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
+
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -103,38 +102,45 @@ export default function Orders() {
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Ultimas Reservas</Title>
+                <Title>Solicitudes</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Check-In</TableCell>
-                            <TableCell>Check-Out</TableCell>
-                            <TableCell>Reservado Por</TableCell>
-                            <TableCell>Metodo de Pago</TableCell>
-                            <TableCell align="right">Monto Total</TableCell>
-                            <TableCell align="right">Ver mas</TableCell>
+                            <TableCell>Nro Reserva</TableCell>
+                            <TableCell>Huesped</TableCell>
+                            <TableCell>Categoria</TableCell>
+                            <TableCell>Solicitud</TableCell>
+                            <TableCell>Estado</TableCell>
+                            <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row,index) => (
+                        {rows.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.date}</TableCell>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.shipTo}</TableCell>
                                 <TableCell>{row.paymentMethod}</TableCell>
-                                <TableCell align="right">{row.amount}</TableCell>
+                                <TableCell>{row.amount}</TableCell>
                                 <TableCell align="right">
+                                    <IconButton size="small">
+                                        <CheckIcon />
+                                    </IconButton>
+                                    <IconButton size="small">
+                                        <BlockIcon />
+                                    </IconButton>
                                     <IconButton size="small">
                                         <VisibilityIcon />
                                     </IconButton>
                                 </TableCell>
+
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
                 <div className={classes.seeMore}>
                     <Link color="primary" >
-                        Ver Mas Reservas
+                        Ver Mas Solicitudes
                      </Link>
                 </div>
             </Paper>

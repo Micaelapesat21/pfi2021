@@ -8,6 +8,8 @@ import ReservaHelper from '../../Utils/ReservaHelper'
 import AdminReserva from './AdminReserva'
 import AdminCheckIn from './AdminCheckIn'
 import AdminCheckOut from './AdminCheckOut'
+import LoadingCheckOut from '../Commons/LoadingCheckOut';
+import LoadingCheckIn from '../Commons/LoadingCheckIn';
 
 
 
@@ -159,6 +161,7 @@ export default function ReservaRender(props) {
                                         <Typography align="justify" variant="subtitle1" style={{ color: "#4caf50" }}>
                                             Su Check-In se ah realizado con exito, le hemos enviado a su mail {props.user.email} el QR para poder presentar en recepcion para que le entreguen su llave. Tambien puede presentar el que aparece aca abajo.
                                         </Typography>
+                                        <LoadingCheckIn/>
 
                                     </Grid>
                                     <Grid item md={12} >
@@ -358,8 +361,9 @@ export default function ReservaRender(props) {
                                         </Grid>
                                     </Grid>
 
-                                    <Grid item md={12} xs={12} className={classes.reservaChekIn}>
+                                    <Grid item md={12} xs={12} className={classes.reservaChekIn}>                                       
                                         <Typography align="center" variant="h5" style={{ color: "#4caf50" }}>Check-Out Realizado con exito, por favor dirigase a recepcion y entregue su llave</Typography>
+                                        <LoadingCheckOut/>
                                     </Grid>
                                 </Grid>
                             </Grid>
