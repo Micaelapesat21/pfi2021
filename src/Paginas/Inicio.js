@@ -55,7 +55,7 @@ class Inicio extends Component {
             huespedes: "",
             precio: "",
             completado: false,
-            modoHotel: true,// Si se va a trabajar en el hotel ponerlo en true
+            modoHotel: false,// Si se va a trabajar en el hotel ponerlo en true
             loading: false,
             data: [],
         };
