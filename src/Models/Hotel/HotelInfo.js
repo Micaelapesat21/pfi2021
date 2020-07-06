@@ -36,17 +36,13 @@ class HotelInfo {
         var reservas = props.reservas;
         reservas.forEach(r => {
           var reserva = new Reserva(r);
+          reserva.setReservaInfo(r);
           this._reservas.push(reserva);
         })
       }
-    }
 
-  //Reservas
-  addReserva(booking) {
-    let reserva = new Reserva(booking);
-    this._reservas.push(reserva)
-    console.log(this._reservas);
-  } 
+      let messi = ""
+    }
 
     getName()  {
       return this._name;
@@ -66,6 +62,10 @@ class HotelInfo {
 
     setUserType(userType) {
       this._userType = userType;
+    }
+
+    getReservas() {
+      return this._reservas;
     }
 
     toJson() {      

@@ -93,6 +93,7 @@ class DatosHotel extends Component {
             edicion: false,
             redOnly: true,
             lastResponse: null,
+
             loading: false,
             errorMessageIsOpen: false,
             errorMessage: ""
@@ -103,9 +104,6 @@ class DatosHotel extends Component {
     }
 
     componentDidMount() {
-        /* if(this.state.lastResponse === null) {
-             this.getHotelInfo(this.props.user.email)
-         }*/
          this.getHotelInfo()
     }
 
@@ -177,9 +175,9 @@ class DatosHotel extends Component {
     }
 
     handleGetHotelInfo(hotelInfo) {
-        this.setState({ loading: false, });
+        this.setState({ loading: false });
 
-        if (hotelInfo.state === undefined || hotelInfo === null) {
+        if (hotelInfo === undefined || hotelInfo === null) {
             //show error message if needed
         } else {
             let hotelData = hotelInfo.state;
