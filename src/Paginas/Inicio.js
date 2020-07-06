@@ -132,13 +132,13 @@ class Inicio extends Component {
             }
         }
     }
-    handleGetHotelInfo = async (guestInfo) => {
+    handleGetHotelInfo = async (hotelInfo) => {
         this.setState({ loading: false, });
-        if (guestInfo.data === undefined || guestInfo === null) {
+        if (hotelInfo.data === undefined || hotelInfo === null) {
             //show error message
-
+            console.log(hotelInfo)
         } else {
-            let userData = guestInfo.data.usuario;
+            let userData = hotelInfo.data.hotel;
             console.log(userData.email)
             if (userData !== null) {            
                 HotelInfo.getInstance().setHotelData(userData)

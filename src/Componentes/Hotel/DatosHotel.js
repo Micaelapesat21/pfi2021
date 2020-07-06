@@ -80,10 +80,10 @@ class DatosHotel extends Component {
             fotoHotel: "",
             nombre: "",
             razon: "",
-            correo: "",
+            email: "",
             pais: "",
             estado: "",
-            ciudad: "",        
+            ciudad: "",
             codigoPostal: "",
             direccion: "",
             telefono1: "",
@@ -110,37 +110,22 @@ class DatosHotel extends Component {
     }
 
     guardar() {
-        console.log(
-            this.state.nombre ,
-            this.state.razon ,
-            this.state.correo ,
-            this.state.pais ,
-            this.state.estado ,
-            this.state.ciudad ,
-            this.state.codigoPostal ,
-            this.state.direccion ,
-            this.state.telefono1 ,
-            this.state.telefono2 ,
-            this.state.estrellas ,
-            this.state.url 
-        )
         if (this.state.nombre !== "" &&
             this.state.razon !== "" &&
-            this.state.correo !== "" &&
+            this.state.email !== "" &&
             this.state.pais !== "" &&
             this.state.estado !== "" &&
             this.state.ciudad !== "" &&
             this.state.codigoPostal !== "" &&
-            this.state.direccion !== "" && 
+            this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
             this.state.telefono2 !== "" &&
             this.state.estrellas !== "" &&
             this.state.url !== ""
         ) {
             var dict = this.getHotelModel();
-           // HotelInfo.getInstance().setHotelData(dict);
-            //this.postGuestInfo()
-            console.log(true)
+            HotelInfo.getInstance().setHotelData(dict);
+            this.postHotelInfo()
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -202,7 +187,7 @@ class DatosHotel extends Component {
                 this.setState({
                     nombre: hotelData.nombre,
                     razon: hotelData.razon,
-                    correo: hotelData.correo,                  
+                    email: hotelData.email,
                     pais: hotelData.pais,
                     estado: hotelData.estado,
                     ciudad: hotelData.ciudad,
@@ -213,7 +198,7 @@ class DatosHotel extends Component {
                     estrellas: hotelData.estrellas,
                     url: hotelData.url,
                 });
-                
+
                 HotelInfo.getInstance().setUserData(hotelInfo);
             }
         }
@@ -224,9 +209,9 @@ class DatosHotel extends Component {
         HotelAPI.postHotelInfo(this.handlePostHotelInfo);
     }
 
-    handlePostHotelInfo = async (guestInfo) => {
+    handlePostHotelInfo = async (hotelInfo) => {
         this.setState({ loading: false });
-        if (guestInfo.error == null) {
+        if (hotelInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
         } else {
@@ -238,18 +223,18 @@ class DatosHotel extends Component {
         return {
             nombre: this.state.nombre,
             razon: this.state.razon,
-            correo: this.state.correo,           
+            email: this.state.email,
             pais: this.state.pais,
             estado: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
-            direccion1: this.state.direccion,
+            direccion: this.state.direccion,
             telefono1: this.state.telefono1,
             telefono2: this.state.telefono2,
             estrellas: this.state.estrellas,
             url: this.state.url
         };
-       
+
     }
 
     //Modal handlers
@@ -339,11 +324,11 @@ class DatosHotel extends Component {
                             <TextField
                                 required
                                 id="Correo"
-                                name="correo"
+                                name="email"
                                 label="Correo Electronico"
                                 fullWidth
                                 autoComplete="Correo"
-                                value={this.state.correo}
+                                value={this.state.email}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
