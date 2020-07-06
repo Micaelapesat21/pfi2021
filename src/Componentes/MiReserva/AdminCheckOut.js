@@ -9,6 +9,7 @@ import HoraTraslado from './HoraTraslado'
 import MiniBar from './Servicios/MiniBar'
 import Tarjetas from '../MiPerfil/Tarjetas';
 import Cuestionario from './Cuestionario';
+import LoadingPay from '../Commons/LoadingPay';
 
 
 
@@ -63,6 +64,14 @@ export default function AdminReserva(props) {
     const [expanded, setExpanded] = React.useState(true);
     const [pagar, setpagar] = React.useState(false);
     const [cuestionario, setCuestionario] = React.useState(false);
+    const [paySucces, setPaySucces] = React.useState(false);
+    const timer = React.useRef();
+
+    React.useEffect(() => {
+        return () => {
+          clearTimeout(timer.current);
+        };
+      }, []);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -73,6 +82,16 @@ export default function AdminReserva(props) {
     const handleCuestionario = () => {
         setCuestionario(!cuestionario);
     };
+    const handleClosePaySucces =()=>{
+        if (!paySucces) {
+            setCuestionario(false);
+            setPaySucces(true);
+            timer.current = setTimeout(() => {
+                setCuestionario(true);
+                setPaySucces(false);
+            }, 2000);
+    }
+    }
 
 
 
@@ -232,8 +251,11 @@ export default function AdminReserva(props) {
                                     </DialogContent>      
                                     <DialogActions>
                                         <Button variant="outlined" color="primary" onClick={handlePagar}>Cancelar</Button>
-                                        <Button variant="outlined" color="primary" onClick={handleCuestionario} >Pagar</Button>
+                                        <Button variant="outlined" color="primary" onClick={handleClosePaySucces} >Pagar</Button>
                                     </DialogActions>                         
+                                </Dialog>
+                                <Dialog open={paySucces} onClose={handleClosePaySucces}>
+                                    <LoadingPay/>
                                 </Dialog>
                                 <Dialog open={cuestionario} onClose={handleCuestionario} maxWidth="lg">
                                     <DialogTitle>Cuestionario</DialogTitle>

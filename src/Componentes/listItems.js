@@ -8,7 +8,7 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 import PaymentIcon from '@material-ui/icons/Payment';
 import RenderAvatar from './login/RenderAvatar'
 import { Divider, List, Collapse } from '@material-ui/core';
@@ -84,7 +84,7 @@ export default function ListItems(props) {
 
           <ListItem button onClick={props.resenasOpen} className={classes.nested}>
             <ListItemIcon>
-              <AssignmentIcon color="secondary"/>
+              <RateReviewIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Reseñas" />
           </ListItem>

@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
-       
+  
     },
     container: {
         paddingTop: theme.spacing(4),
@@ -62,8 +62,8 @@ export default function PanelControl(props) {
 
     const [darkState, setDarkState] = React.useState(false);
     const palletType = darkState ? "dark" : "light";
-    const mainPrimaryColor = darkState ? "#ef6c00" : "#1565c0";
-    const mainSecondaryColor = darkState ? "#1565c0" : "#ef6c00";
+    const mainPrimaryColor = darkState ? "#1565c0" : "#ED6916";
+    const mainSecondaryColor = darkState ? "#ED6916" : "#1565c0";
     const darkTheme = createMuiTheme({
         palette: {
             type: palletType,
@@ -266,7 +266,7 @@ export default function PanelControl(props) {
     const ayudaClose = () => {
         setmodoAyuda(false);
     };
-    
+
     const romanticoOpen = () => {
         setRomantico(true);
         ejecutivoClose();
@@ -327,12 +327,12 @@ export default function PanelControl(props) {
         </div>
     );
 
-    if (modoPerfil) {
+    if (modoPerfil)
         return (
             <ThemeProvider theme={darkTheme}>
                 <div className={classes.root}>
                     <CssBaseline />
-                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Mi Perfil"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Mi Perfil"} handleThemeChange={handleThemeChange} darkState={darkState} />
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
 
@@ -358,13 +358,13 @@ export default function PanelControl(props) {
                 </div>
             </ThemeProvider>
         )
-    } else {
-        if (modoReservas) {
+    else
+        if (modoReservas)
             return (
                 <ThemeProvider theme={darkTheme}>
                     <div className={classes.root}>
                         <CssBaseline />
-                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reservas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reservas"} handleThemeChange={handleThemeChange} darkState={darkState} />
                         <main className={classes.content}>
                             <div className={classes.appBarSpacer} />
                             <Container maxWidth="lg" className={classes.container}>
@@ -391,13 +391,13 @@ export default function PanelControl(props) {
                     </div>
                 </ThemeProvider>
             )
-        } else {
-            if (modoCheckIn) {
+        else
+            if (modoCheckIn)
                 return (
                     <ThemeProvider theme={darkTheme}>
                         <div className={classes.root}>
                             <CssBaseline />
-                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-In"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-In"} handleThemeChange={handleThemeChange} darkState={darkState} />
                             <main className={classes.content}>
                                 <div className={classes.appBarSpacer} />
                                 <Container maxWidth="lg" className={classes.container}>
@@ -433,14 +433,14 @@ export default function PanelControl(props) {
                         </div>
                     </ThemeProvider>
                 )
-            } else {
+            else
 
-                if (modoServicios) {
+                if (modoServicios)
                     return (
                         <ThemeProvider theme={darkTheme}>
                             <div className={classes.root}>
                                 <CssBaseline />
-                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Servicios"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Servicios"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                 <main className={classes.content}>
                                     <div className={classes.appBarSpacer} />
                                     <Container maxWidth="lg" className={classes.container}>
@@ -475,13 +475,13 @@ export default function PanelControl(props) {
                             </div>
                         </ThemeProvider>
                     )
-                } else {
-                    if (modoCheckOut) {
+                else
+                    if (modoCheckOut)
                         return (
                             <ThemeProvider theme={darkTheme}>
                                 <div className={classes.root}>
                                     <CssBaseline />
-                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-Out"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-Out"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                     <main className={classes.content}>
                                         <div className={classes.appBarSpacer} />
                                         <Container maxWidth="lg" className={classes.container}>
@@ -507,44 +507,44 @@ export default function PanelControl(props) {
                                 </div>
                             </ThemeProvider>
                         )
-                    } else {
-                        if (modoResenas) {
+                    else
+                        if (modoResenas)
                             return (
                                 <ThemeProvider theme={darkTheme}>
                                     <div className={classes.root}>
-                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reseñas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Reseñas"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                         <main className={classes.content}>
                                             <div className={classes.appBarSpacer} />
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <Resenas      data={props.data}/>
+                                                <Resenas data={props.data} />
                                             </Container>
                                         </main>
                                     </div>
                                 </ThemeProvider>
                             )
-                        } else {
-                            if (modoPagos) {
+                        else
+                            if (modoPagos)
                                 return (
                                     <ThemeProvider theme={darkTheme}>
                                         <div className={classes.root}>
                                             <CssBaseline />
-                                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Tarjetas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Tarjetas"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                             <main className={classes.content}>
                                                 <div className={classes.appBarSpacer} />
                                                 <Container maxWidth="lg" className={classes.container}>
-                                                    <Tarjetas      data={props.data}  user={props.user} modo={"Tarjetas"} />
+                                                    <Tarjetas data={props.data} user={props.user} modo={"Tarjetas"} />
                                                 </Container>
                                             </main>
                                         </div>
                                     </ThemeProvider>
                                 )
-                            } else {
-                                if (modoGeneral) {
+                            else
+                                if (modoGeneral)
                                     return (
                                         <ThemeProvider theme={darkTheme}>
                                             <div className={classes.root}>
                                                 <CssBaseline />
-                                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Panel General"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                                <Deslizable listDrawer={listDrawer} user={props.user} modo={"Panel General"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                                 <main className={classes.content}>
                                                     <div className={classes.appBarSpacer} />
                                                     <Container maxWidth="lg" className={classes.container}>
@@ -576,13 +576,13 @@ export default function PanelControl(props) {
                                             </div>
                                         </ThemeProvider>
                                     )
-                                } else {
-                                    if (modoHistorial) {
+                                else
+                                    if (modoHistorial)
                                         return (
                                             <ThemeProvider theme={darkTheme}>
                                                 <div className={classes.root}>
                                                     <CssBaseline />
-                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Historial de reservas"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Historial de reservas"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                                     <main className={classes.content}>
                                                         <div className={classes.appBarSpacer} />
                                                         <Container maxWidth="lg" className={classes.container}>
@@ -602,13 +602,13 @@ export default function PanelControl(props) {
                                                 </div>
                                             </ThemeProvider>
                                         )
-                                    } else {
-                                        if (modoAyuda) {
+                                    else
+                                        if (modoAyuda)
                                             return (
                                                 <ThemeProvider theme={darkTheme}>
                                                     <div className={classes.root}>
                                                         <CssBaseline />
-                                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Ayuda"}   handleThemeChange={handleThemeChange}  darkState={darkState}/>
+                                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Ayuda"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                                         <main className={classes.content}>
                                                             <div className={classes.appBarSpacer} />
                                                             <Container maxWidth="lg" className={classes.container}>
@@ -618,16 +618,8 @@ export default function PanelControl(props) {
                                                     </div>
                                                 </ThemeProvider>
                                             )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-    }
 }
+                    
+                
+
 

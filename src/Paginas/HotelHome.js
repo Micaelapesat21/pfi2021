@@ -21,6 +21,10 @@ import ServiciosHotel from '../Componentes/Hotel/ServiciosHotel';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
 import ReservasHotel from '../Componentes/Hotel/ReservasHotel'
+import { Grid } from '@material-ui/core';
+import Logo from '../Imagenes/CommodusLogo.png'
+import Solicitudes from '../Componentes/Hotel/Solicitudes';
+import Resenas from '../Componentes/Hotel/Resenas';
 
 
 const drawerWidth = 240;
@@ -88,12 +92,12 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
-        backgroundColor:"#fafafa"
+        backgroundColor: "#fafafa"
     },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
-        backgroundColor:"#fafafa"
+        backgroundColor: "#fafafa"
     },
     paper: {
         padding: theme.spacing(2),
@@ -106,13 +110,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function PanelControl() {
+export default function PanelControl(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [modoGeneral, setmodoGeneral] = React.useState(true);
     const [modoDatos, setmodoDatos] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
+    const [modoSolicitudes, setmodoSolicitudes] = React.useState(false);
+    const [modoResenas, setmodoResenas] = React.useState(false);
 
 
 
@@ -127,6 +133,8 @@ export default function PanelControl() {
         datosClose();
         serviciosClose();
         reservasClose();
+        resenasClose();
+        solicitudesClose();
     };
     const generalClose = () => {
         setmodoGeneral(false);
@@ -136,6 +144,8 @@ export default function PanelControl() {
         generalClose();
         serviciosClose();
         reservasClose();
+        resenasClose();
+        solicitudesClose();
     };
     const datosClose = () => {
         setmodoDatos(false);
@@ -145,6 +155,8 @@ export default function PanelControl() {
         generalClose();
         datosClose();
         reservasClose();
+        resenasClose();
+        solicitudesClose();
     };
     const serviciosClose = () => {
         setmodoServicios(false);
@@ -154,13 +166,37 @@ export default function PanelControl() {
         generalClose();
         datosClose();
         serviciosClose();
+        resenasClose();
+        solicitudesClose();
     };
     const reservasClose = () => {
         setmodoReservas(false);
     };
+    const solicitudesOpen = () => {
+        setmodoSolicitudes(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        serviciosClose();
+        resenasClose();
+    };
+    const solicitudesClose = () => {
+        setmodoSolicitudes(false);
+    };
+    const resenasOpen = () => {
+        setmodoResenas(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        serviciosClose();
+        solicitudesClose()
+    };
+    const resenasClose = () => {
+        setmodoResenas(false);
+    };
 
 
-    if (modoDatos) {
+    if (modoDatos)
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -196,6 +232,11 @@ export default function PanelControl() {
                     open={open}
                 >
                     <div className={classes.toolbarIcon}>
+                        <Grid container justify="center" alignItems="center">
+                            <Grid item>
+                                <img src={Logo} alt="logo" width={90} height={60} />
+                            </Grid>
+                        </Grid>
                         <IconButton onClick={handleDrawerClose}>
                             <ChevronLeftIcon />
                         </IconButton>
@@ -206,6 +247,8 @@ export default function PanelControl() {
                         datosOpen={datosOpen}
                         serviciosOpen={serviciosOpen}
                         reservasOpen={reservasOpen}
+                        solicitudesOpen={solicitudesOpen}
+                        resenasOpen={resenasOpen}
                     />}</List>
                     <Divider />
                     <List></List>
@@ -213,13 +256,15 @@ export default function PanelControl() {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
-                        <DatosHotel />
+                        <DatosHotel 
+                            user={props.user}
+                        />
                     </Container>
                 </main>
             </div>
         )
-    } else {
-        if (modoServicios) {
+    else
+        if (modoServicios)
             return (
                 <div className={classes.root}>
                     <CssBaseline />
@@ -255,6 +300,11 @@ export default function PanelControl() {
                         open={open}
                     >
                         <div className={classes.toolbarIcon}>
+                            <Grid container justify="center" alignItems="center">
+                                <Grid item>
+                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                </Grid>
+                            </Grid>
                             <IconButton onClick={handleDrawerClose}>
                                 <ChevronLeftIcon />
                             </IconButton>
@@ -265,6 +315,8 @@ export default function PanelControl() {
                             datosOpen={datosOpen}
                             serviciosOpen={serviciosOpen}
                             reservasOpen={reservasOpen}
+                            solicitudesOpen={solicitudesOpen}
+                            resenasOpen={resenasOpen}
                         />}</List>
                         <Divider />
                         <List></List>
@@ -273,13 +325,15 @@ export default function PanelControl() {
                         <div className={classes.appBarSpacer} />
 
                         <Container maxWidth="lg" className={classes.container}>
-                            <ServiciosHotel />
+                            <ServiciosHotel 
+                                 user={props.user}
+                            />
                         </Container>
                     </main>
                 </div>
             )
-        } else {
-            if (modoReservas) {
+        else
+            if (modoReservas)
                 return (
                     <div className={classes.root}>
                         <CssBaseline />
@@ -315,6 +369,11 @@ export default function PanelControl() {
                             open={open}
                         >
                             <div className={classes.toolbarIcon}>
+                                <Grid container justify="center" alignItems="center">
+                                    <Grid item>
+                                        <img src={Logo} alt="logo" width={90} height={60} />
+                                    </Grid>
+                                </Grid>
                                 <IconButton onClick={handleDrawerClose}>
                                     <ChevronLeftIcon />
                                 </IconButton>
@@ -325,6 +384,8 @@ export default function PanelControl() {
                                 datosOpen={datosOpen}
                                 serviciosOpen={serviciosOpen}
                                 reservasOpen={reservasOpen}
+                                solicitudesOpen={solicitudesOpen}
+                                resenasOpen={resenasOpen}
                             />}</List>
                             <Divider />
                             <List></List>
@@ -333,13 +394,13 @@ export default function PanelControl() {
                             <div className={classes.appBarSpacer} />
 
                             <Container maxWidth="lg" className={classes.container}>
-                            <ReservasHotel/>
+                                <ReservasHotel />
                             </Container>
                         </main>
                     </div>
                 )
-            } else {
-                if (modoGeneral) {
+            else
+                if (modoSolicitudes)
                     return (
                         <div className={classes.root}>
                             <CssBaseline />
@@ -355,8 +416,8 @@ export default function PanelControl() {
                                         <MenuIcon />
                                     </IconButton>
                                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                                        Panel De Control
-                                    </Typography>
+                                        Solicitudes
+                                        </Typography>
                                     <IconButton color="inherit">
                                         <Badge badgeContent={0} color="secondary">
                                             <NotificationsIcon />
@@ -375,6 +436,11 @@ export default function PanelControl() {
                                 open={open}
                             >
                                 <div className={classes.toolbarIcon}>
+                                    <Grid container justify="center" alignItems="center">
+                                        <Grid item>
+                                            <img src={Logo} alt="logo" width={90} height={60} />
+                                        </Grid>
+                                    </Grid>
                                     <IconButton onClick={handleDrawerClose}>
                                         <ChevronLeftIcon />
                                     </IconButton>
@@ -385,6 +451,8 @@ export default function PanelControl() {
                                     datosOpen={datosOpen}
                                     serviciosOpen={serviciosOpen}
                                     reservasOpen={reservasOpen}
+                                    solicitudesOpen={solicitudesOpen}
+                                    resenasOpen={resenasOpen}
                                 />}</List>
                                 <Divider />
                                 <List></List>
@@ -393,16 +461,151 @@ export default function PanelControl() {
                                 <div className={classes.appBarSpacer} />
 
                                 <Container maxWidth="lg" className={classes.container}>
-                                    <General
-                                    reservasOpen={reservasOpen}
-                                    serviciosOpen={serviciosOpen}
-                                     />
+                                    <Solicitudes 
+                                         user={props.user}
+                                    />
                                 </Container>
                             </main>
                         </div>
                     )
-                }
-            }
-        }
-    }
+                else
+                    if (modoResenas)
+                        return (
+                            <div className={classes.root}>
+                                <CssBaseline />
+                                <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                                    <Toolbar className={classes.toolbar}>
+                                        <IconButton
+                                            edge="start"
+                                            color="inherit"
+                                            aria-label="open drawer"
+                                            onClick={handleDrawerOpen}
+                                            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                        >
+                                            <MenuIcon />
+                                        </IconButton>
+                                        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                            Reseñas
+                                            </Typography>
+                                        <IconButton color="inherit">
+                                            <Badge badgeContent={0} color="secondary">
+                                                <NotificationsIcon />
+                                            </Badge>
+                                        </IconButton>
+                                        <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                            <ExitToAppIcon />
+                                        </IconButton>
+                                    </Toolbar>
+                                </AppBar>
+                                <Drawer
+                                    variant="permanent"
+                                    classes={{
+                                        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                                    }}
+                                    open={open}
+                                >
+                                    <div className={classes.toolbarIcon}>
+                                        <Grid container justify="center" alignItems="center">
+                                            <Grid item>
+                                                <img src={Logo} alt="logo" width={90} height={60} />
+                                            </Grid>
+                                        </Grid>
+                                        <IconButton onClick={handleDrawerClose}>
+                                            <ChevronLeftIcon />
+                                        </IconButton>
+                                    </div>
+                                    <Divider />
+                                    <List>{<ListItems
+                                        generalOpen={generalOpen}
+                                        datosOpen={datosOpen}
+                                        serviciosOpen={serviciosOpen}
+                                        reservasOpen={reservasOpen}
+                                        solicitudesOpen={solicitudesOpen}
+                                        resenasOpen={resenasOpen}
+                                    />}</List>
+                                    <Divider />
+                                    <List></List>
+                                </Drawer>
+                                <main className={classes.content}>
+                                    <div className={classes.appBarSpacer} />
+                                    <Container maxWidth="lg" className={classes.container}>
+                                        <Resenas 
+                                             user={props.user}
+                                        />
+                                    </Container>
+                                </main>
+                            </div>
+                        )
+                    else
+                        if (modoGeneral)
+                            return (
+                                <div className={classes.root}>
+                                    <CssBaseline />
+                                    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                                        <Toolbar className={classes.toolbar}>
+                                            <IconButton
+                                                edge="start"
+                                                color="inherit"
+                                                aria-label="open drawer"
+                                                onClick={handleDrawerOpen}
+                                                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                            >
+                                                <MenuIcon />
+                                            </IconButton>
+                                            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                                Panel De Control
+                                    </Typography>
+                                            <IconButton color="inherit">
+                                                <Badge badgeContent={0} color="secondary">
+                                                    <NotificationsIcon />
+                                                </Badge>
+                                            </IconButton>
+                                            <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                                <ExitToAppIcon />
+                                            </IconButton>
+                                        </Toolbar>
+                                    </AppBar>
+                                    <Drawer
+                                        variant="permanent"
+                                        classes={{
+                                            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                                        }}
+                                        open={open}
+                                    >
+                                        <div className={classes.toolbarIcon}>
+                                            <Grid container justify="center" alignItems="center">
+                                                <Grid item>
+                                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                                </Grid>
+                                            </Grid>
+                                            <IconButton onClick={handleDrawerClose}>
+                                                <ChevronLeftIcon />
+                                            </IconButton>
+                                        </div>
+                                        <Divider />
+                                        <List>{<ListItems
+                                            generalOpen={generalOpen}
+                                            datosOpen={datosOpen}
+                                            serviciosOpen={serviciosOpen}
+                                            reservasOpen={reservasOpen}
+                                            solicitudesOpen={solicitudesOpen}
+                                            resenasOpen={resenasOpen}
+                                        />}</List>
+                                        <Divider />
+                                        <List></List>
+                                    </Drawer>
+                                    <main className={classes.content}>
+                                        <div className={classes.appBarSpacer} />
+
+                                        <Container maxWidth="lg" className={classes.container}>
+                                            <General
+                                                reservasOpen={reservasOpen}
+                                                serviciosOpen={serviciosOpen}
+                                                user={props.user}
+                                            />
+                                        </Container>
+                                    </main>
+                                </div>
+                            )
+
 }

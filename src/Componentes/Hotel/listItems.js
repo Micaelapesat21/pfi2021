@@ -6,6 +6,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import DescriptionIcon from '@material-ui/icons/Description';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
 import AirlineSeatIndividualSuiteIcon from '@material-ui/icons/AirlineSeatIndividualSuite';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 
 export default function mainListItems(props) {
   return (
@@ -33,6 +35,18 @@ export default function mainListItems(props) {
           <AirlineSeatIndividualSuiteIcon />
         </ListItemIcon>
         <ListItemText primary="Reservas" />
+      </ListItem>
+      <ListItem button onClick={props.solicitudesOpen}>
+        <ListItemIcon> 
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Solicitudes" />
+      </ListItem>
+      <ListItem button onClick={props.resenasOpen}>
+        <ListItemIcon>
+          <RateReviewIcon />
+        </ListItemIcon>
+        <ListItemText primary="Reseñas" />
       </ListItem>
       
     </div>

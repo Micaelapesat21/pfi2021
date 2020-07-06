@@ -15,6 +15,8 @@ import GuestInfo from '../Models/Guest/GuestInfo'
 import HotelHome from './HotelHome'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import LoadinPage from './LoadingPage/Index'
+import HotelAPI from '../Network/Hotel/HotelAPI';
+import HotelInfo from '../Models/Hotel/HotelInfo';
 
 
 
@@ -53,7 +55,7 @@ class Inicio extends Component {
             huespedes: "",
             precio: "",
             completado: false,
-            modoHotel: false,
+            modoHotel: true,// Si se va a trabajar en el hotel ponerlo en true
             loading: false,
             data: [],
         };
@@ -99,6 +101,11 @@ class Inicio extends Component {
         this.setState({ loading: true });
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
     }
+    getHotelInfo(email) {
+        this.setState({ loading: true });
+        HotelAPI.getHotelInfo(email, this.handleGetHotelInfo);
+    }
+
 
     handleGetGuestInfo = async (guestInfo) => {
         this.setState({ loading: false, });
@@ -122,6 +129,19 @@ class Inicio extends Component {
                     this.callPerfilNoCompletado()
                 }
                 GuestInfo.getInstance().setUserData(userData);
+            }
+        }
+    }
+    handleGetHotelInfo = async (guestInfo) => {
+        this.setState({ loading: false, });
+        if (guestInfo.data === undefined || guestInfo === null) {
+            //show error message
+
+        } else {
+            let userData = guestInfo.data.usuario;
+            console.log(userData.email)
+            if (userData !== null) {            
+                HotelInfo.getInstance().setHotelData(userData)
             }
         }
     }
