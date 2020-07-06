@@ -34,9 +34,26 @@ class GuestInfo {
 
   //Reservas
   addReserva(booking) {
-    let reserva = new PaymentMethod(booking);
+    let reserva = new Reserva(booking);
+    reserva.setReservaInfo(booking);
     this._reservas.push(reserva)
     console.log(this._reservas);
+  }
+
+  updateReservaIfNeeded(booking) {
+    let reservas = this._reservas.filter(r => r.id === booking._id);
+    var reserva = null;
+
+    if(reservas.length === 1) {
+      reserva = reservas[0];
+      reserva.setReservaInfo(booking);
+    } else {
+      reserva = new Reserva(booking);
+      reserva.setReservaInfo(booking);
+      this._reservas.push(reserva)
+    }
+
+    return reserva;
   }
 
   //Profiles
@@ -85,6 +102,7 @@ class GuestInfo {
       var reservas = props.reservas;
       reservas.forEach(r => {
         var reserva = new Reserva(r);
+        reserva.setReservaInfo(r);
         this._reservas.push(reserva);
       })
     }
@@ -109,6 +127,10 @@ class GuestInfo {
 
   getSelectedProfile() {
     return this._selectedProfile;
+  }
+
+  getReservas() {
+    return this._reservas;
   }
 
   toJson() {

@@ -7,9 +7,8 @@ import ReservaRender from './MiReserva/ReservaRender.js';
 import foto from '../Imagenes/logoHotel.png'
 import foto2 from '../Imagenes/logoFourSeason.jpg'
 import InfoIcon from '@material-ui/icons/Info';
-//import Prueba from './Prueba'
 
-
+import GuestInfo from './../Models/Guest/GuestInfo'
 
 const styles = theme => ({
     paper: {
@@ -59,11 +58,9 @@ class General extends Component {
     }
 
     componentDidMount(){
-
-        //GET reservas, cuando los traigas dejalo en el array de arriba asi despues hago el map
+        let reservas = GuestInfo.getInstance().getReservas();
+        this.setState({ reservas: reservas });
     }
-
-
 
     perfil() {
         if (this.props.romantico) {

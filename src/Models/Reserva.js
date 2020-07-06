@@ -1,44 +1,88 @@
 class Reserva {
   constructor(props) {
-    this.state = {
-      hotel: "",
-      huesped: "",
-      checkIn: "",
-      checkOut: "",
-      cantHuespedes: "",
-      tipoHabitacion: "",
-      precioNoche: "",
-      numeroTarjeta: "",
-      //seviciosSolicitados: [],
-    };
+    this._id = "";
+    this._bookingNumber = "";
+    this._hotelName = "";
+    this._hotelEmail = "";
+    this._huesped = "";
+    this._checkIn = "";
+    this._checkOut = "";
+    this._cantHuespedes = "";
+    this._tipoHabitacion = "";
+    this._precioNoche = "";
+    this._numeroTarjeta = "";
   }
 
-
-
   setReservaInfo(props) {
-    this.state = {
-      hotel: props.hotel,
-      huesped: props.huesped,
-      checkIn: props.checkIn,
-      checkOut: props.checkOut,
-      cantHuespedes: props.cantHuespedes,
-      tipoHabitacion: props.tipoHabitacion,
-      precioNoche: props.precioNoche,
-      numeroTarjeta: props.numeroTarjeta,
-    };
+    this._id = props._id;
+    this._bookingNumber = props.numero;
+    this._hotelName = props.nombreHotel;
+    this._hotelEmail = props.hotel;
+    this._huesped = props.huesped;
+    this._checkIn = props.checkIn;
+    this._checkOut = props.checkOut;
+    this._cantHuespedes = props.cantHuespedes;
+    this._tipoHabitacion = props.tipoHabitacion;
+    this._precioNoche = props.precioNoche;
+    this._numeroTarjeta = props.numeroTarjeta;
   }
 
   toJson() {
     return {
-      hotel: this.state.hotel,
-      huesped: this.state.huesped,
-      checkIn: this.state.checkIn,
-      checkOut: this.state.checkOut,
-      cantHuespedes: this.state.cantHuespedes,
-      tipoHabitacion: this.state.tipoHabitacion,
-      precioNoche: this.state.precioNoche,
-      numeroTarjeta: this.state.numeroTarjeta,
+      hotel: this._hotelEmail,
+      huesped: this._huesped,
+      checkIn: this._checkIn,
+      checkOut: this._checkOut,
+      cantHuespedes: this._cantHuespedes,
+      tipoHabitacion: this._tipoHabitacion,
+      precioNoche: this._precioNoche,
+      numeroTarjeta: this._numeroTarjeta,
     };
+  }
+
+  //Getters
+  get id() {
+    return this._id;
+  }
+
+  get bookingNumber() {
+    return this._bookingNumber;
+  }
+
+  get  hotelName() {
+    return this._hotelName;
+  }
+
+  get  hotelEmail() {
+    return this._hotelEmail;
+  }
+
+  get huesped() {
+    return this._huesped;
+  }
+
+  get checkIn() {
+    return this._checkIn;
+  }
+
+  get checkOut() {
+    return this._checkOut;
+  }
+
+  get cantidadHuespedes() {
+    return this._cantHuespedes;
+  }
+
+  get tipoHabitacion() {
+    return this._tipoHabitacion;
+  }
+    
+  get precioNoche() {
+    return this._precioNoche;
+  }
+
+  get numeroTarjeta() {
+    return this._numeroTarjeta;
   }
 }
 
