@@ -40,8 +40,6 @@ class HotelInfo {
           this._reservas.push(reserva);
         })
       }
-
-      let messi = ""
     }
 
     getName()  {

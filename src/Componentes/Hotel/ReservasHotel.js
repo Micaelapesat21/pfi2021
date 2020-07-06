@@ -11,6 +11,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import { IconButton, Paper, InputBase, AppBar, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
+import HotelInfo from './../../Models/Hotel/HotelInfo'
+
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
     return { id, date, name, shipTo, paymentMethod, amount };
@@ -83,6 +85,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Orders() {
     const classes = useStyles();
+    
+    function getReservas() {
+        return HotelInfo.getInstance().getReservas();
+    }
+
     return (
         <React.Fragment>
             <AppBar position="static">
@@ -116,13 +123,13 @@ export default function Orders() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row,index) => (
+                        {getReservas().map((row,index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.date}</TableCell>
-                                <TableCell>{row.name}</TableCell>
-                                <TableCell>{row.shipTo}</TableCell>
-                                <TableCell>{row.paymentMethod}</TableCell>
-                                <TableCell align="right">{row.amount}</TableCell>
+                                <TableCell>{row.checkIn}</TableCell>    
+                                <TableCell>{row.checkOut}</TableCell>
+                                <TableCell>{row.huesped}</TableCell>
+                                <TableCell>{'VISA ⠀•••• 371' + index }</TableCell>
+                                <TableCell align="right">{ 2000 + 1000 * index }</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <VisibilityIcon />
