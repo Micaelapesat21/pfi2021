@@ -85,7 +85,7 @@ class FormularioDatos extends Component {
             estado: "",
             ciudad: "",
             codigoPostal: "",
-            direccion: "",
+            direccion1: "",
             compañia: "",
             edicion: false,
             redOnly: true,
@@ -104,17 +104,17 @@ class FormularioDatos extends Component {
         var array = user.displayName.split(" ");
         var nombre = array[0]
         var apellido = array[1]
-       
- 
+
+
 
         this.setState({
             correo: user.email,
             nombre: nombre,
             apellido: apellido,
-            
+
         })
 
-        this.getGuestInfo(user.email)
+        this.getGuestInfo()
     }
 
     edicionOpen() {
@@ -132,7 +132,7 @@ class FormularioDatos extends Component {
             this.state.estado !== "" &&
             this.state.ciudad !== "" &&
             this.state.codigoPostal !== "" &&
-            this.state.direccion !== ""
+            this.state.direccion1 !== ""
         ) {
             this.props.callPerfilCompletado()
             var dict = this.getGuestModel();
@@ -180,35 +180,32 @@ class FormularioDatos extends Component {
         }
     }
 
-    getGuestInfo(email) {
-        this.setState({ loading: true });
-        GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
+    getGuestInfo() {
+
+        let guestInfo = GuestInfo.getInstance().getGuestData()
+        this.handleGetGuestInfo(guestInfo)
     }
 
-    handleGetGuestInfo = async (guestInfo) => {
-        this.setState({ loading: false, });
+    handleGetGuestInfo(guestInfo) {
 
-        if (guestInfo.data === undefined || guestInfo === null) {
+        if (guestInfo === undefined || guestInfo === null) {
             //show error message if needed
         } else {
-            let userData = guestInfo.data.usuario;
+            let userData = guestInfo.state;
+            this.setState({
+                apellido: userData.apellido,
+                nombre: userData.nombre,
+                email: userData.email,
+                tipo: userData.tipo,
+                documento: userData.documento,
+                pais: userData.pais,
+                estado: userData.estado,
+                ciudad: userData.ciudad,
+                codigoPostal: userData.codigoPostal,
+                direccion1: userData.direccion1
+            });
+            this.props.callPerfilCompletado()
 
-            if (userData !== null) {
-                this.setState({
-                    apellido: userData.apellido,
-                    nombre: userData.nombre,
-                    email: userData.email,
-                    tipo: userData.tipo,
-                    documento: userData.documento,
-                    pais: userData.pais,
-                    estado: userData.estado,
-                    ciudad: userData.ciudad,
-                    codigoPostal: userData.codigoPostal,
-                    direccion: userData.direccion
-                });
-                this.props.callPerfilCompletado()
-                GuestInfo.getInstance().setUserData(userData);
-            }
         }
     }
 
@@ -246,7 +243,7 @@ class FormularioDatos extends Component {
                 <Grid>
                     {this.showLoaderIfNeeded()}
                     <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
-                  
+
                     <Grid container spacing={3}>
                         <Grid item xs={4} md={3}>
                             <Button variant="contained" color="primary" onClick={this.edicionOpen}>Editar</Button>
@@ -424,11 +421,11 @@ class FormularioDatos extends Component {
                             <TextField
                                 required
                                 id="Direccion"
-                                name="direccion"
+                                name="direccion1"
                                 label="Direccion"
                                 fullWidth
                                 autoComplete="Direccion"
-                                value={this.state.direccion}
+                                value={this.state.direccion1}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,

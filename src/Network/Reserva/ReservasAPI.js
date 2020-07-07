@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import Constants from '../../Utils/Constants';
-import GuestInfo from './../../Models/Guest/GuestInfo';
+//import GuestInfo from './../../Models/Guest/GuestInfo';
 
 class ReservasAPI extends Component {
 

@@ -1,7 +1,7 @@
-import Address from './Address.js'
 import PaymentMethod from '../PaymentMethod.js'
 import Perfil from './Perfil'
 import Reserva from './../Reserva'
+import GuestData from './GuestData.js'
 
 class GuestInfo {
 
@@ -12,6 +12,7 @@ class GuestInfo {
   _email = ""
   _personalIdType = ""
   _personalId = ""
+  _guestData = null
   _addressInfo = null
   _selectedProfile = null
   _paymentInfo = []
@@ -44,7 +45,7 @@ class GuestInfo {
     let reservas = this._reservas.filter(r => r.id === booking._id);
     var reserva = null;
 
-    if(reservas.length === 1) {
+    if (reservas.length === 1) {
       reserva = reservas[0];
       reserva.setReservaInfo(booking);
     } else {
@@ -76,10 +77,9 @@ class GuestInfo {
     this._personalIdType = props.tipo
     this._personalId = props.documento
 
-    //set address info
-    var address = new Address()
-    address.setAddressInfo(props)
-    this._addressInfo = address
+    var guestData = new GuestData()
+    guestData.setHotelData(props)
+    this._guestData = guestData
 
     //set profile info
     if (props.perfiles !== undefined) {
@@ -132,6 +132,9 @@ class GuestInfo {
   getReservas() {
     return this._reservas;
   }
+  getGuestData() {
+    return this._guestData;
+  }
 
   toJson() {
     var dict = {}
@@ -142,13 +145,14 @@ class GuestInfo {
     dict["documento"] = this._personalId;
 
     //Address
-    if (this._addressInfo !== null) {
-      let addressInfo = this._addressInfo.toJson();
-      dict["pais"] = addressInfo.pais;
-      dict["estado"] = addressInfo.estado;
-      dict["ciudad"] = addressInfo.ciudad;
-      dict["codigoPostal"] = addressInfo.codigoPostal;
-      dict["direccion1"] = addressInfo.direccion1;
+    if (this._guestData !== null) {
+      let guestInfo = this._guestData.toJson();
+      dict["pais"] = guestInfo.pais;
+      dict["estado"] = guestInfo.estado;
+      dict["ciudad"] = guestInfo.ciudad;
+      dict["codigoPostal"] = guestInfo.codigoPostal;
+      dict["direccion1"] = guestInfo.direccion1;
+      dict["compañia"] = guestInfo.compañia;
     }
 
     //Payment methods

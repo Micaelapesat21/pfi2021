@@ -33,7 +33,7 @@ class Bienestar extends Component {
                         <Hora label={"Hasta"} />
                     </Grid>
                     <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
+                        <FormControlLabel control={<Checkbox color="primary" checked={true} name="checkedE" />} label="24 Horas" />
                     </Grid>
                 </Grid>
             )
@@ -54,7 +54,7 @@ class Bienestar extends Component {
                         <Hora label={"Hasta"} />
                     </Grid>
                     <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
+                        <FormControlLabel control={<Checkbox color="primary" checked={true} name="checkedE" />} label="24 Horas" />
                     </Grid>
                 </Grid>
             )
@@ -75,7 +75,7 @@ class Bienestar extends Component {
                         <Hora label={"Hasta"} />
                     </Grid>
                     <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
+                        <FormControlLabel control={<Checkbox color="primary" checked={true} name="checkedE" />} label="24 Horas" />
                     </Grid>
                 </Grid>
             )
@@ -96,7 +96,7 @@ class Bienestar extends Component {
                         <Hora label={"Hasta"} />
                     </Grid>
                     <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
+                        <FormControlLabel control={<Checkbox color="primary" checked={true} name="checkedE" />} label="24 Horas" />
                     </Grid>
                 </Grid>
             )
@@ -119,7 +119,7 @@ class Bienestar extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('spa')} checked={this.props.restaurante} name="spa" />} label="Spa" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('spa')} checked={this.props.spa} name="spa" />} label="Spa" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
@@ -132,7 +132,7 @@ class Bienestar extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('gimnasio')} checked={this.props.estacionamiento} name="gimnasio" />} label="Gimnasio" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('gimnasio')} checked={this.props.gimnasio} name="gimnasio" />} label="Gimnasio" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>

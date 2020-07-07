@@ -9,7 +9,7 @@ class Reserva {
     this._checkOut = "";
     this._cantHuespedes = "";
     this._tipoHabitacion = "";
-    this._precioNoche = "";
+    this._precio = "";
     this._numeroTarjeta = "";
   }
 
@@ -23,7 +23,7 @@ class Reserva {
     this._checkOut = props.checkOut;
     this._cantHuespedes = props.cantHuespedes;
     this._tipoHabitacion = props.tipoHabitacion;
-    this._precioNoche = props.precioNoche;
+    this._precio = props.precio;
     this._numeroTarjeta = props.numeroTarjeta;
   }
 
@@ -35,7 +35,7 @@ class Reserva {
       checkOut: this._checkOut,
       cantHuespedes: this._cantHuespedes,
       tipoHabitacion: this._tipoHabitacion,
-      precioNoche: this._precioNoche,
+      precio: this._precio,
       numeroTarjeta: this._numeroTarjeta,
     };
   }
@@ -77,8 +77,8 @@ class Reserva {
     return this._tipoHabitacion;
   }
     
-  get precioNoche() {
-    return this._precioNoche;
+  get precio() {
+    return this._precio;
   }
 
   get numeroTarjeta() {

@@ -55,7 +55,7 @@ class Inicio extends Component {
             huespedes: "",
             precio: "",
             completado: false,
-            modoHotel: true,// Si se va a trabajar en el hotel ponerlo en true
+            modoHotel: false,// Si se va a trabajar en el hotel ponerlo en true
             loading: false,
             data: [],
         };
@@ -73,7 +73,7 @@ class Inicio extends Component {
             }
             else {
                 //GET RESERVA HUESPED
-                this.getGuestInfo(user.email)
+                 this.getGuestInfo(user.email)
             }
         });
 
@@ -123,7 +123,8 @@ class Inicio extends Component {
                     && userData.ciudad && userData.codigoPostal
                     && userData.direccion) !== "") {
                     this.callPerfilCompletado()
-                    this.setState({ data: userData })
+                    this.setState({ data: userData.reservas })
+
                 }
                 else {
                     this.callPerfilNoCompletado()
@@ -175,6 +176,7 @@ class Inicio extends Component {
     callHotel = (x) => {
         this.setState({ modoHotel: x })
     }
+  
 
     isloginFacebook() {
         var face = firebase.auth().currentUser.providerData[0].providerId
@@ -189,7 +191,12 @@ class Inicio extends Component {
         if (this.state.inicio === true) {
             return (
                 <Grid className={classes.inicio}>
-                    <IniciarSesion modoHotel={this.state.modoHotel} inicio={this.state.inicio} callHotel={this.callHotel} callInicio={this.callbackInicio} />
+                    <IniciarSesion
+                        modoHotel={this.state.modoHotel}
+                        inicio={this.state.inicio}
+                        callHotel={this.callHotel}
+                        callInicio={this.callbackInicio}                        
+                    />
                 </Grid>
 
             )

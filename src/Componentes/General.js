@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Paper, Typography, Button, Divider, FormControl, FormLabel, FormGroup, FormControlLabel, Switch, Card, CardActionArea } from '@material-ui/core';
 import clsx from 'clsx';
-import ReservaRender from './MiReserva/ReservaRender.js';
 import foto from '../Imagenes/logoHotel.png'
-import foto2 from '../Imagenes/logoFourSeason.jpg'
 import InfoIcon from '@material-ui/icons/Info';
-
-import GuestInfo from './../Models/Guest/GuestInfo'
+import RenderGeneral from './MiReserva/ReservaRender/RenderGeneral.js';
 
 const styles = theme => ({
     paper: {
@@ -50,17 +47,7 @@ const styles = theme => ({
 
 class General extends Component {
 
-    constructor(){
-        super();
-        this.state={
-            reservas:[]
-        }
-    }
-
-    componentDidMount(){
-        let reservas = GuestInfo.getInstance().getReservas();
-        this.setState({ reservas: reservas });
-    }
+   
 
     perfil() {
         if (this.props.romantico) {
@@ -273,38 +260,24 @@ class General extends Component {
                                     </Grid>
                                 </Grid>
                                 <Divider />
-                                <ReservaRender
-                                    id={this.props.id}
-                                    nroReserva={"#1234568"}
-                                    logo={foto}
-                                    CheckIn={this.props.CheckIn}
-                                    CheckOut={this.props.CheckOut}
-                                    huespedes={this.props.huespedes}
-                                    precio={this.props.precio}
-                                    checkInOpen={this.props.checkInOpen}
-                                    checkOutOpen={this.props.checkOutOpen}
-                                    modo={this.props.modo}
-                                />
+                                {this.props.data.map((item, index) =>
+                                    <Grid key={index}>
+                                        <RenderGeneral
+                                            id={item._id}
+                                            nombreHotel={item.nombreHotel}
+                                            nroReserva={item.numero}
+                                            logo={foto}
+                                            CheckIn={item.checkIn}
+                                            CheckOut={item.checkOut}
+                                            huespedes={item.cantHuespedes}
+                                            precio={item.precio}
+                                            checkInOpen={this.props.checkInOpen}
+                                            checkOutOpen={this.props.checkOutOpen}
+                                            modo={this.props.modo}
+                                        />                                    
+                                    </Grid>
 
-                                <ReservaRender
-                                    id={"Four Season"}
-                                    nroReserva={"#1234567"}
-                                    logo={foto2}
-                                    CheckIn={"2020-12-24"}
-                                    CheckOut={"2020-12-30"}
-                                    huespedes={4}
-                                    precio={"1234"}
-                                    checkInOpen={this.props.checkInOpen}
-                                    checkOutOpen={this.props.checkOutOpen}
-                                    modo={this.props.modo}
-                                />
-
-                                {/* <Prueba
-                                    checkInOpen={this.props.checkInOpen}
-                                    checkOutOpen={this.props.checkOutOpen}
-                                    modo={this.props.modo}
-
-                                />*/}
+                                )}
                             </Paper>
                         </Grid>
                         <Grid item xs={12}>

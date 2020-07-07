@@ -18,15 +18,15 @@ class Actividades extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            alquileres: false,
-            botes: false,
-            bicicletas: false,
-            autos: false,
-            motos: false,
-            ski: false,
-            Buceo: false,
-            eventos: false,
-            actividades: false,
+            alquileres: true,
+            botes: true,
+            bicicletas: true,
+            autos: true,
+            motos: true,
+            ski: true,
+            Buceo: true,
+            eventos: true,
+            actividades: true,
         }
     }
     alquileres() {
@@ -126,7 +126,7 @@ class Actividades extends Component {
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('eventos')} checked={this.props.estacionamiento} name="eventos" />} label="Eventos" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('eventos')} checked={this.props.eventos} name="eventos" />} label="Eventos" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
