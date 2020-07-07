@@ -13,30 +13,6 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import HotelInfo from './../../Models/Hotel/HotelInfo'
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-    return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-    createData(0, '15 Oct, 2019', '20 Oct, 2019', 'Fernado Palomo', 'VISA ⠀•••• 3719', 3120.44),
-    createData(1, '15 Oct, 2019', '20 Oct, 2019', 'Juan Fernandez', 'VISA ⠀•••• 2574', 8660.99),
-    createData(2, '15 Oct, 2019', '20 Oct, 2019', 'Martin Velazquez', 'MC ⠀•••• 1253', 1000.81),
-    createData(3, '15 Oct, 2019', '20 Oct, 2019', 'Sergio Perez', 'AMEX ⠀•••• 2000', 6540.39),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-    createData(4, '14 Oct, 2019', '20 Oct, 2019', 'Carlos Abila', 'VISA ⠀•••• 5919', 2120.79),
-];
-
 const useStyles = makeStyles(theme => ({
     seeMore: {
         marginTop: theme.spacing(3),
