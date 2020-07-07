@@ -1,18 +1,18 @@
-class HotelData {
+
+class GuestData {
     constructor(props) {
         this.state = {
             nombre:"",           
-            razon: "",
+            apellido: "",
+            tipo:"",
+            documento:"",
             email:"",
             pais: "",
             estado: "",
             ciudad: "",
             codigoPostal: "",
-            direccion: "",
-            telefono1: "",
-            telefono2: "",
-            estrellas: "",
-            url: "",
+            direccion1: "",
+            compañia:"",
         };
     }
 
@@ -20,36 +20,34 @@ class HotelData {
 
         this.state = {
             nombre:props.nombre,
-            razon: props.razon,
+            apellido: props.apellido,
+            tipo:props.tipo,
+            documento:props.documento,
             email:props.email,
             pais: props.pais,
             estado: props.estado,
             ciudad: props.ciudad,
             codigoPostal: props.codigoPostal,
-            direccion: props.direccion,
-            telefono1: props.telefono1,
-            telefono2: props.telefono2,
-            estrellas: props.estrellas,
-            url: props.url
+            direccion1: props.direccion1,    
+            compañia: props.compañia
         };
     }
 
     toJson() {
         return {
             nombre:this.state.nombre,
-            razon: this.state.razon,
+            apellido: this.state.apellido,
+            tipo: this.state.tipo,
+            documento: this.state.documento,
             email:this.state.email,
             pais: this.state.pais,
             estado: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
-            direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
-            telefono2: this.state.telefono2,
-            estrellas: this.state.estrellas,
-            url: this.state.url,
+            direccion1: this.state.direccion1,           
+            compañia: this.state.compañia,
         };
     }
 }
 
-export default HotelData;
+export default GuestData;

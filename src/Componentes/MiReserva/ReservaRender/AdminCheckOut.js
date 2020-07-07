@@ -4,12 +4,12 @@ import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid, Typography, Divider, IconButton, TextField, Link, Button, Dialog, DialogContent, DialogActions, DialogTitle } from '@material-ui/core';
-import Hora from './Hora'
-import HoraTraslado from './HoraTraslado'
-import MiniBar from './Servicios/MiniBar'
-import Tarjetas from '../MiPerfil/Tarjetas';
-import Cuestionario from './Cuestionario';
-import LoadingPay from '../Commons/LoadingPay';
+import Hora from '../Hora'
+import HoraTraslado from '../HoraTraslado'
+import MiniBar from '../Servicios/MiniBar'
+import Tarjetas from '../../MiPerfil/Tarjetas';
+import Cuestionario from '../Cuestionario';
+import LoadingPay from '../../Commons/LoadingPay';
 
 
 
@@ -100,7 +100,7 @@ export default function AdminReserva(props) {
             <Grid container direction="row" >
                 <Grid item md={3} xs={12} className={classes.izq} >
                     <Grid item md={12} xs={7} className={classes.tituloMobile}>
-                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.hotelName}</Typography>
                     </Grid>
                 </Grid>
                 <Grid item md={8} xs={12}>

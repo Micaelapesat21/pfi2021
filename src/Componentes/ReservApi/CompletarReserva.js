@@ -253,29 +253,22 @@ export default function GuestInfoForm(props) {
           alert("No se pudo mandar");
         }
       });
+     
   }
   const continuar = () => {
     //Para guardar en reserva api POST
-    console.log(
-      props.emailHotel,
-      props.user.email,
-      props.CheckIn,
-      props.CheckOut,
-      props.huespedes,
-      props.habitacion,
-      props.precio,
-      props.numeroTarjeta,
-    )
+    
   }
   function getBookingDictionary() {
     let booking = {
       hotel: props.emailHotel,
+      nombreHotel:props.id,
       huesped: props.user.email,
       checkIn: props.CheckIn,
       checkOut: props.CheckOut,
       cantHuespedes: props.huespedes,
-      tipoHabitacion: props.habitacion,
-      precioNoche: props.precio,
+      precio: props.precio,
+      tipoHabitacion: props.habitacion,     
       numeroTarjeta: props.numeroTarjeta,
     };
 

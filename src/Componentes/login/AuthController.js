@@ -16,8 +16,10 @@ class AuthController extends Component {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().languageCode = 'es_ES';
     firebase.auth().signInWithPopup(provider)
-      .then(result => console.log(`${result.user.email} ha iniciado sesion`))
+      .then(result =>
+        console.log(`${result.user.email} ha iniciado sesion`))
       .catch(error => console.log(`Error ${error.code}: ${error.message}`));
+
   }
   handleAuthFace() {
     var provider = new firebase.auth.FacebookAuthProvider();
@@ -36,7 +38,7 @@ class AuthController extends Component {
   handleIniciar(correo, contrasena) {
     firebase.auth().languageCode = 'es_ES';
     firebase.auth().signInWithEmailAndPassword(correo, contrasena)
-      .then(result => 
+      .then(result =>
         console.log(`${result.user.email} ha iniciado sesion`))
       .catch(function (error) {
         var errorCode = error.code;
@@ -96,6 +98,7 @@ class AuthController extends Component {
 
 
   }
+
 
 }
 

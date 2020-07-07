@@ -349,9 +349,7 @@ export default function PanelControl(props) {
                                 familia={familia}
                                 preferencias={preferencias}
                                 perfilCompletado={props.perfilCompletado}
-                                callPerfilCompletado={props.callPerfilCompletado}
-                                data={props.data}
-
+                                callPerfilCompletado={props.callPerfilCompletado}                           
                             />}
                         </Container>
                     </main>
@@ -384,7 +382,6 @@ export default function PanelControl(props) {
                                     callCheckIn={props.callCheckIn}
                                     callCheckOut={props.callCheckOut}
                                     callHuespedes={props.callHuespedes}
-                                    data={props.data}
                                 />
                             </Container>
                         </main>
@@ -426,7 +423,6 @@ export default function PanelControl(props) {
                                         callPerfilCompletado={props.callPerfilCompletado}
                                         checkInOK={checkInOK}
                                         handleCheckIn={handleCheckIn}
-                                        data={props.data}
                                     />}
                                 </Container>
                             </main>
@@ -468,7 +464,6 @@ export default function PanelControl(props) {
                                             perfilCompletado={props.perfilCompletado}
                                             callPerfilCompletado={props.callPerfilCompletado}
                                             checkInOK={checkInOK}
-                                            data={props.data}
                                         />
                                     </Container>
                                 </main>
@@ -498,9 +493,7 @@ export default function PanelControl(props) {
                                                 modo={"Check-Out"}
                                                 reservasOpenContacto={reservasOpenContacto}
                                                 checkOutOK={checkOutOK}
-                                                handleCheckOut={handleCheckOut}
-                                                data={props.data}
-
+                                                handleCheckOut={handleCheckOut}                                             
                                             />
                                         </Container>
                                     </main>
@@ -516,7 +509,7 @@ export default function PanelControl(props) {
                                         <main className={classes.content}>
                                             <div className={classes.appBarSpacer} />
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <Resenas data={props.data} />
+                                                <Resenas  />
                                             </Container>
                                         </main>
                                     </div>
@@ -532,7 +525,7 @@ export default function PanelControl(props) {
                                             <main className={classes.content}>
                                                 <div className={classes.appBarSpacer} />
                                                 <Container maxWidth="lg" className={classes.container}>
-                                                    <Tarjetas data={props.data} user={props.user} modo={"Tarjetas"} />
+                                                    <Tarjetas  user={props.user} modo={"Tarjetas"} />
                                                 </Container>
                                             </main>
                                         </div>
@@ -549,7 +542,7 @@ export default function PanelControl(props) {
                                                     <div className={classes.appBarSpacer} />
                                                     <Container maxWidth="lg" className={classes.container}>
 
-                                                        {<General
+                                                        <General
                                                             user={props.user}
                                                             perfilOpen={perfilOpen}
                                                             id={props.id}
@@ -569,7 +562,7 @@ export default function PanelControl(props) {
                                                             perfilCompletado={props.perfilCompletado}
                                                             callPerfilCompletado={props.callPerfilCompletado}
                                                             data={props.data}
-                                                        />}
+                                                        />
 
                                                     </Container>
                                                 </main>
@@ -586,17 +579,10 @@ export default function PanelControl(props) {
                                                     <main className={classes.content}>
                                                         <div className={classes.appBarSpacer} />
                                                         <Container maxWidth="lg" className={classes.container}>
-                                                            {<Historial
-                                                                user={props.user}
-                                                                id={props.id}
-                                                                CheckIn={props.CheckIn}
-                                                                CheckOut={props.CheckOut}
-                                                                huespedes={props.huespedes}
-                                                                precio={props.precio}
-                                                                modo={"Historial"}
-                                                                data={props.data}
-
-                                                            />}
+                                                            <Historial
+                                                                user={props.user}                                                               
+                                                                modo={"Historial"}                                                           
+                                                            />
                                                         </Container>
                                                     </main>
                                                 </div>

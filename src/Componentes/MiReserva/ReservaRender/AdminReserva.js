@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid, Typography, Button, Icon, Divider, Paper, FormControl, InputLabel, Select, MenuItem, TextField, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, List, ListItem, ListItemText } from '@material-ui/core';
-import Fecha from '../ReservApi/Fecha'
+import Fecha from '../../ReservApi/Fecha'
 
 
 
@@ -143,7 +143,7 @@ export default function AdminReserva(props) {
                         <Typography variant="h6" style={{ fontWeight: "bold" }}>Importe Total:</Typography>
                     </Grid>
                     <Grid item >
-                        <Typography variant="h6" color="primary" style={{ fontWeight: "bold" }}> $65000</Typography>
+                        <Typography variant="h6" color="primary" style={{ fontWeight: "bold" }}> ${props.precio}</Typography>
                     </Grid>
                 </Grid>
             )
@@ -446,7 +446,7 @@ export default function AdminReserva(props) {
             <Grid container direction="row" >
                 <Grid item md={3} xs={12} className={classes.izq} >
                     <Grid item md={12} xs={7} className={classes.tituloMobile}>
-                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.hotelName}</Typography>
                     </Grid>
                 </Grid>
                 <Grid item md={8} xs={12}>
@@ -510,7 +510,7 @@ export default function AdminReserva(props) {
                                             <Typography variant="h6" style={{ fontWeight: "bold" }}>Importe Total:</Typography>
                                         </Grid>
                                         <Grid item >
-                                            <Typography variant="h6" color="primary" style={{ fontWeight: "bold" }}> $65000</Typography>
+                                            <Typography variant="h6" color="primary" style={{ fontWeight: "bold" }}> ${props.precio}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>

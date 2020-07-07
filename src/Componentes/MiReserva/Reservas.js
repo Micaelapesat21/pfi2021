@@ -2,10 +2,9 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Grid, Typography } from '@material-ui/core';
-
-import ReservaRender from './ReservaRender';
 import foto from '../../Imagenes/logoHotel.png'
-import foto2 from '../../Imagenes/logoFourSeason.jpg'
+import RenderReserva from './ReservaRender/RenderReserva';
+import GuestInfo from '../../Models/Guest/GuestInfo';
 
 
 
@@ -25,6 +24,17 @@ const styles = theme => ({
 })
 
 class Reservas extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {          
+            reserva: [],
+        }
+    }
+
+    componentDidMount() {
+        let allReservas = GuestInfo.getInstance().getReservas();
+        this.setState({reserva: allReservas})
+    }
 
     render() {
         //const { classes } = this.props;
@@ -35,42 +45,30 @@ class Reservas extends Component {
                     <Typography variant="h3">Reservas Activas</Typography>
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
-                    <ReservaRender
-                        id={this.props.id}
-                        user={this.props.user}
-                        nroReserva={"#1234568"}
-                        logo={foto}
-                        CheckIn={this.props.CheckIn}
-                        CheckOut={this.props.CheckOut}
-                        huespedes={this.props.huespedes}
-                        precio={this.props.precio}
-                        checkInOpen={this.props.checkInOpen}
-                        checkOutOpen={this.props.checkOutOpen}
-                        modo={this.props.modo}
-                        expanded={this.props.expanded}
-                        contacto={this.props.contacto}
-                        callCheckIn={this.props.callCheckIn}
-                        callCheckOut={this.props.callCheckOut}
-                        callHuespedes={this.props.callHuespedes}
-                    />
-                </Grid>
-                <Grid item xs={12} md={8} lg={9}>
-                    <ReservaRender
-                        id={"Four Season"}
-                        user={this.props.user}
-                        logo={foto2}
-                        nroReserva={"#1234567"}
-                        CheckIn={"2020-12-24"}
-                        CheckOut={"2020-12-30"}
-                        huespedes={4}
-                        precio={"1234"}
-                        checkInOpen={this.props.checkInOpen}
-                        checkOutOpen={this.props.checkOutOpen}
-                        modo={this.props.modo}
-                        callCheckIn={this.props.callCheckIn}
-                        callCheckOut={this.props.callCheckOut}
-                        callHuespedes={this.props.callHuespedes}
-                    />
+                    <Grid container spacing={2}>
+                        {this.state.reserva.map((item, index) =>
+                            <Grid item key={index}>
+                                <RenderReserva
+                                    id={item.id}
+                                    user={this.props.user}
+                                    hotelName={item.hotelName}
+                                    nroReserva={item.bookingNumber}
+                                    logo={foto}
+                                    CheckIn={item.checkIn}
+                                    CheckOut={item.checkOut}
+                                    huespedes={item.cantidadHuespedes}
+                                    precio={item.precio}
+                                    checkInOpen={this.props.checkInOpen}
+                                    checkOutOpen={this.props.checkOutOpen}
+                                    modo={this.props.modo}
+                                    callCheckIn={this.props.callCheckIn}
+                                    callCheckOut={this.props.callCheckOut}
+                                    callHuespedes={this.props.callHuespedes}
+                                />
+
+                            </Grid>
+                        )}
+                    </Grid>
                 </Grid>
             </Grid>
         );

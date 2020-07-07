@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Grid, Typography, Divider, IconButton, FormControl, FormGroup, FormLabel, FormControlLabel, Switch, TextField, Link, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import Hora from './Hora'
-import HoraTraslado from './HoraTraslado'
-import PerfilCheckIn from './PerfilCheckIn'
-import TabsPreferencias from './TabsPreferencias'
+import Hora from '../Hora'
+import HoraTraslado from '../HoraTraslado'
+import PerfilCheckIn from '../PerfilCheckIn'
+import TabsPreferencias from '../TabsPreferencias'
 
 
 
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function AdminReserva(props) {
+export default function AdminCheckIn(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(true);
     const [seleccionar, setSeleccionar] = React.useState(false);
@@ -121,7 +121,7 @@ export default function AdminReserva(props) {
             <Grid container direction="row" >
                 <Grid item md={3} xs={12} className={classes.izq} >
                     <Grid item md={12} xs={7} className={classes.tituloMobile}>
-                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.id}</Typography>
+                        <Typography variant="h6" align="center" style={{ fontWeight: "bold" }}> Hotel {props.hotelName}</Typography>
                     </Grid>
                 </Grid>
                 <Grid item md={8} xs={12}>
@@ -154,12 +154,12 @@ export default function AdminReserva(props) {
                         <Typography variant="subtitle2" color="error" >*obligatorio</Typography>
                     </Grid>
                     <Grid item md={3} xs={12}>
-                        <Hora minTime={new Date(0, 0, 0, 15)} maxTime={new Date(0, 0, 0, 23)} label={"Horario de ingreso"} date={new Date("2020-01-01 15:00")}/>
+                        <Hora minTime={new Date(0, 0, 0, 15)} maxTime={new Date(0, 0, 0, 23)} label={"Horario de ingreso"} date={new Date("2020-01-01 15:00")} />
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <Typography variant="subtitle2" align="justify" style={{ color: "#9e9e9e" }} >
                             *Si desea seleccionar un horario de ingreso fuera del rango permitido, por favor dirijase a
-                        {<Link onClick={props.reservasOpenContacto}> CONTACTAR HOTEL</Link>}
+                        <Link onClick={props.reservasOpenContacto}> CONTACTAR HOTEL</Link>
                         </Typography>
                     </Grid>
                     <Grid item md={4} xs={12}>
@@ -191,7 +191,7 @@ export default function AdminReserva(props) {
                     </Grid>
                     <Grid item md={4} xs={12}>
                         <FormControl component="fieldset" className={classes.formControl}>
-                            {/*PERFILES*/}
+                           
                             <FormLabel component="legend">Perfil seleccionado</FormLabel>
                             <FormGroup tag="div">
                                 {perfil()}
@@ -253,7 +253,8 @@ export default function AdminReserva(props) {
                     </Grid>
                 </Grid>
             </Collapse>
-        </Grid >
+            
+        </Grid>
     );
 
 }
