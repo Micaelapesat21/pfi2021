@@ -235,8 +235,6 @@ class Inicio extends Component {
 
     }
 
-
-
     render() {
         const { classes } = this.props;
         if (this.state.user) {

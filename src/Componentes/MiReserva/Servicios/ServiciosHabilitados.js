@@ -12,7 +12,8 @@ import DialogSolicitudes from '../Servicios/DialogSolicitudes';
 import RenderFaltaCheckIn from '../ReservaRender/RenderFaltaCheckIn';
 //import Prueba from './Prueba'
 
-
+import ReservasAPI from './../../../Network/Reserva/ReservasAPI';
+import GuestInfo from './../../../Models/Guest/GuestInfo';
 
 const styles = theme => ({
     paper: {
@@ -111,19 +112,77 @@ class ServiciosHabilitados extends Component {
             eventos: false,
             actividades: false,
             open: false,
-            data: [
-                {
-                    categoria: "",
-                }
-            ],
+            loading: false,
         }
         this.add = this.add.bind(this);
     }
 
     add(newData) {
-        this.setState({ data: newData });
-        //console.log(this.state.data)
+        this.props.servicios.push(newData);
+        this.postServicio();
     }
+
+    componentDidMount() {
+        this.getBookingDetail();
+    }
+
+    //Post servicios 
+    postServicio() {
+        this.setState({ loading: true });
+        ReservasAPI.postBooking(this.getBookingDictionary(), this.handlePostBooking.bind(this));
+    }
+
+    handlePostBooking(booking) {
+        this.setState({ loading: false });
+
+        if (booking.error !== null) {
+        //show error message if needed
+        GuestInfo.getInstance().updateReservaIfNeeded(booking);
+        } else {
+            //show error message
+        }
+    }
+
+    getBookingDetail() {
+        this.setState({ loading: true });
+        ReservasAPI.getBookingInfo(this.props.id, this.handleBookingDetail.bind(this));
+    }
+
+    handleBookingDetail(booking) {
+        this.setState({ loading: false });
+
+        if (booking.error !== null) {
+        //show error message if needed
+        GuestInfo.getInstance().updateReservaIfNeeded(booking);
+
+        if(booking.servicios !== undefined) {
+            this.props.servicios = booking.servicios;
+        }
+
+        } else {
+            //show error message
+        }
+    }
+
+    getBookingDictionary() {
+        let booking = {
+            _id: this.props.id,
+            hotel: this.props.emailHotel,
+            nombreHotel: this.props.id,
+            huesped: this.props.user.email,
+            checkIn: this.props.CheckIn,
+            checkOut: this.props.CheckOut,
+            cantHuespedes: this.props.huespedes,
+            precio: this.props.precio,
+            tipoHabitacion: this.props.habitacion,     
+            numeroTarjeta: this.props.numeroTarjeta,
+            servicios: this.props.servicios,
+        };
+
+        return booking;
+    }
+
+    //Handlers
     handleOpen = () => {
         this.setState({ open: true })
     }
@@ -246,7 +305,7 @@ class ServiciosHabilitados extends Component {
                                         actividades={this.state.actividades}
                                         handleChange={this.handleChange}
                                         add={this.add}
-                                        data={this.state.data}
+                                        data={ this.props.servicios }
                                     />
                                 </Paper>
                             </Grid>
@@ -258,7 +317,7 @@ class ServiciosHabilitados extends Component {
                         <Paper className={fixedHeightPaperDatos} elevation={3}>
                             <Typography component="h2" variant="h6" color="primary" className={classes.titleSolicitudes} gutterBottom>Servicios Solicitados</Typography>
                             <Divider />
-                            {this.state.data.map((item, index) => {
+                            {this.props.servicios.map((item, index) => {
                                 if (item.categoria !== "")
                                     return (
                                         <div key={index}>

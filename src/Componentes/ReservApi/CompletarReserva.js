@@ -196,7 +196,7 @@ export default function GuestInfoForm(props) {
     }
     else
       if (activeStep === 2) {
-        ReservasAPI.bookHotel(getBookingDictionary(), handleBookHotel)
+        ReservasAPI.postBooking(getBookingDictionary(), handleBookHotel)
         setLoading(true)
         enviarMail(/*Hay poner el numero de reserva aca*/)
         setActiveStep(activeStep + 1);

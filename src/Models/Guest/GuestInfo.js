@@ -51,7 +51,7 @@ class GuestInfo {
     } else {
       reserva = new Reserva(booking);
       reserva.setReservaInfo(booking);
-      this._reservas.push(reserva)
+      this._reservas.push(reserva);
     }
 
     return reserva;
@@ -106,6 +106,8 @@ class GuestInfo {
         this._reservas.push(reserva);
       })
     }
+
+    let messi = "";
   }
 
   //Getters

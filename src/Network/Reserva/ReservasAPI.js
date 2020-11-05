@@ -4,7 +4,7 @@ import Constants from '../../Utils/Constants';
 
 class ReservasAPI extends Component {
 
-    bookHotel(booking,handleBookHotel) {
+    postBooking(booking,handleBookHotel) {
       let url =  Constants.BASE_URL + '/api/v1.0/reservas';
         fetch(url,{
           method: 'POST', 
@@ -13,7 +13,11 @@ class ReservasAPI extends Component {
       })
        .then ((response) => {
             console.log("response",response);
-            return response.json();
+            if(response.headers.status !== 404) {
+              return response.json();
+            } else {
+              return null;
+            }
         })
         .then (responseData => {
             handleBookHotel(responseData);

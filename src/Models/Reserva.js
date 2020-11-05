@@ -11,6 +11,7 @@ class Reserva {
     this._tipoHabitacion = "";
     this._precio = "";
     this._numeroTarjeta = "";
+    this._services = [];
   }
 
   setReservaInfo(props) {
@@ -25,6 +26,15 @@ class Reserva {
     this._tipoHabitacion = props.tipoHabitacion;
     this._precio = props.precio;
     this._numeroTarjeta = props.numeroTarjeta;
+
+    if (props.servicios !== undefined) {
+      this._services = props.servicios;
+    } else {
+      this._services = [ {
+        categoria: "",
+      }];
+    }
+    
   }
 
   toJson() {
@@ -37,6 +47,7 @@ class Reserva {
       tipoHabitacion: this._tipoHabitacion,
       precio: this._precio,
       numeroTarjeta: this._numeroTarjeta,
+      servicios: this._services,
     };
   }
 
@@ -83,6 +94,10 @@ class Reserva {
 
   get numeroTarjeta() {
     return this._numeroTarjeta;
+  }
+
+  get services() {
+    return this._services;
   }
 }
 

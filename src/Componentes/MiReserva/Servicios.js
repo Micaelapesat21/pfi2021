@@ -7,11 +7,6 @@ import GuestInfo from '../../Models/Guest/GuestInfo';
 import RenderServicios from './ReservaRender/RenderServicios';
 import ServiciosHabilitados from './Servicios/ServiciosHabilitados';
 
-
-
-
-
-
 const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
@@ -34,7 +29,7 @@ class Servicios extends Component {
 
     componentDidMount() {
         let allReservas = GuestInfo.getInstance().getReservas();
-        this.setState({ reserva: allReservas })
+        this.setState({ reserva: allReservas });
     }
     pad(n) {
         return n + 1
@@ -95,6 +90,7 @@ class Servicios extends Component {
                                                 precio={item.precio}
                                                 modo={this.props.modo}
                                                 checkInOK={this.props.checkInOK}
+                                                servicios = { item.services }
                                             />
                                         </Grid>
                                     )

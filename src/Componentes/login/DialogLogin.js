@@ -10,7 +10,6 @@ const styles = theme => ({
 
 class DialogLogin extends React.Component {
 
-
   constructor(props) {
     super(props);
     this.state = {
