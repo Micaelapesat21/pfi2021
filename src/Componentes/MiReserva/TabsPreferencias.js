@@ -7,9 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Preferencias from '../MiPerfil/Preferencias';
 import { Grid } from '@material-ui/core';
-import SeleccionPerfil from '../MiPerfil/SeleccionPerfil'
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -161,31 +159,9 @@ export default function TabsPerfil(props) {
                                 </FormGroup>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <SeleccionPerfil 
-                            romantico={props.romantico} 
-                            ejecutivo={props.ejecutivo} 
-                            familia={props.familia} 
-                            preferencias={props.preferencias} 
-                            bienvenida={bienvenida} 
-                            houseKeeping={houseKeeping} 
-                            tintoreria={tintoreria}  />
-                        </Grid>
                     </Grid>
 
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                    {/*PREFERENCIAS*/}
-                    <Preferencias 
-                    bienvenida={bienvenida} 
-                    setBienvenida={setBienvenida} 
-                    houseKeeping={houseKeeping} 
-                    setHouseKeeping={setHouseKeeping} 
-                    tintoreria={tintoreria} 
-                    setTintoreria={setTintoreria} 
-
-                    />
-                </TabPanel>
+                </TabPanel> 
             </SwipeableViews>
         </div>
     )
