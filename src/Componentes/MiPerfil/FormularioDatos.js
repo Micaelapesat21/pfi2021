@@ -436,7 +436,7 @@ class FormularioDatos extends Component {
                             <TextField
                                 id="Compañia"
                                 name="compañia"
-                                label="Compañia (opcional)"
+                                label="Ocupación (opcional)"
                                 fullWidth
                                 autoComplete="Compañia"
                                 value={this.state.compañia}

@@ -118,7 +118,7 @@ export default function TabsPerfil(props) {
                         <Grid item xs={12} md={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 {/*PERFILES*/}
-                                <FormLabel component="legend">Seleccione su tipo de Perfil</FormLabel>
+                                <FormLabel component="legend">Activades Extracurriculares</FormLabel>
                                 <FormGroup tag="div">
                                     <FormControlLabel
                                         control={<Switch color="primary" checked={props.romantico} onChange={props.handleChangeSwitch} name="romantico" />}
