@@ -394,7 +394,7 @@ export default function PanelControl(props) {
                     <ThemeProvider theme={darkTheme}>
                         <div className={classes.root}>
                             <CssBaseline />
-                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Check-In"} handleThemeChange={handleThemeChange} darkState={darkState} />
+                            <Deslizable listDrawer={listDrawer} user={props.user} modo={"Facturas"} handleThemeChange={handleThemeChange} darkState={darkState} />
                             <main className={classes.content}>
                                 <div className={classes.appBarSpacer} />
                                 <Container maxWidth="lg" className={classes.container}>
@@ -408,7 +408,7 @@ export default function PanelControl(props) {
                                         reservasOpen={reservasOpen}
                                         checkInOpen={checkInOpen}
                                         checkOutOpen={checkOutOpen}
-                                        modo={"Check-In"}
+                                        modo={"Facturas"}
                                         romantico={romantico}
                                         ejecutivo={ejecutivo}
                                         familia={familia}
@@ -575,13 +575,13 @@ export default function PanelControl(props) {
                                             <ThemeProvider theme={darkTheme}>
                                                 <div className={classes.root}>
                                                     <CssBaseline />
-                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Historial de reservas"} handleThemeChange={handleThemeChange} darkState={darkState} />
+                                                    <Deslizable listDrawer={listDrawer} user={props.user} modo={"Cuotas"} handleThemeChange={handleThemeChange} darkState={darkState} />
                                                     <main className={classes.content}>
                                                         <div className={classes.appBarSpacer} />
                                                         <Container maxWidth="lg" className={classes.container}>
                                                             <Historial
                                                                 user={props.user}                                                               
-                                                                modo={"Historial"}                                                           
+                                                                modo={"Cuota Activa"}                                                           
                                                             />
                                                         </Container>
                                                     </main>

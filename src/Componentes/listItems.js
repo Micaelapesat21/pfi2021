@@ -5,8 +5,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HotelIcon from '@material-ui/icons/Hotel';
+import DescriptionIcon from '@material-ui/icons/Description';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import RoomServiceIcon from '@material-ui/icons/RoomService';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import CheckIcon from '@material-ui/icons/Check';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -100,7 +103,7 @@ export default function ListItems(props) {
       <Divider />
       <ListItem button onClick={handleClickReserva}>
         <ListItemIcon>
-          <VpnKeyIcon color="secondary"/>
+          <ReceiptIcon color="secondary"/>
         </ListItemIcon>
         <ListItemText primary="Facturación" />
         {openRes ? <ExpandLess /> : <ExpandMore />}
@@ -108,40 +111,21 @@ export default function ListItems(props) {
       <Collapse in={openRes} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
 
-          <ListItem button onClick={props.reservasOpen} className={classes.nested}>
+        <ListItem button onClick={props.historialOpen} className={classes.nested}>
             <ListItemIcon>
-              <HotelIcon color="secondary"/>
+              <CheckIcon color="secondary"/>
             </ListItemIcon>
-            <ListItemText primary="Cuota activa" />
+            <ListItemText primary="Cuota Activa" />
           </ListItem>
 
           <ListItem button onClick={props.checkInOpen} className={classes.nested}>
             <ListItemIcon>
-              <AssignmentTurnedInIcon color="secondary"/>
+              <DescriptionIcon color="secondary"/>
             </ListItemIcon>
             <ListItemText primary="Facturas" />
           </ListItem>
 
-          <ListItem button onClick={props.serviciosOpen} className={classes.nested}>
-            <ListItemIcon>
-              <RoomServiceIcon color="secondary"/>
-            </ListItemIcon>
-            <ListItemText primary="Servicios" />
-          </ListItem>
-
-          <ListItem button onClick={props.checkOutOpen} className={classes.nested}>
-            <ListItemIcon>
-              <MeetingRoomIcon color="secondary"/>
-            </ListItemIcon>
-            <ListItemText primary="Check-Out" />
-          </ListItem>
-         
-          <ListItem button onClick={props.historialOpen} className={classes.nested}>
-            <ListItemIcon>
-              <HistoryIcon color="secondary"/>
-            </ListItemIcon>
-            <ListItemText primary="Historial" />
-          </ListItem>
+          
         </List>
       </Collapse>
       <Divider />

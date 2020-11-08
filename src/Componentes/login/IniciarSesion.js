@@ -188,13 +188,13 @@ class IniciarSesion extends React.Component {
     if (this.props.modoHotel) {
       return (
         <Typography component="h1" variant="h5">
-          Iniciar Sesion como Empleado
+          Iniciar Sesión como Empleado
         </Typography>
       )
     } else {
       return (
         <Typography component="h1" variant="h5">
-          Iniciar Sesion
+          Iniciar Sesión
         </Typography>
       )
     }
@@ -266,7 +266,7 @@ class IniciarSesion extends React.Component {
               className={classes.submit}
               onClick={this.loginCorreo}
             >
-              Iniciar Sesion
+              Iniciar Sesión
           </Button>
             <Grid container>
               <Grid item xs>

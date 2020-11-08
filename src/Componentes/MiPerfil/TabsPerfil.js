@@ -94,7 +94,7 @@ export default function TabsPerfil(props) {
                     aria-label="full width tabs example"
                 >
                     <Tab label=" Datos Titular" {...a11yProps(0)} />
-                    <Tab label="Alumnos" {...a11yProps(1)} />
+                    <Tab label="Datos Alumno" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -119,11 +119,11 @@ export default function TabsPerfil(props) {
                         <Grid item xs={12} md={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 {/*PERFILES*/}
-                                <FormLabel component="legend">Activades Extracurriculares</FormLabel>
+                                <FormLabel component="legend">Actividades Extracurriculares</FormLabel>
                                 <FormGroup tag="div">
                                     <FormControlLabel
                                         control={<Checkbox color="primary" name="futbol" value="no" />}
-                                        label="Futbol"
+                                        label="Fútbol"
                                     />
                                     <FormControlLabel
                                         control={<Checkbox color="primary" name="hockey" value="no"/>}
@@ -131,12 +131,58 @@ export default function TabsPerfil(props) {
                                     />
                                     <FormControlLabel
                                         control={<Checkbox color="primary" name="natacion" value= "no"/>}
-                                        label="Natacion"
+                                        label="Natación"
                                     />
+                                    
+                                </FormGroup>
+
+                            </FormControl>
+                            <Grid container justify="center" alignItems="center">
+                                <Button variant="outlined" color="secondary" onClick={props.guardarPerfil} >Guardar</Button>
+                            </Grid>
+                            <FormControl component="fieldset" className={classes.formControl}>
+                                {/*PERFILES*/}
+                                <FormLabel component="legend">Idiomas</FormLabel>
+                                <FormGroup tag="div">
                                     <FormControlLabel
-                                        control={<Checkbox color="primary" name="ingles" value= "no" />}
+                                        control={<Checkbox color="primary" name="ingles" value="no" />}
                                         label="Inglés"
                                     />
+                                    <FormControlLabel
+                                        control={<Checkbox color="primary" name="portugues" value="no"/>}
+                                        label="Portugués"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox color="primary" name="frances" value= "no"/>}
+                                        label="Francés"
+                                    />
+                                    
+                                </FormGroup>
+
+                            </FormControl>
+                            <Grid container justify="center" alignItems="center">
+                                <Button variant="outlined" color="secondary" onClick={props.guardarPerfil} >Guardar</Button>
+                            </Grid>
+
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <FormControl component="fieldset" className={classes.formControl}>
+                                {/*PERFILES*/}
+                                <FormLabel component="legend">Servicios</FormLabel>
+                                <FormGroup tag="div">
+                                    <FormControlLabel
+                                        control={<Checkbox color="primary" name="transporte" value="no" />}
+                                        label="Transporte"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox color="primary" name="comedor" value="no"/>}
+                                        label="Comedor"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox color="primary" name="vianda" value= "no"/>}
+                                        label="Vianda"
+                                    />
+                                    
                                 </FormGroup>
 
                             </FormControl>

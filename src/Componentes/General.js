@@ -156,7 +156,7 @@ class General extends Component {
                                 <InfoIcon />
                             </Grid>
                             <Grid item md={11} xs={10}>
-                                <Typography >48 hs antes de su estadia va a poder hacer su Check-In </Typography>
+                                <Typography >Recuerde pagar su factura antes del día 10 del mes corriente. </Typography>
                             </Grid>
                         </Grid>
                     </CardActionArea>
@@ -191,7 +191,7 @@ class General extends Component {
                                 <InfoIcon />
                             </Grid>
                             <Grid item md={11} xs={10}>
-                                <Typography>Puede seleccionar su perfil para que se adapte a sus gustos</Typography>
+                                <Typography>Podrá seleccionar los servicios y actividades extracurriculares que desee contratar para el ciclo lectivo en su perfil.</Typography>
                             </Grid>
                         </Grid>
                     </CardActionArea>
@@ -226,7 +226,7 @@ class General extends Component {
                                 <InfoIcon />
                             </Grid>
                             <Grid item md={11} xs={10}>
-                                <Typography>Acuerdese de completar sus datos personales para agilizar su Check-in</Typography>
+                                <Typography>Podrá completar sus datos personales en su perfil. </Typography>
 
                             </Grid>
                         </Grid>
