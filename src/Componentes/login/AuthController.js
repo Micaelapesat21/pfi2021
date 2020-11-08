@@ -34,6 +34,23 @@ class AuthController extends Component {
 
   }
 
+  handleIniciar(correo, contrasena) {
+    firebase.auth().languageCode = 'es_ES';
+    firebase.auth().signInWithEmailAndPassword(correo, contrasena)
+      .then(result =>
+        console.log(`${result.user.email} ha iniciado sesion`))
+      .catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/weak-password') {
+          alert(errorMessage);
+        } else {
+          alert('Contrasena Incorrecta o Usuario inexistente');
+        }
+        console.log(error);
+      });
+  }
+
   // handleRecupero(correo) {
   //   firebase.auth().languageCode = 'es_ES';
   //   firebase.auth().sendPasswordResetEmail(correo)
