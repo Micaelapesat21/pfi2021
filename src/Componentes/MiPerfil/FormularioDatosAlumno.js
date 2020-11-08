@@ -86,7 +86,9 @@ class FormularioDatosAlumno extends Component {
             ciudad: "",
             codigoPostal: "",
             direccion1: "",
-            compañia: "",
+            direccion2: "",
+            telefono1: "",
+            telefono2: "",
             edicion: false,
             redOnly: true,
             completado: false,
@@ -132,7 +134,8 @@ class FormularioDatosAlumno extends Component {
             this.state.estado !== "" &&
             this.state.ciudad !== "" &&
             this.state.codigoPostal !== "" &&
-            this.state.direccion1 !== ""
+            this.state.direccion1 !== "",
+            this.state.telefono1 !== ""
         ) {
             this.props.callPerfilCompletado()
             var dict = this.getGuestModel();
@@ -158,7 +161,11 @@ class FormularioDatosAlumno extends Component {
             estado: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
-            direccion1: this.state.direccion1
+            direccion1: this.state.direccion1,
+            direccion2: this.state.direccion2,
+            telefono1: this.state.telefono1,
+            telefono2: this.state.telefono2
+            
             // etc.
         };
     }
@@ -202,7 +209,10 @@ class FormularioDatosAlumno extends Component {
                 estado: userData.estado,
                 ciudad: userData.ciudad,
                 codigoPostal: userData.codigoPostal,
-                direccion1: userData.direccion1
+                direccion1: userData.direccion1,
+                direccion2: userData.direccion2,
+                telefono1: userData.telefono1,
+                telefono2: userData.telefono2
             });
             this.props.callPerfilCompletado()
 
@@ -423,20 +433,49 @@ class FormularioDatosAlumno extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                id="Compañia"
-                                name="compañia"
-                                label="Compañia (opcional)"
+                                required
+                                id="Direccion2"
+                                name="direccion2"
+                                label="Direccion 2 (Opcional)"
                                 fullWidth
-                                autoComplete="Compañia"
-                                value={this.state.compañia}
+                                autoComplete="Direccion"
+                                value={this.state.direccion2}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
                                 }}
                             />
                         </Grid>
-
-
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Telefono1"
+                                name="telefono1"
+                                label="Telefono contacto"
+                                fullWidth
+                                autoComplete="Telefono1"
+                                value={this.state.telefono1}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Telefono2"
+                                name="telefono2"
+                                label="Telefono contacto 2 (Opcional)"
+                                fullWidth
+                                autoComplete="Telefono2"
+                                value={this.state.telefono2}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
             );
@@ -547,17 +586,6 @@ class FormularioDatosAlumno extends Component {
                                 autoComplete="Direccion"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="Compañia"
-                                name="compañia"
-                                label="Compañia (opcional)"
-                                fullWidth
-                                autoComplete="Compañia"
-                            />
-                        </Grid>
-
-
                     </Grid>
                 </Grid>
             );

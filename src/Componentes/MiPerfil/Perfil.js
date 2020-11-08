@@ -34,10 +34,10 @@ class Perfil extends Component {
         super(props);
         this.state = {
             data: [],
-            romantico: false,
-            ejecutivo: false,
-            familia: false,
-            preferencias: false,
+            futbol: false,
+            hockey: false,
+            natacion: false,
+            ingles: false,
             perfilElegido: "",
             aguaFria: false,
             champagne: false,
@@ -73,7 +73,7 @@ class Perfil extends Component {
 
     //Life Cycle methods
     componentDidMount() {
-        this.getSelectedProfile();
+        
     }
 
     getSelectedProfile() {
@@ -135,245 +135,6 @@ class Perfil extends Component {
 
         GuestInfo.getInstance().saveSelectedProfile(perfil);
         this.postGuestInfo()
-    }
-
-    handleChangeSwitch = (event) => {
-        var handle = ""
-        if (event.target !== undefined) {
-            handle = event.target.name
-        } else
-            handle = event
-
-
-        if (handle === "romantico")
-            this.setState({
-                romantico: true,
-                ejecutivo: false,
-                familia: false,
-                preferencias: false,
-                perfilElegido: "romantico",
-            });
-        else
-            if (handle === "ejecutivo")
-                this.setState({
-                    romantico: false,
-                    ejecutivo: true,
-                    familia: false,
-                    preferencias: false,
-                    perfilElegido: "ejecutivo",
-                });
-            else
-                if (handle === "familia")
-                    this.setState({
-                        romantico: false,
-                        ejecutivo: false,
-                        familia: true,
-                        preferencias: false,
-                        perfilElegido: "familia",
-                    });
-                else
-                    if (handle === "preferencias")
-                        this.setState({
-                            romantico: false,
-                            ejecutivo: false,
-                            familia: false,
-                            preferencias: true,
-                            perfilElegido: "preferencias",
-                        });
-    };
-    handleBebida = (event) => {
-
-        var handle = ""
-        if (event.target !== undefined) {
-            handle = event.target.name
-        } else
-            handle = event
-
-        if (handle === "aguaFria") {
-            this.setState({
-                aguaFria: true,
-                champagne: false,
-                gaseosa: false,
-                vino: false,
-                sinseleccionarB: false,
-                bebidaElegida: "aguaFria",
-            });
-        }
-        else
-            if (handle === "champagne")
-                this.setState({
-                    aguaFria: false,
-                    champagne: true,
-                    gaseosa: false,
-                    vino: false,
-                    sinseleccionarB: false,
-                    bebidaElegida: "champagne",
-                });
-            else
-                if (handle === "gaseosa")
-                    this.setState({
-                        aguaFria: false,
-                        champagne: false,
-                        gaseosa: true,
-                        vino: false,
-                        sinseleccionarB: false,
-                        bebidaElegida: "gaseosa",
-                    });
-                else
-                    if (handle === "vino")
-                        this.setState({
-                            aguaFria: false,
-                            champagne: false,
-                            gaseosa: false,
-                            vino: true,
-                            sinseleccionarB: false,
-                            bebidaElegida: "vino",
-                        });
-
-    }
-    handleAcompañamiento = (event) => {
-        var handle = ""
-        if (event.target !== undefined) {
-            handle = event.target.name
-        } else
-            handle = event
-
-        if (handle === "chocolates")
-            this.setState({
-                chocolates: true,
-                golosinas: false,
-                fiambres: false,
-                pasteleria: false,
-                sinseleccionarA: false,
-                acompañamientoElegido: "chocolates",
-            });
-        else
-            if (handle === "golosinas")
-                this.setState({
-                    chocolates: false,
-                    golosinas: true,
-                    fiambres: false,
-                    pasteleria: false,
-                    sinseleccionarA: false,
-                    acompañamientoElegido: "golosinas",
-                });
-            else
-                if (handle === "fiambres")
-                    this.setState({
-                        chocolates: false,
-                        golosinas: false,
-                        fiambres: true,
-                        pasteleria: false,
-                        sinseleccionarA: false,
-                        acompañamientoElegido: "fiambres",
-                    });
-                else
-                    if (handle === "pasteleria")
-                        this.setState({
-                            chocolates: false,
-                            golosinas: false,
-                            fiambres: false,
-                            pasteleria: true,
-                            sinseleccionarA: false,
-                            acompañamientoElegido: "pasteleria",
-                        });
-
-    }
-    handleLimpieza = (event) => {
-        var handle = ""
-        if (event.target !== undefined) {
-            handle = event.target.name
-        } else
-            handle = event
-
-        if (handle === "siete")
-            this.setState({
-                siete: true,
-                nueve: false,
-                once: false,
-                trece: false,
-                sinseleccionarL: false,
-                limpiezaElegida: "siete",
-            });
-        else
-            if (handle === "nueve")
-                this.setState({
-                    siete: false,
-                    nueve: true,
-                    once: false,
-                    trece: false,
-                    sinseleccionarL: false,
-                    limpiezaElegida: "nueve",
-                });
-            else
-                if (handle === "once")
-                    this.setState({
-                        siete: false,
-                        nueve: false,
-                        once: true,
-                        trece: false,
-                        sinseleccionarL: false,
-                        limpiezaElegida: "once",
-                    });
-                else
-                    if (handle === "trece")
-                        this.setState({
-                            siete: false,
-                            nueve: false,
-                            once: false,
-                            trece: true,
-                            sinseleccionarL: false,
-                            limpiezaElegida: "trece",
-                        });
-
-    }
-    handleTintoreria = (event) => {
-        var handle = ""
-        if (event.target !== undefined) {
-            handle = event.target.name
-        } else
-            handle = event
-
-
-        if (handle === "uno")
-            this.setState({
-                uno: true,
-                dos: false,
-                tres: false,
-                cuatro: false,
-                sinseleccionarT: false,
-                tintoreriaElegida: "uno",
-            });
-        else
-            if (handle === "dos")
-                this.setState({
-                    uno: false,
-                    dos: true,
-                    tres: false,
-                    cuatro: false,
-                    sinseleccionarT: false,
-                    tintoreriaElegida: "dos",
-                });
-            else
-                if (handle === "tres")
-                    this.setState({
-                        uno: false,
-                        dos: false,
-                        tres: true,
-                        cuatro: false,
-                        sinseleccionarT: false,
-                        tintoreriaElegida: "tres",
-                    });
-                else
-                    if (handle === "cuatro")
-                        this.setState({
-                            uno: false,
-                            dos: false,
-                            tres: false,
-                            cuatro: true,
-                            sinseleccionarT: false,
-                            tintoreriaElegida: "cuatro",
-                        });
     }
 
     //Service Calls
@@ -442,51 +203,15 @@ class Perfil extends Component {
                                     <TabsPerfil
                                         user={this.props.user}
                                         perfil={this.props.perfil}
-                                        romantico={this.state.romantico}
-                                        ejecutivo={this.state.ejecutivo}
-                                        familia={this.state.familia}
-                                        preferencias={this.state.preferencias}
+                                        futbol={this.state.futbol}
+                                        hockey={this.state.hockey}
+                                        natacion={this.state.natacion}
+                                        ingles={this.state.ingles}
                                         perfilElegido={this.state.perfilElegido}
-
-                                        handleChangeSwitch={this.handleChangeSwitch}
-                                        aguaFria={this.state.aguaFria}
-                                        champagne={this.state.champagne}
-                                        gaseosa={this.state.gaseosa}
-                                        vino={this.state.vino}
-                                        bebidaElegida={this.state.bebidaElegida}
-                                        sinseleccionarB={this.state.sinseleccionarB}
-                                        handleBebida={this.handleBebida}
-
-                                        chocolates={this.state.chocolates}
-                                        golosinas={this.state.golosinas}
-                                        fiambres={this.state.fiambres}
-                                        pasteleria={this.state.pasteleria}
-                                        acompañamientoElegido={this.state.acompañamientoElegido}
-                                        sinseleccionarA={this.state.sinseleccionarA}
-                                        handleAcompañamiento={this.handleAcompañamiento}
-
-                                        siete={this.state.siete}
-                                        nueve={this.state.nueve}
-                                        once={this.state.once}
-                                        trece={this.state.trece}
-                                        limpiezaElegida={this.state.limpiezaElegida}
-                                        sinseleccionarL={this.state.sinseleccionarL}
-                                        handleLimpieza={this.handleLimpieza}
-
-                                        uno={this.state.uno}
-                                        dos={this.state.dos}
-                                        tres={this.state.tres}
-                                        cuatro={this.state.cuatro}
-                                        tintoreriaElegida={this.state.tintoreriaElegida}
-                                        sinseleccionarT={this.state.sinseleccionarT}
-                                        handleTintoreria={this.handleTintoreria}
-
 
                                         guardarPerfil={this.guardarPerfil.bind(this)}
                                         perfilCompletado={this.props.perfilCompletado}
                                         callPerfilCompletado={this.props.callPerfilCompletado}
-
-
                                     />
                                 </Paper>
                             </Grid>
