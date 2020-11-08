@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import BarraPrincipal from './BarraPrincipal'
 import { Hidden, Grid } from '@material-ui/core';
-import Logo from '../Imagenes/CommodusLogo.png'
+import Logo from '../Imagenes/escudoColegio.jpg'
 
 const drawerWidth = 240;
 
@@ -138,7 +138,7 @@ export default function PanelControl(props) {
                         <div className={classes.toolbarIcon}>
                             <Grid container justify="center" alignItems="center">
                                 <Grid item>
-                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                    <img src={Logo} alt="logo" width={90} height={90} />
                                 </Grid>
                             </Grid>
 

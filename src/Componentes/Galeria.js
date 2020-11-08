@@ -2,14 +2,12 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import Uno from '../Imagenes/1.jpg'
-import Dos from '../Imagenes/2.jpg'
-import Tres from '../Imagenes/3.jpg'
-import Cuatro from '../Imagenes/4.jpg'
-import Cinco from '../Imagenes/5.jpg'
-import Seis from '../Imagenes/6.jpg'
-import Siete from '../Imagenes/7.jpg'
-import Ocho from '../Imagenes/8.jpg'
+import Uno from '../Imagenes/school1.jpg'
+import Dos from '../Imagenes/school2.jpg'
+import Tres from '../Imagenes/school3.jpg'
+import Cuatro from '../Imagenes/school4.jpg'
+import Cinco from '../Imagenes/school5.jpg'
+import Seis from '../Imagenes/school6.jpg'
 
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -44,19 +42,7 @@ const tutorialSteps = [
     label: 'Seis',
     imgPath:
       Seis
-  },
-  {
-    label: 'Siete',
-    imgPath:
-      Siete
-  },
-  {
-    label: 'Ocho',
-    imgPath:
-      Ocho
-  },
-
-  
+  }  
 ];
 
 const useStyles = makeStyles((theme) => ({

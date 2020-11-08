@@ -175,7 +175,7 @@ class IniciarSesion extends React.Component {
                 className={classes.botonicono}
                 onClick={this.handleOpenHotel}>
 
-                ¿Sos Hotel?
+                ¿Sos Empleado?
               </Button>
             </Grid>
           </Grid>
@@ -188,7 +188,7 @@ class IniciarSesion extends React.Component {
     if (this.props.modoHotel) {
       return (
         <Typography component="h1" variant="h5">
-          Iniciar Sesion como Hotel
+          Iniciar Sesion como Empleado
         </Typography>
       )
     } else {

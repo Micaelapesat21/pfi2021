@@ -22,7 +22,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
 import ReservasHotel from '../Componentes/Hotel/ReservasHotel'
 import { Grid } from '@material-ui/core';
-import Logo from '../Imagenes/CommodusLogo.png'
+import Logo from '../Imagenes/escudoColegio.jpg'
 import Solicitudes from '../Componentes/Hotel/Solicitudes';
 import Resenas from '../Componentes/Hotel/Resenas';
 
