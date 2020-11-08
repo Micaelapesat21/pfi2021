@@ -61,7 +61,7 @@ export default function ListItems(props) {
         <ListItemIcon>
           <DashboardIcon color="secondary" />
         </ListItemIcon>
-        <ListItemText primary="Panel General" />
+        <ListItemText primary="Página Principal" />
       </ListItem>
       <Divider />
 
@@ -102,7 +102,7 @@ export default function ListItems(props) {
         <ListItemIcon>
           <VpnKeyIcon color="secondary"/>
         </ListItemIcon>
-        <ListItemText primary="Reservas" />
+        <ListItemText primary="Facturación" />
         {openRes ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={openRes} timeout="auto" unmountOnExit>
@@ -112,14 +112,14 @@ export default function ListItems(props) {
             <ListItemIcon>
               <HotelIcon color="secondary"/>
             </ListItemIcon>
-            <ListItemText primary="Activas" />
+            <ListItemText primary="Cuota activa" />
           </ListItem>
 
           <ListItem button onClick={props.checkInOpen} className={classes.nested}>
             <ListItemIcon>
               <AssignmentTurnedInIcon color="secondary"/>
             </ListItemIcon>
-            <ListItemText primary="Check-in" />
+            <ListItemText primary="Facturas" />
           </ListItem>
 
           <ListItem button onClick={props.serviciosOpen} className={classes.nested}>

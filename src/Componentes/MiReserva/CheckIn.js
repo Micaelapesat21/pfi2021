@@ -38,7 +38,7 @@ class CheckIn extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
                 <Grid item xs={12} md={8} lg={9}>
-                    <Typography variant="h3">Check-In</Typography>
+                    <Typography variant="h3">Facturas</Typography>
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
                     <Grid container spacing={2}>

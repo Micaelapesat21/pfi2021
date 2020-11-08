@@ -42,7 +42,7 @@ class Reservas extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
                 <Grid item xs={12} md={8} lg={9}>
-                    <Typography variant="h3">Reservas Activas</Typography>
+                    <Typography variant="h3">Cuota Activa</Typography>
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
                     <Grid container spacing={2}>

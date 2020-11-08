@@ -253,7 +253,7 @@ class General extends Component {
                             <Paper className={fixedHeightPaper} elevation={10} >
                                 <Grid container direction="row" >
                                     <Grid item md={10} xs={10}>
-                                        <Typography component="h2" variant="h6" color="primary" gutterBottom>Reserva actual</Typography>
+                                        <Typography component="h2" variant="h6" color="primary" gutterBottom>Facturación actual</Typography>
                                     </Grid>
                                     <Grid item md={2} xs={10}>
                                         <Button color="primary" onClick={this.props.reservasOpen}>administrar</Button>
