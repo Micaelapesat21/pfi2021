@@ -6,6 +6,7 @@ import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
+import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
     paper: {
@@ -356,19 +357,19 @@ class FormularioDatosAlumnos extends Component {
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Jornada"
-                                name="jornada"
-                                label="Jornada escolar"
-                                fullWidth
-                                autoComplete="Jornada"
+                            <Select
+                                native
                                 value={this.state.jornada}
                                 onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
+                                inputProps={{
+                                    name: 'jornada',
+                                    id: 'jornada',
                                 }}
-                            />
+                                >
+                                <option value={10}>Turno mañana</option>
+                                <option value={20}>Turno tarde</option>
+                                <option value={30}>Jornada Completa</option>
+                            </Select>
                         </Grid> 
 
                     </Grid>
