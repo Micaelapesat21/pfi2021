@@ -6,7 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
+import Title from '../Title';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import CheckIcon from '@material-ui/icons/Check';
 import BlockIcon from '@material-ui/icons/Block';
@@ -16,7 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormularioDatosTitular from './Titular/FormularioDatosTitular';
+import FormularioDatosAlumnos from './FormularioDatosAlumnos';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -24,8 +24,8 @@ function createData(id,nombre, apellido, email, telefono1, ciudad) {
 }
 
 const rows = [
-    createData(0, 'Emiliano', 'Da Luz', 'emiliano.daluz@gmail.com', '4793-2123', 'Acassuso'),
-    createData(1, 'Hernan', 'Quire', 'hnquire@gmail.com', '1154537898', 'Palermo'),
+    createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
+    createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -109,9 +109,9 @@ export default function Orders() {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Titular </DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosTitular titularCreado = { titularCreado }/>
+             <FormularioDatosAlumnos titularCreado = { titularCreado }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -132,12 +132,12 @@ export default function Orders() {
                         />
                     </div>
                     <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Agregar Titular 
+                     Agregar Alumno 
                      </Button>
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Titulares</Title>
+                <Title>Alumnos</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>

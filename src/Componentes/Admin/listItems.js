@@ -37,7 +37,7 @@ export default function mainListItems(props) {
         <ListItemIcon>
           <AirlineSeatIndividualSuiteIcon />
         </ListItemIcon>
-        <ListItemText primary="Reservas" />
+        <ListItemText primary="Alumnos" />
       </ListItem>
       <ListItem button onClick={props.solicitudesOpen}>
         <ListItemIcon> 
@@ -49,7 +49,7 @@ export default function mainListItems(props) {
         <ListItemIcon>
           <RateReviewIcon />
         </ListItemIcon>
-        <ListItemText primary="Reseñas" />
+        <ListItemText primary="Empleados" />
       </ListItem>
 
       <ListItem button onClick={props.resenasOpen}>

@@ -86,16 +86,16 @@ export default function Orders() {
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Ultimas Reservas</Title>
+                <Title>Alumnos</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Check-In</TableCell>
-                            <TableCell>Check-Out</TableCell>
-                            <TableCell>Reservado Por</TableCell>
-                            <TableCell>Metodo de Pago</TableCell>
-                            <TableCell align="right">Monto Total</TableCell>
-                            <TableCell align="right">Ver mas</TableCell>
+                            <TableCell>Nombre</TableCell>
+                            <TableCell>Apellido</TableCell>
+                            <TableCell>Dirección 1</TableCell>
+                            <TableCell>Dirección 2</TableCell>
+                            <TableCell align="right">Telefono 1</TableCell>
+                            <TableCell align="right">Telefono 2</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

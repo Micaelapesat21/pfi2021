@@ -14,17 +14,18 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import ListItems from '../Componentes/Hotel/listItems';
-import General from '../Componentes/Hotel/General';
-import DatosHotel from '../Componentes/Hotel/DatosHotel';
-import ServiciosEscuela from '../Componentes/Hotel/ServiciosEscuela';
+import ListItems from '../Componentes/Admin/listItems';
+import General from '../Componentes/Admin/General';
+import DatosHotel from '../Componentes/Admin/DatosHotel';
+import ServiciosEscuela from '../Componentes/Admin/ServiciosEscuela';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
-import ReservasHotel from '../Componentes/Hotel/ReservasHotel'
+import ReservasHotel from '../Componentes/Admin/ReservasHotel'
 import { Grid } from '@material-ui/core';
 import Logo from '../Imagenes/escudoColegio.jpg'
-import Solicitudes from '../Componentes/Hotel/Solicitudes';
-import Resenas from '../Componentes/Hotel/Resenas';
+import Titulares from '../Componentes/Admin/Titulares/Titulares';
+import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
+import Empleados from '../Componentes/Admin/Empleados/Empleados';
 
 
 const drawerWidth = 240;
@@ -439,7 +440,7 @@ export default function PanelControl(props) {
                             <div className={classes.appBarSpacer} />
 
                             <Container maxWidth="lg" className={classes.container}>
-                                <ReservasHotel />
+                                <Alumnos/>
                             </Container>
                         </main>
                     </div>
@@ -508,7 +509,7 @@ export default function PanelControl(props) {
                                 <div className={classes.appBarSpacer} />
 
                                 <Container maxWidth="lg" className={classes.container}>
-                                    <Solicitudes 
+                                    <Titulares 
                                          user={props.user}
                                     />
                                 </Container>
@@ -532,7 +533,7 @@ export default function PanelControl(props) {
                                             <MenuIcon />
                                         </IconButton>
                                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                                            Reseñas
+                                            Empleados
                                             </Typography>
                                         <IconButton color="inherit">
                                             <Badge badgeContent={0} color="secondary">
@@ -578,7 +579,7 @@ export default function PanelControl(props) {
                                 <main className={classes.content}>
                                     <div className={classes.appBarSpacer} />
                                     <Container maxWidth="lg" className={classes.container}>
-                                        <Resenas 
+                                        <Empleados 
                                              user={props.user}
                                         />
                                     </Container>

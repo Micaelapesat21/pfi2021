@@ -2,33 +2,27 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {  Grid } from '@material-ui/core';
-import TableSolicitud from './TableSolicitud'
+import TableEmpleados from './TableEmpleados'
 
 const styles = theme => ({
 
 })
 
-class Solicitudes extends Component {
+class Empleados extends Component {
     render() {
         //const { classes } = this.props;
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
-            
             <Grid item xs={12} >
-               <TableSolicitud/>
+               <TableEmpleados/>
             </Grid>
-            
-           
-
-
-
         </Grid>
         );
     }
 }
 
-Solicitudes.propTypes = {
+Empleados.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Solicitudes);
+export default withStyles(styles)(Empleados);
