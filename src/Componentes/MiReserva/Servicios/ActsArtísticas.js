@@ -18,7 +18,7 @@ const styles = theme => ({
     },
 })
 
-class Bienestar extends Component {
+class ActsArtísticas extends Component {
 
     constructor(props) {
         super(props);
@@ -44,7 +44,7 @@ class Bienestar extends Component {
         let newData = [
             ...this.props.array,
             {
-                servicio: "Bienestar",
+                servicio: "ActsArtísticas",
                 categoria: "Spa",
                 fechaSpa: this.state.fechaSpa,
                 horaSpa: this.state.horaSpa,
@@ -57,7 +57,7 @@ class Bienestar extends Component {
         let newData = [
             ...this.props.array,
             {
-                servicio: "Bienestar",
+                servicio: "ActsArtísticas",
                 categoria: "Gimnasio",
                 fechaGimnasio: this.state.fechaGimnasio,
                 horaGimnasio: this.state.horaGimnasio,
@@ -70,7 +70,7 @@ class Bienestar extends Component {
         let newData = [
             ...this.props.array,
             {
-                servicio: "Bienestar",
+                servicio: "ActsArtísticas",
                 categoria: "Masajes",
                 fechaMasajes: this.state.fechaMasajes,
                 horaMasajes: this.state.horaMasajes,
@@ -83,7 +83,7 @@ class Bienestar extends Component {
         let newData = [
             ...this.props.array,
             {
-                servicio: "Bienestar",
+                servicio: "ActsArtísticas",
                 categoria: "Tratamientos",
                 fechaTratamientos: this.state.fechaTratamientos,
                 horaTratamientos: this.state.horaTratamientos,
@@ -286,8 +286,8 @@ class Bienestar extends Component {
     }
 }
 
-Bienestar.propTypes = {
+ActsArtísticas.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Bienestar);
+export default withStyles(styles)(ActsArtísticas);

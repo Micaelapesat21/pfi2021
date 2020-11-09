@@ -46,6 +46,8 @@ export default function PanelControl(props) {
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoCheckOut, setmodoCheckOut] = React.useState(false);
     const [modoResenas, setmodoResenas] = React.useState(false);
+    const [modoCobranzas, setmodoCobranzas] = React.useState(false);
+    const [modoFacturacion, setmodoFacturacion] = React.useState(false);
     const [modoPagos, setmodoPagos] = React.useState(false);
     const [modoHistorial, setmodoHistorial] = React.useState(false);
     const [modoAyuda, setmodoAyuda] = React.useState(false);
@@ -185,6 +187,8 @@ export default function PanelControl(props) {
         checkOutClose();
         resenasClose();
         pagosClose();
+        cobranzaClose();
+        facturacionClose();
         historialClose();
         ayudaClose();
     };
@@ -200,6 +204,8 @@ export default function PanelControl(props) {
         serviciosClose();
         resenasClose();
         pagosClose();
+        cobranzaClose();
+        facturacionClose();
         historialClose();
         ayudaClose();
     };
@@ -217,9 +223,46 @@ export default function PanelControl(props) {
         pagosClose();
         historialClose();
         ayudaClose();
+        cobranzaClose();
+        facturacionClose();
     };
     const resenasClose = () => {
         setmodoResenas(false);
+    };
+    const cobranzasOpen = () => {
+        setmodoCobranzas(true);
+        generalClose();
+        perfilClose();
+        reservasClose();
+        checkInClose();
+        serviciosClose();
+        checkOutClose();
+        pagosClose();
+
+        historialClose();
+        ayudaClose();
+        resenasClose();
+        facturacionClose();
+    };
+    const cobranzaClose = () => {
+        setmodoCobranzas(false);
+    };
+    const facturacionOpen = () => {
+        setmodoFacturacion(true);
+        generalClose();
+        perfilClose();
+        reservasClose();
+        checkInClose();
+        serviciosClose();
+        checkOutClose();
+        cobranzaClose();
+        resenasClose();
+        pagosClose();
+        historialClose();
+        ayudaClose();
+    };
+    const facturacionClose = () => {
+        setmodoFacturacion(false);
     };
     const pagosOpen = () => {
         setmodoPagos(true);
@@ -317,6 +360,8 @@ export default function PanelControl(props) {
                 serviciosOpen={serviciosOpen}
                 checkOutOpen={checkOutOpen}
                 resenasOpen={resenasOpen}
+                facturacionOpen={facturacionOpen}
+                cobranzasOpen={cobranzasOpen}
                 pagosOpen={pagosOpen}
                 historialOpen={historialOpen}
                 ayudaOpen={ayudaOpen}
@@ -604,6 +649,22 @@ export default function PanelControl(props) {
                                                     </div>
                                                 </ThemeProvider>
                                             )
+                                            else
+                                                if(modoCobranzas)
+                                                    return(
+                                                        <ThemeProvider theme={darkTheme}>
+                                                    <div className={classes.root}>
+                                                        <CssBaseline />
+                                                        <Deslizable listDrawer={listDrawer} user={props.user} modo={"Cobranzas"} handleThemeChange={handleThemeChange} darkState={darkState} />
+                                                        <main className={classes.content}>
+                                                            <div className={classes.appBarSpacer} />
+                                                            <Container maxWidth="lg" className={classes.container}>
+                                                                <Ayuda />
+                                                            </Container>
+                                                        </main>
+                                                    </div>
+                                                </ThemeProvider>
+                                                    )
 }
                     
                 

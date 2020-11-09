@@ -12,7 +12,7 @@ const styles = theme => ({
     },
 })
 
-class Bienestar extends Component {
+class ActsArtísticas extends Component {
 
     constructor(props) {
         super(props);
@@ -22,8 +22,8 @@ class Bienestar extends Component {
     }
    
 
-    spa() {
-        if (this.props.spa) {
+    danza() {
+        if (this.props.danza) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -43,8 +43,8 @@ class Bienestar extends Component {
             )
         }
     }
-    gimnasio() {
-        if (this.props.gimnasio) {
+    teatro() {
+        if (this.props.teatro) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -64,8 +64,8 @@ class Bienestar extends Component {
             )
         }
     }
-    masajes() {
-        if (this.props.masajes) {
+    pintura() {
+        if (this.props.pintura) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -85,8 +85,8 @@ class Bienestar extends Component {
             )
         }
     }
-    tratamiento() {
-        if (this.props.tratamiento) {
+    música() {
+        if (this.props.música) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -115,54 +115,54 @@ class Bienestar extends Component {
         return (
             <Grid container>
                 <Grid item xs={12} >
-                    <FormLabel>Reserva de spa</FormLabel>
+                    <FormLabel>Danza</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('spa')} checked={this.props.spa} name="spa" />} label="Spa" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('danza')} checked={this.props.danza} name="danza" />} label="Danza" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.spa()}
+                            {this.danza()}
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12} >
-                    <FormLabel component="legend">Pedido de gimnasio</FormLabel>
+                    <FormLabel component="legend">Teatro</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('gimnasio')} checked={this.props.gimnasio} name="gimnasio" />} label="Gimnasio" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('teatro')} checked={this.props.teatro} name="teatro" />} label="Teatro" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.gimnasio()}
+                            {this.teatro()}
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormLabel component="legend">Pedido de masajes</FormLabel>
+                    <FormLabel component="legend">Pintura</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('masajes')} checked={this.props.masajes} name="masajes" />} label="Masajes" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('pintura')} checked={this.props.pintura} name="pintura" />} label="Pintura" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.masajes()}
+                            {this.pintura()}
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormLabel component="legend">Tratamiento corporales</FormLabel>
+                    <FormLabel component="legend">Música</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('tratamiento')} checked={this.props.tratamiento} name="tratamiento" />} label="Tratamientos" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('música')} checked={this.props.música} name="música" />} label="Música" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.tratamiento()}
+                            {this.música()}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -172,8 +172,8 @@ class Bienestar extends Component {
     }
 }
 
-Bienestar.propTypes = {
+ActsArtísticas.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Bienestar);
+export default withStyles(styles)(ActsArtísticas);

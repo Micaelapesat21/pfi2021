@@ -12,7 +12,7 @@ const styles = theme => ({
     },
 })
 
-class Comodidades extends Component {
+class Idiomas extends Component {
 
     constructor(props) {
         super(props);
@@ -21,7 +21,7 @@ class Comodidades extends Component {
         }
     }
 
-    servicio() {
+    inglés() {
         if (this.props.servicio) {
             return (
                 <Grid container spacing={2}>
@@ -42,8 +42,8 @@ class Comodidades extends Component {
             )
         }
     }
-    limpieza() {
-        if (this.props.limpieza) {
+    francés() {
+        if (this.props.francés) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -63,8 +63,8 @@ class Comodidades extends Component {
             )
         }
     }
-    comidas() {
-        if (this.props.comidas) {
+    portugués() {
+        if (this.props.portugués) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -94,44 +94,44 @@ class Comodidades extends Component {
         return (
             <Grid container>
                 <Grid item xs={12} >
-                    <FormLabel>Servicio a la habitacion</FormLabel>
+                    <FormLabel>Inglés</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('servicio')} checked={this.props.servicio} name="servicio" />} label="Servicio" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('inglés')} checked={this.props.inglés} name="inglés" />} label="Inglés" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.servicio()}
+                            {this.inglés()}
                         </Grid>
 
                     </Grid>
                 </Grid>
                 <Grid item xs={12} >
-                    <FormLabel component="legend">Limpieza a la habitacion</FormLabel>
+                    <FormLabel component="legend">Portugués</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('limpieza')} checked={this.props.limpieza} name="limpieza" />} label="Limpieza" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('portugués')} checked={this.props.portugués} name="portugués" />} label="Portugués" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.limpieza()}
+                            {this.portugués()}
                         </Grid>
 
                     </Grid>
 
                 </Grid>
                 <Grid item xs={12}>
-                    <FormLabel component="legend">Comidas especiales</FormLabel>
+                    <FormLabel component="legend">Francés</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('comidas')} checked={this.props.comidas} name="comidas" />} label="Comidas" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('francés')} checked={this.props.francés} name="frances" />} label="Francés" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.comidas()}
+                            {this.francés()}
                         </Grid>
 
                     </Grid>
@@ -144,8 +144,8 @@ class Comodidades extends Component {
     }
 }
 
-Comodidades.propTypes = {
+Idiomas.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Comodidades);
+export default withStyles(styles)(Idiomas);

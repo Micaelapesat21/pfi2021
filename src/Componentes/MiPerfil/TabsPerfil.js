@@ -119,7 +119,7 @@ export default function TabsPerfil(props) {
                         <Grid item xs={12} md={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 {/*PERFILES*/}
-                                <FormLabel component="legend">Actividades Extracurriculares</FormLabel>
+                                <FormLabel component="legend">Actividades extracurriculares</FormLabel>
                                 <FormGroup tag="div">
                                     <FormControlLabel
                                         control={<Checkbox color="primary" name="futbol" value="no" />}

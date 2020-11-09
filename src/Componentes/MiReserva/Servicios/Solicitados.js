@@ -117,7 +117,7 @@ class Solicitados extends Component {
                             </Grid>
                         )
         } else {
-            if (item.servicio === "Comodidades") {
+            if (item.servicio === "Idiomas") {
                 if (item.categoria === "Habitacion")
                     return (
                         <Grid container>
@@ -125,7 +125,7 @@ class Solicitados extends Component {
                                 <Typography variant="body1" align="left" style={{ fontWeight: "bold" }} >Servico a la habitacion </Typography>
                             </Grid>
                             <Grid item md={12} xs={12}>
-                                <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Comodidades del Hotel</Typography>
+                                <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Idiomas de la escuela</Typography>
                             </Grid>
                             <Grid item md={3} xs={3}>
                                 <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Hora: </Typography>
@@ -152,7 +152,7 @@ class Solicitados extends Component {
                                     <Typography variant="body1" align="left" style={{ fontWeight: "bold" }} >Servico a la habitacion Especiales </Typography>
                                 </Grid>
                                 <Grid item md={12} xs={12}>
-                                    <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Comodidades del Hotel</Typography>
+                                    <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Idiomas de la escuela</Typography>
                                 </Grid>
                                 <Grid item md={3} xs={3}>
                                     <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Hora: </Typography>
@@ -173,7 +173,7 @@ class Solicitados extends Component {
                         )
             }
             else
-                if (item.servicio === "Bienestar") {
+                if (item.servicio === "ActsArtísticas") {
                     if (item.categoria === "Spa")
                         return (
                             <Grid container>
@@ -181,7 +181,7 @@ class Solicitados extends Component {
                                     <Typography variant="body1" align="left" style={{ fontWeight: "bold" }} >Reserva de Spa </Typography>
                                 </Grid>
                                 <Grid item md={12} xs={12}>
-                                    <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                    <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                 </Grid>
 
                                 <Grid item md={3} xs={2}>
@@ -209,7 +209,7 @@ class Solicitados extends Component {
                                         <Typography variant="body1" align="left" style={{ fontWeight: "bold" }} >Reserva de Gimnasio </Typography>
                                     </Grid>
                                     <Grid item md={12} xs={12}>
-                                        <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                        <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                     </Grid>
 
                                     <Grid item md={3} xs={2}>
@@ -237,7 +237,7 @@ class Solicitados extends Component {
                                             <Typography variant="body1" align="left" style={{ fontWeight: "bold" }} >Pedido de Masajes </Typography>
                                         </Grid>
                                         <Grid item md={12} xs={12}>
-                                            <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                            <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                         </Grid>
 
                                         <Grid item md={3} xs={2}>
@@ -265,7 +265,7 @@ class Solicitados extends Component {
                                                 <Typography variant="body1" align="left" style={{ fontWeight: "bold" }} >Tratamientos corporales </Typography>
                                             </Grid>
                                             <Grid item md={12} xs={12}>
-                                                <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                                <Typography variant="body2" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                             </Grid>
 
                                             <Grid item md={3} xs={2}>

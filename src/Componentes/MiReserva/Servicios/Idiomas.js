@@ -17,7 +17,7 @@ const styles = theme => ({
     },
 })
 
-class Comodidades extends Component {
+class Idiomas extends Component {
 
     constructor(props) {
         super(props);
@@ -141,7 +141,7 @@ class Comodidades extends Component {
         let newData = [
             ...this.props.array,
             {
-                servicio: "Comodidades",
+                servicio: "Idiomas",
                 categoria: "Habitacion",
                 horario: this.state.hora,
                 habitacion: this.state.habitacion
@@ -153,7 +153,7 @@ class Comodidades extends Component {
         let newData = [
             ...this.props.array,
             {
-                servicio: "Comodidades",
+                servicio: "Idiomas",
                 categoria: "Especiales",
                 horario: this.state.hora,
                 especiales: this.state.especiales
@@ -484,8 +484,8 @@ class Comodidades extends Component {
     }
 }
 
-Comodidades.propTypes = {
+Idiomas.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Comodidades);
+export default withStyles(styles)(Idiomas);

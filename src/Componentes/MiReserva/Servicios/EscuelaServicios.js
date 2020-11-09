@@ -18,7 +18,7 @@ const styles = theme => ({
     },
 })
 
-class HotelServicios extends Component {
+class EscuelaServicios extends Component {
 
     constructor(props) {
         super(props);
@@ -215,8 +215,8 @@ class HotelServicios extends Component {
     }
 }
 
-HotelServicios.propTypes = {
+EscuelaServicios.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(HotelServicios);
+export default withStyles(styles)(EscuelaServicios);

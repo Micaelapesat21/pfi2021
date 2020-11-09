@@ -155,7 +155,7 @@ class DialogSolicitados extends Component {
                             </Dialog>
                         )
         } else {
-            if (item.servicio === "Comodidades") {
+            if (item.servicio === "Idiomas") {
                 if (item.categoria === "Habitacion")
                     return (
                         <Dialog open={this.props.open} onClose={this.props.onClose}>
@@ -163,7 +163,7 @@ class DialogSolicitados extends Component {
                             <DialogContent dividers>
                                 <Grid container>
                                     <Grid item md={12} xs={12}>
-                                        <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Comodidades del Hotel</Typography>
+                                        <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Idiomas de la escuela</Typography>
                                     </Grid>
                                     <Grid item md={3} xs={3}>
                                         <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Hora: </Typography>
@@ -195,7 +195,7 @@ class DialogSolicitados extends Component {
                                 <DialogContent dividers>
                                     <Grid container>
                                         <Grid item md={12} xs={12}>
-                                            <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Comodidades del Hotel</Typography>
+                                            <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Idiomas de la escuela</Typography>
                                         </Grid>
                                         <Grid item md={3} xs={3}>
                                             <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Hora: </Typography>
@@ -220,7 +220,7 @@ class DialogSolicitados extends Component {
                         )
             }
             else
-                if (item.servicio === "Bienestar") {
+                if (item.servicio === "ActsArtísticas") {
                     if (item.categoria === "Spa")
                         return (
                             <Dialog open={this.props.open} onClose={this.props.onClose}>
@@ -228,7 +228,7 @@ class DialogSolicitados extends Component {
                                 <DialogContent dividers>
                                     <Grid container>
                                         <Grid item md={12} xs={12}>
-                                            <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                            <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                         </Grid>
 
                                         <Grid item md={3} xs={2}>
@@ -306,7 +306,7 @@ class DialogSolicitados extends Component {
                                         <DialogContent dividers>
                                             <Grid container>
                                                 <Grid item md={12} xs={12}>
-                                                    <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                                    <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                                 </Grid>
 
                                                 <Grid item md={3} xs={2}>
@@ -345,7 +345,7 @@ class DialogSolicitados extends Component {
                                             <DialogContent dividers>
                                                 <Grid container>
                                                     <Grid item md={12} xs={12}>
-                                                        <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>Bienestar</Typography>
+                                                        <Typography variant="h6" align="left" style={{ color: "#9e9e9e" }}>ActsArtísticas</Typography>
                                                     </Grid>
 
                                                     <Grid item md={3} xs={2}>
