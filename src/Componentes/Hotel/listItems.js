@@ -8,6 +8,8 @@ import RoomServiceIcon from '@material-ui/icons/RoomService';
 import AirlineSeatIndividualSuiteIcon from '@material-ui/icons/AirlineSeatIndividualSuite';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import RateReviewIcon from '@material-ui/icons/RateReview';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 export default function mainListItems(props) {
   return (
@@ -47,6 +49,20 @@ export default function mainListItems(props) {
           <RateReviewIcon />
         </ListItemIcon>
         <ListItemText primary="Reseñas" />
+      </ListItem>
+
+      <ListItem button onClick={props.resenasOpen}>
+        <ListItemIcon>
+          <ReceiptIcon />
+        </ListItemIcon>
+        <ListItemText primary="Facturación" />
+      </ListItem>
+
+      <ListItem button onClick={props.resenasOpen}>
+        <ListItemIcon>
+          <MonetizationOnIcon />
+        </ListItemIcon>
+        <ListItemText primary="Cobranzas" />
       </ListItem>
       
     </div>

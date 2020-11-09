@@ -92,6 +92,20 @@ export default function ListItems(props) {
             <ListItemText primary="Reseñas" />
           </ListItem>
 
+          <ListItem button onClick={props.resenasOpen} className={classes.nested}>
+            <ListItemIcon>
+              <RateReviewIcon color="secondary"/>
+            </ListItemIcon>
+            <ListItemText primary="Facturación" />
+          </ListItem>
+
+          <ListItem button onClick={props.resenasOpen} className={classes.nested}>
+            <ListItemIcon>
+              <RateReviewIcon color="secondary"/>
+            </ListItemIcon>
+            <ListItemText primary="Cobranzas" />
+          </ListItem>
+
           <ListItem button onClick={props.pagosOpen} className={classes.nested}>
             <ListItemIcon>
               <PaymentIcon color="secondary"/>

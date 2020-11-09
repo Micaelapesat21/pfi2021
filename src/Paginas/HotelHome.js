@@ -117,8 +117,10 @@ export default function PanelControl(props) {
     const [modoDatos, setmodoDatos] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
+    const [modoCobranzas, setmodoCobranzas] = React.useState(false);
     const [modoSolicitudes, setmodoSolicitudes] = React.useState(true);
     const [modoResenas, setmodoResenas] = React.useState(false);
+    const [modoFacturacion, setmodoFacturacion] = React.useState(false);
 
 
 
@@ -157,6 +159,8 @@ export default function PanelControl(props) {
         reservasClose();
         resenasClose();
         solicitudesClose();
+        cobranzasClose();
+        solicitudesClose();
     };
     const serviciosClose = () => {
         setmodoServicios(false);
@@ -168,6 +172,8 @@ export default function PanelControl(props) {
         serviciosClose();
         resenasClose();
         solicitudesClose();
+        facturacionClose();
+        cobranzasClose();
     };
     const reservasClose = () => {
         setmodoReservas(false);
@@ -179,6 +185,8 @@ export default function PanelControl(props) {
         reservasClose();
         serviciosClose();
         resenasClose();
+        facturacionClose();
+        cobranzasClose();
     };
     const solicitudesClose = () => {
         setmodoSolicitudes(false);
@@ -189,10 +197,41 @@ export default function PanelControl(props) {
         datosClose();
         reservasClose();
         serviciosClose();
-        solicitudesClose()
+        solicitudesClose();
+        facturacionClose();
+        cobranzasClose();
+
     };
     const resenasClose = () => {
         setmodoResenas(false);
+    };
+
+    const cobranzasOpen = () => {
+        setmodoCobranzas(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        serviciosClose();
+        solicitudesClose();
+        resenasClose();
+        facturacionClose();
+    };
+    const cobranzasClose = () => {
+        setmodoCobranzas(false);
+    };
+
+    const facturacionOpen = () => {
+        setmodoFacturacion(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        serviciosClose();
+        solicitudesClose();
+        resenasClose();
+        cobranzasClose();
+    };
+    const facturacionClose = () => {
+        setmodoFacturacion(false);
     };
 
 
@@ -249,6 +288,8 @@ export default function PanelControl(props) {
                         reservasOpen={reservasOpen}
                         solicitudesOpen={solicitudesOpen}
                         resenasOpen={resenasOpen}
+                        facturacionOpen={facturacionOpen}
+                        cobranzasOpen={cobranzasOpen}
                     />}</List>
                     <Divider />
                     <List></List>
@@ -317,6 +358,8 @@ export default function PanelControl(props) {
                             reservasOpen={reservasOpen}
                             solicitudesOpen={solicitudesOpen}
                             resenasOpen={resenasOpen}
+                            facturacionOpen={facturacionOpen}
+                            cobranzasOpen={cobranzasOpen}
                         />}</List>
                         <Divider />
                         <List></List>
@@ -386,6 +429,8 @@ export default function PanelControl(props) {
                                 reservasOpen={reservasOpen}
                                 solicitudesOpen={solicitudesOpen}
                                 resenasOpen={resenasOpen}
+                                cobranzasOpen={cobranzasOpen}
+                                facturacionopen={facturacionOpen}
                             />}</List>
                             <Divider />
                             <List></List>
@@ -453,6 +498,8 @@ export default function PanelControl(props) {
                                     reservasOpen={reservasOpen}
                                     solicitudesOpen={solicitudesOpen}
                                     resenasOpen={resenasOpen}
+                                    cobranzasOpen={cobranzasOpen}
+                                    facturacionOpen={facturacionOpen}
                                 />}</List>
                                 <Divider />
                                 <List></List>
@@ -522,6 +569,8 @@ export default function PanelControl(props) {
                                         reservasOpen={reservasOpen}
                                         solicitudesOpen={solicitudesOpen}
                                         resenasOpen={resenasOpen}
+                                        cobranzasOpen={cobranzasOpen}
+                                        facturacionOpen={facturacionOpen}
                                     />}</List>
                                     <Divider />
                                     <List></List>
@@ -590,6 +639,8 @@ export default function PanelControl(props) {
                                             reservasOpen={reservasOpen}
                                             solicitudesOpen={solicitudesOpen}
                                             resenasOpen={resenasOpen}
+                                            cobranzasOpen={cobranzasOpen}
+                                            facturacionOpen={facturacionOpen}
                                         />}</List>
                                         <Divider />
                                         <List></List>
@@ -607,5 +658,78 @@ export default function PanelControl(props) {
                                     </main>
                                 </div>
                             )
+                            else
+                                            if(modoCobranzas)
+                                            return (
+                                                <div className={classes.root}>
+                                                    <CssBaseline />
+                                                    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                                                        <Toolbar className={classes.toolbar}>
+                                                            <IconButton
+                                                                edge="start"
+                                                                color="inherit"
+                                                                aria-label="open drawer"
+                                                                onClick={handleDrawerOpen}
+                                                                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                                            >
+                                                                <MenuIcon />
+                                                            </IconButton>
+                                                            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                                                Panel De Control
+                                                    </Typography>
+                                                            <IconButton color="inherit">
+                                                                <Badge badgeContent={0} color="secondary">
+                                                                    <NotificationsIcon />
+                                                                </Badge>
+                                                            </IconButton>
+                                                            <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                                                <ExitToAppIcon />
+                                                            </IconButton>
+                                                        </Toolbar>
+                                                    </AppBar>
+                                                    <Drawer
+                                                        variant="permanent"
+                                                        classes={{
+                                                            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                                                        }}
+                                                        open={open}
+                                                    >
+                                                        <div className={classes.toolbarIcon}>
+                                                            <Grid container justify="center" alignItems="center">
+                                                                <Grid item>
+                                                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                                                </Grid>
+                                                            </Grid>
+                                                            <IconButton onClick={handleDrawerClose}>
+                                                                <ChevronLeftIcon />
+                                                            </IconButton>
+                                                        </div>
+                                                        <Divider />
+                                                        <List>{<ListItems
+                                                            generalOpen={generalOpen}
+                                                            datosOpen={datosOpen}
+                                                            serviciosOpen={serviciosOpen}
+                                                            reservasOpen={reservasOpen}
+                                                            solicitudesOpen={solicitudesOpen}
+                                                            resenasOpen={resenasOpen}
+                                                            cobranzasOpen={cobranzasOpen}
+                                                            facturacionOpen={facturacionOpen}
+                                                        />}</List>
+                                                        <Divider />
+                                                        <List></List>
+                                                    </Drawer>
+                                                    <main className={classes.content}>
+                                                        <div className={classes.appBarSpacer} />
+                
+                                                        <Container maxWidth="lg" className={classes.container}>
+                                                            <General
+                                                                reservasOpen={reservasOpen}
+                                                                serviciosOpen={serviciosOpen}
+                                                                user={props.user}
+                                                            />
+                                                        </Container>
+                                                    </main>
+                                                </div>
+                                            )
 
 }
