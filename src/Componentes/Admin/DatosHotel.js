@@ -292,7 +292,7 @@ class DatosHotel extends Component {
                                 required
                                 id="Nombre"
                                 name="nombre"
-                                label="Nombre del Hotel"
+                                label="Nombre de la Escuela"
                                 fullWidth
                                 autoComplete="Nombre"
                                 value={this.state.nombre}

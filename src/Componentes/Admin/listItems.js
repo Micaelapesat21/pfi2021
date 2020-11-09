@@ -11,6 +11,8 @@ import RateReviewIcon from '@material-ui/icons/RateReview';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import SchoolIcon from '@material-ui/icons/School';
+import WorkIcon from '@material-ui/icons/Work';
 
 export default function mainListItems(props) {
   return (
@@ -35,7 +37,7 @@ export default function mainListItems(props) {
       </ListItem>
       <ListItem button onClick={props.reservasOpen}>
         <ListItemIcon>
-          <AirlineSeatIndividualSuiteIcon />
+          <SchoolIcon />
         </ListItemIcon>
         <ListItemText primary="Alumnos" />
       </ListItem>
@@ -47,7 +49,7 @@ export default function mainListItems(props) {
       </ListItem>
       <ListItem button onClick={props.resenasOpen}>
         <ListItemIcon>
-          <RateReviewIcon />
+          <WorkIcon />
         </ListItemIcon>
         <ListItemText primary="Empleados" />
       </ListItem>

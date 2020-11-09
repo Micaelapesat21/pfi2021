@@ -190,7 +190,7 @@ class FormularioDatosEmpleados extends Component {
                                 required
                                 id="Nombre"
                                 name="nombre"
-                                label="Nombre del titular"
+                                label="Nombre del empleado"
                                 fullWidth
                                 autoComplete="Nombre"
                                 value={this.state.nombre}
