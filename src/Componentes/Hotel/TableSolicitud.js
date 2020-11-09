@@ -10,28 +10,22 @@ import Title from './Title';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import CheckIcon from '@material-ui/icons/Check';
 import BlockIcon from '@material-ui/icons/Block';
-import { IconButton, Paper, InputBase, AppBar, Toolbar } from '@material-ui/core';
+import { IconButton, Paper, InputBase, AppBar, Toolbar, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormularioDatosTitular from './Titular/FormularioDatosTitular';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-    return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id,nombre, apellido, email, telefono1, ciudad) {
+    return { id, nombre, apellido, email, telefono1, ciudad };
 }
 
 const rows = [
-    createData(0, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(1, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(2, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(3, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(4, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(5, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(6, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(7, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(8, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(9, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(10, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-    createData(11, '#12345', 'Esteban Gueicha', 'Servicio del Hotel', 'Restaurante', 'Pendiente'),
-
+    createData(0, 'Emiliano', 'Da Luz', 'emiliano.daluz@gmail.com', '4793-2123', 'Acassuso'),
+    createData(1, 'Hernan', 'Quire', 'hnquire@gmail.com', '1154537898', 'Palermo'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -78,12 +72,50 @@ const useStyles = makeStyles(theme => ({
             width: '20ch',
         },
     },
+    dialogContent: {
+        height: '100hv'
+    }
 }));
 
 export default function Orders() {
     const classes = useStyles();
+    const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [titulares, setTitulares] = React.useState(rows);
+
+    const addButtonPressed = () => {
+        setModalIsOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalIsOpen(false);
+    };
+
+    const titularCreado = (titular) => {
+        setModalIsOpen(false);
+        var array = [];
+        titular["id"] = titulares.length;
+        var titularesActualizado = titulares;
+        titularesActualizado.push(titular);
+        return () => setTitulares(titularesActualizado);
+    }
+
     return (
         <React.Fragment>
+            <Dialog
+            maxWidth="lg"
+            fullWidth= {true}
+            open={modalIsOpen}
+            onClose={handleCloseModal}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Titular </DialogTitle>
+            <DialogContent className="dialogContent">
+             <FormularioDatosTitular titularCreado = { titularCreado }/>
+            </DialogContent>
+            <DialogActions>
+            </DialogActions>
+            </Dialog>
             <AppBar position="static">
                 <Toolbar>
                     <div className={classes.search}>
@@ -99,29 +131,32 @@ export default function Orders() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
+                    <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
+                     Agregar Titular 
+                     </Button>
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Solicitudes</Title>
+                <Title>Titulares</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nro Reserva</TableCell>
-                            <TableCell>Huesped</TableCell>
-                            <TableCell>Categoria</TableCell>
-                            <TableCell>Solicitud</TableCell>
-                            <TableCell>Estado</TableCell>
+                            <TableCell>Nombre</TableCell>
+                            <TableCell>Apellido</TableCell>
+                            <TableCell>Email</TableCell>
+                            <TableCell>Telefono1</TableCell>
+                            <TableCell>Ciudad</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        { titulares.map((row, index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.date}</TableCell>
-                                <TableCell>{row.name}</TableCell>
-                                <TableCell>{row.shipTo}</TableCell>
-                                <TableCell>{row.paymentMethod}</TableCell>
-                                <TableCell>{row.amount}</TableCell>
+                                <TableCell>{row.nombre}</TableCell>
+                                <TableCell>{row.apellido}</TableCell>
+                                <TableCell>{row.email}</TableCell>
+                                <TableCell>{row.telefono1}</TableCell>
+                                <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <CheckIcon />

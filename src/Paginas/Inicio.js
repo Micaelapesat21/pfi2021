@@ -75,7 +75,7 @@ class Inicio extends Component {
                 //GET RESERVA HUESPED
                  this.getGuestInfo(user.email)
             }
-        });
+    });
 
 
         if (this.props.location.state !== undefined) {

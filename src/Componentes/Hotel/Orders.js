@@ -30,7 +30,7 @@ export default function Orders(props) {
 
   return (
     <React.Fragment>
-      <Title>Ultimas Reservas</Title>
+      <Title>Alumnos</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -55,7 +55,7 @@ export default function Orders(props) {
       </Table>
       <div className={classes.seeMore}>
         <Link color="primary"  onClick={props.reservasOpen}>
-          Ver Mas Reservas
+          Ver Mas Alumnos
         </Link>
       </div>
     </React.Fragment>

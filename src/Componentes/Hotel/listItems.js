@@ -40,7 +40,7 @@ export default function mainListItems(props) {
         <ListItemIcon> 
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Solicitudes" />
+        <ListItemText primary="Titulares" />
       </ListItem>
       <ListItem button onClick={props.resenasOpen}>
         <ListItemIcon>

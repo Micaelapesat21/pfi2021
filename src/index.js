@@ -13,12 +13,12 @@ const localeMap = {
 const theme=createMuiTheme({
   palette:{
       primary: {         
-          main: '#1565c0',         
+          main: '#2c699a',         
           contrastText: '#ffffff',
         },
         secondary: {        
-          main: '#ef6c00',        
-          contrastText: '#000000',
+          main: '#f1c453',        
+          contrastText: '#ffffff',
         },     
   }
   

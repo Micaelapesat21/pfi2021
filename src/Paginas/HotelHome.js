@@ -349,7 +349,7 @@ export default function PanelControl(props) {
                                     <MenuIcon />
                                 </IconButton>
                                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                                    Reservas
+                                    Alumnos
                                 </Typography>
                                 <IconButton color="inherit">
                                     <Badge badgeContent={0} color="secondary">
@@ -416,7 +416,7 @@ export default function PanelControl(props) {
                                         <MenuIcon />
                                     </IconButton>
                                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                                        Solicitudes
+                                        Titulares
                                         </Typography>
                                     <IconButton color="inherit">
                                         <Badge badgeContent={0} color="secondary">
