@@ -9,11 +9,26 @@ const styles = theme => ({
 
 })
 
-class ServiciosHotel extends Component {
+class ServiciosEscuela extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            fútbol:true,
+            hockey:true,
+            tenis:true,
+            inglés:true,
+            francés:true,
+            portugués:true,
+            desayuno:true,
+            almuerzo:true,
+            merienda:true,
+            transporte:true,
+            danza:true,
+            teatro:true,
+            pintura:true,
+            música:true,
+
             restaurante: true,
             estacionamiento: true,
             tintoreria: true,
@@ -48,10 +63,25 @@ class ServiciosHotel extends Component {
         return (
             <Grid container spacing={2}>
                 <Grid item md={12}>
-                    <Typography variant="h5">Servicios seleccionados </Typography>
+                    <Typography variant="h5"> Adicionales </Typography>
                 </Grid>
                 <Grid item md={12}>
                     <ChipServicios
+                        fútbol={this.state.fútbol} 
+                        hockey={this.state.hockey}
+                        tenis={this.state.tenis}
+                        inglés={this.state.inglés}
+                        francés={this.state.francés}
+                        portugués={this.state.portugués}
+                        desayuno ={this.state.desayuno}
+                        almuerzo={this.state.almuerzo}
+                        merienda={this.state.merienda}
+                        transporte={this.state.transporte}
+                        danza={this.state.danza}
+                        teatro={this.state.teatro}
+                        pintura={this.state.pintura}
+                        música={this.state.música}
+                        /*
                         restaurante={this.state.restaurante}
                         estacionamiento={this.state.estacionamiento}
                         tintoreria={this.state.tintoreria}
@@ -69,11 +99,26 @@ class ServiciosHotel extends Component {
                         ski={this.state.ski}
                         Buceo={this.state.Buceo}
                         eventos={this.state.eventos}
-                        actividades={this.state.actividades}                        
+                        actividades={this.state.actividades}   */                     
                     />
                 </Grid>
                 <Grid item md={12}>
                     <TabsServicios
+                        fútbol={this.state.fútbol} 
+                        hockey={this.state.hockey}
+                        tenis={this.state.tenis}
+                        inglés={this.state.inglés}
+                        francés={this.state.francés}
+                        portugués={this.state.portugués}
+                        desayuno ={this.state.desayuno}
+                        almuerzo={this.state.almuerzo}
+                        merienda={this.state.merienda}
+                        transporte={this.state.transporte}
+                        danza={this.state.danza}
+                        teatro={this.state.teatro}
+                        pintura={this.state.pintura}
+                        música={this.state.música}
+                        
                         restaurante={this.state.restaurante}
                         estacionamiento={this.state.estacionamiento}
                         tintoreria={this.state.tintoreria}
@@ -100,7 +145,7 @@ class ServiciosHotel extends Component {
     }
 }
 
-ServiciosHotel.propTypes = {
+ServiciosEscuela.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(ServiciosHotel);
+export default withStyles(styles)(ServiciosEscuela);

@@ -6,9 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import HotelServicios from './HotelServicios';
-import Comodidades from './Comodidades';
-import Bienestar from './Bienestar';
+import EscuelaServicios from './EscuelaServicios';
+import Idiomas from './Idiomas';
+import ActsArtísticas from './ActsArtísticas';
 import Actividades from './Actividades';
 import {  Divider } from '@material-ui/core';
 
@@ -82,8 +82,8 @@ export default function FullWidthTabs(props) {
           aria-label="full width tabs example"
         >
           <Tab label="Servicios del Hotel" {...a11yProps(0)} />
-          <Tab label="Comodidades en habitacion" {...a11yProps(1)} />
-          <Tab label="Bienestar" {...a11yProps(2)} />
+          <Tab label="Idiomas de la escuela" {...a11yProps(1)} />
+          <Tab label="ActsArtísticas" {...a11yProps(2)} />
           <Tab label="Actividades" {...a11yProps(3)} />
         </Tabs>
       <Divider/>
@@ -93,7 +93,7 @@ export default function FullWidthTabs(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <HotelServicios
+          <EscuelaServicios
             restaurante={props.restaurante}
             estacionamiento={props.estacionamiento}
             tintoreria={props.tintoreria}
@@ -103,7 +103,7 @@ export default function FullWidthTabs(props) {
           />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Comodidades
+          <Idiomas
             servicio={props.servicio}
             limpieza={props.limpieza}
             comidas={props.comidas}
@@ -113,7 +113,7 @@ export default function FullWidthTabs(props) {
           />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Bienestar
+          <ActsArtísticas
             spa={props.spa}
             gimnasio={props.gimnasio}
             masajes={props.masajes}

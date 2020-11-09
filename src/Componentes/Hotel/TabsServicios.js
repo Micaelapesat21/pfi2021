@@ -7,9 +7,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import HotelServicios from './Servicios/HotelServicios';
-import Comodidades from './Servicios/Comodidades';
-import Bienestar from './Servicios/Bienestar';
+import EscuelaServicios from './Servicios/EscuelaServicios';
+import Idiomas from './Servicios/Idiomas';
+import ActsArtísticas from './Servicios/ActsArtísticas';
+
 import Actividades from './Servicios/Actividades';
 import AddIcon from '@material-ui/icons/Add';
 import { Zoom, Fab } from '@material-ui/core';
@@ -115,10 +116,10 @@ export default function FullWidthTabs(props) {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Servicios del Hotel" {...a11yProps(0)} />
-          <Tab label="Comodidades en habitacion" {...a11yProps(1)} />
-          <Tab label="Bienestar" {...a11yProps(2)} />
-          <Tab label="Actividades" {...a11yProps(3)} />
+          <Tab label="Deportes" {...a11yProps(0)} />
+          <Tab label="Idiomas" {...a11yProps(1)} />
+          <Tab label="Actividades artísticas" {...a11yProps(2)} />
+          <Tab label="Servicios" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -127,7 +128,10 @@ export default function FullWidthTabs(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <HotelServicios
+          <EscuelaServicios
+            fútbol={props.fútbol}
+            tenis={props.tenis}
+            hockey={props.hockey}
             restaurante={props.restaurante}
             estacionamiento={props.estacionamiento}
             tintoreria={props.tintoreria}
@@ -135,7 +139,10 @@ export default function FullWidthTabs(props) {
           />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Comodidades
+          <Idiomas
+            inglés={props.inglés}
+            portugués={props.portugués}
+            francés={props.francés}
             servicio={props.servicio}
             limpieza={props.limpieza}
             comidas={props.comidas}
@@ -143,7 +150,12 @@ export default function FullWidthTabs(props) {
           />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Bienestar
+          <ActsArtísticas
+            danza={props.danza}
+            teatro={props.teatro}
+            pintura={props.pintura}
+            música={props.música}
+
             spa={props.spa}
             gimnasio={props.gimnasio}
             masajes={props.masajes}

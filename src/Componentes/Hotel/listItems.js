@@ -10,6 +10,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 
 export default function mainListItems(props) {
   return (
@@ -28,7 +29,7 @@ export default function mainListItems(props) {
       </ListItem>
       <ListItem button onClick={props.serviciosOpen}>
         <ListItemIcon>
-          <RoomServiceIcon />
+          <AddToPhotosIcon  />
         </ListItemIcon>
         <ListItemText primary="Servicios" />
       </ListItem>

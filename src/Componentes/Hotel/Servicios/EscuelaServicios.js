@@ -12,7 +12,7 @@ const styles = theme => ({
     },
 })
 
-class HotelServicios extends Component {
+class EscuelaServicios extends Component {
 
     constructor(props) {
         super(props);
@@ -20,8 +20,8 @@ class HotelServicios extends Component {
         }
     }
 
-    restaurante() {
-        if (this.props.restaurante) {
+    fútbol() {
+        if (this.props.fútbol) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -41,8 +41,8 @@ class HotelServicios extends Component {
             )
         }
     }
-    estacionamiento() {
-        if (this.props.estacionamiento) {
+    tenis() {
+        if (this.props.tenis) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -62,8 +62,8 @@ class HotelServicios extends Component {
             )
         }
     }
-    tintoreria() {
-        if (this.props.tintoreria) {
+    hockey() {
+        if (this.props.hockey) {
             return (
                 <Grid container spacing={2}>
                     <Grid item md={3}>
@@ -92,44 +92,44 @@ class HotelServicios extends Component {
         return (
             <Grid container>
                 <Grid item xs={12} >
-                    <FormLabel>Reserva de restaurante</FormLabel>
+                    <FormLabel>Fútbol</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('restaurante')} checked={this.props.restaurante} name="restaurante" />} label="Restaurante" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('fútbol')} checked={this.props.fútbol} name="fútbol" />} label="Fútbol" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.restaurante()}
+                            {this.fútbol()}
                         </Grid>
 
                     </Grid>
                 </Grid>
                 <Grid item xs={12} >
-                    <FormLabel component="legend">Reserva de Estacionamiento</FormLabel>
+                    <FormLabel component="legend">Tenis</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('estacionamiento')} checked={this.props.estacionamiento} name="estacionamiento" />} label="Estacionamiento" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('tenis')} checked={this.props.tenis} name="tenis" />} label="Tenis" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.estacionamiento()}
+                            {this.tenis()}
                         </Grid>
 
                     </Grid>
 
                 </Grid>
                 <Grid item xs={12}>
-                    <FormLabel component="legend">Pedido de Tintoreria</FormLabel>
+                    <FormLabel component="legend">Hockey</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('tintoreria')} checked={this.props.tintoreria} name="tintoreria" />} label="Tintoreria" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('hockey')} checked={this.props.hockey} name="hockey" />} label="Hockey" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.tintoreria()}
+                            {this.hockey()}
                         </Grid>
 
                     </Grid>
@@ -142,8 +142,8 @@ class HotelServicios extends Component {
     }
 }
 
-HotelServicios.propTypes = {
+EscuelaServicios.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(HotelServicios);
+export default withStyles(styles)(EscuelaServicios);

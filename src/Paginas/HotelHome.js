@@ -17,7 +17,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from '../Componentes/Hotel/listItems';
 import General from '../Componentes/Hotel/General';
 import DatosHotel from '../Componentes/Hotel/DatosHotel';
-import ServiciosHotel from '../Componentes/Hotel/ServiciosHotel';
+import ServiciosEscuela from '../Componentes/Hotel/ServiciosEscuela';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
 import ReservasHotel from '../Componentes/Hotel/ReservasHotel'
@@ -368,7 +368,7 @@ export default function PanelControl(props) {
                         <div className={classes.appBarSpacer} />
 
                         <Container maxWidth="lg" className={classes.container}>
-                            <ServiciosHotel 
+                            <ServiciosEscuela
                                  user={props.user}
                             />
                         </Container>
