@@ -141,7 +141,7 @@ export default function Orders() {
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nro de Transacción</TableCell>
+                            <TableCell>Código de Cobro</TableCell>
                             <TableCell>Fecha</TableCell>
                             <TableCell>Titular</TableCell>
                             <TableCell>Alumno</TableCell>
