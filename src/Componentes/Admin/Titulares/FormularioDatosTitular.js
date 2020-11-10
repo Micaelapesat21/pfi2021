@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
 import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
+import TitularesAPI from '../../../Network/Titulares/TitularesAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 
@@ -38,7 +38,7 @@ class FormularioDatosTitular extends Component {
             apellido: "",
             email: "",
             pais: "",
-            estado: "",
+            provincia: "",
             ciudad: "",
             codigoPostal: "",
             direccion: "",
@@ -67,17 +67,15 @@ class FormularioDatosTitular extends Component {
             this.state.apellido !== "" &&
             this.state.email !== "" &&
             this.state.pais !== "" &&
-            this.state.estado !== "" &&
+            this.state.provincia !== "" &&
             this.state.ciudad !== "" &&
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
             this.state.telefono2 !== ""
         ) {
-            var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
-
-            this.postHotelInfo()
+            
+            this.postTitularInfo(this.getHotelModel())
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -110,47 +108,18 @@ class FormularioDatosTitular extends Component {
     }
 
     //Api Calls
-    getHotelInfo(email) {
+    postTitularInfo = (titularData) => {
         this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
+        TitularesAPI.createTitular(titularData, this.handlePostTitularInfo.bind(this));
     }
 
-    handleGetHotelInfo(hotelInfo) {
+    handlePostTitularInfo = async (titularInfo) => {
         this.setState({ loading: false });
-
-        if (hotelInfo === undefined || hotelInfo === null) {
-            //show error message if needed
-        } else {
-            let hotelData = hotelInfo.state;
-
-            if (hotelData !== null) {
-                this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.email,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                });            
-            }
-        }
-    }
-
-    postHotelInfo = () => {
-        this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
-    }
-
-    handlePostHotelInfo = async (hotelInfo) => {
-        this.setState({ loading: false });
-        if (hotelInfo.error == null) {
+        if (titularInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
+            var dict = this.getHotelModel();
+            this.props.titularCreado(dict);
         } else {
             //get user with email failed
         }
@@ -160,13 +129,13 @@ class FormularioDatosTitular extends Component {
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
-            email: this.state.email,
+            correo: this.state.email,
             pais: this.state.pais,
-            estado: this.state.estado,
+            estado: this.state.provincia,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
             direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
+            telefonoContacto: this.state.telefono1,
             telefono2: this.state.telefono2,
         };
 
@@ -230,7 +199,21 @@ class FormularioDatosTitular extends Component {
                                 }}
                             />
                         </Grid>
-
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="Correo"
+                                name="email"
+                                label="Correo Electronico"
+                                fullWidth
+                                autoComplete="Correo"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -248,11 +231,11 @@ class FormularioDatosTitular extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                id="Estado"
-                                name="estado"
+                                id="Provincia"
+                                name="provincia"
                                 label="Estado/Provincia/Región"
                                 fullWidth
-                                value={this.state.estado}
+                                value={this.state.provincia}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,

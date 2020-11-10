@@ -7,7 +7,6 @@ import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
     paper: {
@@ -31,7 +30,7 @@ const styles = theme => ({
     }
 })
 
-class FormularioDatosAlumnos extends Component {
+class FormularioDatosCobranza extends Component {
 
     constructor(props) {
         super(props);
@@ -343,52 +342,47 @@ class FormularioDatosAlumnos extends Component {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <TextField
-                                id="select" 
+                            <TextField
+                                id="titular"
                                 name="titular"
-                                label= "titular" 
+                                label="Titular"
                                 fullWidth
+                                autoComplete="Titular"
                                 value={this.state.titular}
-                                autoComplete="titular"
-                                onChange={this.handleChange}                           
-                                select>
-                          
-                                <MenuItem value="10">pepito</MenuItem>
-                                <MenuItem value="20">jose</MenuItem>
-                                <MenuItem value="30">Cacho</MenuItem>
-                                                     
-                            </TextField> 
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                        <TextField
-                                id="select" 
-                                name="jornada"
-                                label= "jornada" 
-                                fullWidth
+                            <Select
+                                native
                                 value={this.state.jornada}
-                                autoComplete="jornada"
-                                onChange={this.handleChange}                           
-                                select>
-                          
-                                <MenuItem value="10">Turno Mañana</MenuItem>
-                                <MenuItem value="20">Turno Tarde</MenuItem>
-                                <MenuItem value="30">Turno Completo</MenuItem>
-                                                     
-                            </TextField>                          
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'jornada',
+                                    id: 'jornada',
+                                }}
+                                >
+                                <option value={10}>Turno mañana</option>
+                                <option value={20}>Turno tarde</option>
+                                <option value={30}>Jornada Completa</option>
+                            </Select>
                         </Grid> 
 
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
-                    Crear Alumno
+                    Registrar Pago
                 </Button>
             </Grid>
         );
     }
 }
 
-FormularioDatosAlumnos.propTypes = {
+FormularioDatosCobranza.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(FormularioDatosAlumnos);
+export default withStyles(styles)(FormularioDatosCobranza);

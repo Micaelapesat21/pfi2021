@@ -16,7 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormularioDatosTitular from './FormularioDatosTitular';
+import FormularioDatosCobranza from './FormularioDatosCobranza';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -24,8 +24,8 @@ function createData(id,nombre, apellido, email, telefono1, ciudad) {
 }
 
 const rows = [
-    createData(0, 'Emiliano', 'Da Luz', 'emiliano.daluz@gmail.com', '4793-2123', 'Acassuso'),
-    createData(1, 'Hernan', 'Quire', 'hnquire@gmail.com', '1154537898', 'Palermo'),
+    createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
+    createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Orders(props) {
+export default function Orders() {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [titulares, setTitulares] = React.useState(rows);
@@ -92,15 +92,11 @@ export default function Orders(props) {
 
     const titularCreado = (titular) => {
         setModalIsOpen(false);
-        props.titularCreado(titular);
-    }
-
-    function getTitulares() {
-        if (props.titulares.length === 0) {
-            return [];
-        } else {
-            return props.titulares;
-        }
+        var array = [];
+        titular["id"] = titulares.length;
+        var titularesActualizado = titulares;
+        titularesActualizado.push(titular);
+        return () => setTitulares(titularesActualizado);
     }
 
     return (
@@ -113,9 +109,9 @@ export default function Orders(props) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Titular </DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del pago </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosTitular titularCreado = { titularCreado }/>
+             <FormularioDatosCobranza titularCreado = { titularCreado }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -136,30 +132,30 @@ export default function Orders(props) {
                         />
                     </div>
                     <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Agregar Titular 
+                     Registrar pago
                      </Button>
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Titulares</Title>
+                <Title>Pagos realizados</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Apellido</TableCell>
+                            <TableCell>Nro de Transacción</TableCell>
+                            <TableCell>Fecha</TableCell>
+                            <TableCell>Titular</TableCell>
+                            <TableCell>Alumno</TableCell>
                             <TableCell>Email</TableCell>
-                            <TableCell>Telefono1</TableCell>
-                            <TableCell>Ciudad</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { getTitulares().map((row, index) => (
+                        { titulares.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.correo}</TableCell>
-                                <TableCell>{row.telefonoContacto}</TableCell>
+                                <TableCell>{row.email}</TableCell>
+                                <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
@@ -179,7 +175,7 @@ export default function Orders(props) {
                 </Table>
                 <div className={classes.seeMore}>
                     <Link color="primary" >
-                        Ver Mas Solicitudes
+                        Ver Más Pagos
                      </Link>
                 </div>
             </Paper>

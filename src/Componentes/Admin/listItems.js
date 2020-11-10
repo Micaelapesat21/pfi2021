@@ -54,14 +54,14 @@ export default function mainListItems(props) {
         <ListItemText primary="Empleados" />
       </ListItem>
 
-      <ListItem button onClick={props.resenasOpen}>
+      <ListItem button onClick={props.facturacionOpen}>
         <ListItemIcon>
           <ReceiptIcon />
         </ListItemIcon>
         <ListItemText primary="Facturación" />
       </ListItem>
 
-      <ListItem button onClick={props.resenasOpen}>
+      <ListItem button onClick={props.cobranzasOpen}>
         <ListItemIcon>
           <MonetizationOnIcon />
         </ListItemIcon>
