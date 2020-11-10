@@ -6,6 +6,11 @@ import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
     paper: {
@@ -48,6 +53,12 @@ class FormularioDatosEmpleados extends Component {
             edicion: true,
             redOnly: false,
             lastResponse: null,
+            Categoria: "",
+            Puesto: "",
+            CargaHoraria: "",
+            Sueldo: "",
+            FechaIngreso: "",
+           
 
             loading: false,
             errorMessageIsOpen: false,
@@ -72,7 +83,12 @@ class FormularioDatosEmpleados extends Component {
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
-            this.state.telefono2 !== ""
+            this.state.telefono2 !== "" &&
+            this.state.Categoria !== "" &&
+            this.state.Puesto !== "" &&
+            this.state.CargaHoraria !== "" &&
+            this.state.Sueldo !== "" &&
+            this.state.FechaIngreso !== ""
         ) {
             var dict = this.getHotelModel();
             this.props.titularCreado(dict);
@@ -136,6 +152,11 @@ class FormularioDatosEmpleados extends Component {
                     direccion: hotelData.direccion,
                     telefono1: hotelData.telefono1,
                     telefono2: hotelData.telefono2,
+                    Categoria: hotelData.Categoria,
+                    Puesto: hotelData.Puesto,
+                    CargaHoraria: hotelData.CargaHoraria,
+                    Sueldo: hotelData.Sueldo,
+                    FechaIngreso: hotelData.FechaIngreso
                 });            
             }
         }
@@ -168,6 +189,11 @@ class FormularioDatosEmpleados extends Component {
             direccion: this.state.direccion,
             telefono1: this.state.telefono1,
             telefono2: this.state.telefono2,
+            Categoria: this.state.Categoria,
+            Puesto: this.state.Puesto,
+            CargaHoraria: this.state.CargaHoraria,
+            Sueldo: this.state.Sueldo,
+            FechaIngreso: this.state.FechaIngreso
         };
 
     }
@@ -185,6 +211,7 @@ class FormularioDatosEmpleados extends Component {
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
                     <Grid container spacing={3}>
+
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -333,6 +360,98 @@ class FormularioDatosEmpleados extends Component {
                                 }}
                             />
                         </Grid>
+                         
+
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="select" 
+                                name="Categoria"
+                                label= "categoria" 
+                                fullWidth
+                                value={this.state.Categoria}
+                                autoComplete="Categoria"
+                                onChange={this.handleChange}                           
+                                select>
+                          
+                                <MenuItem value="10">Responsable Inscripto</MenuItem>
+                                <MenuItem value="20">Monotributista</MenuItem>
+                                <MenuItem value="30">Responsable Inscripto</MenuItem>                        
+                            </TextField>                          
+                        </Grid> 
+
+
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="select" 
+                                name="Puesto"
+                                label= "Puesto" 
+                                fullWidth
+                                value={this.state.Puesto}
+                                autoComplete="Puesto"
+                                onChange={this.handleChange}                           
+                                select>
+                          
+                                <MenuItem value="10">Docente Secundaria</MenuItem>
+                                <MenuItem value="20">Docente Primaria</MenuItem>
+                                <MenuItem value="30">Maestranza</MenuItem>
+                                <MenuItem value="40">Mantenimiento</MenuItem>  
+                                <MenuItem value="50">Administración</MenuItem>
+                                <MenuItem value="60">Secretaría</MenuItem> 
+                                <MenuItem value="70">Tesorería</MenuItem> 
+                                <MenuItem value="80">Portería</MenuItem>                           
+                            </TextField>                          
+                        </Grid> 
+
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="select" 
+                                name="Carga Horaria"
+                                label= "Carga Horaria" 
+                                fullWidth
+                                value={this.state.CargaHoraria}
+                                autoComplete="Carga Horaria"
+                                onChange={this.handleChange}                           
+                                select>
+                          
+                                <MenuItem value="10">Full Time</MenuItem>
+                                <MenuItem value="20">Part Time</MenuItem>                      
+                            </TextField>                          
+                        </Grid> 
+
+                       
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Sueldo"
+                                name="Sueldo"
+                                label="Sueldo"
+                                fullWidth
+                                autoComplete="Sueldo"
+                                value={this.state.Sueldo}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Fecha Ingreso"
+                                name="Fecha Ingreso"
+                                label="Fecha Ingreso"
+                                fullWidth
+                                autoComplete="Fecha Ingreso"
+                                value={this.state.FechaIngreso}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly
+                                }}
+                            />
+                        </Grid>
+
+
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
