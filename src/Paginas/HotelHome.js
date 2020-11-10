@@ -26,7 +26,8 @@ import Logo from '../Imagenes/escudoColegio.jpg'
 import Titulares from '../Componentes/Admin/Titulares/Titulares';
 import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
 import Empleados from '../Componentes/Admin/Empleados/Empleados';
-
+import Cobros from '../Componentes/Admin/Cobros/Cobros';
+import Facturas from '../Componentes/Admin/Facturación/Facturas';
 
 const drawerWidth = 240;
 
@@ -723,11 +724,9 @@ export default function PanelControl(props) {
                                             <div className={classes.appBarSpacer} />
 
                                             <Container maxWidth="lg" className={classes.container}>
-                                                <General
-                                                    reservasOpen={reservasOpen}
-                                                    serviciosOpen={serviciosOpen}
-                                                    user={props.user}
-                                                />
+                                            
+                                            <Cobros />
+                            
                                             </Container>
                                         </main>
                                     </div>
@@ -749,7 +748,7 @@ export default function PanelControl(props) {
                                                                 <MenuIcon />
                                                             </IconButton>
                                                             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                                                                Facturacion
+                                                                Facturación
                                                                 </Typography>
                                                             <IconButton color="inherit">
                                                                 <Badge badgeContent={0} color="secondary">
@@ -796,10 +795,7 @@ export default function PanelControl(props) {
                                                         <div className={classes.appBarSpacer} />
             
                                                         <Container maxWidth="lg" className={classes.container}>
-                                                            <General
-                                                                reservasOpen={reservasOpen}
-                                                                serviciosOpen={serviciosOpen}
-                                                                user={props.user}
+                                                            <Facturas
                                                             />
                                                         </Container>
                                                     </main>
