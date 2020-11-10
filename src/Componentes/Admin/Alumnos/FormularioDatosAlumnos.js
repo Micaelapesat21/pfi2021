@@ -6,6 +6,7 @@ import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
+import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
     paper: {
@@ -48,7 +49,8 @@ class FormularioDatosAlumnos extends Component {
             edicion: true,
             redOnly: false,
             lastResponse: null,
-
+            titular: "",
+            jornada: "",
             loading: false,
             errorMessageIsOpen: false,
             errorMessage: ""
@@ -72,7 +74,9 @@ class FormularioDatosAlumnos extends Component {
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
-            this.state.telefono2 !== ""
+            this.state.telefono2 !== "" &&
+            this.state.titular !== "" && 
+            this.state.jornada !=="" 
         ) {
             var dict = this.getHotelModel();
             this.props.titularCreado(dict);
@@ -136,6 +140,8 @@ class FormularioDatosAlumnos extends Component {
                     direccion: hotelData.direccion,
                     telefono1: hotelData.telefono1,
                     telefono2: hotelData.telefono2,
+                    titular: hotelData.titular,
+                    jornada: hotelData.jornada,
                 });            
             }
         }
@@ -168,6 +174,8 @@ class FormularioDatosAlumnos extends Component {
             direccion: this.state.direccion,
             telefono1: this.state.telefono1,
             telefono2: this.state.telefono2,
+            titular:this.state.titular,
+            jornada:this.state.jornada,
         };
 
     }
@@ -190,7 +198,7 @@ class FormularioDatosAlumnos extends Component {
                                 required
                                 id="Nombre"
                                 name="nombre"
-                                label="Nombre del titular"
+                                label="Nombre del alumno"
                                 fullWidth
                                 autoComplete="Nombre"
                                 value={this.state.nombre}
@@ -333,6 +341,37 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="titular"
+                                name="titular"
+                                label="Titular"
+                                fullWidth
+                                autoComplete="Titular"
+                                value={this.state.titular}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6}>
+                            <Select
+                                native
+                                value={this.state.jornada}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'jornada',
+                                    id: 'jornada',
+                                }}
+                                >
+                                <option value={10}>Turno mañana</option>
+                                <option value={20}>Turno tarde</option>
+                                <option value={30}>Jornada Completa</option>
+                            </Select>
+                        </Grid> 
+
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
