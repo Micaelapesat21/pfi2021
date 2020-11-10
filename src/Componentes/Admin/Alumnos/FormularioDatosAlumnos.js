@@ -77,7 +77,7 @@ class FormularioDatosAlumnos extends Component {
             var dict = this.getHotelModel();
             this.props.titularCreado(dict);
 
-            this.postHotelInfo()
+            this.postAlumnoInfo()
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -141,12 +141,12 @@ class FormularioDatosAlumnos extends Component {
         }
     }
 
-    postHotelInfo = () => {
+    postAlumnoInfo = () => {
         this.setState({ loading: true });
         HotelAPI.postHotelInfo(this.handlePostHotelInfo);
     }
 
-    handlePostHotelInfo = async (hotelInfo) => {
+    handlePostAlumnoInfo = async (hotelInfo) => {
         this.setState({ loading: false });
         if (hotelInfo.error == null) {
             //post was successful

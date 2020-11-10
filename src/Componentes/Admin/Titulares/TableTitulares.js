@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Orders() {
+export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [titulares, setTitulares] = React.useState(rows);
@@ -97,6 +97,14 @@ export default function Orders() {
         var titularesActualizado = titulares;
         titularesActualizado.push(titular);
         return () => setTitulares(titularesActualizado);
+    }
+
+    function getTitulares() {
+        if (props.titulares.length === 0) {
+            return titulares;
+        } else {
+            return props.titulares;
+        }
     }
 
     return (
@@ -150,12 +158,12 @@ export default function Orders() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { titulares.map((row, index) => (
+                        { getTitulares().map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.telefono1}</TableCell>
+                                <TableCell>{row.correo}</TableCell>
+                                <TableCell>{row.telefonoContacto}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
