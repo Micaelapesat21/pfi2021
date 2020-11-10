@@ -298,7 +298,7 @@ export default function PanelControl(props) {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
-                        <DatosHotel 
+                        <DatosHotel
                             user={props.user}
                         />
                     </Container>
@@ -370,7 +370,7 @@ export default function PanelControl(props) {
 
                         <Container maxWidth="lg" className={classes.container}>
                             <ServiciosEscuela
-                                 user={props.user}
+                                user={props.user}
                             />
                         </Container>
                     </main>
@@ -440,7 +440,7 @@ export default function PanelControl(props) {
                             <div className={classes.appBarSpacer} />
 
                             <Container maxWidth="lg" className={classes.container}>
-                                <Alumnos/>
+                                <Alumnos />
                             </Container>
                         </main>
                     </div>
@@ -509,8 +509,8 @@ export default function PanelControl(props) {
                                 <div className={classes.appBarSpacer} />
 
                                 <Container maxWidth="lg" className={classes.container}>
-                                    <Titulares 
-                                         user={props.user}
+                                    <Titulares
+                                        user={props.user}
                                     />
                                 </Container>
                             </main>
@@ -579,8 +579,8 @@ export default function PanelControl(props) {
                                 <main className={classes.content}>
                                     <div className={classes.appBarSpacer} />
                                     <Container maxWidth="lg" className={classes.container}>
-                                        <Empleados 
-                                             user={props.user}
+                                        <Empleados
+                                            user={props.user}
                                         />
                                     </Container>
                                 </main>
@@ -659,10 +659,83 @@ export default function PanelControl(props) {
                                     </main>
                                 </div>
                             )
-                            else
-                                            if(modoCobranzas)
-                                            return (
-                                                <div className={classes.root}>
+                        else
+                            if (modoCobranzas)
+                                return (
+                                    <div className={classes.root}>
+                                        <CssBaseline />
+                                        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                                            <Toolbar className={classes.toolbar}>
+                                                <IconButton
+                                                    edge="start"
+                                                    color="inherit"
+                                                    aria-label="open drawer"
+                                                    onClick={handleDrawerOpen}
+                                                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                                >
+                                                    <MenuIcon />
+                                                </IconButton>
+                                                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                                    Cobranzas
+                                                    </Typography>
+                                                <IconButton color="inherit">
+                                                    <Badge badgeContent={0} color="secondary">
+                                                        <NotificationsIcon />
+                                                    </Badge>
+                                                </IconButton>
+                                                <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                                    <ExitToAppIcon />
+                                                </IconButton>
+                                            </Toolbar>
+                                        </AppBar>
+                                        <Drawer
+                                            variant="permanent"
+                                            classes={{
+                                                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                                            }}
+                                            open={open}
+                                        >
+                                            <div className={classes.toolbarIcon}>
+                                                <Grid container justify="center" alignItems="center">
+                                                    <Grid item>
+                                                        <img src={Logo} alt="logo" width={90} height={60} />
+                                                    </Grid>
+                                                </Grid>
+                                                <IconButton onClick={handleDrawerClose}>
+                                                    <ChevronLeftIcon />
+                                                </IconButton>
+                                            </div>
+                                            <Divider />
+                                            <List>{<ListItems
+                                                generalOpen={generalOpen}
+                                                datosOpen={datosOpen}
+                                                serviciosOpen={serviciosOpen}
+                                                reservasOpen={reservasOpen}
+                                                solicitudesOpen={solicitudesOpen}
+                                                resenasOpen={resenasOpen}
+                                                cobranzasOpen={cobranzasOpen}
+                                                facturacionOpen={facturacionOpen}
+                                            />}</List>
+                                            <Divider />
+                                            <List></List>
+                                        </Drawer>
+                                        <main className={classes.content}>
+                                            <div className={classes.appBarSpacer} />
+
+                                            <Container maxWidth="lg" className={classes.container}>
+                                                <General
+                                                    reservasOpen={reservasOpen}
+                                                    serviciosOpen={serviciosOpen}
+                                                    user={props.user}
+                                                />
+                                            </Container>
+                                        </main>
+                                    </div>
+                                )
+                                else
+                                    if(modoFacturacion)
+                                                return(
+                                                    <div className={classes.root}>
                                                     <CssBaseline />
                                                     <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                                                         <Toolbar className={classes.toolbar}>
@@ -676,8 +749,8 @@ export default function PanelControl(props) {
                                                                 <MenuIcon />
                                                             </IconButton>
                                                             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                                                                Panel De Control
-                                                    </Typography>
+                                                                Facturacion
+                                                                </Typography>
                                                             <IconButton color="inherit">
                                                                 <Badge badgeContent={0} color="secondary">
                                                                     <NotificationsIcon />
@@ -721,7 +794,7 @@ export default function PanelControl(props) {
                                                     </Drawer>
                                                     <main className={classes.content}>
                                                         <div className={classes.appBarSpacer} />
-                
+            
                                                         <Container maxWidth="lg" className={classes.container}>
                                                             <General
                                                                 reservasOpen={reservasOpen}
@@ -731,6 +804,7 @@ export default function PanelControl(props) {
                                                         </Container>
                                                     </main>
                                                 </div>
-                                            )
+                                                )
+
 
 }
