@@ -7,6 +7,7 @@ import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
     paper: {
@@ -342,34 +343,39 @@ class FormularioDatosAlumnos extends Component {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="titular"
+                        <TextField
+                                id="select" 
                                 name="titular"
-                                label="Titular"
+                                label= "titular" 
                                 fullWidth
-                                autoComplete="Titular"
                                 value={this.state.titular}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
+                                autoComplete="titular"
+                                onChange={this.handleChange}                           
+                                select>
+                          
+                                <MenuItem value="10">pepito</MenuItem>
+                                <MenuItem value="20">jose</MenuItem>
+                                <MenuItem value="30">Cacho</MenuItem>
+                                                     
+                            </TextField> 
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                            <Select
-                                native
+                        <TextField
+                                id="select" 
+                                name="jornada"
+                                label= "jornada" 
+                                fullWidth
                                 value={this.state.jornada}
-                                onChange={this.handleChange}
-                                inputProps={{
-                                    name: 'jornada',
-                                    id: 'jornada',
-                                }}
-                                >
-                                <option value={10}>Turno mañana</option>
-                                <option value={20}>Turno tarde</option>
-                                <option value={30}>Jornada Completa</option>
-                            </Select>
+                                autoComplete="jornada"
+                                onChange={this.handleChange}                           
+                                select>
+                          
+                                <MenuItem value="10">Turno Mañana</MenuItem>
+                                <MenuItem value="20">Turno Tarde</MenuItem>
+                                <MenuItem value="30">Turno Completo</MenuItem>
+                                                     
+                            </TextField>                          
                         </Grid> 
 
                     </Grid>

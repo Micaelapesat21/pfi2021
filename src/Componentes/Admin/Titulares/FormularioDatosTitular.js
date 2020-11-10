@@ -74,10 +74,8 @@ class FormularioDatosTitular extends Component {
             this.state.telefono1 !== "" &&
             this.state.telefono2 !== ""
         ) {
-            var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
-
-            this.postTitularInfo(dict)
+            
+            this.postTitularInfo(this.getHotelModel())
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -110,40 +108,9 @@ class FormularioDatosTitular extends Component {
     }
 
     //Api Calls
-    getHotelInfo(email) {
-        this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
-    }
-
-    handleGetHotelInfo(hotelInfo) {
-        this.setState({ loading: false });
-
-        if (hotelInfo === undefined || hotelInfo === null) {
-            //show error message if needed
-        } else {
-            let hotelData = hotelInfo.state;
-
-            if (hotelData !== null) {
-                this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.email,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                });            
-            }
-        }
-    }
-
     postTitularInfo = (titularData) => {
         this.setState({ loading: true });
-        TitularesAPI.createTitular(this.titularData, this.handlePostTitularInfo.bind(this));
+        TitularesAPI.createTitular(titularData, this.handlePostTitularInfo.bind(this));
     }
 
     handlePostTitularInfo = async (titularInfo) => {
@@ -151,6 +118,8 @@ class FormularioDatosTitular extends Component {
         if (titularInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
+            var dict = this.getHotelModel();
+            this.props.titularCreado(dict);
         } else {
             //get user with email failed
         }
@@ -166,7 +135,7 @@ class FormularioDatosTitular extends Component {
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
             direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
+            telefonoContacto: this.state.telefono1,
             telefono2: this.state.telefono2,
         };
 

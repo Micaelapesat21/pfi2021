@@ -28,6 +28,12 @@ class Titulares extends Component {
         TitularesAPI.getTitulares(this.handleGetTitulares.bind(this));
     }
 
+     titularCreado = (titular) => {
+        var titularesActualizado = this.state.titulares;
+        titularesActualizado.push(titular);
+        this.setState({ titulares: titularesActualizado});
+    }
+
     handleGetTitulares(titulares) {
         this.setState({ loading: false });
 
@@ -43,7 +49,7 @@ class Titulares extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
-               <TableTitulares titulares = { this.state.titulares } />
+               <TableTitulares titulares = { this.state.titulares } titularCreado = { this.titularCreado.bind(this)} />
             </Grid>
         </Grid>
         );
