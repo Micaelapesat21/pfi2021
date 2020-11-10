@@ -92,16 +92,12 @@ export default function Orders(props) {
 
     const titularCreado = (titular) => {
         setModalIsOpen(false);
-        var array = [];
-        titular["id"] = titulares.length;
-        var titularesActualizado = titulares;
-        titularesActualizado.push(titular);
-        return () => setTitulares(titularesActualizado);
+        props.titularCreado(titular);
     }
 
     function getTitulares() {
         if (props.titulares.length === 0) {
-            return titulares;
+            return [];
         } else {
             return props.titulares;
         }

@@ -6,10 +6,11 @@ class TitularesAPI extends Component {
 
     createTitular(titularInfo, handlePostTitularInfo) {
       let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearTitular/Esctitular";
+      let body = JSON.stringify( titularInfo );
         fetch(url,{
           method: 'Post', 
           headers:{ 'Content-Type': 'application/json'},
-          body: JSON.stringify( titularInfo )
+          body: body
       })
        .then ((response) => {
             console.log("response",response);
