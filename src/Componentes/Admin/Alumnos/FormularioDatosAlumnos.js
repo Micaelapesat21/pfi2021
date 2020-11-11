@@ -89,6 +89,7 @@ class FormularioDatosAlumnos extends Component {
     guardar() {
         if (this.state.nombre !== "" &&
             this.state.apellido !== "" &&
+            this.state.dni !== "" &&
             this.state.email !== "" &&
             this.state.pais !== "" &&
             this.state.estado !== "" &&
@@ -159,7 +160,7 @@ class FormularioDatosAlumnos extends Component {
                 this.setState({
                     nombre: hotelData.nombre,
                     razon: hotelData.razon,
-                    email: hotelData.email,
+                    email: hotelData.correo,
                     pais: hotelData.pais,
                     estado: hotelData.estado,
                     ciudad: hotelData.ciudad,
@@ -193,7 +194,8 @@ class FormularioDatosAlumnos extends Component {
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
-            email: this.state.email,
+            dni: this.state.dni,
+            correo: this.state.email,
             pais: this.state.pais,
             estado: this.state.estado,
             ciudad: this.state.ciudad,
@@ -269,7 +271,7 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 required
                                 id="Correo"
@@ -284,7 +286,21 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Dni"
+                                name="dni"
+                                label="DNI"
+                                fullWidth
+                                autoComplete="Dni"
+                                value={this.state.dni}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -343,7 +359,7 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}> 
                             <TextField
                                 required
                                 id="Direccion"
@@ -387,21 +403,6 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="titular"
-                                name="titular"
-                                label="Titular"
-                                fullWidth
-                                autoComplete="Titular"
-                                value={this.state.titular}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-
                         <Grid item xs={12} sm={6}>
                             <InputLabel id="turno-label">Turno</InputLabel>
                             <Select
