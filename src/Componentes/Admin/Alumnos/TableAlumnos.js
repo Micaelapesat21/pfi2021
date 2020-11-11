@@ -80,7 +80,6 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [titulares, setTitulares] = React.useState(rows);
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -90,13 +89,9 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    const titularCreado = (titular) => {
+    const alumnoCreado = (titular) => {
         setModalIsOpen(false);
-        var array = [];
-        titular["id"] = titulares.length;
-        var titularesActualizado = titulares;
-        titularesActualizado.push(titular);
-        return () => setTitulares(titularesActualizado);
+        props.alumnoCreado(titular);
     }
 
     return (
@@ -111,7 +106,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosAlumnos titularCreado = { titularCreado } titulares = { props.titulares }/>
+             <FormularioDatosAlumnos titularCreado = { alumnoCreado } titulares = { props.titulares } turnos = { props.turnos }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -150,11 +145,11 @@ export default function Orders(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { titulares.map((row, index) => (
+                        { props.alumnos.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.email}</TableCell>
+                                <TableCell>{row.correo}</TableCell>
                                 <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">

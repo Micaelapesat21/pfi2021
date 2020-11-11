@@ -2,10 +2,10 @@ import {Component} from 'react';
 import Constants from '../../Utils/Constants';
 import HotelInfo from '../../Models/Hotel/HotelInfo';
 
-class TitularesAPI extends Component {
+class AlumnosAPI extends Component {
 
     createAlumno(alumnoInfo, handlePostAlumnoInfo) {
-      let url = "http://localhost:8080/escuelabackend/crearAlumno/Escalumno";
+      let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearAlumno/Escalumno";
       let body = JSON.stringify( alumnoInfo );
         fetch(url,{
           method: 'Post', 
@@ -21,9 +21,9 @@ class TitularesAPI extends Component {
         });
     }
 
-    getTitulares(handleGetTiitulares)
+    getAlumnos(handleGetAlumnos)
     {
-        let url =  "https://integracion-escuela.herokuapp.com/escuelabackend/obtenerTitulares";
+        let url =  "https://integracion-escuela.herokuapp.com/escuelabackend/obtenerAlumnos";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -37,9 +37,9 @@ class TitularesAPI extends Component {
             }
         })
         .then (responseData => {
-            handleGetTiitulares(responseData);
+            handleGetAlumnos(responseData);
         });
     }
 }
 
-export default new TitularesAPI();
+export default new AlumnosAPI();
