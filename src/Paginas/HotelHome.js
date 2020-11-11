@@ -738,7 +738,7 @@ export default function PanelControl(props) {
 
                                             <Container maxWidth="lg" className={classes.container}>
                                             
-                                            <Cobros />
+                                            <Cobros turnos = { turnos } />
                             
                                             </Container>
                                         </main>
