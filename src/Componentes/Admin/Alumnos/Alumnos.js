@@ -14,7 +14,7 @@ class Alumnos extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
-               <TableAlumnos/>
+               <TableAlumnos titulares = { this.props.titulares } />
             </Grid>
         </Grid>
         );

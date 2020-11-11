@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Orders() {
+export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [titulares, setTitulares] = React.useState(rows);
@@ -111,7 +111,7 @@ export default function Orders() {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosAlumnos titularCreado = { titularCreado }/>
+             <FormularioDatosAlumnos titularCreado = { titularCreado } titulares = { props.titulares }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>

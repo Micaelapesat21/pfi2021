@@ -41,6 +41,7 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { titulares: titulares } , this.forceUpdate());
+            this.props.actualizarTitulares(titulares);
         }
     }
 
