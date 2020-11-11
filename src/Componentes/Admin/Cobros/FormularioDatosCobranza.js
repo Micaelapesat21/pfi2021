@@ -35,16 +35,12 @@ class FormularioDatosCobranza extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nombre: "",
-            apellido: "",
-            email: "",
-            pais: "",
-            estado: "",
-            ciudad: "",
-            codigoPostal: "",
-            direccion: "",
-            telefono1: "",
-            telefono2: "",
+            codigoCobro: "",
+            nombrePago: "",
+            emailPago: "",
+            documento: "",
+            telefono: "",
+            alumno: "",
             estrellas: "",
             edicion: true,
             redOnly: false,
@@ -65,21 +61,17 @@ class FormularioDatosCobranza extends Component {
     }
 
     guardar() {
-        if (this.state.nombre !== "" &&
-            this.state.apellido !== "" &&
-            this.state.email !== "" &&
-            this.state.pais !== "" &&
-            this.state.estado !== "" &&
-            this.state.ciudad !== "" &&
-            this.state.codigoPostal !== "" &&
-            this.state.direccion !== "" &&
-            this.state.telefono1 !== "" &&
-            this.state.telefono2 !== "" &&
+        if (this.state.codigoCobro !== "" &&
+            this.state.nombrePago !== "" &&
+            this.state.emailPago !== "" &&
+            this.state.documento !== "" &&
+            this.state.telefono !== "" &&
+            this.state.alumno !== "" &&
             this.state.titular !== "" && 
             this.state.jornada !=="" 
         ) {
-            var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
+            var dict = this.getCobroModel();
+            this.props.cobroRegistrado(dict);
 
             this.postAlumnoInfo()
         } else {
@@ -114,34 +106,30 @@ class FormularioDatosCobranza extends Component {
     }
 
     //Api Calls
-    getHotelInfo(email) {
+    getCobroInfo(email) {
         this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
+        let cobroInfo = cobroInfo.getInstance().getCobroData()         
+        this.handleGetCobroInfo(cobroInfo)
     }
 
-    handleGetHotelInfo(hotelInfo) {
+    handleGetCobroInfo(cobroInfo) {
         this.setState({ loading: false });
 
-        if (hotelInfo === undefined || hotelInfo === null) {
+        if (cobroInfo === undefined || cobroInfo === null) {
             //show error message if needed
         } else {
-            let hotelData = hotelInfo.state;
+            let cobroData = cobroInfo.state;
 
-            if (hotelData !== null) {
+            if (cobroData !== null) {
                 this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.email,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                    titular: hotelData.titular,
-                    jornada: hotelData.jornada,
+                    codigoCobro: cobroData.codigoCobro,
+                    nombrePago: cobroData.nombrePago,
+                    emailPago: cobroData.emailPago,
+                    documento: cobroData.documento,
+                    telefono: cobroData.telefono,
+                    alumno: cobroData.alumno,
+                    titular: cobroData.titular,
+                    jornada: cobroData.jornada,
                 });            
             }
         }
@@ -149,31 +137,21 @@ class FormularioDatosCobranza extends Component {
 
     postAlumnoInfo = () => {
         this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
+        HotelAPI.postHotelInfo(this.handlePostCobroInfo);
     }
 
-    handlePostAlumnoInfo = async (hotelInfo) => {
-        this.setState({ loading: false });
-        if (hotelInfo.error == null) {
-            //post was successful
-            this.setState({ edicion: false, redOnly: true })
-        } else {
-            //get user with email failed
-        }
+    handlePostAlumnoInfo = async (CobroInfo) => {
+    
     }
 
     getHotelModel() {
         return {
-            nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            email: this.state.email,
-            pais: this.state.pais,
-            estado: this.state.estado,
-            ciudad: this.state.ciudad,
-            codigoPostal: this.state.codigoPostal,
-            direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
-            telefono2: this.state.telefono2,
+            codigoCobro: this.state.codigoCobro,
+            nombrePago: this.state.nombrePago,
+            emailPago: this.state.emailPago,
+            documento: this.state.documento,
+            telefono: this.state.telefono,
+            alumno: this.state.alumno,
             titular:this.state.titular,
             jornada:this.state.jornada,
         };
@@ -196,12 +174,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Nombre"
-                                name="nombre"
-                                label="Nombre del alumno"
+                                id="Codigo Pago"
+                                name="codigo"
+                                label="Código de Pago"
                                 fullWidth
-                                autoComplete="Nombre"
-                                value={this.state.nombre}
+                                autoComplete="Código de Pago"
+                                value={this.state.codigoCobro}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -211,12 +189,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Apellido"
-                                name="apellido"
-                                label="Apellido/s"
+                                id="Nombre de quien realizó el Pago"
+                                name="nombrePago"
+                                label="Quien Pagó"
                                 fullWidth
-                                autoComplete="apellido"
-                                value={this.state.apellido}
+                                autoComplete="nombrePago"
+                                value={this.state.nombrePago}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly
@@ -228,10 +206,10 @@ class FormularioDatosCobranza extends Component {
                                 required
                                 id="Correo"
                                 name="email"
-                                label="Correo Electronico"
+                                label="Correo Electronico de quien pagó"
                                 fullWidth
                                 autoComplete="Correo"
-                                value={this.state.email}
+                                value={this.state.emailPago}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -242,12 +220,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="País"
-                                name="pais"
-                                label="País"
+                                id="documento"
+                                name="documento"
+                                label="Documento"
                                 fullWidth
-                                autoComplete="País"
-                                value={this.state.pais}
+                                autoComplete="Documento"
+                                value={this.state.documento}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -256,26 +234,11 @@ class FormularioDatosCobranza extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                id="Estado"
-                                name="estado"
-                                label="Estado/Provincia/Región"
+                                id="Telefono"
+                                name="telefono"
+                                label="Telefono"
                                 fullWidth
-                                value={this.state.estado}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Ciudad"
-                                name="ciudad"
-                                label="Ciudad"
-                                fullWidth
-                                autoComplete="Ciudad"
-                                value={this.state.ciudad}
+                                value={this.state.telefono}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -285,62 +248,19 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Código Postal"
-                                name="codigoPostal"
-                                label="Código Postal"
+                                id="alumni"
+                                name="alumni"
+                                label="Alumno"
                                 fullWidth
-                                autoComplete="Código Postal"
-                                value={this.state.codigoPostal}
+                                autoComplete="Alumni"
+                                value={this.state.alumno}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="Direccion"
-                                name="direccion"
-                                label="Direccion"
-                                fullWidth
-                                autoComplete="Direccion"
-                                value={this.state.direccion}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Telefono1"
-                                name="telefono1"
-                                label="Telefono 1"
-                                fullWidth
-                                autoComplete="Telefono1"
-                                value={this.state.telefono1}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="telefono2"
-                                name="telefono2"
-                                label="Telefono 2"
-                                fullWidth
-                                autoComplete="Telefono 2"
-                                value={this.state.telefono2}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
+                        
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 id="titular"
@@ -355,7 +275,6 @@ class FormularioDatosCobranza extends Component {
                                 }}
                             />
                         </Grid>
-
                         <Grid item xs={12} sm={6}>
                             <Select
                                 native
@@ -369,6 +288,21 @@ class FormularioDatosCobranza extends Component {
                                 <option value={10}>Turno mañana</option>
                                 <option value={20}>Turno tarde</option>
                                 <option value={30}>Jornada Completa</option>
+                            </Select>
+                        </Grid> 
+                        <Grid item xs={12} sm={6}>
+                            <Select
+                                native
+                                value={this.state.pago}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'pago',
+                                    id: 'pago',
+                                }}
+                                >
+                                <option value={10}>Realizado</option>
+                                <option value={20}>Pendiente</option>
+                          
                             </Select>
                         </Grid> 
 

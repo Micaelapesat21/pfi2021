@@ -19,13 +19,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCobranza from './FormularioDatosCobranza';
 
 // Generate Order Data
-function createData(id,nombre, apellido, email, telefono1, ciudad) {
-    return { id, nombre, apellido, email, telefono1, ciudad };
+function createData(id,nombre, apellido, email, telefono1, ciudad, monto, estado) {
+    return { id, nombre, apellido, email, telefono1, ciudad, monto, estado };
 }
 
 const rows = [
-    createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
-    createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
+    createData(0, '1234', '02-11-2020', 'Sebastian Gomez', 'Martin Gomez', 'martin.gomez@gmail.com','30000' ,'Realizado'),
+    createData(1, '5678', '08-11-2020', 'Nicolas Roger', 'Elena Roger', 'elena.roger@gmail.com', '20000','Pendiente'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -137,15 +137,17 @@ export default function Orders() {
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Pagos realizados</Title>
+                <Title>Detalle de Pagos</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nro de Transacción</TableCell>
+                            <TableCell>Código de Cobro</TableCell>
                             <TableCell>Fecha</TableCell>
                             <TableCell>Titular</TableCell>
                             <TableCell>Alumno</TableCell>
                             <TableCell>Email</TableCell>
+                            <TableCell>Monto</TableCell>
+                            <TableCell>Estado Pago</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
@@ -157,10 +159,10 @@ export default function Orders() {
                                 <TableCell>{row.email}</TableCell>
                                 <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
+                                <TableCell>{row.monto}</TableCell>
+                                <TableCell>{row.estado}</TableCell>
                                 <TableCell align="right">
-                                    <IconButton size="small">
-                                        <CheckIcon />
-                                    </IconButton>
+                                    
                                     <IconButton size="small">
                                         <BlockIcon />
                                     </IconButton>

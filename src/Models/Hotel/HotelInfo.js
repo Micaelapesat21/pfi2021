@@ -1,7 +1,7 @@
-import HotelData from './HotelData'
-import Reserva from './../Reserva'
+import CobroData from './CobroData'
+import Reserva from '../Reserva'
 
-class HotelInfo {
+class CobroInfo {
 
     static myInstance = null
     _userID = ""
@@ -13,8 +13,8 @@ class HotelInfo {
    
 
     static getInstance() {
-        if (HotelInfo.myInstance == null) {
-            HotelInfo.myInstance = new HotelInfo();
+        if (CobroInfo.myInstance == null) {
+            CobroInfo.myInstance = new CobroInfo();
         }
 
         return this.myInstance;
@@ -27,9 +27,9 @@ class HotelInfo {
 
       this._name = props.nombre
       this._email = props.email
-      var hotelData = new HotelData()
-      hotelData.setHotelData(props)
-      this._hotelData = hotelData
+      var cobroData = new CobroData()
+      cobroData.setCobroData(props)
+      this._cobroData = cobroData
       
       //set Bookings info
       if (props.reservas !== undefined) {
@@ -54,8 +54,12 @@ class HotelInfo {
       return this._userID;
     }
 
+    getCobroData() {
+      return this._cobroData;
+    }
+
     getHotelData() {
-      return this._hotelData;
+      return this._cobroData;
     }
 
     setUserType(userType) {
@@ -69,21 +73,16 @@ class HotelInfo {
     toJson() {      
       let dict
 
-      if(this._hotelData !== null) {
-         let hotelData = this._hotelData.toJson();
+      if(this._CobroData !== null) {
+         let cobroData = this._cobroData.toJson();
           dict = {
             email: this._email,
             nombre: this._name,
-            razon: hotelData.razon,
-            pais: hotelData.pais , 
-            estado: hotelData.estado,
-            ciudad: hotelData.ciudad,
-            codigoPostal: hotelData.codigoPostal,
-            direccion: hotelData.direccion,
-            telefono1: hotelData.telefono1,
-            telefono2: hotelData.telefono2,
-            estrellas: hotelData.estrellas,
-            url: hotelData.url
+            razon: cobroData.razon,
+            pais: cobroData.pais , 
+            estado: cobroData.estado,
+            ciudad: cobroData.ciudad,
+
           };
       } else {
         dict = {
@@ -92,9 +91,9 @@ class HotelInfo {
         };
       }
 
-    console.log("Hotel info", dict);
+    console.log("Cobro info", dict);
       return dict;
     }
 }
 
-  export default HotelInfo;
+  export default CobroInfo;

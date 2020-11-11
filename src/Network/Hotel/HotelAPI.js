@@ -1,12 +1,12 @@
 import {Component} from 'react';
 import Constants from '../../Utils/Constants';
-import HotelInfo from './../../Models/Hotel/HotelInfo';
+import CobroInfo from '../../Models/Hotel/HotelInfo';
 
 class HotelAPI extends Component {
 
     postHotelInfo(handlePostHotelInfo) {
       let url =  Constants.BASE_URL + '/api/v1.0/hoteles';
-      let hotelData = HotelInfo.getInstance().toJson();
+      let hotelData = CobroInfo.getInstance().toJson();
         fetch(url,{
           method: 'PUT', 
           headers:{ 'Content-Type': 'application/json'},
