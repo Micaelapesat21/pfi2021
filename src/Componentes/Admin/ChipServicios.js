@@ -20,18 +20,22 @@ const useStyles = makeStyles((theme) => ({
 export default function ChipsArray() {
   const classes = useStyles();
   const [chipData, /*setChipData*/] = React.useState([
-    { check: false, label: 'Restaurante' },
-    { check: true, label: 'Estacionamiento' },
-    { check: true, label: 'Tintoreria' },
-    { check: true, label: 'Limpieza a la habitacion' },
-    { check: true, label: 'Comidas especiales' },
-    { check: true, label: 'Reserva de Spa' },
-    { check: true, label: 'Gimnasio' },
-    { check: true, label: 'Pedido de masajes' },
-    { check: true, label: 'Tratamientos corporales' },
-    { check: true, label: 'Alquiler' },
-    { check: true, label: 'Eventos organizados' },
-    { check: true, label: 'Actividades' },
+    { check: false, label: 'Fútbol' },
+    { check: true, label: ' Hockey' },
+    { check: true, label: 'Tenis' },
+    { check: true, label: 'Inglés' },
+    { check: true, label: 'Francés' },
+    { check: true, label: 'Portugués' },
+    { check: true, label: 'Desayuno' },
+    { check: true, label: 'Almuerzo' },
+    { check: true, label: 'Merienda' },
+    { check: true, label: 'Transporte' },
+    { check: true, label: 'Danza' },
+    { check: true, label: 'Teatro' },
+    { check: true, label: 'Pintura' },
+    { check: true, label: 'Música' },
+
+
 
    
   ]);

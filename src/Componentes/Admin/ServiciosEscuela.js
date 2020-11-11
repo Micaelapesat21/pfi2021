@@ -29,7 +29,7 @@ class ServiciosEscuela extends Component {
             pintura:true,
             música:true,
 
-            restaurante: true,
+           /* restaurante: true,
             estacionamiento: true,
             tintoreria: true,
             servicio: true,
@@ -46,7 +46,7 @@ class ServiciosEscuela extends Component {
             ski: true,
             Buceo: true,
             eventos: true,
-            actividades: true,
+            actividades: true,*/
         }
     }
 
@@ -118,8 +118,9 @@ class ServiciosEscuela extends Component {
                         teatro={this.state.teatro}
                         pintura={this.state.pintura}
                         música={this.state.música}
+                        handleChange={this.handleChange}
                         
-                        restaurante={this.state.restaurante}
+                        /*restaurante={this.state.restaurante}
                         estacionamiento={this.state.estacionamiento}
                         tintoreria={this.state.tintoreria}
                         servicio={this.state.servicio}
@@ -137,7 +138,7 @@ class ServiciosEscuela extends Component {
                         Buceo={this.state.Buceo}
                         eventos={this.state.eventos}
                         actividades={this.state.actividades}
-                        handleChange={this.handleChange}
+                        handleChange={this.handleChange}*/
                     />
                 </Grid>
             </Grid>
