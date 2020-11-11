@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {  Grid } from '@material-ui/core';
 import TableTitulares from './TableTitulares'
 import TitularesAPI from '../../../Network/Titulares/TitularesAPI';
+import TurrnosAPI from './../../../Network/Turnos/TurnosAPI'
 
 const styles = theme => ({
 
@@ -15,14 +16,17 @@ class Titulares extends Component {
         super(props);
         this.state = {
             titulares: [],
+            turnos: [],
             loading: false,
         }
     }
 
     componentDidMount() {
         this.getTitulares();
+        this.getTurnos();
     }
 
+    //Api Calls
     getTitulares() {
         this.setState({ loading: true });
         TitularesAPI.getTitulares(this.handleGetTitulares.bind(this));
@@ -41,6 +45,23 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { titulares: titulares } , this.forceUpdate());
+            this.props.actualizarTitulares(titulares);
+        }
+    }
+
+    getTurnos() {
+        this.setState({ loading: true });
+        TurrnosAPI.getTurnos(this.handleGetTurnos.bind(this));
+    }
+
+    handleGetTurnos(turnos) {
+        this.setState({ loading: false });
+
+        if (turnos === undefined || turnos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { turnos: turnos } , this.forceUpdate());
+            this.props.actualizarTurnos(turnos);
         }
     }
 

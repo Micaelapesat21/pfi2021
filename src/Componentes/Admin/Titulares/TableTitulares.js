@@ -80,7 +80,6 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [titulares, setTitulares] = React.useState(rows);
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -93,14 +92,6 @@ export default function Orders(props) {
     const titularCreado = (titular) => {
         setModalIsOpen(false);
         props.titularCreado(titular);
-    }
-
-    function getTitulares() {
-        if (props.titulares.length === 0) {
-            return [];
-        } else {
-            return props.titulares;
-        }
     }
 
     return (
@@ -154,7 +145,7 @@ export default function Orders(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { getTitulares().map((row, index) => (
+                        { props.titulares.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>

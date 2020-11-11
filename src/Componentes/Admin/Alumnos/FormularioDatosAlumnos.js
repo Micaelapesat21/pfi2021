@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
 import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
+import AlumnosAPI from '../../../Network/Alumnos/AlumnosAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
     paper: {
@@ -36,6 +37,10 @@ class FormularioDatosAlumnos extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            titularSeleccionado: null,
+            titularesMenuOpen: false,
+            turnoSeleccionado: null,
+            turnosMenuOpen: false,
             nombre: "",
             apellido: "",
             email: "",
@@ -51,7 +56,6 @@ class FormularioDatosAlumnos extends Component {
             redOnly: false,
             lastResponse: null,
             titular: "",
-            jornada: "",
             loading: false,
             errorMessageIsOpen: false,
             errorMessage: ""
@@ -65,9 +69,38 @@ class FormularioDatosAlumnos extends Component {
         //  this.getHotelInfo()
     }
 
+    //Menu
+    handleTitularesMenuOpen() {
+        this.setState({ titularesMenuOpen: true });
+    }
+
+    handleTitularesMenuClose() {
+        this.setState({ titularesMenuOpen: false });
+    }
+
+    handleTurnosMenuOpen() {
+        this.setState({ turnosMenuOpen: true });
+    }
+
+    handleTurnosMenuClose() {
+        this.setState({ turnosMenuOpen: false });
+    }
+
+    getTitularMenuValue() {
+        if( this.state.titularSeleccionado === null ) {
+            return null;
+        } else {
+            return this.state.titularSeleccionado.nombre + " "  + this.state.titularSeleccionado.apellido
+        }
+    }
+
+    //API Calls
     guardar() {
-        if (this.state.nombre !== "" &&
+        if (this.state.titularSeleccionado !== null,
+            this.state.turnoSeleccionado !== null,
+            this.state.nombre !== "" &&
             this.state.apellido !== "" &&
+            this.state.dni !== "" &&
             this.state.email !== "" &&
             this.state.pais !== "" &&
             this.state.estado !== "" &&
@@ -75,14 +108,10 @@ class FormularioDatosAlumnos extends Component {
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
-            this.state.telefono2 !== "" &&
-            this.state.titular !== "" && 
-            this.state.jornada !=="" 
+            this.state.telefono2 !== ""
         ) {
-            var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
-
-            this.postAlumnoInfo()
+            var dict = this.getAlumnoModel();
+            this.postAlumnoInfo(dict);
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -110,6 +139,16 @@ class FormularioDatosAlumnos extends Component {
         }
     }
 
+    handleChangeTitular(e) {
+        let titular = this.props.titulares[ e.target.value ];
+        this.setState({ titularSeleccionado: e.target.value });
+    }
+
+    handleChangeTurno(e) {
+        let titular = this.props.turnos[ e.target.value ];
+        this.setState({ turnoSeleccionado: e.target.value });
+    }
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -133,7 +172,7 @@ class FormularioDatosAlumnos extends Component {
                 this.setState({
                     nombre: hotelData.nombre,
                     razon: hotelData.razon,
-                    email: hotelData.email,
+                    email: hotelData.correo,
                     pais: hotelData.pais,
                     estado: hotelData.estado,
                     ciudad: hotelData.ciudad,
@@ -148,35 +187,40 @@ class FormularioDatosAlumnos extends Component {
         }
     }
 
-    postAlumnoInfo = () => {
+    postAlumnoInfo = (alumnoInfo) => {
         this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
+        AlumnosAPI.createAlumno(alumnoInfo, this.handlePostHotelInfo.bind(this));
     }
 
     handlePostAlumnoInfo = async (hotelInfo) => {
         this.setState({ loading: false });
         if (hotelInfo.error == null) {
             //post was successful
+            this.props.titularCreado(hotelInfo);
             this.setState({ edicion: false, redOnly: true })
         } else {
             //get user with email failed
         }
     }
 
-    getHotelModel() {
+    getAlumnoModel() {
+        let titular = this.props.titulares[this.state.titularSeleccionado];
+        let turno = this.props.turnos[this.state.turnoSeleccionado];
+
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
-            email: this.state.email,
+            dni: this.state.dni,
+            correo: this.state.email,
             pais: this.state.pais,
-            estado: this.state.estado,
+            provincia: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
             direccion: this.state.direccion,
             telefono1: this.state.telefono1,
             telefono2: this.state.telefono2,
-            titular:this.state.titular,
-            jornada:this.state.jornada,
+            idTitular: titular.id,
+            turno: turno.id,
         };
 
     }
@@ -194,6 +238,24 @@ class FormularioDatosAlumnos extends Component {
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
                     <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <InputLabel id="demo-mutiple-name-label">Nombre Titular</InputLabel>
+                            <Select
+                            fullWidth
+                            labelId="demo-mutiple-name-label"
+                            id="demo-controlled-open-select"
+                            open={ this.state.titularesMenuOpen }
+                            onClose={ this.handleTitularesMenuClose.bind(this) }
+                            onOpen={ this.handleTitularesMenuOpen.bind(this) }
+                            value = { this.state.titularSeleccionado }
+                            onChange={ e => this.handleChangeTitular(e) }
+                            >
+                            { this.props.titulares.map((titular, index) => (
+                                <MenuItem value={index}> { titular.nombre } { titular.apellido} </MenuItem>
+                            ))}
+                            </Select>
+                        </Grid>
+
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -224,7 +286,7 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 required
                                 id="Correo"
@@ -239,7 +301,21 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="Dni"
+                                name="dni"
+                                label="DNI"
+                                fullWidth
+                                autoComplete="Dni"
+                                value={this.state.dni}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -298,7 +374,7 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}> 
                             <TextField
                                 required
                                 id="Direccion"
@@ -343,39 +419,21 @@ class FormularioDatosAlumnos extends Component {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                        <TextField
-                                id="select" 
-                                name="titular"
-                                label= "titular" 
-                                fullWidth
-                                value={this.state.titular}
-                                autoComplete="titular"
-                                onChange={this.handleChange}                           
-                                select>
-                          
-                                <MenuItem value="10">pepito</MenuItem>
-                                <MenuItem value="20">jose</MenuItem>
-                                <MenuItem value="30">Cacho</MenuItem>
-                                                     
-                            </TextField> 
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                        <TextField
-                                id="select" 
-                                name="jornada"
-                                label= "jornada" 
-                                fullWidth
-                                value={this.state.jornada}
-                                autoComplete="jornada"
-                                onChange={this.handleChange}                           
-                                select>
-                          
-                                <MenuItem value="10">Turno Mañana</MenuItem>
-                                <MenuItem value="20">Turno Tarde</MenuItem>
-                                <MenuItem value="30">Turno Completo</MenuItem>
-                                                     
-                            </TextField>                          
+                            <InputLabel id="turno-label">Turno</InputLabel>
+                            <Select
+                            fullWidth
+                            labelId="turno-label"
+                            id="turnos-open-select"
+                            open={ this.state.turnosMenuOpen }
+                            onClose={ this.handleTurnosMenuClose.bind(this) }
+                            onOpen={ this.handleTurnosMenuOpen.bind(this) }
+                            value = { this.state.turnoSeleccionado }
+                            onChange={ e => this.handleChangeTurno(e) }
+                            >
+                            { this.props.turnos.map((turno, index) => (
+                                <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
+                                ))}
+                            </Select>
                         </Grid> 
 
                     </Grid>

@@ -123,8 +123,16 @@ export default function PanelControl(props) {
     const [modoSolicitudes, setmodoSolicitudes] = React.useState(true);
     const [modoResenas, setmodoResenas] = React.useState(false);
     const [modoFacturacion, setmodoFacturacion] = React.useState(false);
+    const [titulares, setTitulares] = React.useState([]);
+    const [turnos, setTurnos] = React.useState([]);
 
+    const actualizarTitulares = (titulares) => {
+        setTitulares(titulares);
+    };
 
+    const actualizarTurnos = (turnos) => {
+        setTurnos(turnos);
+    }
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -441,7 +449,10 @@ export default function PanelControl(props) {
                             <div className={classes.appBarSpacer} />
 
                             <Container maxWidth="lg" className={classes.container}>
-                                <Alumnos />
+                                <Alumnos 
+                                    titulares = { titulares }
+                                    turnos = { turnos }
+                                />
                             </Container>
                         </main>
                     </div>
@@ -512,6 +523,8 @@ export default function PanelControl(props) {
                                 <Container maxWidth="lg" className={classes.container}>
                                     <Titulares
                                         user={props.user}
+                                        actualizarTitulares = { actualizarTitulares }
+                                        actualizarTurnos = { actualizarTurnos }
                                     />
                                 </Container>
                             </main>
@@ -725,7 +738,7 @@ export default function PanelControl(props) {
 
                                             <Container maxWidth="lg" className={classes.container}>
                                             
-                                            <Cobros />
+                                            <Cobros turnos = { turnos } />
                             
                                             </Container>
                                         </main>
@@ -795,8 +808,7 @@ export default function PanelControl(props) {
                                                         <div className={classes.appBarSpacer} />
             
                                                         <Container maxWidth="lg" className={classes.container}>
-                                                            <Facturas
-                                                            />
+                                                            <Facturas turnos = { turnos } />
                                                         </Container>
                                                     </main>
                                                 </div>

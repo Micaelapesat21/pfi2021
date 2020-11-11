@@ -7,6 +7,8 @@ import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
     paper: {
@@ -35,6 +37,8 @@ class FormularioDatosFactura extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            titularesMenuOpen: false,
+            turnoSeleccionado: null,
             nombre: "",
             apellido: "",
             email: "",
@@ -65,7 +69,8 @@ class FormularioDatosFactura extends Component {
     }
 
     guardar() {
-        if (this.state.nombre !== "" &&
+        if (this.turnoSeleccionado !== null,
+            this.state.nombre !== "" &&
             this.state.apellido !== "" &&
             this.state.email !== "" &&
             this.state.pais !== "" &&
@@ -111,6 +116,20 @@ class FormularioDatosFactura extends Component {
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    //Turnos Menu
+    handleChangeTurno(e) {
+        let titular = this.props.turnos[ e.target.value ];
+        this.setState({ turnoSeleccionado: e.target.value });
+    }
+
+    handleTurnosMenuOpen() {
+        this.setState({ turnosMenuOpen: true });
+    }
+
+    handleTurnosMenuClose() {
+        this.setState({ turnosMenuOpen: false });
     }
 
     //Api Calls
@@ -355,23 +374,23 @@ class FormularioDatosFactura extends Component {
                                 }}
                             />
                         </Grid>
-
                         <Grid item xs={12} sm={6}>
+                            <InputLabel id="turno-label">Turno</InputLabel>
                             <Select
-                                native
-                                value={this.state.jornada}
-                                onChange={this.handleChange}
-                                inputProps={{
-                                    name: 'jornada',
-                                    id: 'jornada',
-                                }}
-                                >
-                                <option value={10}>Turno mañana</option>
-                                <option value={20}>Turno tarde</option>
-                                <option value={30}>Jornada Completa</option>
+                            fullWidth
+                            labelId="turno-label"
+                            id="turnos-open-select"
+                            open={ this.state.turnosMenuOpen }
+                            onClose={ this.handleTurnosMenuClose.bind(this) }
+                            onOpen={ this.handleTurnosMenuOpen.bind(this) }
+                            value = { this.state.turnoSeleccionado }
+                            onChange={ e => this.handleChangeTurno(e) }
+                            >
+                            { this.props.turnos.map((turno, index) => (
+                                <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
+                                ))}
                             </Select>
                         </Grid> 
-
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>

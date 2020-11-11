@@ -58,6 +58,10 @@ class CobroInfo {
       return this._cobroData;
     }
 
+    getHotelData() {
+      return this._cobroData;
+    }
+
     setUserType(userType) {
       this._userType = userType;
     }
