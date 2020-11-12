@@ -48,8 +48,6 @@ class FormularioDatosEmpleados extends Component {
             codigoPostal: "",
             direccion: "",
             telefono1: "",
-            telefono2: "",
-            estrellas: "",
             edicion: true,
             redOnly: false,
             lastResponse: null,
@@ -83,7 +81,6 @@ class FormularioDatosEmpleados extends Component {
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
-            this.state.telefono2 !== "" &&
             this.state.Categoria !== "" &&
             this.state.Puesto !== "" &&
             this.state.CargaHoraria !== "" &&
@@ -134,7 +131,7 @@ class FormularioDatosEmpleados extends Component {
 
     handlePostEmpleadoInfo = async (empleadoInfo) => {
         this.setState({ loading: false });
-        if (empleadoInfo.error == null) {
+        if (empleadoInfo.error !== null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
             var dict = this.getEmpleadoModel();
@@ -148,19 +145,18 @@ class FormularioDatosEmpleados extends Component {
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
-            email: this.state.email,
+            correo: this.state.email,
             pais: this.state.pais,
             estado: this.state.estado,
             ciudad: this.state.ciudad,
             codigoPostal: this.state.codigoPostal,
             direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
-            telefono2: this.state.telefono2,
-            Categoria: this.state.Categoria,
-            Puesto: this.state.Puesto,
-            CargaHoraria: this.state.CargaHoraria,
-            Sueldo: this.state.Sueldo,
-            FechaIngreso: this.state.FechaIngreso
+            telefono: this.state.telefono1,
+            categoria: this.state.Categoria,
+            puesto: this.state.Puesto,
+            cargaHoraria: this.state.CargaHoraria,
+            sueldo: this.state.Sueldo,
+            fechaIngreso: this.state.FechaIngreso
         };
 
     }
@@ -314,22 +310,6 @@ class FormularioDatosEmpleados extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="telefono2"
-                                name="telefono2"
-                                label="Telefono 2"
-                                fullWidth
-                                autoComplete="Telefono 2"
-                                value={this.state.telefono2}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                         
-
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 id="select" 

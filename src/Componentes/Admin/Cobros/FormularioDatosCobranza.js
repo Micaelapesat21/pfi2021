@@ -78,7 +78,7 @@ class FormularioDatosCobranza extends Component {
             var dict = this.getCobroModel();
             this.props.cobroRegistrado(dict);
 
-            this.postAlumnoInfo()
+            this.postAlumnoInfo(dict)
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -154,9 +154,9 @@ class FormularioDatosCobranza extends Component {
         }
     }
 
-    postAlumnoInfo = () => {
+    postAlumnoInfo = (dict) => {
         this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostCobroInfo);
+        HotelAPI.postHotelInfo(dict, this.handlePostCobroInfo);
     }
 
     handlePostAlumnoInfo = async (CobroInfo) => {

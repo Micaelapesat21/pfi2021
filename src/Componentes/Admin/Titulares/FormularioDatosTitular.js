@@ -138,7 +138,6 @@ class FormularioDatosTitular extends Component {
             telefonoContacto: this.state.telefono1,
             telefono2: this.state.telefono2,
         };
-
     }
 
     //Modal handlers
