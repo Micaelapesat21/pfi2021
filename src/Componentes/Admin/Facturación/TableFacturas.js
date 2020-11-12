@@ -109,9 +109,9 @@ export default function Orders(props) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Datos Factura a Emitir </DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Datos de la Factura a emitir </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosFactura titularCreado = { titularCreado } turnos = { props.turnos } alumnos = { props.alumnos }/>
+             <FormularioDatosFactura titularCreado = { titularCreado } turnos = { props.turnos } />
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -132,7 +132,7 @@ export default function Orders(props) {
                         />
                     </div>
                     <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Emitir Factura
+                     Generar Factura
                      </Button>
                 </Toolbar>
             </AppBar>
