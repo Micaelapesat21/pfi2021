@@ -4,6 +4,7 @@ import { Grid, Typography } from '@material-ui/core';
 import foto from '../../Imagenes/logoHotel.png'
 import RenderHistorial from './ReservaRender/ReservaHIstorial';
 import GuestInfo from '../../Models/Guest/GuestInfo';
+import TableCuotas from './TableCuotas';
 
 class Historial extends Component {
     constructor(props) {
@@ -28,21 +29,9 @@ class Historial extends Component {
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
                     <Grid container spacing={2}>
-                        {this.state.reserva.map((item, index) =>
-                            <Grid item key={index}>
-                                <RenderHistorial
-                                    id={item.id}
-                                    hotelName={item.hotelName}
-                                    nroReserva={item.bookingNumber}
-                                    logo={foto}
-                                    CheckIn={item.checkIn}
-                                    CheckOut={item.checkOut}
-                                    huespedes={item.cantidadHuespedes}
-                                    precio={item.precio}
-                                    modo={this.props.modo}
-                                />
-                            </Grid>
-                        )}
+                        
+                        
+                       <TableCuotas/>
                     </Grid>
                 </Grid>
             </Grid>

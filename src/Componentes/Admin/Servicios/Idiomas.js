@@ -22,18 +22,15 @@ class Idiomas extends Component {
     }
 
     inglés() {
-        if (this.props.servicio) {
+        if (this.props.ingles) {
             return (
                 <Grid container spacing={2}>
-                    <Grid item md={3}>
-                        <Hora label={"Desde"} />
-                    </Grid>
-                    <Grid item md={3}>
-                        <Hora label={"Hasta"} />
-                    </Grid>
-                    <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
-                    </Grid>
+                <Grid item md={3}>
+                    <Hora label={"Desde"} />
+                </Grid>
+                <Grid item md={3}>
+                    <Hora label={"Hasta"} />
+                </Grid>
                 </Grid>
             )
         } else {
@@ -52,9 +49,7 @@ class Idiomas extends Component {
                     <Grid item md={3}>
                         <Hora label={"Hasta"} />
                     </Grid>
-                    <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
-                    </Grid>
+                    
                 </Grid>
             )
         } else {
@@ -73,9 +68,7 @@ class Idiomas extends Component {
                     <Grid item md={3}>
                         <Hora label={"Hasta"} />
                     </Grid>
-                    <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
-                    </Grid>
+                    
                 </Grid>
             )
         } else {
@@ -94,7 +87,7 @@ class Idiomas extends Component {
         return (
             <Grid container>
                 <Grid item xs={12} >
-                    <FormLabel>Inglés</FormLabel>
+                    <FormLabel component="legend">Inglés</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
