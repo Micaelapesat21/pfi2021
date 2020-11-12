@@ -16,6 +16,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import FormularioDatos from './FormularioDatos';
 import Checkbox from '@material-ui/core/Checkbox';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -69,6 +72,8 @@ export default function TabsPerfil(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
+    const [alumnoSeleccionado, setAlumnoSeleccionado] = React.useState(null);
+    const [alumnosModalIsOpen, setAlumnosModalIsOpen] = React.useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -81,7 +86,20 @@ export default function TabsPerfil(props) {
         setValue(2);
     };
 
+    //Turnos Menu
+    function handleChangeAlumno(e) {
+        setAlumnoSeleccionado(e.target.value);
+    };
 
+    function handleAlumnosMenuOpen() {
+        setAlumnosModalIsOpen(true);
+    }
+
+    function handleAlumnosMenuClose() {
+        setAlumnosModalIsOpen(false);
+    }
+
+    //Views
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -115,7 +133,24 @@ export default function TabsPerfil(props) {
 
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <Grid container  >
+                    <Grid container >
+                    <Grid item xs={12} md={12}>
+                                <InputLabel id="demo-mutiple-name-label">Nombre Alumno</InputLabel>
+                                <Select
+                                fullWidth
+                                labelId="demo-mutiple-name-label"
+                                id="demo-controlled-open-select"
+                                open={ alumnosModalIsOpen }
+                                onClose={ handleAlumnosMenuClose }
+                                onOpen={ handleAlumnosMenuOpen }
+                                value = { alumnoSeleccionado }
+                                onChange={ e => handleChangeAlumno(e) }
+                                >
+                                { props.alumnos.slice(0,2).map((alumno, index) => (
+                                    <MenuItem value={index}> { alumno.nombre } { alumno.apellido} </MenuItem>
+                                ))}
+                                </Select>
+                        </Grid>
                         <Grid item xs={12} md={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 {/*PERFILES*/}

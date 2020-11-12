@@ -234,7 +234,7 @@ class FormularioDatosFactura extends Component {
                                     <MenuItem value={index}> { titular.nombre } { titular.apellido} </MenuItem>
                                 ))}
                                 </Select>
-                            </Grid>
+                        </Grid>
                         <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -372,12 +372,12 @@ class FormularioDatosFactura extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                id="mes"
-                                name="mes"
+                                id="mesTextField"
+                                name="mesTextField"
                                 label="Mes Factura a emitir"
                                 fullWidth
-                                autoComplete="Mes Factura a emitir"
-                                value={this.state.mesFactura}
+                                autoComplete="mesTextField"
+                                value={ this.state.mesFactura }
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -390,7 +390,7 @@ class FormularioDatosFactura extends Component {
                                 name="anio"
                                 label="Año Factura a Emitir"
                                 fullWidth
-                                autoComplete="Año Factura a Emitir"
+                                autoComplete="anio"
                                 value={this.state.anioFactura}
                                 onChange={this.handleChange}
                                 InputProps={{

@@ -11,6 +11,7 @@ import GuestAPI from '../../Network/Guest/GuestAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../Commons/ErrorMessageModal';
 import '../../Styles/Common.css'
+import AlumnosAPI from './../../Network/Alumnos/AlumnosAPI'
 
 const styles = theme => ({
     paper: {
@@ -33,6 +34,7 @@ class Perfil extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            alumnos: [],
             data: [],
             futbol: false,
             hockey: false,
@@ -73,7 +75,22 @@ class Perfil extends Component {
 
     //Life Cycle methods
     componentDidMount() {
-        
+        this.getAlumnos();
+    }
+
+    getAlumnos() {
+        this.setState({ loading: true });
+        AlumnosAPI.getAlumnos(this.handleGetAlumnos.bind(this));
+    }
+
+    handleGetAlumnos(alumnos) {
+        this.setState({ loading: false });
+
+        if (alumnos === undefined || alumnos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { alumnos: alumnos } , this.forceUpdate());
+        }
     }
 
     getSelectedProfile() {
@@ -201,6 +218,7 @@ class Perfil extends Component {
                             <Grid item xs={12} md={12} lg={12}>
                                 <Paper>
                                     <TabsPerfil
+                                        alumnos = { this.state.alumnos }
                                         user={this.props.user}
                                         perfil={this.props.perfil}
                                         futbol={this.state.futbol}
