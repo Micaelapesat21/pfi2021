@@ -22,7 +22,7 @@ class ActsArtísticas extends Component {
     }
    
 
-    danza() {
+    /*danza() {
         if (this.props.danza) {
             return (
                 <Grid container spacing={2}>
@@ -99,7 +99,7 @@ class ActsArtísticas extends Component {
         }
     }
 
-  
+  */
 
     render() {
         const { classes } = this.props;
@@ -115,7 +115,7 @@ class ActsArtísticas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.danza()}
+                            
                         </Grid>
                     </Grid>
                 </Grid>
@@ -128,7 +128,7 @@ class ActsArtísticas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.teatro()}
+                            
                         </Grid>
                     </Grid>
                 </Grid>
@@ -141,7 +141,7 @@ class ActsArtísticas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.pintura()}
+                            
                         </Grid>
                     </Grid>
                 </Grid>
@@ -154,7 +154,7 @@ class ActsArtísticas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.música()}
+                            
                         </Grid>
                     </Grid>
                 </Grid>

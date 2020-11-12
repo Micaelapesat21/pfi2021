@@ -20,7 +20,7 @@ class Idiomas extends Component {
             
         }
     }
-
+    
     inglés() {
         if (this.props.ingles) {
             return (
@@ -79,7 +79,7 @@ class Idiomas extends Component {
     }
 
    
-
+   
 
     render() {
         const { classes } = this.props;
@@ -95,7 +95,7 @@ class Idiomas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.inglés()}
+                            
                         </Grid>
 
                     </Grid>
@@ -109,7 +109,7 @@ class Idiomas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.portugués()}
+                           
                         </Grid>
 
                     </Grid>
@@ -124,7 +124,7 @@ class Idiomas extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.francés()}
+                           
                         </Grid>
 
                     </Grid>
