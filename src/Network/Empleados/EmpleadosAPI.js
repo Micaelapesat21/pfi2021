@@ -21,7 +21,7 @@ class EmpleadosAPI extends Component {
         });
     }
 
-    getEmpleado(handleGetEmpleado)
+    getEmpleados(handleGetEmpleado)
     {
         let url =  "http://integracion-escuela.herokuapp.com/escuelabackend/obtenerEmpleados";
         fetch(url,{

@@ -84,20 +84,7 @@ export default function ListItems(props) {
             </ListItemIcon>
             <ListItemText primary={props.user.displayName} />
           </ListItem>
-
-          <ListItem button onClick={props.resenasOpen} className={classes.nested}>
-            <ListItemIcon>
-              <RateReviewIcon color="secondary"/>
-            </ListItemIcon>
-            <ListItemText primary="Reseñas" />
-          </ListItem>
-
-          <ListItem button onClick={props.pagosOpen} className={classes.nested}>
-            <ListItemIcon>
-              <PaymentIcon color="secondary"/>
-            </ListItemIcon>
-            <ListItemText primary="Tarjetas" />
-          </ListItem>
+       
         </List>
       </Collapse>
       <Divider />

@@ -37,6 +37,8 @@ class FormularioDatosFactura extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            alumnoSeleccionado: null,
+            titularesMenuOpen: false,
             titularesMenuOpen: false,
             turnoSeleccionado: null,
             numeroFactura: "",
@@ -61,17 +63,20 @@ class FormularioDatosFactura extends Component {
     }
 
     guardar() {
-        if (this.turnoSeleccionado !== null,
-            this.state.numeroFactura !== "" &&
-            this.state.titular !== "" &&
-            this.state.alumno !== "" &&
-            this.state.turno !== "" &&
-            this.state.servicios !== "" &&
-            this.state.monto !== "" &&
-            this.state.mes !== "" &&
-            this.state.año !== "" &&
-            this.state.estado !== "" 
-            
+        if (this.alumnoSeleccionado !== null,
+            this.turnoSeleccionado !== null,
+            this.state.nombre !== "" &&
+            this.state.apellido !== "" &&
+            this.state.email !== "" &&
+            this.state.pais !== "" &&
+            this.state.estado !== "" &&
+            this.state.ciudad !== "" &&
+            this.state.codigoPostal !== "" &&
+            this.state.direccion !== "" &&
+            this.state.telefono1 !== "" &&
+            this.state.telefono2 !== "" &&
+            this.state.titular !== "" && 
+            this.state.jornada !=="" 
         ) {
             this.postFacturaInfo(this.getHotelModel())
         } else {
@@ -105,6 +110,18 @@ class FormularioDatosFactura extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    //Turnos Menu
+    handleChangeTurno(e) {
+        this.setState({ alumnoSeleccionado: e.target.value });
+    }
+
+    handleTurnosMenuOpen() {
+        this.setState({ turnosMenuOpen: true });
+    }
+
+    handleTurnosMenuClose() {
+        this.setState({ turnosMenuOpen: false });
+    }
 
     //Api Calls
     postFacturaInfo = (facturaData) => {
@@ -117,7 +134,7 @@ class FormularioDatosFactura extends Component {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
             var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
+            this.props.facturaCreado(dict);
         } else {
             //get user with email failed
         }
@@ -139,7 +156,19 @@ class FormularioDatosFactura extends Component {
             estado: this.state.estado,
             
         };
+    }
 
+     //Menu
+     handleTitularesMenuOpen() {
+        this.setState({ titularesMenuOpen: true });
+    }
+
+    handleTitularesMenuClose() {
+        this.setState({ titularesMenuOpen: false });
+    }
+
+    handleChangeTitular(e) {
+        this.setState({ alumnoSeleccionado: e.target.value });
     }
 
     //Modal handlers
@@ -154,7 +183,24 @@ class FormularioDatosFactura extends Component {
                 {this.showLoaderIfNeeded()}
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
-                    <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                                <InputLabel id="demo-mutiple-name-label">Nombre Alumno</InputLabel>
+                                <Select
+                                fullWidth
+                                labelId="demo-mutiple-name-label"
+                                id="demo-controlled-open-select"
+                                open={ this.state.titularesMenuOpen }
+                                onClose={ this.handleTitularesMenuClose.bind(this) }
+                                onOpen={ this.handleTitularesMenuOpen.bind(this) }
+                                value = { this.state.alumnoSeleccionado }
+                                onChange={ e => this.handleChangeTitular(e) }
+                                >
+                                { this.props.alumnos.map((titular, index) => (
+                                    <MenuItem value={index}> { titular.nombre } { titular.apellido} </MenuItem>
+                                ))}
+                                </Select>
+                            </Grid>
+                        <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
@@ -329,7 +375,7 @@ class FormularioDatosFactura extends Component {
                             value = { this.state.turnoSeleccionado }
                             onChange={ e => this.handleChangeTurno(e) }
                             >
-                            { this.props.turnos.map((turno, index) => (
+                            { this.props.factura.map((turno, index) => (
                                 <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
                                 ))}
                             </Select>
@@ -337,7 +383,7 @@ class FormularioDatosFactura extends Component {
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
-                    Registrar Pago
+                    Generar Factura
                 </Button>
             </Grid>
         );

@@ -125,6 +125,7 @@ export default function PanelControl(props) {
     const [modoFacturacion, setmodoFacturacion] = React.useState(false);
     const [titulares, setTitulares] = React.useState([]);
     const [turnos, setTurnos] = React.useState([]);
+    const [alumnos, setAlumnos] = React.useState([]);
 
     const actualizarTitulares = (titulares) => {
         setTitulares(titulares);
@@ -132,6 +133,9 @@ export default function PanelControl(props) {
 
     const actualizarTurnos = (turnos) => {
         setTurnos(turnos);
+    }
+    const actualizarAlumnos = (alumnos) => {
+        setAlumnos(alumnos);
     }
 
     const handleDrawerOpen = () => {
@@ -452,6 +456,8 @@ export default function PanelControl(props) {
                                 <Alumnos 
                                     titulares = { titulares }
                                     turnos = { turnos }
+                                    alumnos = { alumnos }
+                                    actualizarAlumnos = { actualizarAlumnos }
                                 />
                             </Container>
                         </main>
@@ -525,6 +531,7 @@ export default function PanelControl(props) {
                                         user={props.user}
                                         actualizarTitulares = { actualizarTitulares }
                                         actualizarTurnos = { actualizarTurnos }
+                                        actualizarAlumnos = { actualizarAlumnos }
                                     />
                                 </Container>
                             </main>
@@ -808,7 +815,7 @@ export default function PanelControl(props) {
                                                         <div className={classes.appBarSpacer} />
             
                                                         <Container maxWidth="lg" className={classes.container}>
-                                                            <Facturas turnos = { turnos } />
+                                                            <Facturas turnos = { turnos } alumnos = { alumnos }/>
                                                         </Container>
                                                     </main>
                                                 </div>

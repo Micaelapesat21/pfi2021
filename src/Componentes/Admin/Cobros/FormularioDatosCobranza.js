@@ -39,7 +39,7 @@ class FormularioDatosCobranza extends Component {
         this.state = {
             turnoSeleccionado: null,
             turnosMenuOpen: false,
-            codigoCobro: "",
+            nroTransaccion: "",
             nombrePago: "",
             emailPago: "",
             documento: "",
@@ -66,7 +66,7 @@ class FormularioDatosCobranza extends Component {
 
     guardar() {
         if (this.state.turnoSeleccionado !== null &&
-            this.state.codigoCobro !== "" &&
+            this.state.nroTransaccion !== "" &&
             this.state.nombrePago !== "" &&
             this.state.emailPago !== "" &&
             this.state.documento !== "" &&
@@ -78,7 +78,7 @@ class FormularioDatosCobranza extends Component {
             var dict = this.getCobroModel();
             this.props.cobroRegistrado(dict);
 
-            this.postAlumnoInfo()
+            this.postAlumnoInfo(dict)
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -154,9 +154,9 @@ class FormularioDatosCobranza extends Component {
         }
     }
 
-    postAlumnoInfo = () => {
+    postAlumnoInfo = (dict) => {
         this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostCobroInfo);
+        HotelAPI.postHotelInfo(dict, this.handlePostCobroInfo);
     }
 
     handlePostAlumnoInfo = async (CobroInfo) => {
@@ -165,7 +165,7 @@ class FormularioDatosCobranza extends Component {
 
     getHotelModel() {
         return {
-            codigoCobro: this.state.codigoCobro,
+            codigoCobro: this.state.nroTransaccion,
             nombrePago: this.state.nombrePago,
             emailPago: this.state.emailPago,
             documento: this.state.documento,
@@ -193,12 +193,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Codigo Pago"
-                                name="codigo"
-                                label="Código de Pago"
+                                id="nroTransaccion"
+                                name="nroTransaccion"
+                                label="Número de Transacción"
                                 fullWidth
-                                autoComplete="Código de Pago"
-                                value={this.state.codigoCobro}
+                                autoComplete="0000001111111"
+                                value={this.state.nroTransaccion}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,

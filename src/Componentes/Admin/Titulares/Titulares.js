@@ -5,6 +5,7 @@ import {  Grid } from '@material-ui/core';
 import TableTitulares from './TableTitulares'
 import TitularesAPI from '../../../Network/Titulares/TitularesAPI';
 import TurrnosAPI from './../../../Network/Turnos/TurnosAPI'
+import AlumnosAPI from './../../../Network/Alumnos/AlumnosAPI'
 
 const styles = theme => ({
 
@@ -17,6 +18,7 @@ class Titulares extends Component {
         this.state = {
             titulares: [],
             turnos: [],
+            alumnos: [],
             loading: false,
         }
     }
@@ -24,6 +26,7 @@ class Titulares extends Component {
     componentDidMount() {
         this.getTitulares();
         this.getTurnos();
+        this.getAlumnos();
     }
 
     //Api Calls
@@ -62,6 +65,22 @@ class Titulares extends Component {
         } else {
             this.setState( { turnos: turnos } , this.forceUpdate());
             this.props.actualizarTurnos(turnos);
+        }
+    }
+
+    getAlumnos() {
+        this.setState({ loading: true });
+        AlumnosAPI.getAlumnos(this.handleGetAlumnos.bind(this));
+    }
+
+    handleGetAlumnos(alumnos) {
+        this.setState({ loading: false });
+
+        if (alumnos === undefined || alumnos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { alumnos: alumnos } , this.forceUpdate());
+            this.props.actualizarAlumnos(alumnos);
         }
     }
 
