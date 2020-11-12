@@ -23,11 +23,6 @@ function createData(id,nombre, apellido, email, telefono1, ciudad) {
     return { id, nombre, apellido, email, telefono1, ciudad };
 }
 
-const rows = [
-    createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
-    createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
-];
-
 const useStyles = makeStyles(theme => ({
     seeMore: {
         marginTop: theme.spacing(3),
@@ -77,10 +72,9 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Orders() {
+export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [empleados, setTitulares] = React.useState(rows);
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -92,11 +86,7 @@ export default function Orders() {
 
     const empleadoCreado = (titular) => {
         setModalIsOpen(false);
-        var array = [];
-        titular["id"] = empleados.length;
-        var titularesActualizado = empleados;
-        titularesActualizado.push(titular);
-        return () => setTitulares(titularesActualizado);
+        props.empleadoCreado(titular);
     }
 
     return (
@@ -150,12 +140,12 @@ export default function Orders() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { empleados.map((row, index) => (
+                        { props.empleados.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.telefono1}</TableCell>
+                                <TableCell>{row.correo}</TableCell>
+                                <TableCell>{row.telefono}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
