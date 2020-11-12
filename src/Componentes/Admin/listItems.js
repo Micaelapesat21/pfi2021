@@ -17,12 +17,12 @@ import WorkIcon from '@material-ui/icons/Work';
 export default function mainListItems(props) {
   return (
     <div>
-      <ListItem button onClick={props.generalOpen}>
+      {/* <ListItem button onClick={props.generalOpen}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Panel General" />
-      </ListItem>
+      </ListItem> */}
       <ListItem button onClick={props.datosOpen}>
         <ListItemIcon>
           <DescriptionIcon />
