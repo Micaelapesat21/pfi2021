@@ -18,29 +18,22 @@ class Actividades extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            alquileres: true,
-            botes: true,
-            bicicletas: true,
-            autos: true,
-            motos: true,
-            ski: true,
-            Buceo: true,
-            eventos: true,
-            actividades: true,
+            comedor: true,
+            desayuno: true,
+            almuerzo: true,
+            merienda: true,
+            
         }
     }
-    alquileres() {
+    comedor() {
         const { classes } = this.props;
-        if (this.state.alquileres) {
+        if (this.state.comedor) {
             return (
                 <Grid container spacing={2}>
                     <FormControl component="fieldset" className={classes.formControl}>
-                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('botes')} checked={this.state.botes} name="botes" />} label="De Botes" />
-                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('bicicletas')} checked={this.state.bicicletas} name="bicicletas" />} label="De Bicicletas" />
-                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('autos')} checked={this.state.autos} name="autos" />} label="De Autos" />
-                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('motos')} checked={this.state.motos} name="motos" />} label="De Motos" />
-                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('ski')} checked={this.state.ski} name="ski" />} label="De Ski" />
-                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('Buceo')} checked={this.state.Buceo} name="Buceo" />} label="De Buceo" />
+                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('desayuno')} checked={this.state.desayuno} name="desayuo" />} label="Desayuno" />
+                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('almuerzo')} checked={this.state.almuerzo} name="almuerzo" />} label="Almuerzo" />
+                        <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('merienda')} checked={this.state.merienda} name="merienda" />} label="Merienda" />       
                     </FormControl>
                 </Grid>
             )
@@ -50,19 +43,14 @@ class Actividades extends Component {
             )
         }
     }
-    eventos() {
-        if (this.props.eventos) {
+    transporte() {
+        if (this.props.transporte) {
             return (
                 <Grid container spacing={2}>
-                    <Grid item md={3}>
-                        <Fecha label={"Dia"} />
-                    </Grid>
-                    <Grid item md={3}>
-                        <Hora label={"A las"} />
-                    </Grid>
+                   
                     <Grid item md={3}>
                         <TextField
-                        label="Nombre del evento"
+                        label="Transporte"
                         />
                     </Grid>
                 </Grid>
@@ -73,30 +61,7 @@ class Actividades extends Component {
             )
         }
     }
-    actividades() {
-        if (this.props.actividades) {
-            return (
-                <Grid container spacing={2}>
-                    <Grid item md={3}>
-                        <Fecha label={"Dia"} />
-                    </Grid>
-                    <Grid item md={3}>
-                        <Hora label={"A las"} />
-                    </Grid>
-                    <Grid item md={3}>
-                        <TextField
-                        label="Nombre de la actividad"
-                        />
-                    </Grid>
-                </Grid>
-            )
-        } else {
-            return (
-                <div></div>
-            )
-        }
-    }
-
+    
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
     };
@@ -108,49 +73,35 @@ class Actividades extends Component {
         return (
             <Grid container>
                 <Grid item xs={12} >
-                    <FormLabel>Alquileres</FormLabel>
+                    <FormLabel>Comedor</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('alquileres')} checked={this.state.alquileres} name="alquileres" />} label="Alquileres" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.handleChange('comedor')} checked={this.state.comedor} name="comedor" />} label="Elegir tipo de comida" />
                             </FormControl>
                         </Grid>
                         <Grid item md={11}>
-                            {this.alquileres()}
+                            {this.comedor()}
                         </Grid>
 
                     </Grid>
                 </Grid>
                 <Grid item xs={12} >
-                    <FormLabel component="legend">Eventos Organizados</FormLabel>
+                    <FormLabel component="legend">Transporte</FormLabel>
                     <Grid container>
                         <Grid item md={3}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('eventos')} checked={this.props.eventos} name="eventos" />} label="Eventos" />
+                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('transporte')} checked={this.props.eventos} name="transporte" />} label="Transporte" />
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.eventos()}
+                            {this.transporte()}
                         </Grid>
 
                     </Grid>
 
                 </Grid>
-                <Grid item xs={12}>
-                    <FormLabel component="legend">Actividades del hotel</FormLabel>
-                    <Grid container>
-                        <Grid item md={3}>
-                            <FormControl component="fieldset" className={classes.formControl}>
-                                <FormControlLabel control={<Checkbox color="primary" onChange={this.props.handleChange('actividades')} checked={this.props.actividades} name="actividades" />} label="Actividades" />
-                            </FormControl>
-                        </Grid>
-                        <Grid item md={9}>
-                            {this.actividades()}
-                        </Grid>
-
-                    </Grid>
-
-                </Grid>
+              
 
             </Grid>
         )
