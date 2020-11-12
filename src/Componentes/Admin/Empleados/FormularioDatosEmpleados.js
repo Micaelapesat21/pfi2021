@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
 import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
+import EmpleadosAPI from '../../../Network/Empleados/EmpleadosAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -90,10 +90,9 @@ class FormularioDatosEmpleados extends Component {
             this.state.Sueldo !== "" &&
             this.state.FechaIngreso !== ""
         ) {
-            var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
+         
+            this.postEmpleadoInfo(this.getEmpleadoModel())
 
-            this.postHotelInfo()
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -121,63 +120,31 @@ class FormularioDatosEmpleados extends Component {
         }
     }
 
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
-
-    //Api Calls
-    getHotelInfo(email) {
+    
+    postEmpleadoInfo = (empleadoData) => {
         this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
+        EmpleadosAPI.createEmpleado(empleadoData, this.handlePostEmpleadoInfo.bind(this));
     }
 
-    handleGetHotelInfo(hotelInfo) {
+
+
+    handlePostEmpleadoInfo = async (empleadoInfo) => {
         this.setState({ loading: false });
-
-        if (hotelInfo === undefined || hotelInfo === null) {
-            //show error message if needed
-        } else {
-            let hotelData = hotelInfo.state;
-
-            if (hotelData !== null) {
-                this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.email,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                    Categoria: hotelData.Categoria,
-                    Puesto: hotelData.Puesto,
-                    CargaHoraria: hotelData.CargaHoraria,
-                    Sueldo: hotelData.Sueldo,
-                    FechaIngreso: hotelData.FechaIngreso
-                });            
-            }
-        }
-    }
-
-    postHotelInfo = () => {
-        this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
-    }
-
-    handlePostHotelInfo = async (hotelInfo) => {
-        this.setState({ loading: false });
-        if (hotelInfo.error == null) {
+        if (empleadoInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
+            var dict = this.getEmpleadoModel();
+            this.props.empleadoCreado(dict);
         } else {
             //get user with email failed
         }
     }
 
-    getHotelModel() {
+    getEmpleadoModel() {
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
@@ -197,6 +164,7 @@ class FormularioDatosEmpleados extends Component {
         };
 
     }
+    
 
     //Modal handlers
     closeErrorModal() {
@@ -405,11 +373,11 @@ class FormularioDatosEmpleados extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 id="select" 
-                                name="Carga Horaria"
-                                label= "Carga Horaria" 
+                                name="CargaHoraria"
+                                label= "CargaHoraria" 
                                 fullWidth
                                 value={this.state.CargaHoraria}
-                                autoComplete="Carga Horaria"
+                                autoComplete="CargaHoraria"
                                 onChange={this.handleChange}                           
                                 select>
                           
@@ -438,11 +406,11 @@ class FormularioDatosEmpleados extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Fecha Ingreso"
-                                name="Fecha Ingreso"
-                                label="Fecha Ingreso"
+                                id="FechaIngreso"
+                                name="FechaIngreso"
+                                label="FechaIngreso"
                                 fullWidth
-                                autoComplete="Fecha Ingreso"
+                                autoComplete="FechaIngreso"
                                 value={this.state.FechaIngreso}
                                 onChange={this.handleChange}
                                 InputProps={{

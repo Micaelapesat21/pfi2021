@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 export default function Orders() {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [titulares, setTitulares] = React.useState(rows);
+    const [empleados, setTitulares] = React.useState(rows);
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -90,11 +90,11 @@ export default function Orders() {
         setModalIsOpen(false);
     };
 
-    const titularCreado = (titular) => {
+    const empleadoCreado = (titular) => {
         setModalIsOpen(false);
         var array = [];
-        titular["id"] = titulares.length;
-        var titularesActualizado = titulares;
+        titular["id"] = empleados.length;
+        var titularesActualizado = empleados;
         titularesActualizado.push(titular);
         return () => setTitulares(titularesActualizado);
     }
@@ -111,7 +111,7 @@ export default function Orders() {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Empleado </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosEmpleados titularCreado = { titularCreado }/>
+             <FormularioDatosEmpleados empleadoCreado = { empleadoCreado }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -150,7 +150,7 @@ export default function Orders() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { titulares.map((row, index) => (
+                        { empleados.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>

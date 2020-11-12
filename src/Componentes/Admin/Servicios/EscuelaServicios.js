@@ -30,9 +30,7 @@ class EscuelaServicios extends Component {
                     <Grid item md={3}>
                         <Hora label={"Hasta"} />
                     </Grid>
-                    <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
-                    </Grid>
+                    
                 </Grid>
             )
         } else {
@@ -51,9 +49,7 @@ class EscuelaServicios extends Component {
                     <Grid item md={3}>
                         <Hora label={"Hasta"} />
                     </Grid>
-                    <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
-                    </Grid>
+                    
                 </Grid>
             )
         } else {
@@ -73,7 +69,7 @@ class EscuelaServicios extends Component {
                         <Hora label={"Hasta"} />
                     </Grid>
                     <Grid item md={3}>
-                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="24 Horas" />
+                        <FormControlLabel control={<Checkbox color="primary" checked={false} name="checkedE" />} label="" />
                     </Grid>
                 </Grid>
             )
