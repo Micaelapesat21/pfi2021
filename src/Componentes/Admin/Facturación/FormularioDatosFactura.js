@@ -375,7 +375,7 @@ class FormularioDatosFactura extends Component {
                             value = { this.state.turnoSeleccionado }
                             onChange={ e => this.handleChangeTurno(e) }
                             >
-                            { this.props.turno.map((turno, index) => (
+                            { this.props.turnos.map((turno, index) => (
                                 <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
                                 ))}
                             </Select>
