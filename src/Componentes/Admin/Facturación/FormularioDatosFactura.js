@@ -37,6 +37,8 @@ class FormularioDatosFactura extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            titularSeleccionado: null,
+            titularesMenuOpen: false,
             titularesMenuOpen: false,
             turnoSeleccionado: null,
             nombre: "",
@@ -69,7 +71,8 @@ class FormularioDatosFactura extends Component {
     }
 
     guardar() {
-        if (this.turnoSeleccionado !== null,
+        if (this.titularSeleccionado !== null,
+            this.turnoSeleccionado !== null,
             this.state.nombre !== "" &&
             this.state.apellido !== "" &&
             this.state.email !== "" &&
@@ -196,7 +199,20 @@ class FormularioDatosFactura extends Component {
             titular:this.state.titular,
             jornada:this.state.jornada,
         };
+    }
 
+     //Menu
+     handleTitularesMenuOpen() {
+        this.setState({ titularesMenuOpen: true });
+    }
+
+    handleTitularesMenuClose() {
+        this.setState({ titularesMenuOpen: false });
+    }
+
+    handleChangeTitular(e) {
+        let titular = this.props.titulares[ e.target.value ];
+        this.setState({ titularSeleccionado: e.target.value });
     }
 
     //Modal handlers
@@ -211,7 +227,24 @@ class FormularioDatosFactura extends Component {
                 {this.showLoaderIfNeeded()}
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
-                    <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                                <InputLabel id="demo-mutiple-name-label">Nombre Alumno</InputLabel>
+                                <Select
+                                fullWidth
+                                labelId="demo-mutiple-name-label"
+                                id="demo-controlled-open-select"
+                                open={ this.state.titularesMenuOpen }
+                                onClose={ this.handleTitularesMenuClose.bind(this) }
+                                onOpen={ this.handleTitularesMenuOpen.bind(this) }
+                                value = { this.state.titularSeleccionado }
+                                onChange={ e => this.handleChangeTitular(e) }
+                                >
+                                { this.props.alumnos.map((titular, index) => (
+                                    <MenuItem value={index}> { titular.nombre } { titular.apellido} </MenuItem>
+                                ))}
+                                </Select>
+                            </Grid>
+                        <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
