@@ -95,6 +95,22 @@ export default function Orders(props) {
         props.facturaCreado(factura);
     }
 
+    function getServicios(index) {
+        if(props.facturas.length > 0) {
+            let factura = props.facturas[index];
+            let servicios = factura.servicios;
+            let serviciosString = "";
+
+            servicios.forEach(  servicio =>
+                serviciosString += " " + servicio.nombreServicio
+            )
+
+            return serviciosString;
+        } else {
+            return ""
+        }
+    }
+
     return (
         <React.Fragment>
             <Dialog
@@ -157,11 +173,11 @@ export default function Orders(props) {
                                 <TableCell>{row.titular}</TableCell>
                                 <TableCell>{row.alumno}</TableCell>
                                 <TableCell>{row.turno}</TableCell>
-                                <TableCell>{row.servicios}</TableCell>
-                                <TableCell>{row.monto}</TableCell>
-                                <TableCell>{row.mes}</TableCell>
-                                <TableCell>{row.año}</TableCell>
-                                <TableCell>{row.estado}</TableCell>
+                                <TableCell>{ getServicios(index) }</TableCell>
+                                <TableCell>{ row.totalCuota }</TableCell>
+                                <TableCell>{ row.mes }</TableCell>
+                                <TableCell>{ row.anio }</TableCell>
+                                <TableCell>{ row.pagada }</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <CheckIcon />

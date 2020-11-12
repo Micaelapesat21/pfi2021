@@ -5,7 +5,7 @@ import HotelInfo from '../../Models/Hotel/HotelInfo';
 class FacturaAPI extends Component {
 
     createFactura(facturaInfo, handlePostFacturaInfo) {
-      let url = "";
+      let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearCuota/Esccuota";
       let body = JSON.stringify( facturaInfo );
         fetch(url,{
           method: 'Post', 
@@ -21,9 +21,9 @@ class FacturaAPI extends Component {
         });
     }
 
-    getFactura(handleGetFactura)
+    getFacturas(handleGetFactura)
     {
-        let url =  "";
+      let url = "https://integracion-escuela.herokuapp.com/escuelabackend/obtenerCuotas";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
