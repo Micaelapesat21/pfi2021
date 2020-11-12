@@ -394,7 +394,7 @@ class FormularioDatosFactura extends Component {
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
-                    Registrar Pago
+                    Generar Factura
                 </Button>
             </Grid>
         );
