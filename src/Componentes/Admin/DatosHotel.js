@@ -435,20 +435,7 @@ class DatosHotel extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="Cantidad de estrellas"
-                                name="estrellas"
-                                label="Cantidad de estrellas"
-                                fullWidth
-                                autoComplete="Cantidad de estrellas"
-                                value={this.state.estrellas}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
+                        
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required

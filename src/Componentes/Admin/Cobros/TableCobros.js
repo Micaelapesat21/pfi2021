@@ -19,13 +19,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCobranza from './FormularioDatosCobranza';
 
 // Generate Order Data
-function createData(id,numeroFactura, alumno, titular, totalCuota, fechaEmision, estado) {
-    return { id, numeroFactura, alumno, titular, totalCuota, fechaEmision, estado };
+function createData(id,numeroFactura, alumno, titular, totalCuota, fechaEmision, estado, numeroTransaccion) {
+    return { id, numeroFactura, alumno, titular, totalCuota, fechaEmision, estado, numeroTransaccion };
 }
 
 const rows = [
-    createData(0, '000000001', 'Agustina Imparato', 'Sebastian Gomez', '$27350', '02-11-2020','Realizado' ,'Realizado'),
-    createData(1, '000000002', 'Jonathan Rodriguez', 'Nicolas Roger', '$27350', '02-11-2020', 'Pendiente','Pendiente'),
+    createData(0, '000000001', 'Agustina Imparato', 'Sebastian Gomez', '$27350', '02-11-2020','Realizado' ,'000000011'),
+    createData(1, '000000002', 'Jonathan Rodriguez', 'Nicolas Roger', '$27350', '02-11-2020', 'Pendiente','000000012'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -147,6 +147,7 @@ export default function Orders(props) {
                             <TableCell>Monto Total</TableCell>
                             <TableCell>Fecha Emision</TableCell>
                             <TableCell>Estado Pago</TableCell>
+                            <TableCell>Número de Transacción</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
@@ -159,6 +160,7 @@ export default function Orders(props) {
                                 <TableCell>{row.totalCuota}</TableCell>
                                 <TableCell>{row.fechaEmision}</TableCell>
                                 <TableCell>{row.estado}</TableCell>
+                                <TableCell>{row.numeroTransaccion}</TableCell>
                                 <TableCell align="right">
                                     
                                     <IconButton size="small">

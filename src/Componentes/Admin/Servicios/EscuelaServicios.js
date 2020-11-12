@@ -20,6 +20,7 @@ class EscuelaServicios extends Component {
         }
     }
 
+    /*
     fútbol() {
         if (this.props.fútbol) {
             return (
@@ -79,7 +80,7 @@ class EscuelaServicios extends Component {
             )
         }
     }
-
+    */
   
 
     render() {
@@ -96,7 +97,7 @@ class EscuelaServicios extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.fútbol()}
+                            
                         </Grid>
 
                     </Grid>
@@ -110,7 +111,7 @@ class EscuelaServicios extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.tenis()}
+                            
                         </Grid>
 
                     </Grid>
@@ -125,7 +126,7 @@ class EscuelaServicios extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item md={9}>
-                            {this.hockey()}
+                            
                         </Grid>
 
                     </Grid>
