@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
 import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
+import FacturasAPI from '../../../Network/Facturas/FacturasAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
@@ -39,23 +39,15 @@ class FormularioDatosFactura extends Component {
         this.state = {
             titularesMenuOpen: false,
             turnoSeleccionado: null,
-            nombre: "",
-            apellido: "",
-            email: "",
-            pais: "",
-            estado: "",
-            ciudad: "",
-            codigoPostal: "",
-            direccion: "",
-            telefono1: "",
-            telefono2: "",
-            estrellas: "",
-            edicion: true,
-            redOnly: false,
-            lastResponse: null,
+            numeroFactura: "",
             titular: "",
-            jornada: "",
-            loading: false,
+            alumno: "",
+            turno: "",
+            servicios: "",
+            monto: "",
+            mes: "",
+            año: "",
+            estado: "",
             errorMessageIsOpen: false,
             errorMessage: ""
         }
@@ -70,23 +62,18 @@ class FormularioDatosFactura extends Component {
 
     guardar() {
         if (this.turnoSeleccionado !== null,
-            this.state.nombre !== "" &&
-            this.state.apellido !== "" &&
-            this.state.email !== "" &&
-            this.state.pais !== "" &&
-            this.state.estado !== "" &&
-            this.state.ciudad !== "" &&
-            this.state.codigoPostal !== "" &&
-            this.state.direccion !== "" &&
-            this.state.telefono1 !== "" &&
-            this.state.telefono2 !== "" &&
-            this.state.titular !== "" && 
-            this.state.jornada !=="" 
+            this.state.numeroFactura !== "" &&
+            this.state.titular !== "" &&
+            this.state.alumno !== "" &&
+            this.state.turno !== "" &&
+            this.state.servicios !== "" &&
+            this.state.monto !== "" &&
+            this.state.mes !== "" &&
+            this.state.año !== "" &&
+            this.state.estado !== "" 
+            
         ) {
-            var dict = this.getHotelModel();
-            this.props.titularCreado(dict);
-
-            this.postAlumnoInfo()
+            this.postFacturaInfo(this.getHotelModel())
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -118,83 +105,39 @@ class FormularioDatosFactura extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    //Turnos Menu
-    handleChangeTurno(e) {
-        let titular = this.props.turnos[ e.target.value ];
-        this.setState({ turnoSeleccionado: e.target.value });
-    }
-
-    handleTurnosMenuOpen() {
-        this.setState({ turnosMenuOpen: true });
-    }
-
-    handleTurnosMenuClose() {
-        this.setState({ turnosMenuOpen: false });
-    }
 
     //Api Calls
-    getHotelInfo(email) {
+    postFacturaInfo = (facturaData) => {
         this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
+        FacturasAPI.createFactura(facturaData, this.handlePostFacturaInfo.bind(this));
     }
-
-    handleGetHotelInfo(hotelInfo) {
+    handlePostFacturaInfo = async (facturaInfo) => {
         this.setState({ loading: false });
-
-        if (hotelInfo === undefined || hotelInfo === null) {
-            //show error message if needed
-        } else {
-            let hotelData = hotelInfo.state;
-
-            if (hotelData !== null) {
-                this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.email,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                    titular: hotelData.titular,
-                    jornada: hotelData.jornada,
-                });            
-            }
-        }
-    }
-
-    postAlumnoInfo = () => {
-        this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
-    }
-
-    handlePostAlumnoInfo = async (hotelInfo) => {
-        this.setState({ loading: false });
-        if (hotelInfo.error == null) {
+        if (facturaInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
+            var dict = this.getHotelModel();
+            this.props.titularCreado(dict);
         } else {
             //get user with email failed
         }
     }
 
-    getHotelModel() {
+  
+
+
+    getFacturaModel() {
         return {
-            nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            email: this.state.email,
-            pais: this.state.pais,
+            numeroFactura: this.state.numeroFactura,
+            titular: this.state.titular,
+            alumno: this.state.alumno,
+            turno: this.state.turno,
+            servicios: this.state.servicios,
+            monto: this.state.monto,
+            mes: this.state.mes,
+            año: this.state.año,
             estado: this.state.estado,
-            ciudad: this.state.ciudad,
-            codigoPostal: this.state.codigoPostal,
-            direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
-            telefono2: this.state.telefono2,
-            titular:this.state.titular,
-            jornada:this.state.jornada,
+            
         };
 
     }
@@ -215,11 +158,11 @@ class FormularioDatosFactura extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Nombre"
-                                name="nombre"
-                                label="Nombre del alumno"
+                                id="numeroFactura"
+                                name="numeroFactura"
+                                label="Numero Factura"
                                 fullWidth
-                                autoComplete="Nombre"
+                                autoComplete="Numero Factura"
                                 value={this.state.nombre}
                                 onChange={this.handleChange}
                                 InputProps={{
