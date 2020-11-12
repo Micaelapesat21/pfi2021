@@ -111,7 +111,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Datos de la Factura a emitir </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosFactura titularCreado = { titularCreado } turnos = { props.turnos } />
+             <FormularioDatosFactura titularCreado = { titularCreado } turnos = { props.turnos } alumnos = { props.alumnos }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>

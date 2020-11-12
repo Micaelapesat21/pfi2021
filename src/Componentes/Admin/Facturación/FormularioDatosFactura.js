@@ -37,7 +37,7 @@ class FormularioDatosFactura extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            titularSeleccionado: null,
+            alumnoSeleccionado: null,
             titularesMenuOpen: false,
             titularesMenuOpen: false,
             turnoSeleccionado: null,
@@ -71,7 +71,7 @@ class FormularioDatosFactura extends Component {
     }
 
     guardar() {
-        if (this.titularSeleccionado !== null,
+        if (this.alumnoSeleccionado !== null,
             this.turnoSeleccionado !== null,
             this.state.nombre !== "" &&
             this.state.apellido !== "" &&
@@ -123,8 +123,7 @@ class FormularioDatosFactura extends Component {
 
     //Turnos Menu
     handleChangeTurno(e) {
-        let titular = this.props.turnos[ e.target.value ];
-        this.setState({ turnoSeleccionado: e.target.value });
+        this.setState({ alumnoSeleccionado: e.target.value });
     }
 
     handleTurnosMenuOpen() {
@@ -211,8 +210,7 @@ class FormularioDatosFactura extends Component {
     }
 
     handleChangeTitular(e) {
-        let titular = this.props.titulares[ e.target.value ];
-        this.setState({ titularSeleccionado: e.target.value });
+        this.setState({ alumnoSeleccionado: e.target.value });
     }
 
     //Modal handlers
@@ -236,7 +234,7 @@ class FormularioDatosFactura extends Component {
                                 open={ this.state.titularesMenuOpen }
                                 onClose={ this.handleTitularesMenuClose.bind(this) }
                                 onOpen={ this.handleTitularesMenuOpen.bind(this) }
-                                value = { this.state.titularSeleccionado }
+                                value = { this.state.alumnoSeleccionado }
                                 onChange={ e => this.handleChangeTitular(e) }
                                 >
                                 { this.props.alumnos.map((titular, index) => (
