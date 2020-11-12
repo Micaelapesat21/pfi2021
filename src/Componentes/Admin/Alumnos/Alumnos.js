@@ -18,10 +18,15 @@ class Alumnos extends Component {
         }
     }
 
+    componentDidMount() {
+        this.setState({ alumnos: this.props.alumnos });
+    }
+
     alumnoCreado = (alumno) => {
         var alumnosActualizado = this.props.alumnos;
         alumnosActualizado.push(alumno);
-        this.actualizarAlumnos(alumnosActualizado);
+        this.setState({ alumnos: alumnosActualizado });
+        this.props.actualizarAlumnos(alumnosActualizado);
     }
 
     render() {

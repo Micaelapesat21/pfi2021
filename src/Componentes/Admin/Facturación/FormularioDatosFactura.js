@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
 import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
+import FacturasAPI from '../../../Network/Facturas/FacturasAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
@@ -50,12 +50,12 @@ class FormularioDatosFactura extends Component {
             codigoPostal: "",
             direccion: "",
             telefono1: "",
-            telefono2: "",
+            mesFactura: "",
+            anioFactura: "",
             estrellas: "",
             edicion: true,
             redOnly: false,
             lastResponse: null,
-            titular: "",
             jornada: "",
             loading: false,
             errorMessageIsOpen: false,
@@ -67,7 +67,7 @@ class FormularioDatosFactura extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        console.log("Facturas");
     }
 
     guardar() {
@@ -82,14 +82,14 @@ class FormularioDatosFactura extends Component {
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
-            this.state.telefono2 !== "" &&
-            this.state.titular !== "" && 
+            this.state.mesFactura !== "" &&
+            this.state.anioFactura !== "" && 
             this.state.jornada !=="" 
         ) {
-            var dict = this.getHotelModel();
+            var dict = this.getFacturaModel();
             this.props.titularCreado(dict);
 
-            this.postAlumnoInfo()
+            this.postFacturaInfo(dict);
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -168,14 +168,14 @@ class FormularioDatosFactura extends Component {
         }
     }
 
-    postAlumnoInfo = () => {
+    postFacturaInfo = (facturaInfo) => {
         this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
+        FacturasAPI.createFactura(facturaInfo, this.handlePostHotelInfo);
     }
 
-    handlePostAlumnoInfo = async (hotelInfo) => {
+    handlePostFacturaInfo = async (facturaInfo) => {
         this.setState({ loading: false });
-        if (hotelInfo.error == null) {
+        if (facturaInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
         } else {
@@ -183,20 +183,13 @@ class FormularioDatosFactura extends Component {
         }
     }
 
-    getHotelModel() {
+    getFacturaModel() {
+        let alumnoSeleccionado = this.props.titulares[this.state.alumnoSeleccionado];
+
         return {
-            nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            email: this.state.email,
-            pais: this.state.pais,
-            estado: this.state.estado,
-            ciudad: this.state.ciudad,
-            codigoPostal: this.state.codigoPostal,
-            direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
-            telefono2: this.state.telefono2,
-            titular:this.state.titular,
-            jornada:this.state.jornada,
+            idAlumno: alumnoSeleccionado.id,
+            mes: this.state.mesFactura,
+            anio: this.state.anioFactura,
         };
     }
 
@@ -379,12 +372,12 @@ class FormularioDatosFactura extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                id="telefono2"
-                                name="telefono2"
-                                label="Telefono 2"
+                                id="mes"
+                                name="mes"
+                                label="Mes Factura a emitir"
                                 fullWidth
-                                autoComplete="Telefono 2"
-                                value={this.state.telefono2}
+                                autoComplete="Mes Factura a emitir"
+                                value={this.state.mesFactura}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -393,12 +386,12 @@ class FormularioDatosFactura extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                id="titular"
-                                name="titular"
-                                label="Titular"
+                                id="anio"
+                                name="anio"
+                                label="Año Factura a Emitir"
                                 fullWidth
-                                autoComplete="Titular"
-                                value={this.state.titular}
+                                autoComplete="Año Factura a Emitir"
+                                value={this.state.anioFactura}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,

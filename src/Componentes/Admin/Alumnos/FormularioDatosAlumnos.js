@@ -189,7 +189,7 @@ class FormularioDatosAlumnos extends Component {
 
     postAlumnoInfo = (alumnoInfo) => {
         this.setState({ loading: true });
-        AlumnosAPI.createAlumno(alumnoInfo, this.handlePostHotelInfo.bind(this));
+        AlumnosAPI.createAlumno(alumnoInfo, this.handlePostAlumnoInfo.bind(this));
     }
 
     handlePostAlumnoInfo = async (hotelInfo) => {

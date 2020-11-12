@@ -19,13 +19,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosFactura from './FormularioDatosFactura';
 
 // Generate Order Data
-function createData(id,nombre, apellido, email, telefono1, ciudad) {
-    return { id, nombre, apellido, email, telefono1, ciudad };
+function createData(numeroFactura, titular ,alumno, turno, servicios, montoTotal, mes, año, estado) {
+    return { numeroFactura, titular ,alumno, turno, servicios, montoTotal, mes, año, estado};
 }
 
 const rows = [
-    createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
-    createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
+    createData(0, '123', 'Damian Perez', 'Sandra Bullock', 'Mañana', 'Desayuno, transporte', '8000', 'Noviembre', '2020'),
+    createData(1, '456', 'Roger Federer', 'Nicolas Almagro', 'Noche', 'Almuerzo', '2000','Noviembre', '2020'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [titulares, setTitulares] = React.useState(rows);
+    
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -90,13 +90,25 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    const titularCreado = (titular) => {
+    const facturaCreado = (factura) => {
         setModalIsOpen(false);
-        var array = [];
-        titular["id"] = titulares.length;
-        var titularesActualizado = titulares;
-        titularesActualizado.push(titular);
-        return () => setTitulares(titularesActualizado);
+        props.facturaCreado(factura);
+    }
+
+    function getServicios(index) {
+        if(props.facturas.length > 0) {
+            let factura = props.facturas[index];
+            let servicios = factura.servicios;
+            let serviciosString = "";
+
+            servicios.forEach(  servicio =>
+                serviciosString += " " + servicio.nombreServicio
+            )
+
+            return serviciosString;
+        } else {
+            return ""
+        }
     }
 
     return (
@@ -111,7 +123,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Datos de la Factura a emitir </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosFactura titularCreado = { titularCreado } turnos = { props.turnos } alumnos = { props.alumnos }/>
+             <FormularioDatosFactura facturaCreado = { facturaCreado } turnos = { props.turnos } alumnos = { props.alumnos }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -142,21 +154,30 @@ export default function Orders(props) {
                     <TableHead>
                         <TableRow>
                             <TableCell>Nro de Factura</TableCell>
-                            <TableCell>Fecha</TableCell>
                             <TableCell>Titular</TableCell>
                             <TableCell>Alumno</TableCell>
+                            <TableCell>Turno</TableCell>
+                            <TableCell>Servicios</TableCell>
                             <TableCell>Monto</TableCell>
+                            <TableCell>Mes</TableCell>
+                            <TableCell>Año</TableCell>
+                            <TableCell>Estado</TableCell>
+
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { titulares.map((row, index) => (
+                        { props.facturas.map((row, index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.nombre}</TableCell>
-                                <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.telefono1}</TableCell>
-                                <TableCell>{row.ciudad}</TableCell>
+                                <TableCell>{row.numeroFactura}</TableCell>
+                                <TableCell>{row.titular}</TableCell>
+                                <TableCell>{row.alumno}</TableCell>
+                                <TableCell>{row.turno}</TableCell>
+                                <TableCell>{ getServicios(index) }</TableCell>
+                                <TableCell>{ row.totalCuota }</TableCell>
+                                <TableCell>{ row.mes }</TableCell>
+                                <TableCell>{ row.anio }</TableCell>
+                                <TableCell>{ row.pagada }</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <CheckIcon />
