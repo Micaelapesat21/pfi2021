@@ -19,13 +19,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCobranza from './FormularioDatosCobranza';
 
 // Generate Order Data
-function createData(id,nombre, apellido, email, telefono1, ciudad, monto, estado) {
-    return { id, nombre, apellido, email, telefono1, ciudad, monto, estado };
+function createData(id,numeroFactura, alumno, titular, totalCuota, fechaEmision, estado) {
+    return { id, numeroFactura, alumno, titular, totalCuota, fechaEmision, estado };
 }
 
 const rows = [
-    createData(0, '1234', '02-11-2020', 'Sebastian Gomez', 'Martin Gomez', 'martin.gomez@gmail.com','30000' ,'Realizado'),
-    createData(1, '5678', '08-11-2020', 'Nicolas Roger', 'Elena Roger', 'elena.roger@gmail.com', '20000','Pendiente'),
+    createData(0, '000000001', 'Agustina Imparato', 'Sebastian Gomez', '$27350', '02-11-2020','Realizado' ,'Realizado'),
+    createData(1, '000000002', 'Jonathan Rodriguez', 'Nicolas Roger', '$27350', '02-11-2020', 'Pendiente','Pendiente'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [titulares, setTitulares] = React.useState(rows);
+    const [cobranzas, setCobranzas] = React.useState(rows);
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -90,13 +90,13 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    const titularCreado = (titular) => {
+    const cobranzaCreado = (cobranza) => {
         setModalIsOpen(false);
         var array = [];
-        titular["id"] = titulares.length;
-        var titularesActualizado = titulares;
-        titularesActualizado.push(titular);
-        return () => setTitulares(titularesActualizado);
+        cobranza["id"] = cobranzas.length;
+        var cobranzasActualizado = cobranzas;
+        cobranzasActualizado.push(cobranza);
+        return () => setCobranzas(cobranzasActualizado);
     }
 
     return (
@@ -111,7 +111,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del pago </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosCobranza titularCreado = { titularCreado } turnos = { props.turnos } />
+             <FormularioDatosCobranza cobranzaCreado = { cobranzaCreado } turnos = { props.turnos } />
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -141,25 +141,23 @@ export default function Orders(props) {
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Código de Cobro</TableCell>
-                            <TableCell>Fecha</TableCell>
-                            <TableCell>Titular</TableCell>
+                            <TableCell>Número de factura</TableCell>
                             <TableCell>Alumno</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Monto</TableCell>
+                            <TableCell>Titular</TableCell>
+                            <TableCell>Monto Total</TableCell>
+                            <TableCell>Fecha Emision</TableCell>
                             <TableCell>Estado Pago</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { titulares.map((row, index) => (
+                        { cobranzas.map((row, index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.nombre}</TableCell>
-                                <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.telefono1}</TableCell>
-                                <TableCell>{row.ciudad}</TableCell>
-                                <TableCell>{row.monto}</TableCell>
+                                <TableCell>{row.numeroFactura}</TableCell>
+                                <TableCell>{row.alumno}</TableCell>
+                                <TableCell>{row.titular}</TableCell>
+                                <TableCell>{row.totalCuota}</TableCell>
+                                <TableCell>{row.fechaEmision}</TableCell>
                                 <TableCell>{row.estado}</TableCell>
                                 <TableCell align="right">
                                     

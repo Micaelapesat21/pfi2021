@@ -9,6 +9,7 @@ import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import CobranzasAPI from '../../../Network/Cobranzas/CobranzasAPI'
 
 const styles = theme => ({
     paper: {
@@ -39,21 +40,30 @@ class FormularioDatosCobranza extends Component {
         this.state = {
             turnoSeleccionado: null,
             turnosMenuOpen: false,
-            nroTransaccion: "",
-            nombrePago: "",
-            emailPago: "",
+            numeroFactura: "",
+            titular: "",
+            correo: "",
             documento: "",
             telefono: "",
             alumno: "",
-            estrellas: "",
             edicion: true,
             redOnly: false,
             lastResponse: null,
             titular: "",
-            jornada: "",
+            turno: "",
             loading: false,
             errorMessageIsOpen: false,
-            errorMessage: ""
+            errorMessage: "",
+            mes:"",
+            anio:"",
+            pagada:false,
+            valorTurno:"",
+            valorServicios:"",
+            totalCuota:"",
+            numeroTransaccion:"",
+            servicios:[],
+
+
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -66,19 +76,16 @@ class FormularioDatosCobranza extends Component {
 
     guardar() {
         if (this.state.turnoSeleccionado !== null &&
-            this.state.nroTransaccion !== "" &&
-            this.state.nombrePago !== "" &&
-            this.state.emailPago !== "" &&
-            this.state.documento !== "" &&
-            this.state.telefono !== "" &&
+            this.state.numeroFactura !== "" &&
+            this.state.titular !== "" &&
+            //this.state.correo !== "" &&
+            //this.state.documento !== "" &&
+            //this.state.telefono !== "" &&
             this.state.alumno !== "" &&
             this.state.titular !== "" && 
-            this.state.jornada !=="" 
+            this.state.turno !=="" 
         ) {
-            var dict = this.getCobroModel();
-            this.props.cobroRegistrado(dict);
-
-            this.postAlumnoInfo(dict)
+            this.postCobranzaInfo(this.getCobranzaModel())
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -125,54 +132,45 @@ class FormularioDatosCobranza extends Component {
     }
 
     //Api Calls
-    getCobroInfo(email) {
+
+    postCobranzaInfo = (cobranzaData) => {
         this.setState({ loading: true });
-        let cobroInfo = cobroInfo.getInstance().getCobroData()         
-        this.handleGetCobroInfo(cobroInfo)
+        CobranzasAPI.createCobranza(cobranzaData, this.handlePostCobranzaInfo.bind(this));
     }
 
-    handleGetCobroInfo(cobroInfo) {
+    handlePostCobranzaInfo = async (cobranzaInfo) => {
         this.setState({ loading: false });
-
-        if (cobroInfo === undefined || cobroInfo === null) {
-            //show error message if needed
+        if (cobranzaInfo.error == null) {
+            //post was successful
+            this.setState({ edicion: false, redOnly: true })
+            var dict = this.getCobranzaModel();
+            this.props.cobranzaCreado(dict);
         } else {
-            let cobroData = cobroInfo.state;
-
-            if (cobroData !== null) {
-                this.setState({
-                    codigoCobro: cobroData.codigoCobro,
-                    nombrePago: cobroData.nombrePago,
-                    emailPago: cobroData.emailPago,
-                    documento: cobroData.documento,
-                    telefono: cobroData.telefono,
-                    alumno: cobroData.alumno,
-                    titular: cobroData.titular,
-                    jornada: cobroData.jornada,
-                });            
-            }
+            //get user with email failed
         }
     }
-
-    postAlumnoInfo = (dict) => {
-        this.setState({ loading: true });
-        HotelAPI.postHotelInfo(dict, this.handlePostCobroInfo);
-    }
-
-    handlePostAlumnoInfo = async (CobroInfo) => {
     
-    }
 
-    getHotelModel() {
+    getCobranzaModel() {
         return {
-            codigoCobro: this.state.nroTransaccion,
-            nombrePago: this.state.nombrePago,
-            emailPago: this.state.emailPago,
-            documento: this.state.documento,
-            telefono: this.state.telefono,
+            numeroFactura: this.state.numeroFactura,
+            nombrePago: this.state.titular,
+            //emailPago: this.state.correo,
+            //documento: this.state.documento,
+            //telefono: this.state.telefono,
             alumno: this.state.alumno,
             titular:this.state.titular,
-            jornada:this.state.jornada,
+            turno:this.state.turno,
+            mes: this.state.mes,
+            anio:this.state.anio,
+            pagada:this.state.pagada,
+            fechaEmision:this.state.fechaEmision,
+            fechaVencimiento:this.state.fechaVencimiento,
+            valorTurno:this.state.valorTurno,
+            valorServicios:this.state.valorServicios,
+            totalCuota:this.state.totalCuota,
+            numeroTransaccion:this.state.numeroTransaccion,
+            servicios:this.state.servicios,
         };
 
     }
@@ -193,12 +191,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="nroTransaccion"
-                                name="nroTransaccion"
-                                label="Número de Transacción"
+                                id="nroFactura"
+                                name="nroFactura"
+                                label="Número de Factura a pagar"
                                 fullWidth
-                                autoComplete="0000001111111"
-                                value={this.state.nroTransaccion}
+                                autoComplete="nroFactura"
+                                value={this.state.numeroFactura}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -208,12 +206,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
-                                id="Nombre de quien realizó el Pago"
-                                name="nombrePago"
-                                label="Quien Pagó"
+                                id="titular"
+                                name="titular"
+                                label="Titular que realiza el pago "
                                 fullWidth
-                                autoComplete="nombrePago"
-                                value={this.state.nombrePago}
+                                autoComplete="titular"
+                                value={this.state.titular}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly
@@ -223,12 +221,12 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id="Correo"
-                                name="email"
-                                label="Correo Electronico de quien pagó"
+                                id="correo"
+                                name="correo"
+                                label="Correo para envío de Factura"
                                 fullWidth
-                                autoComplete="Correo"
-                                value={this.state.emailPago}
+                                autoComplete="correo"
+                                value={this.state.correo}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
