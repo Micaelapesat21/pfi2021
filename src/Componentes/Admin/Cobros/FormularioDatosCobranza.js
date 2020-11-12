@@ -221,56 +221,56 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id="correo"
-                                name="correo"
-                                label="Correo para envío de Factura"
-                                fullWidth
-                                autoComplete="correo"
-                                value={this.state.correo}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="documento"
-                                name="documento"
-                                label="Documento"
-                                fullWidth
-                                autoComplete="Documento"
-                                value={this.state.documento}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="Telefono"
-                                name="telefono"
-                                label="Telefono"
-                                fullWidth
-                                value={this.state.telefono}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="alumni"
-                                name="alumni"
+                                id="alumno"
+                                name="alumno"
                                 label="Alumno"
                                 fullWidth
-                                autoComplete="Alumni"
+                                autoComplete="alumno"
                                 value={this.state.alumno}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                            
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="totalcuota"
+                                name="totalcuota"
+                                label="Monto total a Pagar"
+                                fullWidth
+                                autoComplete="totalcuota"
+                                value={this.state.totalCuota}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="fechaEmision"
+                                name="fechaEmision"
+                                label="Fecha Emisión"
+                                fullWidth
+                                value={this.state.fechaEmision}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="mes"
+                                name="mes"
+                                label="Mes a pagar"
+                                fullWidth
+                                autoComplete="mes"
+                                value={this.state.mes}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -280,12 +280,12 @@ class FormularioDatosCobranza extends Component {
                         
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                id="titular"
-                                name="titular"
-                                label="Titular"
+                                id="anio"
+                                name="anio"
+                                label="Año"
                                 fullWidth
-                                autoComplete="Titular"
-                                value={this.state.titular}
+                                autoComplete="anio"
+                                value={this.state.anio}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,
@@ -293,20 +293,20 @@ class FormularioDatosCobranza extends Component {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <InputLabel id="turno-label">Turno</InputLabel>
                             <Select
-                            fullWidth
-                            labelId="turno-label"
-                            id="turnos-open-select"
-                            open={ this.state.turnosMenuOpen }
-                            onClose={ this.handleTurnosMenuClose.bind(this) }
-                            onOpen={ this.handleTurnosMenuOpen.bind(this) }
-                            value = { this.state.turnoSeleccionado }
-                            onChange={ e => this.handleChangeTurno(e) }
-                            >
-                            { this.props.turnos.map((turno, index) => (
-                                <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
-                                ))}
+                                native
+                                value={this.state.pago}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'pago',
+                                    id: 'pago',
+                                }}
+                                >
+                                <option value={10}>Tarjeta de crédito</option>
+                                <option value={20}>Tarjeta de débito</option>
+                                <option value={30}>Efectivo</option>
+                                <option value={40}>Cheque</option>
+                          
                             </Select>
                         </Grid> 
                         <Grid item xs={12} sm={6}>
