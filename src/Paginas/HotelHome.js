@@ -126,6 +126,7 @@ export default function PanelControl(props) {
     const [titulares, setTitulares] = React.useState([]);
     const [turnos, setTurnos] = React.useState([]);
     const [alumnos, setAlumnos] = React.useState([]);
+    const [facturas, setFacturas] = React.useState([]);
 
     const actualizarTitulares = (titulares) => {
         setTitulares(titulares);
@@ -136,6 +137,10 @@ export default function PanelControl(props) {
     }
     const actualizarAlumnos = (alumnos) => {
         setAlumnos(alumnos);
+    }
+
+    const actualizarFacturas = (facturas) => {
+        setFacturas(facturas)
     }
 
     const handleDrawerOpen = () => {
@@ -815,7 +820,7 @@ export default function PanelControl(props) {
                                                         <div className={classes.appBarSpacer} />
             
                                                         <Container maxWidth="lg" className={classes.container}>
-                                                            <Facturas turnos = { turnos } alumnos = { alumnos }/>
+                                                            <Facturas facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos } />
                                                         </Container>
                                                     </main>
                                                 </div>

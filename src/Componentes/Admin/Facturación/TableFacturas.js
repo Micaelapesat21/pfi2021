@@ -90,9 +90,9 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    const facturaCreado = (factura) => {
+    const facturaCreado = (titular) => {
         setModalIsOpen(false);
-        props.facturaCreado(factura);
+        props.facturaCreado(titular);
     }
 
     function getServicios(index) {
@@ -123,7 +123,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Datos de la Factura a emitir </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosFactura facturaCreado = { facturaCreado } turnos = { props.turnos } alumnos = { props.alumnos }/>
+             <FormularioDatosFactura facturaCreado = { facturaCreado } turnos = { props.turnos } titulares = { props.titulares } alumnos = { props.alumnos }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
