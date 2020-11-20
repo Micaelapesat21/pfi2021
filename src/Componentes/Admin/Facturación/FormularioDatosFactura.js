@@ -37,27 +37,11 @@ class FormularioDatosFactura extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            alumnoSeleccionado: null,
             titularSeleccionado: null,
             titularesMenuOpen: false,
             titularesMenuOpen: false,
-            turnoSeleccionado: null,
-            nombre: "",
-            apellido: "",
-            email: "",
-            pais: "",
-            estado: "",
-            ciudad: "",
-            codigoPostal: "",
-            direccion: "",
-            telefono1: "",
             mesFactura: "",
             anioFactura: "",
-            estrellas: "",
-            edicion: true,
-            redOnly: false,
-            lastResponse: null,
-            jornada: "",
             loading: false,
             errorMessageIsOpen: false,
             errorMessage: "",
@@ -73,20 +57,10 @@ class FormularioDatosFactura extends Component {
     }
 
     guardar() {
-        if (this.alumnoSeleccionado !== null,
+        if (
             this.turnoSeleccionado !== null,
-            this.state.nombre !== "" &&
-            this.state.apellido !== "" &&
-            this.state.email !== "" &&
-            this.state.pais !== "" &&
-            this.state.estado !== "" &&
-            this.state.ciudad !== "" &&
-            this.state.codigoPostal !== "" &&
-            this.state.direccion !== "" &&
-            this.state.telefono1 !== "" &&
             this.state.mesFactura !== "" &&
-            this.state.anioFactura !== "" && 
-            this.state.jornada !=="" 
+            this.state.anioFactura !== ""
         ) {
             var dict = this.getFacturaModel();
             this.props.titularCreado(dict);
@@ -196,26 +170,13 @@ class FormularioDatosFactura extends Component {
     }
 
     getFacturaModel() {
-        let alumnoSeleccionado = this.props.titulares[this.state.alumnoSeleccionado];
+        let titularSeleccionado = this.props.titulares[this.state.alumnoSeleccionado];
         let titular = this.props.titulares[this.state.titularSeleccionado];
         let turno = this.props.turnos[this.state.turnoSeleccionado];
         return {
-            idAlumno: alumnoSeleccionado.id,
+            idTitular: titularSeleccionado.id,
             mes: this.state.mesFactura,
             anio: this.state.anioFactura,
-            nombre: this.state.nombre,
-            apellido: this.state.apellido,
-            dni: this.state.dni,
-            correo: this.state.email,
-            pais: this.state.pais,
-            provincia: this.state.estado,
-            ciudad: this.state.ciudad,
-            codigoPostal: this.state.codigoPostal,
-            direccion: this.state.direccion,
-            telefono1: this.state.telefono1,
-            telefono2: this.state.telefono2,
-            idTitular: titular.id,
-            turno: turno.id,
         };
     }
 
@@ -267,125 +228,6 @@ class FormularioDatosFactura extends Component {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                required
-                                id="Apellido"
-                                name="apellido"
-                                label="Apellido/s"
-                                fullWidth
-                                autoComplete="apellido"
-                                value={this.state.apellido}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="Correo"
-                                name="email"
-                                label="Correo Electronico"
-                                fullWidth
-                                autoComplete="Correo"
-                                value={this.state.email}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="País"
-                                name="pais"
-                                label="País"
-                                fullWidth
-                                autoComplete="País"
-                                value={this.state.pais}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="Estado"
-                                name="estado"
-                                label="Estado/Provincia/Región"
-                                fullWidth
-                                value={this.state.estado}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Ciudad"
-                                name="ciudad"
-                                label="Ciudad"
-                                fullWidth
-                                autoComplete="Ciudad"
-                                value={this.state.ciudad}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Código Postal"
-                                name="codigoPostal"
-                                label="Código Postal"
-                                fullWidth
-                                autoComplete="Código Postal"
-                                value={this.state.codigoPostal}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="Direccion"
-                                name="direccion"
-                                label="Direccion"
-                                fullWidth
-                                autoComplete="Direccion"
-                                value={this.state.direccion}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Telefono1"
-                                name="telefono1"
-                                label="Telefono 1"
-                                fullWidth
-                                autoComplete="Telefono1"
-                                value={this.state.telefono1}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
                                 id="mesTextField"
                                 name="mesTextField"
                                 label="Mes Factura a emitir"
@@ -412,23 +254,6 @@ class FormularioDatosFactura extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel id="turno-label">Turno</InputLabel>
-                            <Select
-                            fullWidth
-                            labelId="turno-label"
-                            id="turnos-open-select"
-                            open={ this.state.turnosMenuOpen }
-                            onClose={ this.handleTurnosMenuClose.bind(this) }
-                            onOpen={ this.handleTurnosMenuOpen.bind(this) }
-                            value = { this.state.turnoSeleccionado }
-                            onChange={ e => this.handleChangeTurno(e) }
-                            >
-                            { this.props.turnos.map((turno, index) => (
-                                <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
-                                ))}
-                            </Select>
-                        </Grid> 
                     </Grid>
                 </Paper>
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
