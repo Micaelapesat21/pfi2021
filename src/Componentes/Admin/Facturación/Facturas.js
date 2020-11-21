@@ -33,7 +33,6 @@ class Facturas extends Component {
         var facturasActualizadas = this.state.facturas;
         facturasActualizadas.push(factura);
         this.setState({ facturas: facturasActualizadas});
-        this.props.actualizarFacturas(facturasActualizadas);
     }
 
     handleGetFacturas(facturas) {
@@ -51,7 +50,7 @@ class Facturas extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
-            <TableFacturas facturas = {this.props.facturas} alumnos = { this.props.alumnos }  titulares = { this.props.titulares }
+            <TableFacturas facturas = {this.state.facturas} alumnos = { this.props.alumnos }  titulares = { this.props.titulares }
                 turnos = { this.props.turnos } 
                 facturaCreado = { this.facturaCreado.bind(this)}/>
             </Grid>

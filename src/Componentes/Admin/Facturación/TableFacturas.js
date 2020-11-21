@@ -81,7 +81,6 @@ export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     
-
     const addButtonPressed = () => {
         setModalIsOpen(true);
     };
@@ -90,25 +89,14 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    const facturaCreado = (titular) => {
+    const facturaCreado = (factura) => {
         setModalIsOpen(false);
-        props.facturaCreado(titular);
+        props.facturaCreado(factura);
     }
 
-    function getServicios(index) {
-        if(props.facturas.length > 0) {
-            let factura = props.facturas[index];
-            let servicios = factura.servicios;
-            let serviciosString = "";
-
-            servicios.forEach(  servicio =>
-                serviciosString += " " + servicio.nombreServicio
-            )
-
-            return serviciosString;
-        } else {
-            return ""
-        }
+    const getFacturaDate = (stringDate) => {
+        let date = new Date(stringDate);
+        return date.toLocaleDateString();
     }
 
     return (
@@ -155,13 +143,10 @@ export default function Orders(props) {
                         <TableRow>
                             <TableCell>Nro de Factura</TableCell>
                             <TableCell>Titular</TableCell>
-                            <TableCell>Alumno</TableCell>
-                            <TableCell>Turno</TableCell>
-                            <TableCell>Servicios</TableCell>
+                            <TableCell>Fecha de Vencimiento</TableCell>
                             <TableCell>Monto</TableCell>
                             <TableCell>Mes</TableCell>
                             <TableCell>Año</TableCell>
-                            <TableCell>Estado</TableCell>
 
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
@@ -170,14 +155,11 @@ export default function Orders(props) {
                         { props.facturas.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.numeroFactura}</TableCell>
-                                <TableCell>{row.titular}</TableCell>
-                                <TableCell>{row.alumno}</TableCell>
-                                <TableCell>{row.turno}</TableCell>
-                                <TableCell>{ getServicios(index) }</TableCell>
+                                <TableCell>{row.datosFacturacion.nombre + " " + row.datosFacturacion.apellido}</TableCell>
+                                <TableCell>{ getFacturaDate(row.fechaVencimiento)}</TableCell>
                                 <TableCell>{ row.totalCuota }</TableCell>
                                 <TableCell>{ row.mes }</TableCell>
                                 <TableCell>{ row.anio }</TableCell>
-                                <TableCell>{ row.pagada }</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <CheckIcon />

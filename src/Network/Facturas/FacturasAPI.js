@@ -8,13 +8,17 @@ class FacturaAPI extends Component {
       let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearCuota/Esccuota";
       let body = JSON.stringify( facturaInfo );
         fetch(url,{
-          method: 'Post', 
+          method: 'POST', 
           headers:{ 'Content-Type': 'application/json'},
           body: body
       })
        .then ((response) => {
             console.log("response",response);
-            return response.json();
+            if(response.status == 200) {
+              return response.json();
+            } else {
+              return null;
+            }
         })
         .then (responseData => {
           handlePostFacturaInfo(responseData);
