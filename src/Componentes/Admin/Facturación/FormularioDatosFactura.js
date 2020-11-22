@@ -45,7 +45,9 @@ class FormularioDatosFactura extends Component {
             loading: false,
             errorMessageIsOpen: false,
             errorMessage: "",
-            titular:""
+            successMessageIsOpen: false,
+            titular:"",
+            facturaCreada: null,
         }
         this.guardar = this.guardar.bind(this);
     }
@@ -124,8 +126,11 @@ class FormularioDatosFactura extends Component {
         this.setState({ loading: false });
         if (facturaInfo.error == null) {
             //post was successful
-            this.props.facturaCreado(facturaInfo);
-            this.setState({ edicion: false, redOnly: true })
+            this.setState({ edicion: false, 
+                            redOnly: true,
+                            facturaCreada: facturaInfo,
+                            successMessageIsOpen: true
+                          })
         } else {
             //get user with email failed
         }
@@ -161,12 +166,22 @@ class FormularioDatosFactura extends Component {
         this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
 
+    showSuccessModal() {
+
+    }
+
+    closeSuccessModal() {
+        this.props.facturaCreado(this.state.facturaCreada);
+        this.setState({ successMessageIsOpen: false }, this.forceUpdate());
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <Grid >
                 {this.showLoaderIfNeeded()}
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+                <ErrorMessageModal title={'Factura Generada con éxito'} errorMessage= "Pueder ir al banco B y pagar la misma" isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
                 <Paper className={classes.paper}>
                     
                     
