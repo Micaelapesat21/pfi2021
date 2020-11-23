@@ -116,6 +116,12 @@ export default function ListItems(props) {
         </List>
       </Collapse>
       <Divider />
+    <ListItem button onClick={props.pagosOpen} className={classes.nested}>
+      <ListItemIcon>
+        <PaymentIcon color="secondary"/>
+      </ListItemIcon>
+      <ListItemText primary="Tarjetas"/>
+    </ListItem>
 
       <ListItem button onClick={props.ayudaOpen}>
         <ListItemIcon>
