@@ -33,7 +33,7 @@ class ErrorMessageModal extends Component {
           {this.props.errorMessage}
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose.bind()} color="primary" autoFocus>
+          <Button variant = "contained" onClick={this.handleClose.bind()} color="primary" autoFocus>
             OK
           </Button>
         </DialogActions>
