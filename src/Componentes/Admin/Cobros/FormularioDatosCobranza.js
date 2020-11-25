@@ -11,6 +11,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import CobranzasAPI from '../../../Network/Cobranzas/CobranzasAPI'
 import FormularioDatosTarjeta from './FormularioDatosTarjeta';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = theme => ({
     paper: {
@@ -66,6 +70,8 @@ class FormularioDatosCobranza extends Component {
             totalCuota:"",
             numeroTransaccion:"",
             servicios:[],
+            tarjetaIsOpen: false,
+
 
 
         }
@@ -77,6 +83,7 @@ class FormularioDatosCobranza extends Component {
     componentDidMount() {
         //  this.getHotelInfo()
     }
+
 
     guardar() {
         if (this.state.turnoSeleccionado !== null &&
@@ -98,7 +105,14 @@ class FormularioDatosCobranza extends Component {
         }
     }
 
-    edicionOpen() {
+    addButtonTarjeta = () => {
+        this.setState({ tarjetaIsOpen: true })
+    }
+
+    handleCloseModal = () => {
+        this.setState({ tarjetaIsOpen: false})
+    }
+    edicionOpen = () => {
         this.setState({ edicion: true, redOnly: false })
     }
 
@@ -186,8 +200,25 @@ class FormularioDatosCobranza extends Component {
 
     render() {
         const { classes } = this.props;
+
         return (
+
+            
             <Grid >
+                <Dialog
+                    maxWidth="lg"
+                    fullWidth={true}
+                    open={this.state.tarjetaIsOpen}
+                    onClose={this.handleCloseModal}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogContent className="dialogContent">
+                        <FormularioDatosTarjeta handleCloseModal={this.handleCloseModal.bind(this)}/>
+                    </DialogContent>
+                    <DialogActions>
+                    </DialogActions>
+                </Dialog>
                 {this.showLoaderIfNeeded()}
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
@@ -306,6 +337,8 @@ class FormularioDatosCobranza extends Component {
                                     id: 'pago',
                                 }}
                                 >
+
+                                <option value='' selected>Seleccionar opción</option>
                                 <option value={10}>Tarjeta de crédito</option>
                                 <option value={20}>Tarjeta de débito</option>
                                 <option value={30}>Efectivo</option>
@@ -314,10 +347,14 @@ class FormularioDatosCobranza extends Component {
                             </Select>
                         </Grid> 
                         <Grid item xs={12} sm={6}>
-                        <Button variant="outlined" color="primary" 
-                                                    onClick={ () => <FormularioDatosTarjeta/>}>
+                        {(this.state.pago==10 || this.state.pago==20) ? <Button 
+                         variant="outlined" color="primary" 
+                                                   onClick={ this.addButtonTarjeta }>
                              COMPLETAR DATOS DE TARJETA
-                        </Button>
+                        </Button> : <Button variant="outlined" color="primary" disabled>
+                             COMPLETAR DATOS DE TARJETA
+                        </Button>}
+                        
                         </Grid> 
                        
 

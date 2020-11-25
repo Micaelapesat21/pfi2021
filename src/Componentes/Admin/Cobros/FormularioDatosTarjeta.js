@@ -1,40 +1,95 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ErrorMessageModal from '../../Commons/ErrorMessageModal';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import CobranzasAPI from '../../../Network/Cobranzas/CobranzasAPI'
+import { Grid, Typography, Paper, ButtonBase, Divider, Button } from '@material-ui/core';
+import visa from './Imagenes/Visa.png'
+import mastercard from './Imagenes/mastercard.png'
+import amex from './Imagenes/amex.png'
+import mp from './Imagenes/mercadopago-logo.png'
+import TarjetaCheta from './TarjetaCheta/TarjetaCheta';
+//import GuestInfo from '../../Models/Guest/GuestInfo';
+//import GuestAPI from './../../Network/Guest/GuestAPI';
+import TarjetaVerificar from './TarjetaVerificar/TarjetaCheta'
+
+
+
 
 
 const styles = theme => ({
     paper: {
-        padding: theme.spacing(5),
-        marginTop: theme.spacing(2)
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
     },
-    large: {
-        width: theme.spacing(15),
-        height: theme.spacing(15),
+    fixedHeight: {
+        height: 240,
     },
-    container: {
-        backgroundColor: 'red',
-        fullWidth: true,
+    cardArea: {
+        padding: theme.spacing(1),
+        width: "100%",
+        minHeight: 60,
     },
-    input: {
-        display: 'none',
+    logoVisa: {
+        width: 100,
+        height: 45,
+        [theme.breakpoints.down('xs')]: {
+            width: 70,
+            height: 30,
+        },
     },
-    createButton: {
-        marginTop: 20,
-        marginLeft: '80%'
-    }, 
-    buttonTarjeta:{
-        margin: theme.spacing(1),
-    }
+    logoMaster: {
+        width: 90,
+        height: 45,
+        [theme.breakpoints.down('xs')]: {
+            width: 70,
+            height: 40,
+        },
+    },
+    logoAmex: {
+        width: 60,
+        height: 45,
+        [theme.breakpoints.down('xs')]: {
+            width: 70,
+            height: 40,
+        },
+    },
+    logoMp: {
+        width: 100,
+        height: 35,
+        [theme.breakpoints.down('xs')]: {
+            width: 75,
+            height: 25,
+        },
+    },
+
+    image: {
+        position: 'relative',
+        padding: theme.spacing(1),
+        width: "100%",
+        minHeight: 60,
+        [theme.breakpoints.down('xs')]: {
+        },
+        '&:hover': {
+            zIndex: 1,
+            '& $imageBackdrop': {
+                opacity: 0.1,
+                borderLeft: "6px solid #01579b",
+            },
+        },
+    },
+    imageBackdrop: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: theme.palette.common.black,
+        opacity: 0,
+        transition: theme.transitions.create('opacity'),
+        borderLeft: "6px solid #01579b",
+
+    },
 })
 
 class FormularioDatosTarjeta extends Component {
@@ -42,292 +97,341 @@ class FormularioDatosTarjeta extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            turnoSeleccionado: null,
-            turnosMenuOpen: false,
-            numeroFactura: "",
-            titular: "",
-            correo: "",
-            documento: "",
-            telefono: "",
-            alumno: "",
-            edicion: true,
-            redOnly: false,
-            lastResponse: null,
-            titular: "",
-            turno: "",
+            open: false,
+            numeroTarjeta: "",
+            nombreTarjeta: "",
+            mesTarjeta: "",
+            añoTarjeta: "",
+            codTarjeta: "",
+            tipoTarjeta: "",
+            tarjetas: [],
+            edicion:true,
             loading: false,
-            errorMessageIsOpen: false,
-            errorMessage: "",
-            mes:"",
-            anio:"",
-            pagada:false,
-            valorTurno:"",
-            valorServicios:"",
-            totalCuota:"",
-            numeroTransaccion:"",
-            servicios:[],
-
-
+            verificar: false,
+            codVerificar: false,
+            ver: {
+                cardNumber: '#### #### #### ####',
+                name: 'FULL NAME',
+                mes: '',
+                año: '',
+                securityCode: '',
+                tipo: ""
+            },
+            
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
-        this.guardar = this.guardar.bind(this);
+        this.verificar = this.verificar.bind(this);
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //let methods = GuestInfo.getInstance().getPaymentMethods();
+        //this.setState({ tarjetas: methods })
+
     }
 
-    guardar() {
-        if (this.state.turnoSeleccionado !== null &&
-            this.state.numeroFactura !== "" &&
-            this.state.titular !== "" &&
-            //this.state.correo !== "" &&
-            //this.state.documento !== "" &&
-            //this.state.telefono !== "" &&
-            this.state.alumno !== "" &&
-            this.state.titular !== "" && 
-            this.state.turno !=="" 
-        ) {
-            this.postCobranzaInfo(this.getCobranzaModel())
-        } else {
-            this.setState({
-                errorMessageIsOpen: true,
-                errorMessage: "Verifique si lleno todos los datos."
-            });
-        }
+    verificar(){
     }
-
+    handleChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
     edicionOpen() {
         this.setState({ edicion: true, redOnly: false })
     }
 
-    showLoaderIfNeeded() {
-        if (this.state.loading) {
-            return (
-                <div className="loader">
-                    <CircularProgress />
-                    <CircularProgress color="secondary" />
-                </div>
-            )
+
+    maskCardNumber = (x) => {
+        let cardNumberArr = x.split('');
+        cardNumberArr.forEach((val, index) => {
+            if (index > 1 && index < 4) {
+                if (cardNumberArr[index] !== ' ') {
+                    cardNumberArr[index] = 'x';
+                }
+            }
+        });
+
+        return cardNumberArr;
+    };
+
+    agregar() {
+        if (this.state.numeroTarjeta !== "" &&
+            this.state.nombreTarjeta !== "" &&
+            this.state.mesTarjeta !== "" &&
+            this.state.añoTarjeta !== "" &&
+            this.state.codTarjeta !== "" &&
+            this.state.tipoTarjeta !== ""
+        ) {
+            var dict = this.getGuestModel();
+            console.log(dict)
+            //GuestInfo.getInstance().addPaymentMethod(dict);
+            //this.postGuestInfo()
         } else {
-            return (
-                <div />
-            )
+            alert("error")
         }
     }
-
-    handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
+    getGuestModel() {
+        return {
+            cardNumber: this.state.numeroTarjeta,
+            name: this.state.nombreTarjeta,
+            mes: this.state.mesTarjeta,
+            año: this.state.añoTarjeta,
+            securityCode: this.state.codTarjeta,
+            tipo: this.state.tipoTarjeta,
+            // etc.
+        };
     }
-
-    //Menu
-    handleChangeTurno(e) {
-        let titular = this.props.turnos[ e.target.value ];
-        this.setState({ turnoSeleccionado: e.target.value });
-    }
-
-    handleTurnosMenuOpen() {
-        this.setState({ turnosMenuOpen: true });
-    }
-
-    handleTurnosMenuClose() {
-        this.setState({ turnosMenuOpen: false });
-    }
-
-    //Api Calls
-
-    postCobranzaInfo = (cobranzaData) => {
+    /*postGuestInfo = () => {
         this.setState({ loading: true });
-        CobranzasAPI.createCobranza(cobranzaData, this.handlePostCobranzaInfo.bind(this));
+        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
     }
 
-    handlePostCobranzaInfo = async (cobranzaInfo) => {
+    handlePostGuestInfo = async (guestInfo) => {
         this.setState({ loading: false });
-        if (cobranzaInfo.error == null) {
+        if (guestInfo.error == null) {
             //post was successful
-            this.setState({ edicion: false, redOnly: true })
-            var dict = this.getCobranzaModel();
-            this.props.cobranzaCreado(dict);
+            console.log("Guardado con exito")
+            this.setState({ open: false })
         } else {
             //get user with email failed
+            console.log("Errrooor pa")
+        }
+    }*/
+    callNumeroTarjeta = (x) => {
+        this.setState({ numeroTarjeta: x });
+        if (this.props.modo === "ReservaApi")
+            this.props.callNumeroTarjeta(x)
+    }
+    callNombreTarjeta = (x) => {
+        this.setState({ nombreTarjeta: x });
+        if (this.props.modo === "ReservaApi" )
+            this.props.callNombreTarjeta(x)
+    }
+    callMesTarjeta = (x) => {
+        this.setState({ mesTarjeta: x });
+        if (this.props.modo === "ReservaApi" )
+            this.props.callMesTarjeta(x)
+    }
+    callAñoTarjeta = (x) => {
+        this.setState({ añoTarjeta: x });
+        if (this.props.modo === "ReservaApi" )
+            this.props.callAñoTarjeta(x)
+    }
+    callCodTarjeta = (x) => {
+        this.setState({ codTarjeta: x });
+        if (this.props.modo === "ReservaApi" )
+            this.props.closeVerfyCard()
+    }
+    callVerificaCod = (x) => {
+        this.setState({ codVerificar: x });
+        if (this.props.modo === "ReservaApi" )
+            this.props.callVerTarjeta(x)
+    }
+    callTipoTarjeta = (x) => {
+        this.setState({ tipoTarjeta: x });
+        if (this.props.modo === "ReservaApi" )
+            this.props.callTipoTarjeta(x)
+    }
+
+    agregarTarjeta() {
+        if (this.state.open)
+            if (this.props.modo === "ReservaApi") {
+                return (
+                    <Grid>
+                        <TarjetaCheta
+                            callNumeroTarjeta={this.callNumeroTarjeta}
+                            callNombreTarjeta={this.callNombreTarjeta}
+                            callMesTarjeta={this.callMesTarjeta}
+                            callAñoTarjeta={this.callAñoTarjeta}
+                            callCodTarjeta={this.callCodTarjeta}
+                            callTipoTarjeta={this.callTipoTarjeta}
+                        />
+                    </Grid>
+                )
+            }
+            else
+                if (this.props.modo === "CheckOut")
+                    return (
+                        <Grid>
+                            <TarjetaCheta
+                                callNumeroTarjeta={this.callNumeroTarjeta}
+                                callNombreTarjeta={this.callNombreTarjeta}
+                                callMesTarjeta={this.callMesTarjeta}
+                                callAñoTarjeta={this.callAñoTarjeta}
+                                callCodTarjeta={this.callCodTarjeta}
+                                callTipoTarjeta={this.callTipoTarjeta}
+                            />
+                        </Grid>
+                    )
+                else
+                    return (
+                        <Grid>
+                            <TarjetaCheta
+                                callNumeroTarjeta={this.callNumeroTarjeta}
+                                callNombreTarjeta={this.callNombreTarjeta}
+                                callMesTarjeta={this.callMesTarjeta}
+                                callAñoTarjeta={this.callAñoTarjeta}
+                                callCodTarjeta={this.callCodTarjeta}
+                                callTipoTarjeta={this.callTipoTarjeta}
+                            />
+                            <Grid container alignItems="flex-end" justify="flex-end">
+                                <Grid item md={3} xs={5}>
+                                    <Button variant="contained" color="primary" size="large" onClick={this.agregar.bind(this)}>Agregar</Button>
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                    )
+
+    }
+
+    verificarTarjeta(state) {
+        this.setState({ open: false, verificar: true, ver: state })
+        if (this.props.modo === "ReservaApi") {
+            this.props.openVerfyCard()
+            this.props.callNumeroTarjeta(state.cardNumber)
+            this.props.callNombreTarjeta(state.name)
+            this.props.callMesTarjeta(state.mes)
+            this.props.callAñoTarjeta(state.año)
+            this.props.callTipoTarjeta(state.tipo)
+            this.props.callCodTarjeta(state.securityCode)
         }
     }
-    
 
-    getCobranzaModel() {
-        return {
-            numeroFactura: this.state.numeroFactura,
-            nombrePago: this.state.titular,
-            //emailPago: this.state.correo,
-            //documento: this.state.documento,
-            //telefono: this.state.telefono,
-            alumno: this.state.alumno,
-            titular:this.state.titular,
-            turno:this.state.turno,
-            mes: this.state.mes,
-            anio:this.state.anio,
-            pagada:this.state.pagada,
-            fechaEmision:this.state.fechaEmision,
-            fechaVencimiento:this.state.fechaVencimiento,
-            valorTurno:this.state.valorTurno,
-            valorServicios:this.state.valorServicios,
-            totalCuota:this.state.totalCuota,
-            numeroTransaccion:this.state.numeroTransaccion,
-            servicios:this.state.servicios,
-        };
-
+    nuevaTarjeta() {
+        this.setState({ open: true, verificar: false })
+        if (this.props.modo === "ReservaApi")
+            this.props.closeVerfyCard()
     }
 
-    //Modal handlers
-    closeErrorModal() {
-        this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
+    renderVerificar() {
+        if (this.state.verificar) {
+            return (
+                <Grid>
+                    <TarjetaVerificar
+                        cardNumber={this.state.ver.cardNumber}
+                        cardHolder={this.state.ver.name}
+                        cardMonth={this.state.ver.mes}
+                        cardYear={this.state.ver.año}
+                        callCodTarjeta={this.callVerificaCod}
+                    />
+                </Grid>
+            )
+        }
     }
+
+
+
+    tipoTarjeta(tipo) {
+        const { classes } = this.props;
+        if (tipo === "visa")
+            return <img src={visa} alt="visa" className={classes.logoVisa} />
+        else
+            if (tipo === "mastercard")
+                return <img src={mastercard} alt="visa" className={classes.logoMaster} />
+            else
+                if (tipo === "amex")
+                    return <img src={amex} alt="visa" className={classes.logoAmex} />
+    }
+    ultimosTres(x) {
+        let cardNumberArr = x.split('');
+        cardNumberArr.forEach((val, index) => {
+            if (index > -1 && index < 14) {
+                if (cardNumberArr[index] !== ' ') {
+                    cardNumberArr[index] = '';
+                }
+            }
+        });
+        return cardNumberArr;
+    }
+
 
     render() {
         const { classes } = this.props;
-        return (
-            <Grid >
-                {this.showLoaderIfNeeded()}
-                <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
-                <Paper className={classes.paper}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="nroFactura"
-                                name="nroFactura"
-                                label="Número de Factura a pagar"
-                                fullWidth
-                                autoComplete="nroFactura"
-                                value={this.state.numeroFactura}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="titular"
-                                name="titular"
-                                label="Titular que realiza el pago "
-                                fullWidth
-                                autoComplete="titular"
-                                value={this.state.titular}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="alumno"
-                                name="alumno"
-                                label="Alumno"
-                                fullWidth
-                                autoComplete="alumno"
-                                value={this.state.alumno}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                            
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="totalcuota"
-                                name="totalcuota"
-                                label="Monto total a Pagar"
-                                fullWidth
-                                autoComplete="totalcuota"
-                                value={this.state.totalCuota}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="fechaEmision"
-                                name="fechaEmision"
-                                label="Fecha Emisión"
-                                fullWidth
-                                value={this.state.fechaEmision}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="mes"
-                                name="mes"
-                                label="Mes a pagar"
-                                fullWidth
-                                autoComplete="mes"
-                                value={this.state.mes}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="anio"
-                                name="anio"
-                                label="Año"
-                                fullWidth
-                                autoComplete="anio"
-                                value={this.state.anio}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Select
-                                native
-                                value={this.state.pago}
-                                onChange={this.handleChange}
-                                inputProps={{
-                                    name: 'pago',
-                                    id: 'pago',
-                                }}
-                                >
-                                <option value={10}>Tarjeta de crédito</option>
-                                <option value={20}>Tarjeta de débito</option>
-                                <option value={30}>Efectivo</option>
-                                <option value={40}>Cheque</option>
-                          
-                            </Select>
-                        </Grid> 
-                        <Grid item xs={12} sm={6}>
-                        <Button variant="outlined" color="primary" 
-                                                    >
-                             COMPLETAR DATOS DE TARJETA
-                        </Button>
-                        </Grid> 
-                       
 
+        if (this.props.modo === "ReservaApi" || this.props.modo === "CheckOut") {
+
+
+            return (
+                <Grid container spacing={3} justify="center" alignItems="center">
+                    <Grid item xs={12} md={12} lg={12}>
+                        <Paper>
+
+                            {this.state.tarjetas.map((item, index) =>
+                                <div key={index}>
+                                    <ButtonBase className={classes.image} onClick={() => this.verificarTarjeta(item.state)}>
+                                        <Grid container justify="center" alignItems="center" >
+                                            <Grid item md={3} xs={3}>
+                                                {this.tipoTarjeta(item.state.tipo)}
+                                            </Grid>
+                                            <Grid item md={9} xs={9}>
+                                                <Typography variant="h6">Visa Débito terminada en {this.ultimosTres(item.state.cardNumber)}</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <span className={classes.imageBackdrop} />
+                                    </ButtonBase>
+                                    <Divider />
+                                </div>
+
+                            )}
+                            <ButtonBase className={classes.image}     >
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={3} xs={4}>
+                                        <img src={mp} alt="visa" className={classes.logoMp} />
+                                    </Grid>
+                                    <Grid item md={9} xs={8}>
+                                        <Typography variant="body1" style={{ color: "#009ee3" }}>Pague con su cuenta de MercadoPago</Typography>
+                                    </Grid>
+                                </Grid>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                            <Divider />
+                            <ButtonBase className={classes.image} onClick={() => this.nuevaTarjeta()}    >
+                                <Grid container justify="center" alignItems="center" >
+                                    <Grid item md={11} xs={10}>
+                                        <Typography variant="body1" color="primary" align="left">Pagar con otra tarjeta</Typography>
+                                    </Grid>
+                                </Grid>
+                                <span className={classes.imageBackdrop} />
+                            </ButtonBase>
+                        </Paper>
                     </Grid>
-                </Paper>
-                <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
-                    Confirmar Pago
-                </Button>
-            </Grid>
-        );
+                    <Grid item xs={12} md={12} lg={12}>
+                        {this.agregarTarjeta()}
+                        {this.renderVerificar()}
+                    </Grid>
+                </Grid>
+            );
+        } else {
+            return (
+                <Grid container spacing={3} justify="center" alignItems="center">
+                    
+                    <Grid item xs={12} md={7} lg={7}>
+                    
+                        
+                            <TarjetaCheta
+                                callNumeroTarjeta={this.callNumeroTarjeta}
+                                callNombreTarjeta={this.callNombreTarjeta}
+                                callMesTarjeta={this.callMesTarjeta}
+                                callAñoTarjeta={this.callAñoTarjeta}
+                                callCodTarjeta={this.callCodTarjeta}
+                                callTipoTarjeta={this.callTipoTarjeta}
+                            />
+                            
+                            <Grid container alignItems="flex-end" justify="flex-end">
+                                <Grid item md={3} xs={5}>
+                                    <Button variant="outlined" color="primary" size="large" onClick={this.props.handleCloseModal}>Cancelar</Button>
+                                </Grid>
+                                <Grid item md={3} xs={5}>
+                                    <Button variant="contained" color="primary" size="large" onClick={this.agregar.bind(this)}>VALIDAR</Button>
+                                </Grid>
+                            </Grid>
+
+                        
+                    </Grid>
+        
+                </Grid >
+            );
+        }
     }
 }
 
