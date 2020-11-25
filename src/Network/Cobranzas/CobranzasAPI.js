@@ -39,6 +39,24 @@ class CobranzasAPI extends Component {
             handleGetCobranzas(responseData);
         });
     }
+
+    postTarjeta(cardInfo, handlePostTarjeta) {
+      //Change URL to integrate with Cards
+      let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearCuota/Esccuota";
+      let body = JSON.stringify( cardInfo );
+        fetch(url,{
+          method: 'Post', 
+          headers:{ 'Content-Type': 'application/json'},
+          body: body
+      })
+       .then ((response) => {
+            console.log("response",response);
+            return response.json();
+        })
+        .then (responseData => {
+          handlePostTarjeta(responseData);
+        });
+    }
 }
 
 export default new CobranzasAPI();

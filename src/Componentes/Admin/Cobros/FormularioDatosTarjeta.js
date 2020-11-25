@@ -6,9 +6,8 @@ import visa from './Imagenes/Visa.png'
 import mastercard from './Imagenes/mastercard.png'
 import amex from './Imagenes/amex.png'
 import mp from './Imagenes/mercadopago-logo.png'
-import TarjetaCheta from './TarjetaCheta/TarjetaCheta';
-//import GuestInfo from '../../Models/Guest/GuestInfo';
-//import GuestAPI from './../../Network/Guest/GuestAPI';
+import Tarjeta from './TarjetaCheta/TarjetaCheta';
+import CobranzasAPI from './../../../Network/Cobranzas/CobranzasAPI';
 import TarjetaVerificar from './TarjetaVerificar/TarjetaCheta'
 
 
@@ -124,12 +123,6 @@ class FormularioDatosTarjeta extends Component {
         this.verificar = this.verificar.bind(this);
     }
 
-    componentDidMount() {
-        //let methods = GuestInfo.getInstance().getPaymentMethods();
-        //this.setState({ tarjetas: methods })
-
-    }
-
     verificar(){
     }
     handleChange(e) {
@@ -138,7 +131,6 @@ class FormularioDatosTarjeta extends Component {
     edicionOpen() {
         this.setState({ edicion: true, redOnly: false })
     }
-
 
     maskCardNumber = (x) => {
         let cardNumberArr = x.split('');
@@ -161,15 +153,14 @@ class FormularioDatosTarjeta extends Component {
             this.state.codTarjeta !== "" &&
             this.state.tipoTarjeta !== ""
         ) {
-            var dict = this.getGuestModel();
+            var dict = this.getCardModel();
             console.log(dict)
-            //GuestInfo.getInstance().addPaymentMethod(dict);
-            //this.postGuestInfo()
+            this.postCardInfo(dict)
         } else {
             alert("error")
         }
     }
-    getGuestModel() {
+    getCardModel() {
         return {
             cardNumber: this.state.numeroTarjeta,
             name: this.state.nombreTarjeta,
@@ -177,17 +168,18 @@ class FormularioDatosTarjeta extends Component {
             año: this.state.añoTarjeta,
             securityCode: this.state.codTarjeta,
             tipo: this.state.tipoTarjeta,
-            // etc.
         };
     }
-    /*postGuestInfo = () => {
+
+    //ApiCalls
+    postCardInfo = (cardInfo) => {
         this.setState({ loading: true });
-        GuestAPI.postGuestInfo(this.handlePostGuestInfo);
+        CobranzasAPI.postTarjeta(cardInfo, this.handleCardInfo.bind(this));
     }
 
-    handlePostGuestInfo = async (guestInfo) => {
+    handleCardInfo = async (cardInfo) => {
         this.setState({ loading: false });
-        if (guestInfo.error == null) {
+        if (cardInfo.error == null) {
             //post was successful
             console.log("Guardado con exito")
             this.setState({ open: false })
@@ -195,7 +187,9 @@ class FormularioDatosTarjeta extends Component {
             //get user with email failed
             console.log("Errrooor pa")
         }
-    }*/
+    }
+
+
     callNumeroTarjeta = (x) => {
         this.setState({ numeroTarjeta: x });
         if (this.props.modo === "ReservaApi")
@@ -358,7 +352,7 @@ class FormularioDatosTarjeta extends Component {
                     <Grid item xs={12} md={7} lg={7}>
                     
                         
-                            <TarjetaCheta
+                            <Tarjeta
                                 callNumeroTarjeta={this.callNumeroTarjeta}
                                 callNombreTarjeta={this.callNombreTarjeta}
                                 callMesTarjeta={this.callMesTarjeta}
