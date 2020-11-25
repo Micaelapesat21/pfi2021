@@ -14,7 +14,7 @@ class Cobros extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
-               <TableCobros turnos = { this.props.turnos } />
+               <TableCobros turnos = { this.props.turnos } titulares = { this.props.titulares } />
             </Grid>
         </Grid>
         );

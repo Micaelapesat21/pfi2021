@@ -24,8 +24,8 @@ function createData(id,numeroFactura, alumno, titular, totalCuota, fechaEmision,
 }
 
 const rows = [
-    createData(0, '000000001', 'Agustina Imparato', 'Sebastian Gomez', '$27350', '02-11-2020','Realizado' ,'000000011'),
-    createData(1, '000000002', 'Jonathan Rodriguez', 'Nicolas Roger', '$27350', '02-11-2020', 'Pendiente','000000012'),
+    createData(0, '000000001', 'Sebastian Gomez', '$27350', '02-11-2020','000000011'),
+    createData(1, '000000002', 'Nicolas Roger', '$27350', '02-11-2020', '000000012'),
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -111,7 +111,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del pago </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosCobranza cobranzaCreado = { cobranzaCreado } turnos = { props.turnos } />
+             <FormularioDatosCobranza cobranzaCreado = { cobranzaCreado } turnos = { props.turnos } titulares = {props.titulares} />
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -137,16 +137,14 @@ export default function Orders(props) {
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
-                <Title>Detalle de Pagos</Title>
+                <Title>Pagos realizados</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
                             <TableCell>Número de factura</TableCell>
-                            <TableCell>Alumno</TableCell>
                             <TableCell>Titular</TableCell>
                             <TableCell>Monto Total</TableCell>
                             <TableCell>Fecha Emision</TableCell>
-                            <TableCell>Estado Pago</TableCell>
                             <TableCell>Número de Transacción</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>

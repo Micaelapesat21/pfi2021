@@ -232,57 +232,7 @@ class FormularioDatosTarjeta extends Component {
             this.props.callTipoTarjeta(x)
     }
 
-    agregarTarjeta() {
-        if (this.state.open)
-            if (this.props.modo === "ReservaApi") {
-                return (
-                    <Grid>
-                        <TarjetaCheta
-                            callNumeroTarjeta={this.callNumeroTarjeta}
-                            callNombreTarjeta={this.callNombreTarjeta}
-                            callMesTarjeta={this.callMesTarjeta}
-                            callAñoTarjeta={this.callAñoTarjeta}
-                            callCodTarjeta={this.callCodTarjeta}
-                            callTipoTarjeta={this.callTipoTarjeta}
-                        />
-                    </Grid>
-                )
-            }
-            else
-                if (this.props.modo === "CheckOut")
-                    return (
-                        <Grid>
-                            <TarjetaCheta
-                                callNumeroTarjeta={this.callNumeroTarjeta}
-                                callNombreTarjeta={this.callNombreTarjeta}
-                                callMesTarjeta={this.callMesTarjeta}
-                                callAñoTarjeta={this.callAñoTarjeta}
-                                callCodTarjeta={this.callCodTarjeta}
-                                callTipoTarjeta={this.callTipoTarjeta}
-                            />
-                        </Grid>
-                    )
-                else
-                    return (
-                        <Grid>
-                            <TarjetaCheta
-                                callNumeroTarjeta={this.callNumeroTarjeta}
-                                callNombreTarjeta={this.callNombreTarjeta}
-                                callMesTarjeta={this.callMesTarjeta}
-                                callAñoTarjeta={this.callAñoTarjeta}
-                                callCodTarjeta={this.callCodTarjeta}
-                                callTipoTarjeta={this.callTipoTarjeta}
-                            />
-                            <Grid container alignItems="flex-end" justify="flex-end">
-                                <Grid item md={3} xs={5}>
-                                    <Button variant="contained" color="primary" size="large" onClick={this.agregar.bind(this)}>Agregar</Button>
-                                </Grid>
-                            </Grid>
-
-                        </Grid>
-                    )
-
-    }
+    
 
     verificarTarjeta(state) {
         this.setState({ open: false, verificar: true, ver: state })
@@ -396,7 +346,7 @@ class FormularioDatosTarjeta extends Component {
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>
-                        {this.agregarTarjeta()}
+                        
                         {this.renderVerificar()}
                     </Grid>
                 </Grid>

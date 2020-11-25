@@ -15,6 +15,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const styles = theme => ({
     paper: {
@@ -46,31 +53,26 @@ class FormularioDatosCobranza extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            turnoSeleccionado: null,
-            turnosMenuOpen: false,
+            titularSeleccionado: null,
+            titularesMenuOpen: false,
+            titularesMenuOpen: false,
             numeroFactura: "",
             titular: "",
-            correo: "",
-            documento: "",
-            telefono: "",
-            alumno: "",
             edicion: true,
             redOnly: false,
             lastResponse: null,
             titular: "",
-            turno: "",
             loading: false,
             errorMessageIsOpen: false,
             errorMessage: "",
             mes:"",
             anio:"",
             pagada:false,
-            valorTurno:"",
-            valorServicios:"",
             totalCuota:"",
             numeroTransaccion:"",
-            servicios:[],
             tarjetaIsOpen: false,
+            mesFactura: "",
+            anioFactura: "",
 
 
 
@@ -86,17 +88,16 @@ class FormularioDatosCobranza extends Component {
 
 
     guardar() {
-        if (this.state.turnoSeleccionado !== null &&
-            this.state.numeroFactura !== "" &&
-            this.state.titular !== "" &&
+        if (
+            this.state.titular !== "" 
             //this.state.correo !== "" &&
             //this.state.documento !== "" &&
             //this.state.telefono !== "" &&
-            this.state.alumno !== "" &&
-            this.state.titular !== "" && 
-            this.state.turno !=="" 
+            
+            
         ) {
-            this.postCobranzaInfo(this.getCobranzaModel())
+            var dict = this.getCobranzaModel();
+            this.postCobranzaInfo(dict);
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -130,23 +131,16 @@ class FormularioDatosCobranza extends Component {
             )
         }
     }
+    handleChangeMes(e) {
+        this.setState({mesFactura: e.target.value });
+    }
+
+    handleChangeAnio(e) {
+        this.setState({anioFactura: e.target.value });
+    }
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-    }
-
-    //Menu
-    handleChangeTurno(e) {
-        let titular = this.props.turnos[ e.target.value ];
-        this.setState({ turnoSeleccionado: e.target.value });
-    }
-
-    handleTurnosMenuOpen() {
-        this.setState({ turnosMenuOpen: true });
-    }
-
-    handleTurnosMenuClose() {
-        this.setState({ turnosMenuOpen: false });
     }
 
     //Api Calls
@@ -156,6 +150,7 @@ class FormularioDatosCobranza extends Component {
         CobranzasAPI.createCobranza(cobranzaData, this.handlePostCobranzaInfo.bind(this));
     }
 
+  
     handlePostCobranzaInfo = async (cobranzaInfo) => {
         this.setState({ loading: false });
         if (cobranzaInfo.error == null) {
@@ -168,17 +163,35 @@ class FormularioDatosCobranza extends Component {
         }
     }
     
+    getTitularMenuValue() {
+        if( this.state.titularSeleccionado === null ) {
+            return null;
+        } else {
+            return this.state.titularSeleccionado.nombre + " "  + this.state.titularSeleccionado.apellido
+        }
+    }
+
+    handleTitularesMenuOpen() {
+        this.setState({ titularesMenuOpen: true });
+    }
+
+    handleTitularesMenuClose() {
+        this.setState({ titularesMenuOpen: false });
+    }
+
+    handleChangeTitular(e) {
+        let titular = this.props.titulares[ e.target.value ];
+        this.setState({ titularSeleccionado: e.target.value });
+    }
 
     getCobranzaModel() {
+        let titularSeleccionado = this.props.titulares[this.state.titularSeleccionado];
         return {
+            idTitular: titularSeleccionado.id,
+            mes: this.state.mesFactura,
+            anio: this.state.anioFactura,
             numeroFactura: this.state.numeroFactura,
-            nombrePago: this.state.titular,
-            //emailPago: this.state.correo,
-            //documento: this.state.documento,
-            //telefono: this.state.telefono,
-            alumno: this.state.alumno,
             titular:this.state.titular,
-            turno:this.state.turno,
             mes: this.state.mes,
             anio:this.state.anio,
             pagada:this.state.pagada,
@@ -197,6 +210,11 @@ class FormularioDatosCobranza extends Component {
     closeErrorModal() {
         this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
+
+    closeSuccessModal() {
+        this.props.cobranzaCreado(this.state.cobranzaCreado);
+        this.setState({ successMessageIsOpen: false }, this.forceUpdate());
+    } 
 
     render() {
         const { classes } = this.props;
@@ -223,86 +241,37 @@ class FormularioDatosCobranza extends Component {
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
                     <Grid container spacing={3}>
+                        
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="nroFactura"
-                                name="nroFactura"
-                                label="Número de Factura a pagar"
-                                fullWidth
-                                autoComplete="nroFactura"
-                                value={this.state.numeroFactura}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="titular"
-                                name="titular"
-                                label="Titular que realiza el pago "
-                                fullWidth
-                                autoComplete="titular"
-                                value={this.state.titular}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="alumno"
-                                name="alumno"
-                                label="Alumno"
-                                fullWidth
-                                autoComplete="alumno"
-                                value={this.state.alumno}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                            
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="totalcuota"
-                                name="totalcuota"
-                                label="Monto total a Pagar"
-                                fullWidth
-                                autoComplete="totalcuota"
-                                value={this.state.totalCuota}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
+                        <InputLabel id="demo-mutiple-name-label">Nombre Titular</InputLabel>
+                            <Select
+                            fullWidth
+                            labelId="demo-mutiple-name-label"
+                            id="demo-controlled-open-select"
+                            open={ this.state.titularesMenuOpen }
+                            onClose={ this.handleTitularesMenuClose.bind(this) }
+                            onOpen={ this.handleTitularesMenuOpen.bind(this) }
+                            value = { this.state.titularSeleccionado }
+                            onChange={ e => this.handleChangeTitular(e) }
+                            >
+                            { this.props.titulares.map((titular, index) => (
+                                <MenuItem value={index}> { titular.nombre } { titular.apellido} </MenuItem>
+                            ))}
+                            </Select>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="fechaEmision"
-                                name="fechaEmision"
-                                label="Fecha Emisión"
-                                fullWidth
-                                value={this.state.fechaEmision}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
+                                <form noValidate>
+                                    <TextField id="date" value={this.state.fechaEmision} label="Fecha de pago" type = "date"
+                                    defaultValue="2020-11-26"
+                                    InputLabelProps={{shrink:true,}}/>
+                                </form>
+                        </Grid>                   
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 required
                                 id="mes"
                                 name="mes"
-                                label="Mes a pagar"
+                                label="Mes"
                                 fullWidth
                                 autoComplete="mes"
                                 value={this.state.mes}
@@ -372,3 +341,19 @@ FormularioDatosCobranza.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(FormularioDatosCobranza);
+
+/*<Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="nroFactura"
+                                name="nroFactura"
+                                label="Número de Factura a pagar"
+                                fullWidth
+                                autoComplete="nroFactura"
+                                value={this.state.numeroFactura}
+                                onChange={this.handleChange}
+                                InputProps={{
+                                    readOnly: this.state.redOnly,
+                                }}
+                            />
+                        </Grid>*/
