@@ -10,7 +10,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import CobranzasAPI from '../../../Network/Cobranzas/CobranzasAPI'
-import FormularioDatosTarjeta from './FormularioDatosTarjeta';
+
 
 const styles = theme => ({
     paper: {
@@ -37,7 +37,7 @@ const styles = theme => ({
     }
 })
 
-class FormularioDatosCobranza extends Component {
+class FormularioDatosTarjeta extends Component {
 
     constructor(props) {
         super(props);
@@ -315,7 +315,7 @@ class FormularioDatosCobranza extends Component {
                         </Grid> 
                         <Grid item xs={12} sm={6}>
                         <Button variant="outlined" color="primary" 
-                                                    onClick={ () => <FormularioDatosTarjeta/>}>
+                                                    >
                              COMPLETAR DATOS DE TARJETA
                         </Button>
                         </Grid> 
@@ -331,7 +331,7 @@ class FormularioDatosCobranza extends Component {
     }
 }
 
-FormularioDatosCobranza.propTypes = {
+FormularioDatosTarjeta.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(FormularioDatosCobranza);
+export default withStyles(styles)(FormularioDatosTarjeta);
