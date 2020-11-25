@@ -42,7 +42,7 @@ class CobranzasAPI extends Component {
 
     postTarjeta(cardInfo, handlePostTarjeta) {
       //Change URL to integrate with Cards
-      let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearCuota/Esccuota";
+      let url = "http://52.146.29.128/swagger/index.html";
       let body = JSON.stringify( cardInfo );
         fetch(url,{
           method: 'Post', 
