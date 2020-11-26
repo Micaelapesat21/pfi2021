@@ -3,7 +3,7 @@ import {Component} from 'react';
 
 class CobranzasAPI extends Component {
 
-    createTitular(cobranzaInfo, handlePostCobranzaInfo) {
+    createCobranza(cobranzaInfo, handlePostCobranzaInfo) {
       let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearCuota/Esccuota";
       let body = JSON.stringify( cobranzaInfo );
         fetch(url,{

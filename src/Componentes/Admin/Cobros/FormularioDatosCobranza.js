@@ -73,6 +73,9 @@ class FormularioDatosCobranza extends Component {
             tarjetaIsOpen: false,
             mesFactura: "",
             anioFactura: "",
+            formaDePago: "",
+            cobranzaCreada: null,
+            successMessageIsOpen: false,
 
 
 
@@ -89,7 +92,7 @@ class FormularioDatosCobranza extends Component {
 
     guardar() {
         if (
-            this.state.titular !== "" 
+            this.state.formaDePago !== "" 
             //this.state.correo !== "" &&
             //this.state.documento !== "" &&
             //this.state.telefono !== "" &&
@@ -155,9 +158,11 @@ class FormularioDatosCobranza extends Component {
         this.setState({ loading: false });
         if (cobranzaInfo.error == null) {
             //post was successful
-            this.setState({ edicion: false, redOnly: true })
-            var dict = this.getCobranzaModel();
-            this.props.cobranzaCreado(dict);
+            this.setState({ edicion: false,
+                 redOnly: true,
+                 cobranzaCreada: cobranzaInfo,
+                successMessageIsOpen: true })
+           
         } else {
             //get user with email failed
         }
@@ -187,21 +192,9 @@ class FormularioDatosCobranza extends Component {
     getCobranzaModel() {
         let titularSeleccionado = this.props.titulares[this.state.titularSeleccionado];
         return {
-            idTitular: titularSeleccionado.id,
-            mes: this.state.mesFactura,
-            anio: this.state.anioFactura,
+        
             numeroFactura: this.state.numeroFactura,
-            titular:this.state.titular,
-            mes: this.state.mes,
-            anio:this.state.anio,
-            pagada:this.state.pagada,
-            fechaEmision:this.state.fechaEmision,
-            fechaVencimiento:this.state.fechaVencimiento,
-            valorTurno:this.state.valorTurno,
-            valorServicios:this.state.valorServicios,
-            totalCuota:this.state.totalCuota,
-            numeroTransaccion:this.state.numeroTransaccion,
-            servicios:this.state.servicios,
+            formaDePago: this.state.formaDePago,
         };
 
     }
@@ -212,7 +205,7 @@ class FormularioDatosCobranza extends Component {
     }
 
     closeSuccessModal() {
-        this.props.cobranzaCreado(this.state.cobranzaCreado);
+        this.props.cobranzaCreada(this.state.cobranzaCreada);
         this.setState({ successMessageIsOpen: false }, this.forceUpdate());
     } 
 
@@ -299,11 +292,11 @@ class FormularioDatosCobranza extends Component {
                         <Grid item xs={12} sm={6}>
                             <Select
                                 native
-                                value={this.state.pago}
+                                value={this.state.formaDePago}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                    name: 'pago',
-                                    id: 'pago',
+                                    name: 'formaDePago',
+                                    id: 'formaDePago',
                                 }}
                                 >
 
@@ -316,7 +309,7 @@ class FormularioDatosCobranza extends Component {
                             </Select>
                         </Grid> 
                         <Grid item xs={12} sm={6}>
-                        {(this.state.pago==10 || this.state.pago==20) ? <Button 
+                        {(this.state.formaDePago==10 || this.state.formaDePago==20) ? <Button 
                          variant="outlined" color="primary" 
                                                    onClick={ this.addButtonTarjeta }>
                              COMPLETAR DATOS DE TARJETA

@@ -209,6 +209,7 @@ class FormularioDatosAlumnos extends Component {
                     telefono2: hotelData.telefono2,
                     titular: hotelData.titular,
                     jornada: hotelData.jornada,
+                    gimnasio: hotelData.gimnasio,
                 });            
             }
         }
@@ -248,6 +249,7 @@ class FormularioDatosAlumnos extends Component {
             telefono2: this.state.telefono2,
             idTitular: titular.id,
             turno: turno.id,
+            gimnasio: this.state.gimnasio,
         };
 
     }

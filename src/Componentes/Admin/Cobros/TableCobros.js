@@ -19,8 +19,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCobranza from './FormularioDatosCobranza';
 
 // Generate Order Data
-function createData(id,numeroFactura, alumno, titular, totalCuota, fechaEmision, estado, numeroTransaccion) {
-    return { id, numeroFactura, alumno, titular, totalCuota, fechaEmision, estado, numeroTransaccion };
+function createData(id,numeroTransaccion, alumno, titular, totalCuota, fechaEmision) {
+    return { id, numeroTransaccion, alumno, titular, totalCuota, fechaEmision };
 }
 
 const rows = [
@@ -141,34 +141,22 @@ export default function Orders(props) {
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Número de factura</TableCell>
+                            <TableCell>Número de transacción</TableCell>
                             <TableCell>Titular</TableCell>
                             <TableCell>Monto Total</TableCell>
                             <TableCell>Fecha Emision</TableCell>
-                            <TableCell>Número de Transacción</TableCell>
-                            <TableCell align="right">Acciones</TableCell>
+                     
+                           
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         { cobranzas.map((row, index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.numeroFactura}</TableCell>
-                                <TableCell>{row.alumno}</TableCell>
+                                <TableCell>{row.numeroTransaccion}</TableCell>
                                 <TableCell>{row.titular}</TableCell>
                                 <TableCell>{row.totalCuota}</TableCell>
                                 <TableCell>{row.fechaEmision}</TableCell>
-                                <TableCell>{row.estado}</TableCell>
-                                <TableCell>{row.numeroTransaccion}</TableCell>
-                                <TableCell align="right">
-                                    
-                                    <IconButton size="small">
-                                        <BlockIcon />
-                                    </IconButton>
-                                    <IconButton size="small">
-                                        <VisibilityIcon />
-                                    </IconButton>
-                                </TableCell>
-
+                               
                             </TableRow>
                         ))}
                     </TableBody>
