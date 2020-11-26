@@ -37,7 +37,6 @@ class FormularioDatosTitular extends Component {
             nombre: "",
             apellido: "",
             email: "",
-            documento:"",
             pais: "",
             provincia: "",
             ciudad: "",
@@ -73,8 +72,7 @@ class FormularioDatosTitular extends Component {
             this.state.codigoPostal !== "" &&
             this.state.direccion !== "" &&
             this.state.telefono1 !== "" &&
-            this.state.telefono2 !== ""&&
-            this.state.documento !==""
+            this.state.telefono2 !== ""
         ) {
             
             this.postTitularInfo(this.getHotelModel())
@@ -139,7 +137,6 @@ class FormularioDatosTitular extends Component {
             direccion: this.state.direccion,
             telefonoContacto: this.state.telefono1,
             telefono2: this.state.telefono2,
-            documento: this.state.documento,
         };
     }
 
@@ -204,12 +201,12 @@ class FormularioDatosTitular extends Component {
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id="documento"
-                                name="documento"
-                                label="Número de Documento"
+                                id="Correo"
+                                name="email"
+                                label="Correo Electronico"
                                 fullWidth
-                                autoComplete="docuento"
-                                value={this.state.documento}
+                                autoComplete="Correo"
+                                value={this.state.email}
                                 onChange={this.handleChange}
                                 InputProps={{
                                     readOnly: this.state.redOnly,

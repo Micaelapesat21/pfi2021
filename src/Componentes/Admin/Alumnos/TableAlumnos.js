@@ -139,7 +139,7 @@ export default function Orders(props) {
                             <TableCell>Nombre</TableCell>
                             <TableCell>Apellido</TableCell>
                             <TableCell>Email</TableCell>
-                            <TableCell>Teléfono</TableCell>
+                            <TableCell>Telefono1</TableCell>
                             <TableCell>Ciudad</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
