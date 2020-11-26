@@ -9,6 +9,14 @@ import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
 
 const styles = theme => ({
     paper: {
@@ -58,7 +66,22 @@ class FormularioDatosAlumnos extends Component {
             titular: "",
             loading: false,
             errorMessageIsOpen: false,
-            errorMessage: ""
+            errorMessage: "",
+            gimnasio:false,
+            futbol:false,
+            tenis:false,
+            hockey:false,
+            ingles:false,
+            portugues:false,
+            frances:false,
+            danza:false,
+            teatro:false,
+            pintura:false,
+            musica:false,
+            desayuno:false,
+            almuerzo:false,
+            merienda:false,
+            transporte:false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -96,6 +119,7 @@ class FormularioDatosAlumnos extends Component {
 
     //API Calls
     guardar() {
+        {console.log(this.state.gimnasio)}
         if (this.state.titularSeleccionado !== null,
             this.state.turnoSeleccionado !== null,
             this.state.nombre !== "" &&
@@ -147,6 +171,9 @@ class FormularioDatosAlumnos extends Component {
     handleChangeTurno(e) {
         let titular = this.props.turnos[ e.target.value ];
         this.setState({ turnoSeleccionado: e.target.value });
+    }
+    handleCheck = () => {
+        this.setState({gimnasio: true});
     }
 
     handleChange(e) {
@@ -229,12 +256,13 @@ class FormularioDatosAlumnos extends Component {
     closeErrorModal() {
         this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
-
+    
     render() {
         const { classes } = this.props;
         return (
             <Grid >
                 {this.showLoaderIfNeeded()}
+                
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <Paper className={classes.paper}>
                     <Grid container spacing={3}>
@@ -435,10 +463,18 @@ class FormularioDatosAlumnos extends Component {
                                 ))}
                             </Select>
                         </Grid> 
-
+                        <Grid item xs={12} sm={6}>
+                        <ListItem>
+                        <Checkbox id='gimnasio' onChange={this.handleCheck} color='primary'/>
+                        <ListItemText primary={'Inscribir a Gimnasio'}/></ListItem>
+                        </Grid>
+                        
+          
                     </Grid>
                 </Paper>
+                
                 <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
+                                
                     Crear Alumno
                 </Button>
             </Grid>
@@ -450,3 +486,47 @@ FormularioDatosAlumnos.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(FormularioDatosAlumnos);
+
+/*
+<Grid xs = {12} sm={8}>
+          <ListItem>
+            <Checkbox id='gimnasio' color='primary'/>
+            <ListItemText primary={'Gimnasio'}/>
+            <Checkbox  id='futbol' color='primary'/>
+            <ListItemText primary={'Fútbol'}/>
+            <Checkbox id ='hockey' color='primary'/>
+            <ListItemText primary={'Hockey'}/>
+            <Checkbox id ='tenis' color='primary'/>
+            <ListItemText primary={'Tenis'}/>
+          </ListItem></Grid>
+          <Grid xs = {12} sm={6}>
+          <ListItem>
+            <Checkbox id ='ingles' color='primary'/>
+            <ListItemText primary={'Inglés'}/>
+            <Checkbox id = 'portugues' color='primary'/>
+            <ListItemText primary={'Portugués'}/>
+            <Checkbox id ='frances' color='primary'/>
+            <ListItemText primary={'Francés'}/>
+          </ListItem></Grid>
+          <Grid xs = {12} sm={8}>
+          <ListItem>
+            <Checkbox id ='danza' color='primary'/>
+            <ListItemText primary={'Danza'}/>
+            <Checkbox id ='teatro' color='primary'/>
+            <ListItemText primary={'Teatro'}/>
+            <Checkbox id ='pintura' color='primary'/>
+            <ListItemText primary={'Pintura'}/>
+            <Checkbox id ='musica' color='primary'/>
+            <ListItemText primary={'Música'}/>
+          </ListItem></Grid>
+          <Grid xs = {12} sm={8}>
+          <ListItem>
+            <Checkbox id ='transporte' color='primary'/>
+            <ListItemText primary={'Transporte'}/>
+            <Checkbox id ='desayuno' color='primary'/>
+            <ListItemText primary={'Desayuno'}/>
+            <Checkbox id ='almuerzo' color='primary'/>
+            <ListItemText primary={'Almuerzo'}/>
+            <Checkbox id ='merienda' onChange={this.handleCheck} color='primary'/>
+            <ListItemText primary={'Merienda'}/>
+          </ListItem></Grid> */
