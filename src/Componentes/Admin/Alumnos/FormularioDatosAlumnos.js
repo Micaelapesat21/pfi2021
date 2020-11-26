@@ -66,6 +66,8 @@ class FormularioDatosAlumnos extends Component {
             titular: "",
             loading: false,
             errorMessageIsOpen: false,
+            successMessageIsOpen: false,
+            alumnoInfo: null,
             errorMessage: "",
             gimnasio:false,
             futbol:false,
@@ -220,12 +222,16 @@ class FormularioDatosAlumnos extends Component {
         AlumnosAPI.createAlumno(alumnoInfo, this.handlePostAlumnoInfo.bind(this));
     }
 
-    handlePostAlumnoInfo = async (hotelInfo) => {
+    handlePostAlumnoInfo = async (alumnoInfo) => {
         this.setState({ loading: false });
-        if (hotelInfo.error == null) {
+        if (alumnoInfo.error == null) {
             //post was successful
-            this.props.titularCreado(hotelInfo);
-            this.setState({ edicion: false, redOnly: true })
+            this.setState({ 
+                alumnoInfo: alumnoInfo,
+                edicion: false, 
+                redOnly: true,
+                successMessageIsOpen: true
+            })
         } else {
             //get user with email failed
         }
@@ -258,6 +264,19 @@ class FormularioDatosAlumnos extends Component {
     closeErrorModal() {
         this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
     }
+
+    closeSuccessModal() {
+        this.props.titularCreado(this.state.alumnoInfo);
+        this.setState({ successMessageIsOpen: false }, this.forceUpdate());
+    }
+
+    getSuccessMessage() {
+        if(this.state.gimnasio) {
+            return "Ya estas Inscripto en el Gimnasio B \n Usuario: ESCB_" + this.state.dni + "\n password: 123456"
+        } else {
+            return "Bienvenido al colegio"
+        }
+    }
     
     render() {
         const { classes } = this.props;
@@ -266,6 +285,7 @@ class FormularioDatosAlumnos extends Component {
                 {this.showLoaderIfNeeded()}
                 
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+                <ErrorMessageModal title={'Alumno Generada con éxito'} errorMessage= { this.getSuccessMessage() } isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
                 <Paper className={classes.paper}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
