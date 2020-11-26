@@ -175,13 +175,22 @@ class FormularioDatosFactura extends Component {
         this.setState({ successMessageIsOpen: false }, this.forceUpdate());
     }
 
+    getFacturaCreadaMessage() {
+        if(this.state.facturaCreada !== null) {
+            return "Pueder ir al banco B con el nro de factura" + this.state.facturaCreada.numeroFactura + " y codigo de pago electronico " +
+            "ESCB_" + this.state.facturaCreada.datosFacturacion.documento + " para realizar el pago."
+        } else {
+            return "Pueder ir al banco B y pagar la misma"
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <Grid >
                 {this.showLoaderIfNeeded()}
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
-                <ErrorMessageModal title={'Factura Generada con éxito'} errorMessage= "Pueder ir al banco B y pagar la misma" isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
+                <ErrorMessageModal title={'Factura Generada con éxito'} errorMessage= { this.getFacturaCreadaMessage() } isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
                 <Paper className={classes.paper}>
                     
                     
