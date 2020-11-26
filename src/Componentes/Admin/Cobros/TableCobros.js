@@ -79,14 +79,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function Orders(props) {
     const classes = useStyles();
-    const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [modalCobranzaIsOpen, setModalIsOpen] = React.useState(false);
     const [cobranzas, setCobranzas] = React.useState(rows);
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
     };
 
-    const handleCloseModal = () => {
+    const handleCloseModalCobranza = () => {
         setModalIsOpen(false);
     };
 
@@ -104,8 +104,8 @@ export default function Orders(props) {
             <Dialog
             maxWidth="lg"
             fullWidth= {true}
-            open={modalIsOpen}
-            onClose={handleCloseModal}
+            open={modalCobranzaIsOpen}
+            onClose={handleCloseModalCobranza}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
