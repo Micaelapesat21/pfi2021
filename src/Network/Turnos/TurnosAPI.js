@@ -3,7 +3,7 @@ import {Component} from 'react';
 class TurnosAPI extends Component {
     getTurnos(handleGetTurnos)
     {
-        let url =  "https://integracion-escuela.herokuapp.com/escuelabackend/obtenerTurnos";
+        let url =  "https://regiapppfi2021.herokuapp.com/escuelabackend/obtenerTurnos";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

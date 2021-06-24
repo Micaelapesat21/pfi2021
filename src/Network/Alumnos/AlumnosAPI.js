@@ -5,7 +5,7 @@ import HotelInfo from '../../Models/Hotel/HotelInfo';
 class AlumnosAPI extends Component {
 
     createAlumno(alumnoInfo, handlePostAlumnoInfo) {
-      let url = "https://integracion-escuela.herokuapp.com/escuelabackend/crearAlumno/Escalumno";
+      let url = "https://regiapppfi2021.herokuapp.com/escuelabackend/crearAlumno/Escalumno";
       let body = JSON.stringify( alumnoInfo );
         fetch(url,{
           method: 'Post', 
@@ -23,7 +23,7 @@ class AlumnosAPI extends Component {
 
     getAlumnos(handleGetAlumnos)
     {
-        let url =  "https://integracion-escuela.herokuapp.com/escuelabackend/obtenerAlumnos";
+        let url =  "https://regiapppfi2021.herokuapp.com/escuelabackend/obtenerAlumnos";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
