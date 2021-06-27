@@ -42,6 +42,7 @@ const styles = theme => ({
 })
 
 class Inicio extends Component {
+    _isMounted = false;
 
     constructor() {
         super();
@@ -56,52 +57,62 @@ class Inicio extends Component {
             precio: "",
             completado: false,
             modoHotel: true,// Si se va a trabajar en el hotel ponerlo en true
-            loading: false,
+            loading: true,
             data: [],
         };
 
     }
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(user => {
-            this.setState({
-                user: user
+        this._isMounted = true;
+
+       if (this._isMounted) 
+       { 
+            firebase.auth().onAuthStateChanged(user => {
+                this.setState({
+                 user: user
+              });
+               //Diferencia entre modo hotel y trae el correcto            
+               if (this.state.modoHotel) {
+                    //GET RESERVA HOTEL
+                    console.log('pongo el email  ' + user.email);
+                    this.getHotelInfo(user.email)
+                    console.log('SALE DEL GET  '  + user.email);
+                }
+                else {
+                 //GET RESERVA HUESPED
+                  this.getGuestInfo(user.email)
+                }
             });
-            //Diferencia entre modo hotel y trae el correcto            
-            if (this.state.modoHotel) {
-                //GET RESERVA HOTEL
-                this.getHotelInfo(user.email)
-            }
-            else {
-                //GET RESERVA HUESPED
-                 this.getGuestInfo(user.email)
-            }
-    });
 
-
-        if (this.props.location.state !== undefined) {
-            const {
-                id,
-                CheckIn,
-                CheckOut,
-                huespedes,
-                precio,
-            } = this.props.location.state
-            this.setState({
-                id: id,
-                CheckIn: CheckIn,
-                CheckOut: CheckOut,
-                huespedes: huespedes,
-                precio: precio,
-            })
+            if (this.props.location.state !== undefined) {
+                 const {
+                    id,
+                 CheckIn,
+                 CheckOut,
+                 huespedes,
+                    precio,
+                } = this.props.location.state
+             this.setState({
+                    id: id,
+                   CheckIn: CheckIn,
+                  CheckOut: CheckOut,
+                 huespedes: huespedes,
+                 precio: precio,
+                })
+            }
         }
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     getGuestInfo(email) {
         this.setState({ loading: true });
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
     }
     getHotelInfo(email) {
+        console.log('quiero ver los datos del hotel - getHotelInfo');
         this.setState({ loading: true });
         HotelAPI.getHotelInfo(email, this.handleGetHotelInfo);
     }
@@ -134,6 +145,8 @@ class Inicio extends Component {
         }
     }
     handleGetHotelInfo = async (hotelInfo) => {
+        console.log('quiero ver la info del hotel');
+
         this.setState({ loading: false, });
         if (hotelInfo.data === undefined || hotelInfo === null) {
             //show error message
@@ -155,7 +168,10 @@ class Inicio extends Component {
     }
 
     callbackInicio = (x) => {
-        this.setState({ inicio: x })
+        if (this._isMounted){ 
+         console.log('vuelve al inicioooooo')
+         this.setState({ inicio: x })
+        }
     }
     callbackVerificar = (x) => {
         this.setState({ verificar: x })
@@ -174,6 +190,7 @@ class Inicio extends Component {
         this.setState({ huespedes: x });
     }
     callHotel = (x) => {
+        console.log('llama al hotel') 
         this.setState({ modoHotel: x })
     }
   
@@ -237,18 +254,28 @@ class Inicio extends Component {
 
     render() {
         const { classes } = this.props;
+        console.log('paso por el inicio');
+        console.log('user' + this.state.user);
+        console.log('modo hotel' + this.state.modoHotel);
+        console.log('loading' + this.state.loading);
         if (this.state.user) {
+            console.log('entra con el usuario');
+            console.log('user' + this.state.user);
+        
             if (this.state.modoHotel) {
+               
                 if (this.state.loading)
                     return (
                         <LoadinPage />
                     )
                 else
                     return (
-                        <HotelHome
-                            user={this.state.user}
-                        />
+                        <HotelHome           
+                                user={this.state.user}    
+                       />
+    
                     )
+                    
             } else {
                 if (this.state.user.emailVerified || this.isloginFacebook() === true) {
                     if (this.state.loading)

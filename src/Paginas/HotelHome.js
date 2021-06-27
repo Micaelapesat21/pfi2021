@@ -28,6 +28,7 @@ import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
 import Empleados from '../Componentes/Admin/Empleados/Empleados';
 import Cobros from '../Componentes/Admin/Cobros/Cobros';
 import Facturas from '../Componentes/Admin/Facturación/Facturas';
+import { ControlCameraOutlined } from '@material-ui/icons';
 
 const drawerWidth = 240;
 
@@ -113,9 +114,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PanelControl(props) {
+    console.log('llegue hasta aca');
     const classes = useStyles();
+    console.log('pasa 1');
     const [open, setOpen] = React.useState(true);
+    console.log('pasa  2');
     const [modoGeneral, setmodoGeneral] = React.useState(false);
+    console.log('pasa 3');
     const [modoDatos, setmodoDatos] = React.useState(false);
     const [modoServicios, setmodoServicios] = React.useState(false);
     const [modoReservas, setmodoReservas] = React.useState(false);
@@ -123,33 +128,56 @@ export default function PanelControl(props) {
     const [modoSolicitudes, setmodoSolicitudes] = React.useState(true);
     const [modoResenas, setmodoResenas] = React.useState(false);
     const [modoFacturacion, setmodoFacturacion] = React.useState(false);
+    console.log('pasa 3');
     const [titulares, setTitulares] = React.useState([]);
+    console.log('pasa 4');
     const [turnos, setTurnos] = React.useState([]);
+    console.log('pasa 5');
     const [alumnos, setAlumnos] = React.useState([]);
+    console.log('pasa 6');
     const [facturas, setFacturas] = React.useState([]);
+    console.log('pasa 7');
+
+    console.log(modoDatos); //false
+    console.log(modoServicios); //false
+    console.log(modoSolicitudes); //true
 
     const actualizarTitulares = (titulares) => {
+        console.log('pasa titulares');
+        console.log(titulares.state)
         setTitulares(titulares);
+        console.log('pasa titulares fin');
     };
 
     const actualizarTurnos = (turnos) => {
+        console.log('pasa turnos');
         setTurnos(turnos);
+        console.log('pasa turnos fin');
     }
+   
     const actualizarAlumnos = (alumnos) => {
+        console.log('pasa alumnos');
         setAlumnos(alumnos);
+        console.log('pasa alumnos fin');
     }
 
     const actualizarFacturas = (facturas) => {
+        console.log('pasa facturas');
         setFacturas(facturas)
     }
 
     const handleDrawerOpen = () => {
+        console.log('pasa draw');
         setOpen(true);
     };
+    
+
     const handleDrawerClose = () => {
+        console.log('drawclose');
         setOpen(false);
     };
     const generalOpen = () => {
+        console.log('quiere generalOpen');
         setmodoGeneral(true);
         datosClose();
         serviciosClose();
@@ -158,9 +186,11 @@ export default function PanelControl(props) {
         solicitudesClose();
     };
     const generalClose = () => {
+        console.log('generalClose');
         setmodoGeneral(false);
     };
     const datosOpen = () => {
+        console.log('quiere abrir datos');
         setmodoDatos(true);
         generalClose();
         serviciosClose();
@@ -169,9 +199,11 @@ export default function PanelControl(props) {
         solicitudesClose();
     };
     const datosClose = () => {
+        console.log('quiere cerrar datos');
         setmodoDatos(false);
     };
     const serviciosOpen = () => {
+        console.log('Servicios Open');
         setmodoServicios(true);
         generalClose();
         datosClose();
@@ -182,6 +214,7 @@ export default function PanelControl(props) {
         solicitudesClose();
     };
     const serviciosClose = () => {
+        console.log('servicios close');
         setmodoServicios(false);
     };
     const reservasOpen = () => {
@@ -198,6 +231,7 @@ export default function PanelControl(props) {
         setmodoReservas(false);
     };
     const solicitudesOpen = () => {
+        console.log('solicitudes open');
         setmodoSolicitudes(true);
         generalClose();
         datosClose();
@@ -208,6 +242,7 @@ export default function PanelControl(props) {
         cobranzasClose();
     };
     const solicitudesClose = () => {
+        console.log('solicitudes close');
         setmodoSolicitudes(false);
     };
     const resenasOpen = () => {
@@ -267,7 +302,7 @@ export default function PanelControl(props) {
                             onClick={handleDrawerOpen}
                             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                         >
-                            <MenuIcon />
+                          <MenuIcon />  
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Datos
@@ -469,6 +504,7 @@ export default function PanelControl(props) {
                     </div>
                 )
             else
+                console.log('entro en modoooo');
                 if (modoSolicitudes)
                     return (
                         <div className={classes.root}>
@@ -530,7 +566,6 @@ export default function PanelControl(props) {
                             </Drawer>
                             <main className={classes.content}>
                                 <div className={classes.appBarSpacer} />
-
                                 <Container maxWidth="lg" className={classes.container}>
                                     <Titulares
                                         user={props.user}

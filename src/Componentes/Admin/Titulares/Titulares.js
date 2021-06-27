@@ -12,6 +12,7 @@ const styles = theme => ({
 })
 
 class Titulares extends Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -24,9 +25,17 @@ class Titulares extends Component {
     }
 
     componentDidMount() {
-        this.getTitulares();
-        this.getTurnos();
-        this.getAlumnos();
+        this._isMounted = true;
+
+        if (this._isMounted) {
+            this.getTitulares();
+            this.getTurnos();
+            this.getAlumnos();
+        }
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     //Api Calls

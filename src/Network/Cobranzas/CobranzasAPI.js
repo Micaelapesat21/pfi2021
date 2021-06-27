@@ -4,7 +4,7 @@ import {Component} from 'react';
 class CobranzasAPI extends Component {
 
     createCobranza(cobranzaInfo, handlePostCobranzaInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/escuelabackend/crearCuota/Esccuota";
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCuota/Esccuota";
       let body = JSON.stringify( cobranzaInfo );
         fetch(url,{
           method: 'Post', 
@@ -22,7 +22,7 @@ class CobranzasAPI extends Component {
 
     getCobranzas(handleGetCobranzas)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/escuelabackend/obtenerCuotas";
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCuotas";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

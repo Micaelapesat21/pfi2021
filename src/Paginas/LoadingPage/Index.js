@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Lottie from 'react-lottie';
 import animationData from '../../AnimationJson/30304-back-to-school.json'
@@ -43,4 +44,3 @@ export default function Index() {
       </Grid >
    )
 }
-

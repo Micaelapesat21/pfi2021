@@ -1,3 +1,4 @@
+
 import {Component} from 'react';
 import Constants from '../../Utils/Constants';
 import GuestInfo from './../../Models/Guest/GuestInfo';
@@ -40,7 +41,8 @@ class GuestAPI extends Component {
       }
 
     postGuestInfo(handlePostGuestInfo) {
-      let url =  Constants.BASE_URL + '/api/v1.0/usuarios';
+     // let url =  Constants.BASE_URL + '/api/v1.0/usuarios';
+     let url =  Constants.BASE_URL + '/regiapppfi2021/obtenerUsuarios' ;
       let guestData = GuestInfo.getInstance().toJson();
         fetch(url,{
           method: 'PUT', 
@@ -58,7 +60,8 @@ class GuestAPI extends Component {
 
     getGuestInfo(email, handleGetGuestInfo)
     {
-        let url =  Constants.BASE_URL + '/api/v1.0/usuarios?email=' + email;
+       // let url =  Constants.BASE_URL + '/api/v1.0/usuarios?email=' + email;
+       let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuario?email=' + email;
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

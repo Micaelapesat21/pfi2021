@@ -2,11 +2,11 @@ import {Component} from 'react';
 import Constants from '../../Utils/Constants';
 import HotelInfo from '../../Models/Hotel/HotelInfo';
 
-class TitularesAPI extends Component {
+class UsuariosAPI extends Component {
 
-    createTitular(titularInfo, handlePostTitularInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearTitular/Esctitular";
-      let body = JSON.stringify( titularInfo );
+    createUsuarios(usuariosInfo, handlePostUsuariosInfo) {
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearUsuarios/Escusuarios";
+      let body = JSON.stringify( usuariosInfo );
         fetch(url,{
           method: 'Post', 
           headers:{ 'Content-Type': 'application/json'},
@@ -17,13 +17,13 @@ class TitularesAPI extends Component {
             return response.json();
         })
         .then (responseData => {
-          handlePostTitularInfo(responseData);
+            handlePostUsuariosInfo(responseData);
         });
     }
 
-    getTitulares(handleGetTiitulares)
+    getUsuarios(handleGetUsuarios)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerTitulares";
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuarios";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -37,9 +37,9 @@ class TitularesAPI extends Component {
             }
         })
         .then (responseData => {
-            handleGetTiitulares(responseData);
+            handleGetUsuarios(responseData);
         });
     }
 }
 
-export default new TitularesAPI();
+export default new UsuariosAPI();
