@@ -25,6 +25,7 @@ import { Grid } from '@material-ui/core';
 import Logo from '../Imagenes/escudoColegio.jpg'
 import Titulares from '../Componentes/Admin/Titulares/Titulares';
 import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
+import Asistencias from '../Componentes/Admin/Asistencias/Asistencias';
 import Empleados from '../Componentes/Admin/Empleados/Empleados';
 import Cobros from '../Componentes/Admin/Cobros/Cobros';
 import Facturas from '../Componentes/Admin/Facturación/Facturas';
@@ -128,6 +129,7 @@ export default function PanelControl(props) {
     const [modoSolicitudes, setmodoSolicitudes] = React.useState(true);
     const [modoResenas, setmodoResenas] = React.useState(false);
     const [modoFacturacion, setmodoFacturacion] = React.useState(false);
+    const [modoAsistencias, setmodoAsistencias] = React.useState(false);
     console.log('pasa 3');
     const [titulares, setTitulares] = React.useState([]);
     console.log('pasa 4');
@@ -137,6 +139,8 @@ export default function PanelControl(props) {
     console.log('pasa 6');
     const [facturas, setFacturas] = React.useState([]);
     console.log('pasa 7');
+    const [asistencias, setAsistencias] = React.useState([]);
+    console.log('pasa 8');
 
     console.log(modoDatos); //false
     console.log(modoServicios); //false
@@ -166,6 +170,12 @@ export default function PanelControl(props) {
         setFacturas(facturas)
     }
 
+    const actualizarAsistencias = (asistencias) => {
+        console.log('pasa asistencias');
+        setAsistencias(asistencias);
+        console.log('pasa asistencia fin');
+    }
+
     const handleDrawerOpen = () => {
         console.log('pasa draw');
         setOpen(true);
@@ -184,6 +194,7 @@ export default function PanelControl(props) {
         reservasClose();
         resenasClose();
         solicitudesClose();
+        asistenciasClose();
     };
     const generalClose = () => {
         console.log('generalClose');
@@ -197,10 +208,25 @@ export default function PanelControl(props) {
         reservasClose();
         resenasClose();
         solicitudesClose();
+        asistenciasClose();
     };
     const datosClose = () => {
         console.log('quiere cerrar datos');
         setmodoDatos(false);
+    };
+    const asistenciasOpen = () => {
+        console.log('quiere abrir asistencias');
+        setmodoAsistencias(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        resenasClose();
+        solicitudesClose();
+        serviciosClose();
+    };
+    const asistenciasClose = () => {
+        console.log('quiere cerrar asistencias');
+        setmodoAsistencias(false);
     };
     const serviciosOpen = () => {
         console.log('Servicios Open');
@@ -212,6 +238,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         cobranzasClose();
         solicitudesClose();
+        asistenciasClose();
     };
     const serviciosClose = () => {
         console.log('servicios close');
@@ -226,6 +253,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         facturacionClose();
         cobranzasClose();
+        asistenciasClose();
     };
     const reservasClose = () => {
         setmodoReservas(false);
@@ -240,6 +268,7 @@ export default function PanelControl(props) {
         resenasClose();
         facturacionClose();
         cobranzasClose();
+        asistenciasClose();
     };
     const solicitudesClose = () => {
         console.log('solicitudes close');
@@ -254,6 +283,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         facturacionClose();
         cobranzasClose();
+        asistenciasClose();
 
     };
     const resenasClose = () => {
@@ -269,6 +299,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         resenasClose();
         facturacionClose();
+        asistenciasClose();
     };
     const cobranzasClose = () => {
         setmodoCobranzas(false);
@@ -283,6 +314,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         resenasClose();
         cobranzasClose();
+        asistenciasClose();
     };
     const facturacionClose = () => {
         setmodoFacturacion(false);
@@ -344,6 +376,7 @@ export default function PanelControl(props) {
                         resenasOpen={resenasOpen}
                         facturacionOpen={facturacionOpen}
                         cobranzasOpen={cobranzasOpen}
+                        asistenciasOpen={asistenciasOpen}
                     />}</List>
                     <Divider />
                     <List></List>
@@ -414,6 +447,7 @@ export default function PanelControl(props) {
                             resenasOpen={resenasOpen}
                             facturacionOpen={facturacionOpen}
                             cobranzasOpen={cobranzasOpen}
+                            asistenciasOpen={asistenciasOpen}
                         />}</List>
                         <Divider />
                         <List></List>
@@ -485,6 +519,7 @@ export default function PanelControl(props) {
                                 resenasOpen={resenasOpen}
                                 cobranzasOpen={cobranzasOpen}
                                 facturacionopen={facturacionOpen}
+                                asistenciasOpen={asistenciasOpen}
                             />}</List>
                             <Divider />
                             <List></List>
@@ -503,6 +538,81 @@ export default function PanelControl(props) {
                         </main>
                     </div>
                 )
+            else
+            if (modoAsistencias)
+            return (
+                <div className={classes.root}>
+                    <CssBaseline />
+                    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                        <Toolbar className={classes.toolbar}>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={handleDrawerOpen}
+                                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                Asistencias
+                            </Typography>
+                            <IconButton color="inherit">
+                                <Badge badgeContent={0} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                <ExitToAppIcon />
+                            </IconButton>
+                        </Toolbar>
+                    </AppBar>
+                    <Drawer
+                        variant="permanent"
+                        classes={{
+                            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                        }}
+                        open={open}
+                    >
+                        <div className={classes.toolbarIcon}>
+                            <Grid container justify="center" alignItems="center">
+                                <Grid item>
+                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                </Grid>
+                            </Grid>
+                            <IconButton onClick={handleDrawerClose}>
+                                <ChevronLeftIcon />
+                            </IconButton>
+                        </div>
+                        <Divider />
+                        <List>{<ListItems
+                            generalOpen={generalOpen}
+                            datosOpen={datosOpen}
+                            serviciosOpen={serviciosOpen}
+                            reservasOpen={reservasOpen}
+                            solicitudesOpen={solicitudesOpen}
+                            resenasOpen={resenasOpen}
+                            cobranzasOpen={cobranzasOpen}
+                            asistenciasOpen={asistenciasOpen}
+                            facturacionopen={facturacionOpen}
+                        />}</List>
+                        <Divider />
+                        <List></List>
+                    </Drawer>
+                    <main className={classes.content}>
+                        <div className={classes.appBarSpacer} />
+
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Asistencias 
+                                titulares = { titulares }
+                                turnos = { turnos }
+                                asistencias = { asistencias }
+                                actualizarAsistencias = { actualizarAsistencias }
+                            />
+                        </Container>
+                    </main>
+                </div>
+            )
             else
                 console.log('entro en modoooo');
                 if (modoSolicitudes)
@@ -560,6 +670,7 @@ export default function PanelControl(props) {
                                     resenasOpen={resenasOpen}
                                     cobranzasOpen={cobranzasOpen}
                                     facturacionOpen={facturacionOpen}
+                                    asistenciasOpen={asistenciasOpen}
                                 />}</List>
                                 <Divider />
                                 <List></List>
@@ -633,6 +744,7 @@ export default function PanelControl(props) {
                                         resenasOpen={resenasOpen}
                                         cobranzasOpen={cobranzasOpen}
                                         facturacionOpen={facturacionOpen}
+                                        asistenciasOpen={asistenciasOpen}
                                     />}</List>
                                     <Divider />
                                     <List></List>
@@ -703,6 +815,7 @@ export default function PanelControl(props) {
                                             resenasOpen={resenasOpen}
                                             cobranzasOpen={cobranzasOpen}
                                             facturacionOpen={facturacionOpen}
+                                            asistenciasOpen={asistenciasOpen}
                                         />}</List>
                                         <Divider />
                                         <List></List>
@@ -776,6 +889,7 @@ export default function PanelControl(props) {
                                                 resenasOpen={resenasOpen}
                                                 cobranzasOpen={cobranzasOpen}
                                                 facturacionOpen={facturacionOpen}
+                                                asistenciasOpen={asistenciasOpen}
                                             />}</List>
                                             <Divider />
                                             <List></List>
@@ -847,6 +961,7 @@ export default function PanelControl(props) {
                                                             resenasOpen={resenasOpen}
                                                             cobranzasOpen={cobranzasOpen}
                                                             facturacionOpen={facturacionOpen}
+                                                            asistenciasOpen={asistenciasOpen}
                                                         />}</List>
                                                         <Divider />
                                                         <List></List>

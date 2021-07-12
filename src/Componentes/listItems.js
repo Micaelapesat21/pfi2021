@@ -109,6 +109,13 @@ export default function ListItems(props) {
             <ListItemIcon>
               <DescriptionIcon color="secondary"/>
             </ListItemIcon>
+            <ListItemText primary="Asistencias" />
+          </ListItem>
+
+          <ListItem button onClick={props.checkInOpen} className={classes.nested}>
+            <ListItemIcon>
+              <DescriptionIcon color="secondary"/>
+            </ListItemIcon>
             <ListItemText primary="Facturas" />
           </ListItem>
 
