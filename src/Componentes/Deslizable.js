@@ -8,6 +8,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import BarraPrincipal from './BarraPrincipal'
 import { Hidden, Grid } from '@material-ui/core';
 import Logo from '../Imagenes/escudoColegio.jpg'
+//import Logo from '../Imagenes/regiapp.jpg'
 
 const drawerWidth = 240;
 
