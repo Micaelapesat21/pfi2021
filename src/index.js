@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns';
 import esLocale from "date-fns/locale/es";
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const localeMap = {
   es: esLocale,

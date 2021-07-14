@@ -2,7 +2,8 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {  Grid } from '@material-ui/core';
-import TableCursos from './TableCursos'
+import TableCursos from './TableCursos';
+import Curso from './Curso';
 
 const styles = theme => ({
 

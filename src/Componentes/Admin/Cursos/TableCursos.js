@@ -17,6 +17,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCursos from './FormularioDatosCursos';
+import Curso from './Curso';
+import Cursos from './Cursos';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -27,6 +29,25 @@ const rows = [
     createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
     createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
 ];
+
+const arraycursos = [
+    {
+        id: 1,
+        title: '1ero "A"'
+    },
+    {
+        id: 2,
+        title: '1ero "B"'
+    },
+    {
+        id: 3,
+        title: '2do "A"'
+    },
+    {
+        id: 4,
+        title: '3ero "A"'
+    }
+]
 
 const useStyles = makeStyles(theme => ({
     seeMore: {
@@ -133,7 +154,19 @@ export default function Orders(props) {
             </AppBar>
             <Paper className={classes.paper}>
                 <Title>Cursos</Title>
-                <Table size="small">
+                 <div className="container">
+                     <div className="row"> 
+                         {
+                             arraycursos.map( curso => (
+                                <div className= "col-md-3" key={curso.id}>
+                                   <Curso title={curso.title} ></Curso>
+                                </div>
+                            ))
+                        }          
+                    </div>
+                 </div>             
+
+              {/*   <Table size="small">
                     <TableHead>
                         <TableRow>
                             <TableCell>Nombre</TableCell>
@@ -167,7 +200,7 @@ export default function Orders(props) {
                             </TableRow>
                         ))}
                     </TableBody>
-                </Table>
+                </Table> */}
                 <div className={classes.seeMore}>
                     <Link color="primary" >
                         Ver Mas Solicitudes
