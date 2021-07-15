@@ -22,7 +22,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthController from '../Componentes/login/AuthController'
 import ReservasHotel from '../Componentes/Admin/ReservasHotel'
 import { Grid } from '@material-ui/core';
-import Logo from '../Imagenes/escudoColegio.jpg'
+//import Logo from '../Imagenes/escudoColegio.jpg'
+import Logo from '../Imagenes/regiapp.jpg';
 import Titulares from '../Componentes/Admin/Titulares/Titulares';
 import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
 import Asistencias from '../Componentes/Admin/Asistencias/Asistencias';
@@ -31,6 +32,7 @@ import Empleados from '../Componentes/Admin/Empleados/Empleados';
 import Cobros from '../Componentes/Admin/Cobros/Cobros';
 import Facturas from '../Componentes/Admin/Facturación/Facturas';
 import { ControlCameraOutlined } from '@material-ui/icons';
+ 
 
 const drawerWidth = 240;
 

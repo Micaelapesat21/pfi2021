@@ -1,20 +1,48 @@
-import React from 'react'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-export default function Curso(props) {
-    return (
-        <div className="card ">
-            <div className="card-body">
-                <h3 className="card-tittle text-center"> {props.title}</h3>
-                <p className="card-text text-secondary">
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+});
+
+export default function MediaCard(props) {
+  const classes = useStyles();
+
+  return (
+    <Card className={classes.root}>
+      <CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+          {props.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
                     Total alumnos:
                     <br/>
                     Total Presentes:
                     <br/>
                     Total Ausentes: 
                     <br/>
-                </p>
-                <a href="#!" className="btn btn-outline-secondary"> Entrar al Curso </a>
-            </div>
-        </div>
-    )
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Entrar
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }
+

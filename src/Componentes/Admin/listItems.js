@@ -13,6 +13,8 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import SchoolIcon from '@material-ui/icons/School';
 import WorkIcon from '@material-ui/icons/Work';
+import GroupIcon from '@material-ui/icons/Group';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 export default function mainListItems(props) {
   return (
@@ -63,14 +65,14 @@ export default function mainListItems(props) {
 
       <ListItem button onClick={props.asistenciasOpen}>
         <ListItemIcon>
-          <ReceiptIcon />
+          <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText primary="Asistencias" />
       </ListItem>
 
       <ListItem button onClick={props.cursosOpen}>
         <ListItemIcon>
-          <ReceiptIcon />
+          <GroupIcon />
         </ListItemIcon>
         <ListItemText primary="Cursos" />
       </ListItem>

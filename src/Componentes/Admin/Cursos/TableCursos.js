@@ -19,6 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCursos from './FormularioDatosCursos';
 import Curso from './Curso';
 import Cursos from './Cursos';
+import MediaCard from './Curso';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -159,7 +160,7 @@ export default function Orders(props) {
                          {
                              arraycursos.map( curso => (
                                 <div className= "col-md-3" key={curso.id}>
-                                   <Curso title={curso.title} ></Curso>
+                                   <MediaCard title={curso.title} ></MediaCard>
                                 </div>
                             ))
                         }          
