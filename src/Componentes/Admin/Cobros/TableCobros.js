@@ -18,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCobranza from './FormularioDatosCobranza';
 
+
 // Generate Order Data
 function createData(id,numeroTransaccion, alumno, titular, totalCuota, fechaEmision) {
     return { id, numeroTransaccion, alumno, titular, totalCuota, fechaEmision };

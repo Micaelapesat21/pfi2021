@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -17,6 +17,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosAlumnos from './FormularioDatosAlumnos';
+import Box from '@material-ui/core/Box';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -138,9 +141,10 @@ export default function Orders(props) {
                         <TableRow>
                             <TableCell>Nombre</TableCell>
                             <TableCell>Apellido</TableCell>
-                            <TableCell>Email</TableCell>
+                            <TableCell>Pulsera NFC</TableCell>
                             <TableCell>Teléfono</TableCell>
                             <TableCell>Ciudad</TableCell>
+                            <TableCell align="right">Asignar Pulsera</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
@@ -149,19 +153,23 @@ export default function Orders(props) {
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.correo}</TableCell>
+                                <TableCell>
+                                         <Box color="success.main">Asignado</Box>
+                                </TableCell>
                                 <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
-                                        <CheckIcon />
+                                        <AssignmentTurnedInIcon />
                                     </IconButton>
+                                </TableCell>
+                                <TableCell align="right">
                                     <IconButton size="small">
-                                        <BlockIcon />
+                                        <DeleteIcon />
                                     </IconButton>
                                     <IconButton size="small">
                                         <VisibilityIcon />
-                                    </IconButton>
+                                    </IconButton> 
                                 </TableCell>
 
                             </TableRow>

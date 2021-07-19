@@ -7,6 +7,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import DatosCurso from './DatosCurso';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormularioDatosAlumnos from '../Alumnos/FormularioDatosAlumnos';
+import Alumnos from '../Alumnos/Alumnos';
+
 
 const useStyles = makeStyles({
   root: {
@@ -19,8 +27,40 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
+
+  const addButtonPressed = () => {
+      setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+      setModalIsOpen(false);
+  };
+
+  const alumnoCreado = (titular) => {
+    setModalIsOpen(false);
+    props.alumnoCreado(titular);
+}
+
 
   return (
+    <React.Fragment>
+       <Dialog
+        maxWidth="lg"
+        fullWidth= {true}
+        open={modalIsOpen}
+        onClose={handleCloseModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > DATOS DEL CURSO {props.title} </DialogTitle>
+            <DialogContent className="dialogContent">
+                <DatosCurso curso={props.title}/>
+            </DialogContent>
+        <DialogActions>
+        </DialogActions>
+      </Dialog> 
+  
     <Card className={classes.root}>
       <CardActionArea>
         <CardContent>
@@ -38,11 +78,12 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={addButtonPressed}>
           Entrar
         </Button>
       </CardActions>
     </Card>
+    </React.Fragment>
   );
 }
 

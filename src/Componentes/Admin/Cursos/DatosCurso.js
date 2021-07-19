@@ -1,25 +1,22 @@
-import React from 'react';
-import Link from '@material-ui/core/Link';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from '../Title';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import CheckIcon from '@material-ui/icons/Check';
-import BlockIcon from '@material-ui/icons/Block';
 import { IconButton, Paper, InputBase, AppBar, Toolbar, Button } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormularioDatosAsistencias from './FormularioDatosAsistencias';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Box from '@material-ui/core/Box';
+import Title from '../Title';
+import Link from '@material-ui/core/Link';
+import { fade, makeStyles} from '@material-ui/core/styles';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
+
 
 // Generate Order Data
 function createData(id,nombre, apellido, curso, estado) {
@@ -83,62 +80,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Orders(props) {
-    const classes = useStyles();
-    const [modalIsOpen, setModalIsOpen] = React.useState(false);
-
-    const addButtonPressed = () => {
-        setModalIsOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setModalIsOpen(false);
-    };
-
-    const asistenciaCreado = (asistencia) => {
-        setModalIsOpen(false);
-        //props.asistenciaCreado(titular);
-    }
-
-    return (
-        <React.Fragment>
-            <Dialog
-            maxWidth="lg"
-            fullWidth= {true}
-            open={modalIsOpen}
-            onClose={handleCloseModal}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos de la asistencia </DialogTitle>
-            <DialogContent className="dialogContent">
-             <FormularioDatosAsistencias titularCreado = { asistenciaCreado } titulares = { props.titulares } turnos = { props.turnos }/>
-            </DialogContent>
-            <DialogActions>
-            </DialogActions>
-            </Dialog>
-            <AppBar position="static">
-                <Toolbar>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Buscar…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
-                    <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Agregar Asistencia 
-                     </Button>
-                </Toolbar>
-            </AppBar>
+export default function DatosCurso(props) {
+console.log("entro aca")
+const classes = useStyles();
+    return ( 
             <Paper className={classes.paper}>
-                <Title>Asistencias</Title>
+                <Title>Alumnos</Title>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
@@ -150,8 +97,7 @@ export default function Orders(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { //props.asistencias.map((row, index) => (
-                            asistencias.map((row, index) => (
+                        { asistencias.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
@@ -176,6 +122,24 @@ export default function Orders(props) {
                      </Link>
                 </div>
             </Paper>
-        </React.Fragment>
-    );
+        
+);
 }
+
+/*
+    constructor(props) {
+        super(props);
+        this.state = {
+            alumnos: [],
+            loading: false,
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ alumnos: this.props.alumnos });
+    }
+
+  
+*/
+ 
+        

@@ -17,6 +17,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosTitular from './FormularioDatosTitular';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -157,7 +158,7 @@ export default function Orders(props) {
                                         <CheckIcon />
                                     </IconButton>
                                     <IconButton size="small">
-                                        <BlockIcon />
+                                        <DeleteIcon />
                                     </IconButton>
                                     <IconButton size="small">
                                         <VisibilityIcon />

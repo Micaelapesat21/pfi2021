@@ -20,6 +20,8 @@ import FormularioDatosCursos from './FormularioDatosCursos';
 import Curso from './Curso';
 import Cursos from './Cursos';
 import MediaCard from './Curso';
+import TableAlumnos from '../Alumnos/TableAlumnos';
+import DatosCurso from './DatosCurso';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -128,7 +130,8 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del curso </DialogTitle>
             <DialogContent className="dialogContent">
-             <FormularioDatosCursos titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos }/>
+            {/* <FormularioDatosCursos titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos }/> */}
+                      <DatosCurso />
             </DialogContent>
             <DialogActions>
             </DialogActions>
