@@ -15,6 +15,7 @@ import SchoolIcon from '@material-ui/icons/School';
 import WorkIcon from '@material-ui/icons/Work';
 import GroupIcon from '@material-ui/icons/Group';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 export default function mainListItems(props) {
   return (
@@ -31,43 +32,12 @@ export default function mainListItems(props) {
         </ListItemIcon>
         <ListItemText primary="Datos" />
       </ListItem>
-      <ListItem button onClick={props.serviciosOpen}>
-        <ListItemIcon>
-          <AddToPhotosIcon  />
-        </ListItemIcon>
-        <ListItemText primary="Servicios" />
-      </ListItem>
+
       <ListItem button onClick={props.reservasOpen}>
         <ListItemIcon>
           <SchoolIcon />
         </ListItemIcon>
         <ListItemText primary="Alumnos" />
-      </ListItem>
-      <ListItem button onClick={props.solicitudesOpen}>
-        <ListItemIcon> 
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="Titulares" />
-      </ListItem>
-      <ListItem button onClick={props.resenasOpen}>
-        <ListItemIcon>
-          <WorkIcon />
-        </ListItemIcon>
-        <ListItemText primary="Empleados" />
-      </ListItem>
-
-      <ListItem button onClick={props.facturacionOpen}>
-        <ListItemIcon>
-          <ReceiptIcon />
-        </ListItemIcon>
-        <ListItemText primary="Facturación" />
-      </ListItem>
-
-      <ListItem button onClick={props.asistenciasOpen}>
-        <ListItemIcon>
-          <AccessTimeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Asistencias" />
       </ListItem>
 
       <ListItem button onClick={props.cursosOpen}>
@@ -77,6 +47,41 @@ export default function mainListItems(props) {
         <ListItemText primary="Cursos" />
       </ListItem>
 
+      <ListItem button onClick={props.asistenciasOpen}>
+        <ListItemIcon>
+          <AccessTimeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Asistencias" />
+      </ListItem>
+
+      <ListItem button onClick={props.solicitudesOpen}>
+        <ListItemIcon> 
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Titulares" />
+      </ListItem>
+
+      <ListItem button onClick={props.serviciosOpen}>
+        <ListItemIcon>
+          <AddToPhotosIcon  />
+        </ListItemIcon>
+        <ListItemText primary="Servicios" />
+      </ListItem>
+
+      <ListItem button onClick={props.resenasOpen}>
+        <ListItemIcon>
+          <WorkIcon />
+        </ListItemIcon>
+        <ListItemText primary="Empleados" />
+      </ListItem>
+      
+      <ListItem button onClick={props.facturacionOpen}>
+        <ListItemIcon>
+          <ReceiptIcon />
+        </ListItemIcon>
+        <ListItemText primary="Facturación" />
+      </ListItem>
+
       <ListItem button onClick={props.cobranzasOpen}>
         <ListItemIcon>
           <MonetizationOnIcon />
@@ -84,6 +89,13 @@ export default function mainListItems(props) {
         <ListItemText primary="Cobranzas" />
       </ListItem>
       
+      <ListItem button onClick={props.reportesOpen}>
+        <ListItemIcon>
+          <AssessmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Reportes Asistencias" />
+      </ListItem>
+
     </div>
   )
 }

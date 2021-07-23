@@ -20,6 +20,7 @@ import FormularioDatosAlumnos from './FormularioDatosAlumnos';
 import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import MessageIcon from '@material-ui/icons/Message';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -170,8 +171,11 @@ export default function Orders(props) {
                                     <IconButton size="small">
                                         <VisibilityIcon />
                                     </IconButton> 
+                                    <IconButton size="small">
+                                        <MessageIcon />
+                                    </IconButton> 
                                 </TableCell>
-
+                                
                             </TableRow>
                         ))}
                     </TableBody>
