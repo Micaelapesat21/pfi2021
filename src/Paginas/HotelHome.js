@@ -28,6 +28,7 @@ import Titulares from '../Componentes/Admin/Titulares/Titulares';
 import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
 import Asistencias from '../Componentes/Admin/Asistencias/Asistencias';
 import Cursos from '../Componentes/Admin/Cursos/Cursos';
+import Reportes from '../Componentes/Admin/Reportes/Reportes';
 import Empleados from '../Componentes/Admin/Empleados/Empleados';
 import Cobros from '../Componentes/Admin/Cobros/Cobros';
 import Facturas from '../Componentes/Admin/Facturación/Facturas';
@@ -134,6 +135,7 @@ export default function PanelControl(props) {
     const [modoFacturacion, setmodoFacturacion] = React.useState(false);
     const [modoAsistencias, setmodoAsistencias] = React.useState(false);
     const [modoCursos, setmodoCursos] = React.useState(false);
+    const [modoReportes, setmodoReportes] = React.useState(false);
     console.log('pasa 3');
     const [titulares, setTitulares] = React.useState([]);
     console.log('pasa 4');
@@ -146,6 +148,8 @@ export default function PanelControl(props) {
     const [asistencias, setAsistencias] = React.useState([]);
     console.log('pasa 8');
     const [cursos, setCursos] = React.useState([]);
+    console.log('pasa 9');
+    const [reportes, setReportes] = React.useState([]);
     console.log('pasa 9');
 
     console.log(modoDatos); //false
@@ -188,6 +192,12 @@ export default function PanelControl(props) {
         console.log('pasa cursos fin');
     }
 
+    const actualizarReportes = (reportes) => {
+        console.log('pasa reportes');
+        setReportes(reportes);
+        console.log('pasa reportes fin');
+    }
+
     const handleDrawerOpen = () => {
         console.log('pasa draw');
         setOpen(true);
@@ -208,6 +218,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const generalClose = () => {
         console.log('generalClose');
@@ -223,6 +234,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const datosClose = () => {
         console.log('quiere cerrar datos');
@@ -238,6 +250,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         serviciosClose();
         cursosClose();
+        reportesClose();
     };
     const asistenciasClose = () => {
         console.log('quiere cerrar asistencias');
@@ -254,11 +267,31 @@ export default function PanelControl(props) {
         solicitudesClose();
         serviciosClose();
         asistenciasClose();
+        reportesClose();
 
     };
     const cursosClose = () => {
         console.log('quiere cerrar cursos');
         setmodoCursos(false);
+    };
+
+    const reportesOpen = () => {
+        console.log('quiere abrir reportes');
+        setmodoReportes(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        resenasClose();
+        solicitudesClose();
+        serviciosClose();
+        asistenciasClose();
+        cursosClose();
+
+    };
+
+    const reportesClose = () => {
+        console.log('quiere cerrar reportes');
+        setmodoReportes(false);
     };
 
     const serviciosOpen = () => {
@@ -273,6 +306,7 @@ export default function PanelControl(props) {
         solicitudesClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const serviciosClose = () => {
         console.log('servicios close');
@@ -289,6 +323,7 @@ export default function PanelControl(props) {
         cobranzasClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const reservasClose = () => {
         setmodoReservas(false);
@@ -305,6 +340,7 @@ export default function PanelControl(props) {
         cobranzasClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const solicitudesClose = () => {
         console.log('solicitudes close');
@@ -321,6 +357,7 @@ export default function PanelControl(props) {
         cobranzasClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
 
     };
     const resenasClose = () => {
@@ -338,6 +375,7 @@ export default function PanelControl(props) {
         facturacionClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const cobranzasClose = () => {
         setmodoCobranzas(false);
@@ -354,6 +392,7 @@ export default function PanelControl(props) {
         cobranzasClose();
         asistenciasClose();
         cursosClose();
+        reportesClose();
     };
     const facturacionClose = () => {
         setmodoFacturacion(false);
@@ -417,6 +456,7 @@ export default function PanelControl(props) {
                         cobranzasOpen={cobranzasOpen}
                         asistenciasOpen={asistenciasOpen}
                         cursosOpen={cursosOpen}
+                        reportesOpen={reportesOpen}
                     />}</List>
                     <Divider />
                     <List></List>
@@ -489,6 +529,7 @@ export default function PanelControl(props) {
                             cobranzasOpen={cobranzasOpen}
                             asistenciasOpen={asistenciasOpen}
                             cursosOpen={cursosOpen}
+                            reportesOpen={reportesOpen}
                         />}</List>
                         <Divider />
                         <List></List>
@@ -562,6 +603,7 @@ export default function PanelControl(props) {
                                 facturacionopen={facturacionOpen}
                                 asistenciasOpen={asistenciasOpen}
                                 cursosOpen={cursosOpen}
+                                reportesOpen={reportesOpen}
                             />}</List>
                             <Divider />
                             <List></List>
@@ -637,6 +679,7 @@ export default function PanelControl(props) {
                             cobranzasOpen={cobranzasOpen}
                             asistenciasOpen={asistenciasOpen}
                             cursosOpen={cursosOpen}
+                            reportesOpen={reportesOpen}
                             facturacionopen={facturacionOpen}
                         />}</List>
                         <Divider />
@@ -714,6 +757,7 @@ export default function PanelControl(props) {
                                     cobranzasOpen={cobranzasOpen}
                                     asistenciasOpen={asistenciasOpen}
                                     cursosOpen={cursosOpen}
+                                    reportesOpen={reportesOpen}
                                     facturacionopen={facturacionOpen}
                                />}</List>
                        <Divider />
@@ -734,9 +778,165 @@ export default function PanelControl(props) {
                </div>
            )
           else
+           console.log('entro en modo Curso');
+                 if (modoCursos)
+                  return (
+                       <div className={classes.root}>
+                         <CssBaseline />
+                           <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                               <Toolbar className={classes.toolbar}>
+                                   <IconButton
+                                    edge="start"
+                                       color="inherit"
+                                       aria-label="open drawer"
+                                       onClick={handleDrawerOpen}
+                                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                   >
+                                   <MenuIcon />
+                                   </IconButton>
+                                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                       Cursos
+                                   </Typography>
+                                   <IconButton color="inherit">
+                                        <Badge badgeContent={0} color="secondary">
+                                          <NotificationsIcon />
+                                        </Badge>
+                                   </IconButton>
+                                    <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                   <ExitToAppIcon />
+                                 </IconButton>
+                               </Toolbar>
+                          </AppBar>
+                           <Drawer
+                               variant="permanent"
+                                 classes={{
+                                  paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                              }}
+                              open={open}
+                           >
+                              <div className={classes.toolbarIcon}>
+                                  <Grid container justify="center" alignItems="center">
+                                       <Grid item>
+                                           <img src={Logo} alt="logo" width={90} height={60} />
+                                       </Grid>
+                                   </Grid>
+                                  <IconButton onClick={handleDrawerClose}>
+                                       <ChevronLeftIcon />
+                                    </IconButton>
+                              </div>
+                              <Divider />
+                               <List>{<ListItems
+                                    generalOpen={generalOpen}
+                                    datosOpen={datosOpen}
+                                    serviciosOpen={serviciosOpen}
+                                    reservasOpen={reservasOpen}
+                                    solicitudesOpen={solicitudesOpen}
+                                    resenasOpen={resenasOpen}
+                                    cobranzasOpen={cobranzasOpen}
+                                    asistenciasOpen={asistenciasOpen}
+                                    cursosOpen={cursosOpen}
+                                    reportesOpen={reportesOpen}
+                                    facturacionopen={facturacionOpen}
+                               />}</List>
+                       <Divider />
+                       <List></List>
+                   </Drawer>
+                   <main className={classes.content}>
+                       <div className={classes.appBarSpacer} />
+
+                       <Container maxWidth="lg" className={classes.container}>
+                           <Cursos 
+                               titulares = { titulares }
+                               turnos = { turnos }
+                               cursos = { cursos }
+                               actualizarCursos = { actualizarCursos }
+                           />
+                       </Container>
+                   </main>
+               </div>
+           )
+           else
+           console.log('entro en modo Reportes');
+                 if (modoReportes)
+                  return (
+                       <div className={classes.root}>
+                         <CssBaseline />
+                           <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                               <Toolbar className={classes.toolbar}>
+                                   <IconButton
+                                    edge="start"
+                                       color="inherit"
+                                       aria-label="open drawer"
+                                       onClick={handleDrawerOpen}
+                                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                   >
+                                   <MenuIcon />
+                                   </IconButton>
+                                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                       Reportes
+                                   </Typography>
+                                   <IconButton color="inherit">
+                                        <Badge badgeContent={0} color="secondary">
+                                          <NotificationsIcon />
+                                        </Badge>
+                                   </IconButton>
+                                    <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                   <ExitToAppIcon />
+                                 </IconButton>
+                               </Toolbar>
+                          </AppBar>
+                           <Drawer
+                               variant="permanent"
+                                 classes={{
+                                  paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                              }}
+                              open={open}
+                           >
+                              <div className={classes.toolbarIcon}>
+                                  <Grid container justify="center" alignItems="center">
+                                       <Grid item>
+                                           <img src={Logo} alt="logo" width={90} height={60} />
+                                       </Grid>
+                                   </Grid>
+                                  <IconButton onClick={handleDrawerClose}>
+                                       <ChevronLeftIcon />
+                                    </IconButton>
+                              </div>
+                              <Divider />
+                               <List>{<ListItems
+                                    generalOpen={generalOpen}
+                                    datosOpen={datosOpen}
+                                    serviciosOpen={serviciosOpen}
+                                    reservasOpen={reservasOpen}
+                                    solicitudesOpen={solicitudesOpen}
+                                    resenasOpen={resenasOpen}
+                                    cobranzasOpen={cobranzasOpen}
+                                    asistenciasOpen={asistenciasOpen}
+                                    cursosOpen={cursosOpen}
+                                    reportesOpen={reportesOpen}
+                                    facturacionopen={facturacionOpen}
+                               />}</List>
+                       <Divider />
+                       <List></List>
+                   </Drawer>
+                       <main className={classes.content}>
+                         <div className={classes.appBarSpacer} />
+
+                        <Container maxWidth="lg" className={classes.container}>
+                           <Reportes 
+                               titulares = { titulares }
+                               turnos = { turnos }
+                               cursos = { cursos }
+                               actualizarReportes = { actualizarReportes}
+                           />
+                        </Container>
+                       </main>
+                      </div>
+                ) 
+                else 
                 console.log('entro en modoooo');
-                if (modoSolicitudes)
-                    return (
+                   if (modoSolicitudes)
+                      return (
                         <div className={classes.root}>
                             <CssBaseline />
                             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -792,6 +992,7 @@ export default function PanelControl(props) {
                                     facturacionOpen={facturacionOpen}
                                     asistenciasOpen={asistenciasOpen}
                                     cursosOpen={cursosOpen}
+                                    reportesOpen={reportesOpen}
                                 />}</List>
                                 <Divider />
                                 <List></List>
@@ -867,6 +1068,7 @@ export default function PanelControl(props) {
                                         facturacionOpen={facturacionOpen}
                                         asistenciasOpen={asistenciasOpen}
                                         cursosOpen={cursosOpen}
+                                        reportesOpen={reportesOpen}
                                     />}</List>
                                     <Divider />
                                     <List></List>
@@ -939,6 +1141,7 @@ export default function PanelControl(props) {
                                             facturacionOpen={facturacionOpen}
                                             asistenciasOpen={asistenciasOpen}
                                             cursosOpen={cursosOpen}
+                                            reportesOpen={reportesOpen}
                                         />}</List>
                                         <Divider />
                                         <List></List>
@@ -1014,6 +1217,7 @@ export default function PanelControl(props) {
                                                 facturacionOpen={facturacionOpen}
                                                 asistenciasOpen={asistenciasOpen}
                                                 cursosOpen={cursosOpen}
+                                                reportesOpen={reportesOpen}
                                             />}</List>
                                             <Divider />
                                             <List></List>
@@ -1087,6 +1291,7 @@ export default function PanelControl(props) {
                                                             facturacionOpen={facturacionOpen}
                                                             asistenciasOpen={asistenciasOpen}
                                                             cursosOpen={cursosOpen}
+                                                            reportesOpen={reportesOpen}
                                                         />}</List>
                                                         <Divider />
                                                         <List></List>
