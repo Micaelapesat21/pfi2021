@@ -437,7 +437,7 @@ export default function PanelControl(props) {
                     <div className={classes.toolbarIcon}>
                         <Grid container justify="center" alignItems="center">
                             <Grid item>
-                                <img src={Logo} alt="logo" width={90} height={60} />
+                                <img src={Logo} alt="logo" width={180} height={60} />
                             </Grid>
                         </Grid>
                         <IconButton onClick={handleDrawerClose}>
@@ -510,7 +510,7 @@ export default function PanelControl(props) {
                         <div className={classes.toolbarIcon}>
                             <Grid container justify="center" alignItems="center">
                                 <Grid item>
-                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                    <img src={Logo} alt="logo" width={180} height={60} />
                                 </Grid>
                             </Grid>
                             <IconButton onClick={handleDrawerClose}>
@@ -584,7 +584,7 @@ export default function PanelControl(props) {
                             <div className={classes.toolbarIcon}>
                                 <Grid container justify="center" alignItems="center">
                                     <Grid item>
-                                        <img src={Logo} alt="logo" width={90} height={60} />
+                                        <img src={Logo} alt="logo" width={180} height={60} />
                                     </Grid>
                                 </Grid>
                                 <IconButton onClick={handleDrawerClose}>
@@ -661,7 +661,7 @@ export default function PanelControl(props) {
                         <div className={classes.toolbarIcon}>
                             <Grid container justify="center" alignItems="center">
                                 <Grid item>
-                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                    <img src={Logo} alt="logo" width={180} height={60} />
                                 </Grid>
                             </Grid>
                             <IconButton onClick={handleDrawerClose}>
@@ -739,7 +739,7 @@ export default function PanelControl(props) {
                               <div className={classes.toolbarIcon}>
                                   <Grid container justify="center" alignItems="center">
                                        <Grid item>
-                                           <img src={Logo} alt="logo" width={90} height={60} />
+                                           <img src={Logo} alt="logo" width={180} height={60} />
                                        </Grid>
                                    </Grid>
                                   <IconButton onClick={handleDrawerClose}>
@@ -973,7 +973,7 @@ export default function PanelControl(props) {
                                 <div className={classes.toolbarIcon}>
                                     <Grid container justify="center" alignItems="center">
                                         <Grid item>
-                                            <img src={Logo} alt="logo" width={90} height={60} />
+                                            <img src={Logo} alt="logo" width={180} height={60} />
                                         </Grid>
                                     </Grid>
                                     <IconButton onClick={handleDrawerClose}>
@@ -1049,7 +1049,7 @@ export default function PanelControl(props) {
                                     <div className={classes.toolbarIcon}>
                                         <Grid container justify="center" alignItems="center">
                                             <Grid item>
-                                                <img src={Logo} alt="logo" width={90} height={60} />
+                                                <img src={Logo} alt="logo" width={180} height={60} />
                                             </Grid>
                                         </Grid>
                                         <IconButton onClick={handleDrawerClose}>
@@ -1122,7 +1122,7 @@ export default function PanelControl(props) {
                                         <div className={classes.toolbarIcon}>
                                             <Grid container justify="center" alignItems="center">
                                                 <Grid item>
-                                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                                    <img src={Logo} alt="logo" width={180} height={60} />
                                                 </Grid>
                                             </Grid>
                                             <IconButton onClick={handleDrawerClose}>
@@ -1198,7 +1198,7 @@ export default function PanelControl(props) {
                                             <div className={classes.toolbarIcon}>
                                                 <Grid container justify="center" alignItems="center">
                                                     <Grid item>
-                                                        <img src={Logo} alt="logo" width={90} height={60} />
+                                                        <img src={Logo} alt="logo" width={180} height={60} />
                                                     </Grid>
                                                 </Grid>
                                                 <IconButton onClick={handleDrawerClose}>
@@ -1272,7 +1272,7 @@ export default function PanelControl(props) {
                                                         <div className={classes.toolbarIcon}>
                                                             <Grid container justify="center" alignItems="center">
                                                                 <Grid item>
-                                                                    <img src={Logo} alt="logo" width={90} height={60} />
+                                                                    <img src={Logo} alt="logo" width={180} height={60} />
                                                                 </Grid>
                                                             </Grid>
                                                             <IconButton onClick={handleDrawerClose}>
