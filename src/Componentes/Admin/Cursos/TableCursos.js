@@ -2,6 +2,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import Box from '@material-ui/core/Box';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -153,11 +154,13 @@ export default function Orders(props) {
                         </div>
                     <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
                      Agregar Curso 
-                    </Button>
+                    </Button>                   
                     <div>
-                        <Button variant="contained" color="secondary" align="right" onClick={ addButtonPressed } >
+                    <Box m={2}>
+                        <Button  variant="contained" color="secondary" align="right" onClick={ addButtonPressed } padding={10} margin={5} >
                           Enviar Mensaje 
                         </Button>
+                    </Box>
                     </div> 
                     
                 </Toolbar>
