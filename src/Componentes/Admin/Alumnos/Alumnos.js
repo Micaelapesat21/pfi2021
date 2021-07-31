@@ -35,7 +35,7 @@ class Alumnos extends Component {
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
                <TableAlumnos alumnos = { this.props.alumnos }  titulares = { this.props.titulares }
-                turnos = { this.props.turnos } 
+                turnos = { this.props.turnos } cursos = { this.props.cursos }
                 alumnoCreado = { this.alumnoCreado.bind(this)}/>
             </Grid>
         </Grid>

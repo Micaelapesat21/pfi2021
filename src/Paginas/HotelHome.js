@@ -616,6 +616,7 @@ export default function PanelControl(props) {
                                     titulares = { titulares }
                                     turnos = { turnos }
                                     alumnos = { alumnos }
+                                    cursos = { cursos }
                                     actualizarAlumnos = { actualizarAlumnos }
                                 />
                             </Container>
@@ -692,6 +693,7 @@ export default function PanelControl(props) {
                             <Asistencias 
                                 titulares = { titulares }
                                 turnos = { turnos }
+                                cursos = { cursos }
                                 asistencias = { asistencias }
                                 actualizarAsistencias = { actualizarAsistencias }
                             />
@@ -1227,7 +1229,7 @@ export default function PanelControl(props) {
 
                                             <Container maxWidth="lg" className={classes.container}>
                                             
-                                            <Cobros facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos } />
+                                            <Cobros facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos }  cursos = { cursos } />
                             
                                             </Container>
                                         </main>
@@ -1300,7 +1302,7 @@ export default function PanelControl(props) {
                                                         <div className={classes.appBarSpacer} />
             
                                                         <Container maxWidth="lg" className={classes.container}>
-                                                            <Facturas facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos } />
+                                                            <Facturas facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos }  cursos = { cursos }/>
                                                         </Container>
                                                     </main>
                                                 </div>

@@ -47,6 +47,8 @@ class FormularioDatosAlumnos extends Component {
         this.state = {
             titularSeleccionado: null,
             titularesMenuOpen: false,
+            cursoSeleccionado: null, 
+            cursosMenuOpen: false,
             turnoSeleccionado: null,
             turnosMenuOpen: false,
             nombre: "",
@@ -64,6 +66,7 @@ class FormularioDatosAlumnos extends Component {
             redOnly: false,
             lastResponse: null,
             titular: "",
+            curso: "",
             loading: false,
             errorMessageIsOpen: false,
             successMessageIsOpen: false,
@@ -103,6 +106,14 @@ class FormularioDatosAlumnos extends Component {
         this.setState({ titularesMenuOpen: false });
     }
 
+    handleCursosMenuOpen() {
+        this.setState({ cursosMenuOpen: true });
+    }
+
+    handleCursosMenuClose() {
+        this.setState({ cursosMenuOpen: false });
+    }
+
     handleTurnosMenuOpen() {
         this.setState({ turnosMenuOpen: true });
     }
@@ -119,10 +130,19 @@ class FormularioDatosAlumnos extends Component {
         }
     }
 
+    getCursoMenuValue() {
+        if( this.state.cursoSeleccionado === null ) {
+            return null;
+        } else {
+            return this.state.cursoSeleccionado.numero + " "  + this.state.cursoSeleccionado.division
+        }
+    }
+
     //API Calls
     guardar() {
         {console.log(this.state.gimnasio)}
         if (this.state.titularSeleccionado !== null,
+            this.state.cursoSeleccionado !== null,
             this.state.turnoSeleccionado !== null,
             this.state.nombre !== "" &&
             this.state.apellido !== "" &&
@@ -168,6 +188,11 @@ class FormularioDatosAlumnos extends Component {
     handleChangeTitular(e) {
         let titular = this.props.titulares[ e.target.value ];
         this.setState({ titularSeleccionado: e.target.value });
+    }
+
+    handleChangeCurso(e) {
+        let curso = this.props.cursos[ e.target.value ];
+        this.setState({ cursoSeleccionado: e.target.value });
     }
 
     handleChangeTurno(e) {
@@ -240,7 +265,7 @@ class FormularioDatosAlumnos extends Component {
     getAlumnoModel() {
         let titular = this.props.titulares[this.state.titularSeleccionado];
         let turno = this.props.turnos[this.state.turnoSeleccionado];
-
+        let curso = this.props.cursos[this.state.cursoSeleccionado]
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
@@ -254,6 +279,7 @@ class FormularioDatosAlumnos extends Component {
             telefono1: this.state.telefono1,
             telefono2: this.state.telefono2,
             idTitular: titular.id,
+            curso: curso.id,
             turno: turno.id,
             gimnasio: this.state.gimnasio,
         };
@@ -267,6 +293,11 @@ class FormularioDatosAlumnos extends Component {
 
     closeSuccessModal() {
         this.props.titularCreado(this.state.alumnoInfo);
+        this.setState({ successMessageIsOpen: false }, this.forceUpdate());
+    }
+
+    closeSuccessModal() {
+        this.props.cursoCreado(this.state.alumnoInfo);
         this.setState({ successMessageIsOpen: false }, this.forceUpdate());
     }
 
@@ -468,6 +499,23 @@ class FormularioDatosAlumnos extends Component {
                                 }}
                             />
                         </Grid>
+                         <Grid item xs={12} sm={6}>
+                            <InputLabel id="curso-label">Curso</InputLabel>
+                            <Select
+                            fullWidth
+                            labelId="curso-label"
+                            id="curso-open-select"
+                            open={ this.state.cursosMenuOpen }
+                            onClose={ this.handleCursosMenuClose.bind(this) }
+                            onOpen={ this.handleCursosMenuOpen.bind(this) }
+                            value = { this.state.cursoSeleccionado }
+                            onChange={ e => this.handleChangeCurso(e) }
+                            >
+                              { this.props.cursos.map((curso, index) => (
+                                <MenuItem value={index}> { curso.numeroCurso} { curso.divisionCurso } </MenuItem>
+                            ))}  
+                            </Select>
+                        </Grid> 
                         <Grid item xs={12} sm={6}>
                             <InputLabel id="turno-label">Turno</InputLabel>
                             <Select
