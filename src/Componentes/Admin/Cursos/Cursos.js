@@ -4,12 +4,14 @@ import React, { Component } from 'react';
 import {  Grid } from '@material-ui/core';
 import TableCursos from './TableCursos';
 import Curso from './Curso';
+import CursosAPI from './../../../Network/Cursos/CursosAPI'
 
 const styles = theme => ({
 
 })
 
 class Cursos extends Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -20,14 +22,38 @@ class Cursos extends Component {
     }
 
     componentDidMount() {
-        this.setState({ cursos: this.props.cursos });
+        this._isMounted = true;
+
+        if (this._isMounted) {
+            this.getCursos();
+        }
     }
 
-    cursoCreado = (cursos) => {
-        var cursosActualizado = this.props.cursos;
-        cursosActualizado.push(cursos);
-        this.setState({ cursos: cursosActualizado });
-        this.props.actualizarCursos(cursosActualizado);
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    //Api Calls
+    getCursos() {
+        this.setState({ loading: true });
+        CursosAPI.getCursos(this.handleGetCursos.bind(this));
+    }
+
+     cursoCreado = (curso) => {
+        var cursosActualizado = this.state.cursos;
+        cursosActualizado.push(curso);
+        this.setState({ cursos: cursosActualizado});
+    }
+
+    handleGetCursos(cursos) {
+        this.setState({ loading: false });
+
+        if (cursos === undefined || cursos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { cursos: cursos } , this.forceUpdate());
+            this.props.actualizarCursos(cursos);
+        }
     }
 
     render() {

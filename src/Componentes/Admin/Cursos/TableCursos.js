@@ -170,9 +170,9 @@ export default function Orders(props) {
                  <div className="container">
                      <div className="row"> 
                          {
-                             arraycursos.map( curso => (
+                             props.cursos.map( curso => (
                                 <div className= "col-md-3" key={curso.id}>
-                                   <MediaCard title={curso.title} ></MediaCard>
+                                   <MediaCard title={curso.numero + " Div. "+ curso.division} ></MediaCard>
                                 </div>
                             ))
                         }          

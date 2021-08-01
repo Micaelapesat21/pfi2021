@@ -84,6 +84,10 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    console.log("Arreglo de titulares y de cursos");
+    console.log(props.titulares);
+    console.log(props.cursos);
+
 
     const addButtonPressed = () => {
         setModalIsOpen(true);

@@ -23,7 +23,7 @@ class CursosAPI extends Component {
 
     getCursos(handleGetCursos)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnos";
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursos";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

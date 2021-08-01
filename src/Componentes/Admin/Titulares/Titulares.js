@@ -6,6 +6,7 @@ import TableTitulares from './TableTitulares'
 import TitularesAPI from '../../../Network/Titulares/TitularesAPI';
 import TurrnosAPI from './../../../Network/Turnos/TurnosAPI'
 import AlumnosAPI from './../../../Network/Alumnos/AlumnosAPI'
+import CursosAPI from './../../../Network/Cursos/CursosAPI'
 
 const styles = theme => ({
 
@@ -20,6 +21,7 @@ class Titulares extends Component {
             titulares: [],
             turnos: [],
             alumnos: [],
+            cursos: [],
             loading: false,
         }
     }
@@ -31,6 +33,7 @@ class Titulares extends Component {
             this.getTitulares();
             this.getTurnos();
             this.getAlumnos();
+            this.getCursos();
         }
     }
 
@@ -90,6 +93,29 @@ class Titulares extends Component {
         } else {
             this.setState( { alumnos: alumnos } , this.forceUpdate());
             this.props.actualizarAlumnos(alumnos);
+        }
+    }
+    
+       //Api Calls Cursos
+       getCursos() {
+        this.setState({ loading: true });
+        CursosAPI.getCursos(this.handleGetCursos.bind(this));
+    }
+
+     cursosCreado = (curso) => {
+        var cursosActualizado = this.state.cursos;
+        cursosActualizado.push(curso);
+        this.setState({ cursos: cursosActualizado});
+    }
+
+    handleGetCursos(cursos) {
+        this.setState({ loading: false });
+
+        if (cursos === undefined || cursos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { cursos: cursos } , this.forceUpdate());
+            this.props.actualizarCursos(cursos);
         }
     }
 
