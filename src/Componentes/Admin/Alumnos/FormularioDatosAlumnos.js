@@ -99,6 +99,8 @@ class FormularioDatosAlumnos extends Component {
 
     //Menu
     handleTitularesMenuOpen() {
+        console.log("tomo titulares");
+        console.log(this.props.titulares)
         this.setState({ titularesMenuOpen: true });
     }
 
@@ -107,6 +109,8 @@ class FormularioDatosAlumnos extends Component {
     }
 
     handleCursosMenuOpen() {
+        console.log("tomo los cursos");
+        console.log(this.props.cursos)
         this.setState({ cursosMenuOpen: true });
     }
 
@@ -124,16 +128,20 @@ class FormularioDatosAlumnos extends Component {
 
     getTitularMenuValue() {
         if( this.state.titularSeleccionado === null ) {
+            console.log("getTitularMenuValue == null");
             return null;
         } else {
+            console.log("getTitularMenuValue != null");
             return this.state.titularSeleccionado.nombre + " "  + this.state.titularSeleccionado.apellido
         }
     }
 
     getCursoMenuValue() {
         if( this.state.cursoSeleccionado === null ) {
+            console.log("getCursoMenuValue == null");
             return null;
         } else {
+            console.log("getCursoMenuValue != null");
             return this.state.cursoSeleccionado.numero + " "  + this.state.cursoSeleccionado.division
         }
     }
@@ -511,8 +519,9 @@ class FormularioDatosAlumnos extends Component {
                             value = { this.state.cursoSeleccionado }
                             onChange={ e => this.handleChangeCurso(e) }
                             >
-                              { this.props.cursos.map((curso, index) => (
-                                <MenuItem value={index}> { curso.numeroCurso} { curso.divisionCurso } </MenuItem>
+                              {
+                              this.props.cursos.map((curso, index) => (
+                                <MenuItem value={index}> { curso.numero} { curso.division } </MenuItem>
                             ))}  
                             </Select>
                         </Grid> 

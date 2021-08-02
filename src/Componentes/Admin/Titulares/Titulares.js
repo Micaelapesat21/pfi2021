@@ -111,6 +111,29 @@ class Titulares extends Component {
             this.props.actualizarAlumnos(alumnos);
         }
     }
+    
+       //Api Calls Cursos
+       getCursos() {
+        this.setState({ loading: true });
+        CursosAPI.getCursos(this.handleGetCursos.bind(this));
+    }
+
+     cursosCreado = (curso) => {
+        var cursosActualizado = this.state.cursos;
+        cursosActualizado.push(curso);
+        this.setState({ cursos: cursosActualizado});
+    }
+
+    handleGetCursos(cursos) {
+        this.setState({ loading: false });
+
+        if (cursos === undefined || cursos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { cursos: cursos } , this.forceUpdate());
+            this.props.actualizarCursos(cursos);
+        }
+    }
 
     render() {
         //const { classes } = this.props;
