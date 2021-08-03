@@ -80,6 +80,22 @@ class Titulares extends Component {
         }
     }
 
+    getCursos() {
+        this.setState({ loading: true });
+        CursosAPI.getCursos(this.handleGetCursos.bind(this));
+    }
+
+    handleGetCursos(cursos) {
+        this.setState({ loading: false });
+
+        if (cursos === undefined || cursos === null) {
+            //show error message if needed
+        } else {
+            this.setState( { cursos: cursos } , this.forceUpdate());
+            //this.props.actualizarCursos(cursos);
+        }
+    }
+
     getAlumnos() {
         this.setState({ loading: true });
         AlumnosAPI.getAlumnos(this.handleGetAlumnos.bind(this));

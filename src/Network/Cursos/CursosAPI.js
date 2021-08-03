@@ -5,7 +5,7 @@ import HotelInfo from '../../Models/Hotel/HotelInfo';
 class CursosAPI extends Component {
 
     createCurso(cursoInfo, handlePostCursoInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearAlumno/Escalumno";
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCursos/Esccurso";
       let body = JSON.stringify( cursoInfo );
         fetch(url,{
           method: 'Post', 

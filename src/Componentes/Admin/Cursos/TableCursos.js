@@ -116,8 +116,9 @@ export default function Orders(props) {
 
     const cursoCreado = (curso) => {
         setModalIsOpen(false);
-        //props.cursoCreado(titular);
+        props.cursoCreado(curso);
     }
+
 
     return (
         <React.Fragment>
