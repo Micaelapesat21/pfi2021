@@ -102,7 +102,7 @@ const classes = useStyles();
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
                                 <TableCell>{row.curso}</TableCell>
-                                <TableCell>{row.estado}</TableCell>
+                                <TableCell>Presente</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <SaveIcon />

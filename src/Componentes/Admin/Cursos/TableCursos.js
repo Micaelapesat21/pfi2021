@@ -133,7 +133,7 @@ export default function Orders(props) {
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del curso </DialogTitle>
             <DialogContent className="dialogContent">
             {/* <FormularioDatosCursos titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos }/> */}
-                      <DatosCurso />
+                      <DatosCurso  />
             </DialogContent>
             <DialogActions>
             </DialogActions>
