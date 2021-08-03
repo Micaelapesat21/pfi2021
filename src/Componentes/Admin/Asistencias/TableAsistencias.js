@@ -20,11 +20,16 @@ import FormularioDatosAsistencias from './FormularioDatosAsistencias';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 // Generate Order Data
 function createData(id,nombre, apellido, curso, estado) {
     return { id, nombre, apellido, curso, estado};
 }
+
+
 
 const asistencias = [
     createData(0, 'Martin', 'Alvarez', '3ero "A"', 'Presente'),
@@ -124,7 +129,7 @@ export default function Orders(props) {
                             <SearchIcon />
                         </div>
                         <InputBase
-                            placeholder="Buscar…"
+                            placeholder="Ingrese Nombre Alumno"
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -132,9 +137,20 @@ export default function Orders(props) {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Agregar Asistencia 
-                     </Button>
+
+                    <form className={classes.container} noValidate>
+                    <TextField
+                        id="date"
+                        label="Fecha"
+                        type="date"
+                        defaultValue="2021-05-24"
+                        className={classes.textField}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
+                    />
+                    </form>
+
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
