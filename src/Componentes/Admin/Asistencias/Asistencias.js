@@ -14,12 +14,14 @@ class Asistencias extends Component {
         super(props);
         this.state = {
             asistencias: [],
+            alumnos:[],
             loading: false,
         }
     }
 
     componentDidMount() {
         this.setState({ asistencias: this.props.asistencias });
+      // this.setState({ alumnos: this.props.alumnos });
     }
 
     asistenciaCreado = (asistencia) => {
@@ -35,7 +37,7 @@ class Asistencias extends Component {
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
                <TableAsistencias asistencias = { this.props.asistencias }  titulares = { this.props.titulares }
-                turnos = { this.props.turnos } 
+                turnos = { this.props.turnos }  alumnos = { this.props.alumnos } 
                 asistenciaCreado = { this.asistenciaCreado.bind(this)}/>
             </Grid>
         </Grid>

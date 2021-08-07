@@ -24,11 +24,17 @@ import TextField from '@material-ui/core/TextField';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+
 // Generate Order Data
 function createData(id,nombre, apellido, curso, estado) {
     return { id, nombre, apellido, curso, estado};
 }
-
 
 
 const asistencias = [
@@ -89,8 +95,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Orders(props) {
+    console.log("ASISTENCIAS")
+    console.log(props.alumnos)
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event) => {
+      setAge(event.target.value);
+    };
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -167,12 +180,30 @@ export default function Orders(props) {
                     </TableHead>
                     <TableBody>
                         { //props.asistencias.map((row, index) => (
-                            asistencias.map((row, index) => (
+                            props.alumnos.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
                                 <TableCell>{row.curso}</TableCell>
-                                <TableCell>{row.estado}</TableCell>
+                                <TableCell>
+                                <FormControl className={classes.formControl}>
+                                        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                            </InputLabel>
+                                            <Select
+                                            labelId="demo-simple-select-placeholder-label-label"
+                                            id="demo-simple-select-placeholder-label"
+                                            value={row.estado}
+                                            onChange={handleChange}
+                                            displayEmpty
+                                            className={classes.selectEmpty}
+                                            ><MenuItem value="">
+                                            <em>Sin Seleccion</em>
+                                        </MenuItem>
+                                        <MenuItem value={10}>Presente</MenuItem>
+                                        <MenuItem value={20}>Ausente</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <SaveIcon />

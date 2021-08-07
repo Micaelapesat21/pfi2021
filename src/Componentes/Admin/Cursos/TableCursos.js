@@ -23,6 +23,8 @@ import Cursos from './Cursos';
 import MediaCard from './Curso';
 import TableAlumnos from '../Alumnos/TableAlumnos';
 import DatosCurso from './DatosCurso';
+import CursosAPI from './../../../Network/Cursos/CursosAPI';
+
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -119,7 +121,6 @@ export default function Orders(props) {
         props.cursoCreado(curso);
     }
 
-
     return (
         <React.Fragment>
             <Dialog
@@ -171,9 +172,9 @@ export default function Orders(props) {
                  <div className="container">
                      <div className="row"> 
                          {
-                             props.cursos.map( curso => (
-                                <div className= "col-md-3" key={curso.id}>
-                                   <MediaCard title={curso.numero + " Div. "+ curso.division} ></MediaCard>
+                             props.cursos.map( objectcurso => (
+                                <div className= "col-md-3" key={objectcurso.id}>
+                                   <MediaCard title={objectcurso.numero + " Div. "+ objectcurso.division} curso = {objectcurso}  alumnos={props.alumnos} ></MediaCard>
                                 </div>
                             ))
                         }          

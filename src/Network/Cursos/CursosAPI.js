@@ -40,6 +40,27 @@ class CursosAPI extends Component {
             handleGetCursos(responseData);
         });
     }
+
+    getAlumnosPorCursos(curso,handleGetAlumnosPorCursos)
+    {
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnosPorCursos/:" + curso;
+        fetch(url,{
+          method: 'GET', 
+          headers:{ 'Content-Type': 'application/json'}
+      })
+        .then ((response) => {
+            console.log("response",response);
+            if(response.headers.status !== 404) {
+              return response.json();
+            } else {
+              return null;
+            }
+        })
+        .then (responseData => {
+            handleGetAlumnosPorCursos(responseData);
+        });
+    }
+
 }
 
 export default new CursosAPI();

@@ -17,6 +17,7 @@ class Cursos extends Component {
         super(props);
         this.state = {
             cursos: [],
+            alumnos:[],
             loading: false,
         }
     }
@@ -26,6 +27,7 @@ class Cursos extends Component {
 
         if (this._isMounted) {
             this.getCursos();
+            this.setState({ alumnos: this.props.alumnos });
         }
     }
 
@@ -62,7 +64,7 @@ class Cursos extends Component {
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
                <TableCursos cursos = { this.props.cursos }  titulares = { this.props.titulares }
-                turnos = { this.props.turnos }
+                turnos = { this.props.turnos }   alumnos = { this.props.alumnos }
                 cursoCreado = { this.cursoCreado.bind(this)}/>
             </Grid>
         </Grid>

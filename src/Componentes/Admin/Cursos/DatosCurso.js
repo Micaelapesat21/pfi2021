@@ -81,7 +81,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function DatosCurso(props) {
-console.log("entro aca")
+console.log("CURSOS")
+console.log(props.alumnosPorCurso)
+console.log("ALUMNOS")
+console.log(props.alumnos)
 const classes = useStyles();
     return ( 
             <Paper className={classes.paper}>
@@ -97,23 +100,37 @@ const classes = useStyles();
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { asistencias.map((row, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{row.nombre}</TableCell>
-                                <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.curso}</TableCell>
-                                <TableCell>Presente</TableCell>
-                                <TableCell align="right">
-                                    <IconButton size="small">
-                                        <SaveIcon />
-                                    </IconButton>
-                                    <IconButton size="small">
-                                        <AddIcon />
-                                    </IconButton>
-                                </TableCell>
+                        { props.alumnos.map((alumno, index) => (    
+                             <TableRow key={index}> 
+                                    {props.alumnosPorCurso.includes(alumno.id) ? 
+                                      <TableCell> {alumno.nombre} </TableCell>
+                                      : null }
+                                    {props.alumnosPorCurso.includes(alumno.id) ? 
+                                      <TableCell>{alumno.apellido}</TableCell>
+                                      : null }
 
+                                      {props.alumnosPorCurso.includes(alumno.id) ? 
+                                      <TableCell>{props.curso}</TableCell>
+                                      : null }
+                                      
+                                      {props.alumnosPorCurso.includes(alumno.id) ? 
+                                      <TableCell>Presente</TableCell>
+                                      : null }                    
+                                      
+                                      {props.alumnosPorCurso.includes(alumno.id) ? 
+                                        <TableCell align="right">       
+                                      <IconButton size="small">                        
+                                        <SaveIcon />
+                                      </IconButton>
+                                      <IconButton size="small">
+                                        <AddIcon />
+                                      </IconButton>
+                                      </TableCell>    
+                                       : null }         
                             </TableRow>
+                        
                         ))}
+
                     </TableBody>
                 </Table>
                 <div className={classes.seeMore}>

@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosAlumnos from '../Alumnos/FormularioDatosAlumnos';
 import Alumnos from '../Alumnos/Alumnos';
+import CursosAPI from './../../../Network/Cursos/CursosAPI';
 
 
 const useStyles = makeStyles({
@@ -24,6 +25,8 @@ const useStyles = makeStyles({
     height: 140,
   },
 });
+
+
 
 export default function MediaCard(props) {
   const classes = useStyles();
@@ -40,7 +43,7 @@ export default function MediaCard(props) {
   const alumnoCreado = (titular) => {
     setModalIsOpen(false);
     props.alumnoCreado(titular);
-}
+  };
 
 
   return (
@@ -55,7 +58,7 @@ export default function MediaCard(props) {
       >
         <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > DATOS DEL CURSO {props.title} </DialogTitle>
             <DialogContent className="dialogContent">
-                <DatosCurso curso={props.title}/>
+                <DatosCurso curso={props.title} alumnosPorCurso= {props.curso.alumnos} alumnos= {props.alumnos} />
             </DialogContent>
         <DialogActions>
         </DialogActions>
