@@ -61,6 +61,25 @@ class CursosAPI extends Component {
         });
     }
 
+    getCursoPorId(idcurso,handleGetCursoPorId)
+    {
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursoPorId/:" + idcurso;
+        fetch(url,{
+          method: 'GET', 
+          headers:{ 'Content-Type': 'application/json'}
+      })
+        .then ((response) => {
+            console.log("response",response);
+            if(response.headers.status !== 404) {
+              return response.json();
+            } else {
+              return null;
+            }
+        })
+        .then (responseData => {
+              handleGetCursoPorId(responseData);
+        });
+    }
 }
 
 export default new CursosAPI();
