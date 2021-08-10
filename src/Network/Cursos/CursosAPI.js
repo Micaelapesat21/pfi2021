@@ -43,7 +43,7 @@ class CursosAPI extends Component {
 
     getAlumnosPorCursos(curso,handleGetAlumnosPorCursos)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnosPorCursos/:" + curso;
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnosPorCursos/" + curso;
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -63,7 +63,9 @@ class CursosAPI extends Component {
 
     getCursoPorId(idcurso,handleGetCursoPorId)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursoPorId/:" + idcurso;
+      console.log("API CURSOS");
+      console.log(idcurso);
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursosPorId/" + idcurso;
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

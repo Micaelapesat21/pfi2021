@@ -101,6 +101,7 @@ export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [age, setAge] = React.useState('');
+    const [curso,setCurso] = React.useState('');
 
 
     const handleChange = (event) => {
@@ -113,6 +114,24 @@ export default function Orders(props) {
 
     const handleCloseModal = () => {
         setModalIsOpen(false);
+    };
+
+    const getObtenerCursoPorId = (id) => {
+        console.log("ANTES DEL LLAMADO " + curso);
+        console.log(id);
+        CursosAPI.getCursoPorId(id,handleGetCursoPorId(curso));
+    };
+
+    
+    const handleGetCursoPorId = (curso) => { 
+        console.log(curso);
+        if (curso === undefined || curso === null) {
+            //show error message if needed
+        } else {
+            setCurso(curso);
+            
+        }
+        
     };
 
     const asistenciaCreado = (asistencia) => {
@@ -186,7 +205,7 @@ export default function Orders(props) {
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.curso}</TableCell>
+                                <TableCell >{row.curso}</TableCell>
                                 <TableCell>
                                 <FormControl className={classes.formControl}>
                                         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
