@@ -101,12 +101,17 @@ export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [age, setAge] = React.useState('');
-    const [curso,setCurso] = React.useState('');
-
+    const [cursor,setCurso] = React.useState('');
+    const [id,setIdCurso] = React.useState('');
 
     const handleChange = (event) => {
       setAge(event.target.value);
     };
+
+    
+    const handleChangeIdCurso = (event) => {
+        setIdCurso(event.target.value);
+      };
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -116,20 +121,34 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    const getObtenerCursoPorId = (id) => {
-        console.log("ANTES DEL LLAMADO " + curso);
+    React.useEffect( () => {
+       //getObtenerCursoPorId("6106d999be08ac21d6013843");
+       console.log(id)
+       if (id!== undefined){
+        getObtenerCursoPorId(id);
+       } 
+
+    });
+
+    const getObtenerCursoPorId = (id) =>  {
+        console.log("ANTES DEL LLAMADO " + cursor);
         console.log(id);
-        CursosAPI.getCursoPorId(id,handleGetCursoPorId(curso));
+         CursosAPI.getCursoPorId(id,handleGetCursoPorId);
+         //return handleGetCursoPorId;
+        console.log("LUEGO DEL LLAMADO " + cursor );
+        
+        
     };
 
     
     const handleGetCursoPorId = (curso) => { 
-        console.log(curso);
         if (curso === undefined || curso === null) {
             //show error message if needed
         } else {
-            setCurso(curso);
-            
+            //setCurso(curso);
+            console.log("Handle else:");
+            console.log(curso.numero)
+            setCurso(curso.numero);
         }
         
     };
@@ -139,6 +158,7 @@ export default function Orders(props) {
         //props.asistenciaCreado(titular);
     }
 
+   
     return (
         <React.Fragment>
             <Dialog
@@ -202,10 +222,11 @@ export default function Orders(props) {
                     <TableBody>
                         { //props.asistencias.map((row, index) => (
                             props.alumnos.map((row, index) => (
-                            <TableRow key={index}>
+                            <TableRow key={index} > 
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell >{row.curso}</TableCell>
+                                <TableCell 
+                                    value={row.curso} onChange={handleChangeIdCurso}>{cursor}</TableCell>
                                 <TableCell>
                                 <FormControl className={classes.formControl}>
                                         <InputLabel shrink id="demo-simple-select-placeholder-label-label">

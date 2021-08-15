@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
 export default function DatosCurso(props) {
 console.log("CURSOS")
 console.log(props.alumnosPorCurso)
-console.log("ALUMNOS")
+console.log("ALUMNOS DEL CURSO")
 console.log(props.alumnos)
 const classes = useStyles();
     return ( 

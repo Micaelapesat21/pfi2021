@@ -79,7 +79,9 @@ class CursosAPI extends Component {
             }
         })
         .then (responseData => {
-              handleGetCursoPorId(responseData);
+            const {numero, division} = responseData;
+            const data = {numero, division}; 
+            handleGetCursoPorId(data);
         });
     }
 }

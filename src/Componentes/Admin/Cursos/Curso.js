@@ -31,6 +31,27 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  //const [modalIsOpen, setAlumnosPorCurso] = React.useState();
+
+
+
+  //Api Calls
+  const getaAlumnosPorCursos = ()=> {
+    
+    CursosAPI.getCursos(handleGetAlumnosPorCursos());
+  }
+
+
+const handleGetAlumnosPorCursos = (curso) => {
+    this.setState({ loading: false });
+
+    if (curso === undefined || curso === null) {
+        //show error message if needed
+    } else {
+        //this.setState( { curso: cursos } , this.forceUpdate());
+        //this.props.actualizarCursos(cursos);
+    }
+}
 
   const addButtonPressed = () => {
       setModalIsOpen(true);

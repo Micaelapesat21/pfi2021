@@ -21,6 +21,9 @@ import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MessageIcon from '@material-ui/icons/Message';
+import Alumnos from './Alumnos';
+import Constantes from './Constantes'; 
+import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -31,6 +34,8 @@ const rows = [
     createData(0, 'Martin', 'Gomez', 'martin.gomez@gmail.com', '4793-2123', 'Acassuso'),
     createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
 ];
+
+const CHECK_PAIRING_EMPLOYEE_INTERVAL = 1000;
 
 const useStyles = makeStyles(theme => ({
     seeMore: {
@@ -81,12 +86,23 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
+
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [successMessageIsOpen, setsuccessMessageIsOpen] = React.useState(false);
+    const [successMessageIsOpenDesasignado, setsuccessMessageIsOpenDesasignado] = React.useState(false);
+    
     console.log("Arreglo de titulares y de cursos");
     console.log(props.titulares);
     console.log(props.cursos);
+
+
+    React.useEffect(() => {
+        closeSuccessModal();
+        closeSuccessModal2();
+    }, [])
 
 
     const addButtonPressed = () => {
@@ -100,10 +116,110 @@ export default function Orders(props) {
     const alumnoCreado = (titular) => {
         setModalIsOpen(false);
         props.alumnoCreado(titular);
+    };
+    // esta es a modo de prueba
+    const funcion = async (alumno,event) => {
+        console.log("ENTRA A LA FUNCION")
+        console.log("El alumno es: " + alumno.id);
+        //asi se pone una funcion con parametros
+        //const respuesta = await fetch(`${Constantes.RUTA_API}/obtener_videojuego.php?id=${idVideojuego}`);
+        
+        //const respuesta = await fetch("http://192.168.0.132/TEST/api-php-react-main/prueba.php?employee=" + alumno );
+        const respuesta = await fetch(`${Constantes.RUTA_API}/prueba.php?employee=${alumno.id}`);
+        const videojuegos = await respuesta.json();
+        console.log("FINAL:  " + videojuegos);
+    
+       // this.setState({ alumnos: this.props.alumnos });
+    };
+
+    const assignRfidCard = async (employee,event) => {
+        console.log("ESTOY POR ASIGNAR");
+        console.log(employee);
+        // shouldCheck = true;
+         //const employeeId = employee.id;
+        const employeeId = 2; // esto lo puse para ver si colocaba en el empleado 3 la asignacion.
+         console.log("id");
+         console.log(employeeId); 
+
+         //employee.waiting = true;
+         const respuesta = await fetch(`${Constantes.RUTA_API}/set_reader_for_pairing.php?employee_id=${employeeId}`);
+        // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
+         console.log('REACT - HIZO la asignacion')
+         checkIfEmployeeHasJustAssignedRfid(employeeId);
+      
+     };
+     const checkIfEmployeeHasJustAssignedRfid = async (employeeId) => {
+         console.log("checkIfEmployeeHasJustAssignedRfid");
+         const r = await fetch(`${Constantes.RUTA_API}/get_employee_rfid_serial_by_id.php?employee_id=${employeeId}`);
+         console.log(r);
+         const serial = await r.json();
+         console.log(serial);
+        // if (!shouldCheck) {
+        //     employee.waiting = false;
+        //     return;
+        // }
+         if (serial) {
+           
+             console.log("RFID assigned!");
+             setsuccessMessageIsOpen(true);
+             console.log("Con Serial: " + serial);
+           //  this.$toasted.show("RFID assigned!", {
+           //     position: "top-left",
+           //      duration: 1000,
+           //  });
+            // await this.setReaderForReading();
+            // await this.refreshEmployeesList();
+         } else {
+            console.log("Aun no asignado")
+             setTimeout(() => {
+                checkIfEmployeeHasJustAssignedRfid(employeeId);
+             }, CHECK_PAIRING_EMPLOYEE_INTERVAL);
+         }
+     };
+
+     const removeRfidCard = async(rfidSerial) => {
+        console.log("REMOVIENDO PULSERA");
+        rfidSerial = 'B3-ED-AF-19';
+        const r = await fetch(`${Constantes.RUTA_API}/remove_rfid_card.php?rfid_serial=${rfidSerial}`);
+      //const r = await fetch( "http://192.168.0.132/TEST/asistencia-php-rfid-main/remove_rfid_card.php?rfid_serial=" + rfidSerial.toString());
+        setsuccessMessageIsOpenDesasignado(true); 
+      console.log("REMOVIDA");
+        console.log(r);
+        //await fetch("./remove_rfid_card.php?rfid_serial=" + rfidSerial);
+        // esto es el mensaje que sale arriba de todo 
+        //this.$toasted.show("RFID removed", {
+          //  position: "top-left",
+            //duration: 1000,
+        //});
+     };
+
+     const getSuccessMessage = () => {
+        if(successMessageIsOpen) {
+            return "RFID Asignado!"
+        } 
     }
+
+    
+    const closeSuccessModal = () => {
+        console.log("cerrado");
+        setsuccessMessageIsOpen(false);
+    }
+ 
+    const getSuccessMessageDesasignado = () => {
+        if(successMessageIsOpenDesasignado) {
+            return "RFID Desasignado!"
+        } 
+    }
+    
+    const closeSuccessModal2 = () => {
+        setsuccessMessageIsOpenDesasignado(false);
+    }
+ 
 
     return (
         <React.Fragment>
+            <ErrorMessageModal title={'Alumno asignado a pulsera con éxito'} errorMessage= {getSuccessMessage() } isOpen={successMessageIsOpen} closeErrorModal={closeSuccessModal.bind()}/>
+            <ErrorMessageModal title={'Pulsera desasignada'} errorMessage= {getSuccessMessageDesasignado() } isOpen={successMessageIsOpenDesasignado} closeErrorModal={closeSuccessModal2.bind()}/>
             <Dialog
             maxWidth="lg"
             fullWidth= {true}
@@ -113,7 +229,7 @@ export default function Orders(props) {
             aria-describedby="alert-dialog-description"
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
-            <DialogContent className="dialogContent">
+            <DialogContent className="dialogContent">   
              <FormularioDatosAlumnos titularCreado = { alumnoCreado } titulares = { props.titulares } cursoCreado = { alumnoCreado } cursos = { props.cursos } turnos = { props.turnos }/>
             </DialogContent>
             <DialogActions>
@@ -150,6 +266,7 @@ export default function Orders(props) {
                             <TableCell>Teléfono</TableCell>
                             <TableCell>Ciudad</TableCell>
                             <TableCell align="right">Asignar Pulsera</TableCell>
+                            <TableCell align="right">Desaignar Pulsera</TableCell>
                             <TableCell align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
@@ -164,8 +281,13 @@ export default function Orders(props) {
                                 <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
-                                    <IconButton size="small">
-                                        <AssignmentTurnedInIcon />
+                                    <IconButton size="small" onClick= {(event)=> {assignRfidCard(row,event)}}>
+                                    <AssignmentTurnedInIcon ></AssignmentTurnedInIcon>
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <IconButton size="small" onClick= {(event)=> {removeRfidCard(row,event)}}>
+                                    <AssignmentTurnedInIcon ></AssignmentTurnedInIcon>
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="right">
@@ -193,3 +315,4 @@ export default function Orders(props) {
         </React.Fragment>
     );
 }
+
