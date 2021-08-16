@@ -14,6 +14,7 @@ class Asistencias extends Component {
         super(props);
         this.state = {
             asistencias: [],
+            cursos:[],
             alumnos:[],
             loading: false,
         }
@@ -37,7 +38,7 @@ class Asistencias extends Component {
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
                <TableAsistencias asistencias = { this.props.asistencias }  titulares = { this.props.titulares }
-                turnos = { this.props.turnos }  alumnos = { this.props.alumnos } 
+                turnos = { this.props.turnos }  alumnos = { this.props.alumnos } cursos = { this.props.cursos } 
                 asistenciaCreado = { this.asistenciaCreado.bind(this)}/>
             </Grid>
         </Grid>

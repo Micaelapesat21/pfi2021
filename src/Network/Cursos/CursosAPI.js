@@ -69,7 +69,7 @@ class CursosAPI extends Component {
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
-      })
+       })
         .then ((response) => {
             console.log("response",response);
             if(response.headers.status !== 404) {
@@ -79,9 +79,12 @@ class CursosAPI extends Component {
             }
         })
         .then (responseData => {
+          console.log("RESPONSE DATA");
+          console.log(responseData);
             const {numero, division} = responseData;
             const data = {numero, division}; 
-            handleGetCursoPorId(data);
+           handleGetCursoPorId(data);
+           //return data.numero;
         });
     }
 }

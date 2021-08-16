@@ -2,6 +2,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import { fade, makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import TableContainer from '@material-ui/core/TableContainer';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -10,7 +11,7 @@ import Title from '../Title';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import CheckIcon from '@material-ui/icons/Check';
 import BlockIcon from '@material-ui/icons/Block';
-import { IconButton, Paper, InputBase, AppBar, Toolbar, Button } from '@material-ui/core';
+import { IconButton, InputBase, AppBar, Toolbar, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -24,6 +25,9 @@ import MessageIcon from '@material-ui/icons/Message';
 import Alumnos from './Alumnos';
 import Constantes from './Constantes'; 
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
+import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
+import Paper from '@material-ui/core/Paper';
+
 
 // Generate Order Data
 function createData(id,nombre, apellido, email, telefono1, ciudad) {
@@ -44,6 +48,9 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2)
     },
+    table: {
+        minWidth: 650,
+      },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -84,6 +91,7 @@ const useStyles = makeStyles(theme => ({
     dialogContent: {
         height: '100hv'
     }
+    
 }));
 
 
@@ -91,6 +99,7 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [alumnosRfid, setalumnosRfid] = React.useState([]);
     const [successMessageIsOpen, setsuccessMessageIsOpen] = React.useState(false);
     const [successMessageIsOpenDesasignado, setsuccessMessageIsOpenDesasignado] = React.useState(false);
     
@@ -102,6 +111,7 @@ export default function Orders(props) {
     React.useEffect(() => {
         closeSuccessModal();
         closeSuccessModal2();
+        getEmployeeRfid();
     }, [])
 
 
@@ -117,27 +127,13 @@ export default function Orders(props) {
         setModalIsOpen(false);
         props.alumnoCreado(titular);
     };
-    // esta es a modo de prueba
-    const funcion = async (alumno,event) => {
-        console.log("ENTRA A LA FUNCION")
-        console.log("El alumno es: " + alumno.id);
-        //asi se pone una funcion con parametros
-        //const respuesta = await fetch(`${Constantes.RUTA_API}/obtener_videojuego.php?id=${idVideojuego}`);
-        
-        //const respuesta = await fetch("http://192.168.0.132/TEST/api-php-react-main/prueba.php?employee=" + alumno );
-        const respuesta = await fetch(`${Constantes.RUTA_API}/prueba.php?employee=${alumno.id}`);
-        const videojuegos = await respuesta.json();
-        console.log("FINAL:  " + videojuegos);
-    
-       // this.setState({ alumnos: this.props.alumnos });
-    };
-
-    const assignRfidCard = async (employee,event) => {
+  
+    const assignRfidCard = async (employeeId,event) => {
         console.log("ESTOY POR ASIGNAR");
-        console.log(employee);
+        console.log(employeeId);
         // shouldCheck = true;
          //const employeeId = employee.id;
-        const employeeId = 2; // esto lo puse para ver si colocaba en el empleado 3 la asignacion.
+         //const employeeId = 1; // esto lo puse para ver si colocaba en el empleado 3 la asignacion.
          console.log("id");
          console.log(employeeId); 
 
@@ -177,10 +173,17 @@ export default function Orders(props) {
          }
      };
 
-     const removeRfidCard = async(rfidSerial) => {
+     const removeRfidCard = async(alumnoId) => {
+ 
         console.log("REMOVIENDO PULSERA");
-        rfidSerial = 'B3-ED-AF-19';
-        const r = await fetch(`${Constantes.RUTA_API}/remove_rfid_card.php?rfid_serial=${rfidSerial}`);
+        const rfidSerial = await fetch(`${Constantes.RUTA_API}/get_employee_rfid_serial_by_id.php?employee_id=${alumnoId}`);
+        // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
+        console.log("RFID SERIAL: " );
+        console.log(rfidSerial);
+        const serial = await rfidSerial.json();
+        console.log(serial);
+        //rfidSerial = 'B3-ED-AF-19';
+        const r = await fetch(`${Constantes.RUTA_API}/remove_rfid_card.php?rfid_serial=${serial}`);
       //const r = await fetch( "http://192.168.0.132/TEST/asistencia-php-rfid-main/remove_rfid_card.php?rfid_serial=" + rfidSerial.toString());
         setsuccessMessageIsOpenDesasignado(true); 
       console.log("REMOVIDA");
@@ -191,6 +194,34 @@ export default function Orders(props) {
           //  position: "top-left",
             //duration: 1000,
         //});
+     };
+
+     const getEmployeeRfid = async () => {
+ 
+        console.log("getEmployeeRfid");
+        const alumnosConRfid = await fetch(`${Constantes.RUTA_API}/get_employees_with_rfid.php`);
+        console.log("Alumnos con rfid: ");
+        const alumnosRfid = await alumnosConRfid.json();
+        console.log(alumnosRfid);
+        setalumnosRfid(alumnosRfid);
+     };
+
+     const getStatusRfid = (alumnoId) => {
+        console.log("getStatusRfid");
+        console.log("longitud: " + alumnosRfid.length);
+        let i = 0;
+        let rfid_serial = "";
+        while(i<alumnosRfid.length){
+            const e = i;
+            if (alumnosRfid[e].alumno_id == alumnoId){
+                console.log("entre al if: " + alumnosRfid[e].rfid_serial )
+                rfid_serial = alumnosRfid[e].rfid_serial;
+            }else{
+                console.log("entre al else: " + alumnosRfid[e].alumno_id)
+            }
+            i++;
+        }
+        return rfid_serial;
      };
 
      const getSuccessMessage = () => {
@@ -255,16 +286,18 @@ export default function Orders(props) {
                      </Button>
                 </Toolbar>
             </AppBar>
-            <Paper className={classes.paper}>
+            <TableContainer component={Paper}>
                 <Title>Alumnos</Title>
-                <Table size="small">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Apellido</TableCell>
-                            <TableCell>Pulsera NFC</TableCell>
-                            <TableCell>Teléfono</TableCell>
-                            <TableCell>Ciudad</TableCell>
+                <Table className={classes.table} size="small" aria-label="a dense table">
+                    <TableHead >
+                        <TableRow >
+                            <TableCell > 
+                                 Nombre
+                            </TableCell > 
+                            <TableCell >Apellido</TableCell>
+                            <TableCell >Pulsera NFC</TableCell>
+                            <TableCell >Teléfono</TableCell>
+                            <TableCell >Ciudad</TableCell>
                             <TableCell align="right">Asignar Pulsera</TableCell>
                             <TableCell align="right">Desaignar Pulsera</TableCell>
                             <TableCell align="right">Acciones</TableCell>
@@ -275,19 +308,20 @@ export default function Orders(props) {
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell>
-                                         <Box color="success.main">Asignado</Box>
-                                </TableCell>
+                                { (getStatusRfid(row.id) == "") ?
+                                <TableCell> No Asignado </TableCell>
+                                : <TableCell> Asignado ({getStatusRfid(row.id)})</TableCell>
+                                }
                                 <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
                                 <TableCell align="right">
-                                    <IconButton size="small" onClick= {(event)=> {assignRfidCard(row,event)}}>
+                                    <IconButton size="small" onClick= {(event)=> {assignRfidCard(row.id,event)}}>
                                     <AssignmentTurnedInIcon ></AssignmentTurnedInIcon>
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="right">
-                                    <IconButton size="small" onClick= {(event)=> {removeRfidCard(row,event)}}>
-                                    <AssignmentTurnedInIcon ></AssignmentTurnedInIcon>
+                                    <IconButton size="small" onClick= {(event)=> {removeRfidCard(row.id,event)}}>
+                                    <AssignmentReturnedIcon ></AssignmentReturnedIcon>
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="right">
@@ -311,7 +345,7 @@ export default function Orders(props) {
                         Ver Mas Solicitudes
                      </Link>
                 </div>
-            </Paper>
+            </TableContainer>
         </React.Fragment>
     );
 }

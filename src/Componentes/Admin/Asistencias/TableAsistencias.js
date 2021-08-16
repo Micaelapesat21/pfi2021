@@ -30,6 +30,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CursosAPI from './../../../Network/Cursos/CursosAPI';
+import { LeakAddTwoTone } from '@material-ui/icons';
 
 
 // Generate Order Data
@@ -98,20 +99,18 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     console.log("ASISTENCIAS")
     console.log(props.alumnos)
+    console.log("CURSOS")
+    console.log(props.cursos)
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [age, setAge] = React.useState('');
     const [cursor,setCurso] = React.useState('');
     const [id,setIdCurso] = React.useState('');
-
+    const numerocurso = "";
     const handleChange = (event) => {
       setAge(event.target.value);
     };
 
-    
-    const handleChangeIdCurso = (event) => {
-        setIdCurso(event.target.value);
-      };
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -121,43 +120,71 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    React.useEffect( () => {
-       //getObtenerCursoPorId("6106d999be08ac21d6013843");
-       console.log(id)
-       if (id!== undefined){
-        getObtenerCursoPorId(id);
-       } 
+    //preuab para usar una funcion de la API pero no funciono
+    
+    /* //React.useEffect( () => {
+    //    console.log("USEEffect")
+    //    if (cursor === undefined || cursor === null || cursor === '' ) {
+    //        console.log(cursor)
+    //    } else {
+    //        console.log("estoy ejecutando")
+    //        getObtenerCursoPorId(props.cursoid);
+     //  } 
 
-    });
+   // },[cursor]);
 
-    const getObtenerCursoPorId = (id) =>  {
+    const getObtenerCursoPorId = (id,numerocurso) =>  {
         console.log("ANTES DEL LLAMADO " + cursor);
         console.log(id);
-         CursosAPI.getCursoPorId(id,handleGetCursoPorId);
+        //CursosAPI.getCursoPorId(id,handleGetCursoPorId);
          //return handleGetCursoPorId;
-        console.log("LUEGO DEL LLAMADO " + cursor );
-        
-        
+         
+        CursosAPI.getCursoPorId(id,handleGetCursoPorId());
+         console.log("LUEGO DEL LLAMADO " + numerocurso );
+         //return response;
+
     };
 
-    
     const handleGetCursoPorId = (curso) => { 
         if (curso === undefined || curso === null) {
             //show error message if needed
+            return null;
         } else {
             //setCurso(curso);
             console.log("Handle else:");
             console.log(curso.numero)
-            setCurso(curso.numero);
+            //setCurso(curso.numero);
+            return curso;
         }
         
     };
-
+ */
     const asistenciaCreado = (asistencia) => {
         setModalIsOpen(false);
         //props.asistenciaCreado(titular);
-    }
+    };
+    const getNumeroCurso = (rowid) => {
+       console.log("estoy en getNumeroCurso");
+       console.log("la entrada es: " + props.cursos[0].id);
+       let r = {numro:"",division:""};
+        let i = 0;
+       while (i<10 ) {
+        console.log("i =  " + i);
+            const e = i;
+            console.log("no doy mas" + props.cursos[e].id);
+            if (props.cursos[e].id == rowid){
+                r.numero = props.cursos[i].numero;
+                r.division = props.cursos[i].division;
+                console.log("entre al if: " + r)
+            }else{
+                console.log("entre al else: " + props.cursos[i].id)
+            }
 
+        i++;
+       };
+
+        return r;
+    };
    
     return (
         <React.Fragment>
@@ -222,11 +249,10 @@ export default function Orders(props) {
                     <TableBody>
                         { //props.asistencias.map((row, index) => (
                             props.alumnos.map((row, index) => (
-                            <TableRow key={index} > 
+                                <TableRow key={index} > 
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
-                                <TableCell 
-                                    value={row.curso} onChange={handleChangeIdCurso}>{cursor}</TableCell>
+                                <TableCell>{getNumeroCurso(row.curso).numero + " div " + getNumeroCurso(row.curso).division}</TableCell>
                                 <TableCell>
                                 <FormControl className={classes.formControl}>
                                         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
@@ -254,9 +280,8 @@ export default function Orders(props) {
                                         <AddIcon />
                                     </IconButton>
                                 </TableCell>
-
                             </TableRow>
-                        ))}
+                               ))}
                     </TableBody>
                 </Table>
                 <div className={classes.seeMore}>
