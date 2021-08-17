@@ -20,7 +20,7 @@ class AsistenciasAPI extends Component {
             handlePostAsistenciaInfo(responseData);
         });
     }
-
+/*
     getAsistencias(handleGetAsistencias)
     {
         let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnos";
@@ -39,7 +39,29 @@ class AsistenciasAPI extends Component {
         .then (responseData => {
             handleGetAsistencias(responseData);
         });
+    }*/
+
+// Trae de mysql
+    getAsistencias(handleGetAsistencias)
+    {
+        let url =  "http://192.168.0.132/TEST/asistencia-php-rfid-main/get_employees_attencande.php";
+        fetch(url,{
+          method: 'GET', 
+          headers:{ 'Content-Type': 'application/json'}
+      })
+        .then ((response) => {
+            console.log("response",response);
+            if(response.headers.status !== 404) {
+              return response.json();
+            } else {
+              return null;
+            }
+        })
+        .then (responseData => {
+            handleGetAsistencias(responseData);
+        });
     }
+    
 }
 
 export default new AsistenciasAPI();

@@ -141,6 +141,8 @@ export default function PanelControl(props) {
 
     console.log('trea los tituales');
     console.log(titulares);
+    console.log("Asistencias del home: " + props.asistencias);
+
     const [turnos, setTurnos] = React.useState([]);
     console.log('pasa 5');
     const [alumnos, setAlumnos] = React.useState([]);
@@ -149,6 +151,8 @@ export default function PanelControl(props) {
     console.log('pasa 7');
     const [asistencias, setAsistencias] = React.useState([]);
     console.log('pasa 8');
+    console.log("trae las asistencias");
+    console.log(asistencias);
     const [cursos, setCursos] = React.useState([]);
     console.log('pasa 9');
     console.log('trea los cursos');
@@ -1014,6 +1018,7 @@ export default function PanelControl(props) {
                                         actualizarTurnos = { actualizarTurnos }
                                         actualizarAlumnos = { actualizarAlumnos }
                                         actualizarCursos = { actualizarCursos }
+                                        actualizarAsistencias = { actualizarAsistencias }
                                     />
                                 </Container>
                             </main>

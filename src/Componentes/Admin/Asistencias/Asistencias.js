@@ -29,7 +29,7 @@ class Asistencias extends Component {
         var asistenciasActualizado = this.props.asistencias;
         asistenciasActualizado.push(asistencia);
         this.setState({ asistencias: asistenciasActualizado });
-        this.props.actualizarAsistencia(asistenciasActualizado);
+        this.props.actualizarAsistencias(asistenciasActualizado);
     }
 
     render() {

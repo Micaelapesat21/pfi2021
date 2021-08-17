@@ -31,6 +31,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CursosAPI from './../../../Network/Cursos/CursosAPI';
 import { LeakAddTwoTone } from '@material-ui/icons';
+import Constantes from './Constantes'; 
+import { getDate } from 'date-fns';
 
 
 // Generate Order Data
@@ -98,19 +100,33 @@ const useStyles = makeStyles(theme => ({
 
 export default function Orders(props) {
     console.log("ASISTENCIAS")
-    console.log(props.alumnos)
+    console.log(props.asistencias)
     console.log("CURSOS")
     console.log(props.cursos)
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [age, setAge] = React.useState('');
+    const [estado, setEstado] = React.useState(10);
+    const [date, setDate] = React.useState("2021-08-17");
     const [cursor,setCurso] = React.useState('');
     const [id,setIdCurso] = React.useState('');
     const numerocurso = "";
+
+
+
     const handleChange = (event) => {
-      setAge(event.target.value);
+       
+        if (event.target.id == "date"){
+            console.log("handleChange if date");
+            setDate(event.target.value);
+        }
+            setEstado(event.target.value);
+        
     };
 
+    const handleChangeStatus = (event) => {
+            setEstado(event.target.value);
+        
+    };
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -163,21 +179,22 @@ export default function Orders(props) {
         setModalIsOpen(false);
         //props.asistenciaCreado(titular);
     };
+
     const getNumeroCurso = (rowid) => {
-       console.log("estoy en getNumeroCurso");
-       console.log("la entrada es: " + props.cursos[0].id);
+      // console.log("estoy en getNumeroCurso");
+      // console.log("la entrada es: " + props.cursos[0].id);
        let r = {numro:"",division:""};
         let i = 0;
        while (i<10 ) {
-        console.log("i =  " + i);
+      //  console.log("i =  " + i);
             const e = i;
-            console.log("no doy mas" + props.cursos[e].id);
+          //  console.log("cursoid: " + props.cursos[e].id);
             if (props.cursos[e].id == rowid){
                 r.numero = props.cursos[i].numero;
                 r.division = props.cursos[i].division;
-                console.log("entre al if: " + r)
+              //  console.log("entre al if: " + r)
             }else{
-                console.log("entre al else: " + props.cursos[i].id)
+              //  console.log("entre al else: " + props.cursos[i].id)
             }
 
         i++;
@@ -185,7 +202,58 @@ export default function Orders(props) {
 
         return r;
     };
-   
+
+/* Lo qeuice hacer asi que llame al fecht pero desde aca no pude.
+    const get_attendance = async (alumnoId) =>{
+      console.log("get_attendance");
+      console.log("Alumno id: " + alumnoId);
+        // date tiene que ser la fecha que se selecciona.
+      const fecha = date;
+      console.log(fecha);
+      const response = await fetch(`${Constantes.RUTA_API}/get_attendance_data_ajax.php?date=${fecha}`);
+      console.log(response);
+     let attendanceData = await response.json();
+      console.log(attendanceData);
+       // 
+      let i = 0;
+      let estado = " ";
+      while(i<attendanceData.length){
+          const e = i;
+          if (attendanceData[e].alumno_id == alumnoId){
+              console.log("entre al if: " + attendanceData[e].estado )
+              estado = attendanceData[e].estado;
+          }
+          i++;
+      }
+      console.log(estado);
+      return estado;
+     
+    };
+*/
+
+const getEstadoAsistencia = (rowid) => {
+    console.log("estoy en getEstadoAsistencia");
+    console.log("Longitud asistencias:" + props.asistencias.length);
+    console.log("rowid:" + rowid);
+    console.log("rowid:" + date);
+     let r = "Ausente";
+     const fecha = date;
+      let i = 0;
+     while (i<props.asistencias.length) {
+    //  console.log("i =  " + i);
+          const e = i;
+        //  console.log("cursoid: " + props.cursos[e].id);
+          if (props.asistencias[e].alumno_id == rowid && props.asistencias[e].fecha == fecha ){
+              r = "Presente"
+          }else{
+            console.log("entre al else: " + props.asistencias[e].alumno_id)
+          }
+      i++;
+     };
+
+      return r;
+  };
+
     return (
         <React.Fragment>
             <Dialog
@@ -218,20 +286,20 @@ export default function Orders(props) {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-
                     <form className={classes.container} noValidate>
-                    <TextField
-                        id="date"
-                        label="Fecha"
-                        type="date"
-                        defaultValue="2021-05-24"
-                        className={classes.textField}
-                        InputLabelProps={{
-                        shrink: true,
-                        }}
-                    />
+                            <TextField
+                                id="date"
+                                label="Fecha"
+                                type="date"
+                                defaultValue="2021-08-16"
+                                value={date}
+                                onChange={handleChange}
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
                     </form>
-
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
@@ -253,24 +321,23 @@ export default function Orders(props) {
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
                                 <TableCell>{getNumeroCurso(row.curso).numero + " div " + getNumeroCurso(row.curso).division}</TableCell>
-                                <TableCell>
+                                <TableCell>{getEstadoAsistencia(row.id)}
+                                    { /*
                                 <FormControl className={classes.formControl}>
-                                        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                            </InputLabel>
+                                        <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select
-                                            labelId="demo-simple-select-placeholder-label-label"
-                                            id="demo-simple-select-placeholder-label"
-                                            value={row.estado}
-                                            onChange={handleChange}
-                                            displayEmpty
-                                            className={classes.selectEmpty}
-                                            ><MenuItem value="">
-                                            <em>Sin Seleccion</em>
-                                        </MenuItem>
-                                        <MenuItem value={10}>Presente</MenuItem>
-                                        <MenuItem value={20}>Ausente</MenuItem>
-                                        </Select>
-                                    </FormControl>
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            defaultValue = {get_attendance(row.id)}
+                                            value={get_attendance(row.id)}
+                                            onChange={handleChangeStatus}
+                                            >
+                                            <MenuItem value={10}>Sin Seleccion</MenuItem>
+                                            <MenuItem value={20}>Presente</MenuItem>
+                                            <MenuItem value={30}>Ausente</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        */}
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">

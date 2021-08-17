@@ -7,6 +7,7 @@ import TitularesAPI from '../../../Network/Titulares/TitularesAPI';
 import TurrnosAPI from './../../../Network/Turnos/TurnosAPI'
 import AlumnosAPI from './../../../Network/Alumnos/AlumnosAPI'
 import CursosAPI from './../../../Network/Cursos/CursosAPI'
+import AsistenciasAPI from './../../../Network/Asistencias/AsistenciasAPI'
 
 const styles = theme => ({
 
@@ -22,6 +23,7 @@ class Titulares extends Component {
             turnos: [],
             alumnos: [],
             cursos: [],
+            asistencias: [],
             loading: false,
         }
     }
@@ -34,6 +36,7 @@ class Titulares extends Component {
             this.getTurnos();
             this.getAlumnos();
             this.getCursos();
+            this.getAsistencias();
         }
     }
 
@@ -81,18 +84,36 @@ class Titulares extends Component {
     }
 
     getCursos() {
+        console.log("getcursos");
         this.setState({ loading: true });
         CursosAPI.getCursos(this.handleGetCursos.bind(this));
     }
 
     handleGetCursos(cursos) {
         this.setState({ loading: false });
-
+        console.log("CURSOS: " + cursos);
         if (cursos === undefined || cursos === null) {
             //show error message if needed
         } else {
             this.setState( { cursos: cursos } , this.forceUpdate());
             //this.props.actualizarCursos(cursos);
+        }
+    }
+
+    getAsistencias() {
+        this.setState({ loading: true });
+        console.log("getAsistencias");
+        AsistenciasAPI.getAsistencias(this.handleGetAsistencias.bind(this));
+    }
+
+    handleGetAsistencias(asistencias) {
+        this.setState({ loading: false });
+        console.log("Asistencias: " + asistencias);
+        if (asistencias === undefined || asistencias === null) {
+            //show error message if needed
+        } else {
+            this.setState( { asistencias: asistencias } , this.forceUpdate());
+            this.props.actualizarAsistencias(asistencias);
         }
     }
 
@@ -103,7 +124,7 @@ class Titulares extends Component {
 
     handleGetAlumnos(alumnos) {
         this.setState({ loading: false });
-
+        console.log("Alumnos en TITULARES: " + alumnos);
         if (alumnos === undefined || alumnos === null) {
             //show error message if needed
         } else {
@@ -113,7 +134,7 @@ class Titulares extends Component {
     }
     
        //Api Calls Cursos
-       getCursos() {
+    getCursos() {
         this.setState({ loading: true });
         CursosAPI.getCursos(this.handleGetCursos.bind(this));
     }
