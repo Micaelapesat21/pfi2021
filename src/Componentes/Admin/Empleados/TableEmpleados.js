@@ -31,6 +31,9 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2)
     },
+    tableHead: {
+        fontWeight: 'bold'
+      },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -132,12 +135,12 @@ export default function Orders(props) {
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Apellido</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Telefono1</TableCell>
-                            <TableCell>Ciudad</TableCell>
-                            <TableCell align="right">Acciones</TableCell>
+                            <TableCell className={classes.tableHead}>Nombre</TableCell>
+                            <TableCell className={classes.tableHead}>Apellido</TableCell>
+                            <TableCell className={classes.tableHead}>Email</TableCell>
+                            <TableCell className={classes.tableHead}>Telefono1</TableCell>
+                            <TableCell className={classes.tableHead}>Ciudad</TableCell>
+                            <TableCell className={classes.tableHead} align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

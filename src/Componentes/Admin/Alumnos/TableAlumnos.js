@@ -51,6 +51,17 @@ const useStyles = makeStyles(theme => ({
     table: {
         minWidth: 650,
       },
+    tableHead: {
+        fontWeight: 'bold'
+      },
+    tableRowGreen: {
+          color:'green'
+     
+      },
+    tableRowRed: {
+        color:'red'
+    
+    },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -286,21 +297,21 @@ export default function Orders(props) {
                      </Button>
                 </Toolbar>
             </AppBar>
-            <TableContainer component={Paper}>
+            <Paper className={classes.paper}>
                 <Title>Alumnos</Title>
-                <Table className={classes.table} size="small" aria-label="a dense table">
+                <Table size="small">
                     <TableHead >
                         <TableRow >
-                            <TableCell > 
+                            <TableCell className={classes.tableHead}> 
                                  Nombre
                             </TableCell > 
-                            <TableCell >Apellido</TableCell>
-                            <TableCell >Pulsera NFC</TableCell>
-                            <TableCell >Teléfono</TableCell>
-                            <TableCell >Ciudad</TableCell>
-                            <TableCell align="right">Asignar Pulsera</TableCell>
-                            <TableCell align="right">Desaignar Pulsera</TableCell>
-                            <TableCell align="right">Acciones</TableCell>
+                            <TableCell className={classes.tableHead}>Apellido</TableCell>
+                            <TableCell className={classes.tableHead}>Pulsera NFC</TableCell>
+                            <TableCell className={classes.tableHead}>Teléfono</TableCell>
+                            <TableCell className={classes.tableHead}>Ciudad</TableCell>
+                            <TableCell className={classes.tableHead} align="right" >Asignar Pulsera</TableCell>
+                            <TableCell className={classes.tableHead} align="right">Desaignar Pulsera</TableCell>
+                            <TableCell className={classes.tableHead} align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -309,17 +320,17 @@ export default function Orders(props) {
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
                                 { (getStatusRfid(row.id) == "") ?
-                                <TableCell> No Asignado </TableCell>
-                                : <TableCell> Asignado ({getStatusRfid(row.id)})</TableCell>
+                                <TableCell className={classes.tableRowRed}> No Asignado </TableCell>
+                                : <TableCell className={classes.tableRowGreen}> Asignado ({getStatusRfid(row.id)})</TableCell>
                                 }
                                 <TableCell>{row.telefono1}</TableCell>
                                 <TableCell>{row.ciudad}</TableCell>
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <IconButton size="small" onClick= {(event)=> {assignRfidCard(row.id,event)}}>
                                     <AssignmentTurnedInIcon ></AssignmentTurnedInIcon>
                                     </IconButton>
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     <IconButton size="small" onClick= {(event)=> {removeRfidCard(row.id,event)}}>
                                     <AssignmentReturnedIcon ></AssignmentReturnedIcon>
                                     </IconButton>
@@ -345,7 +356,7 @@ export default function Orders(props) {
                         Ver Mas Solicitudes
                      </Link>
                 </div>
-            </TableContainer>
+            </Paper>
         </React.Fragment>
     );
 }
