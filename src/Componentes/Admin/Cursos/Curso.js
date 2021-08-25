@@ -79,7 +79,7 @@ const handleGetAlumnosPorCursos = (curso) => {
       >
         <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > DATOS DEL CURSO {props.title} </DialogTitle>
             <DialogContent className="dialogContent">
-                <DatosCurso curso={props.title} alumnosPorCurso= {props.curso.alumnos} alumnos= {props.alumnos} />
+                <DatosCurso curso={props.title} alumnosPorCurso= {props.curso.alumnos} alumnos= {props.alumnos} asistencias = { props.asistencias }/>
             </DialogContent>
         <DialogActions>
         </DialogActions>
@@ -92,11 +92,11 @@ const handleGetAlumnosPorCursos = (curso) => {
           {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-                    Total alumnos:
+                    Total alumnos: {props.curso.alumnos.length}
                     <br/>
-                    Total Presentes:
+                    Total Presentes: 1
                     <br/>
-                    Total Ausentes: 
+                    Total Ausentes: {props.curso.alumnos.length - 1}
                     <br/>
           </Typography>
         </CardContent>

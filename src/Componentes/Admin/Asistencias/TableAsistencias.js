@@ -109,7 +109,7 @@ export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [estado, setEstado] = React.useState(10);
-    const [date, setDate] = React.useState("2021-08-17");
+    const [date, setDate] = React.useState("2021-08-21");
     const [cursor,setCurso] = React.useState('');
     const [id,setIdCurso] = React.useState('');
     const numerocurso = "";
@@ -294,7 +294,7 @@ const getEstadoAsistencia = (rowid) => {
                                 id="date"
                                 label="Fecha"
                                 type="date"
-                                defaultValue="2021-08-16"
+                                defaultValue="2021-08-21"
                                 value={date}
                                 onChange={handleChange}
                                 className={classes.textField}

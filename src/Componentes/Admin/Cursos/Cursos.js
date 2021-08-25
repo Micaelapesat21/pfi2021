@@ -18,6 +18,7 @@ class Cursos extends Component {
         this.state = {
             cursos: [],
             alumnos:[],
+            asistencias:[],
             loading: false,
         }
     }
@@ -28,6 +29,7 @@ class Cursos extends Component {
         if (this._isMounted) {
             this.getCursos();
             this.setState({ alumnos: this.props.alumnos });
+            this.setState({ asistencias: this.props.asistencias });
         }
     }
 
@@ -42,9 +44,10 @@ class Cursos extends Component {
     }
 
      cursoCreado = (curso) => {
-        var cursosActualizado = this.state.cursos;
+        var cursosActualizado = this.props.cursos;
         cursosActualizado.push(curso);
         this.setState({ cursos: cursosActualizado});
+        this.props.actualizarCursos(cursosActualizado);
     }
 
     handleGetCursos(cursos) {
@@ -64,7 +67,7 @@ class Cursos extends Component {
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
                <TableCursos cursos = { this.props.cursos }  titulares = { this.props.titulares }
-                turnos = { this.props.turnos }   alumnos = { this.props.alumnos }
+                turnos = { this.props.turnos }   alumnos = { this.props.alumnos } asistencias = { this.props.asistencias }
                 cursoCreado = { this.cursoCreado.bind(this)}/>
             </Grid>
         </Grid>

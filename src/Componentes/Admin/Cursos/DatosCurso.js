@@ -89,6 +89,34 @@ console.log("CURSOS")
 console.log(props.alumnosPorCurso)
 console.log("ALUMNOS DEL CURSO")
 console.log(props.alumnos)
+console.log("ASISTENCIAS")
+console.log(props.asistencias)
+const [date, setDate] = React.useState("2021-08-21");
+
+const getEstadoAsistencia = (rowid) => {
+    console.log("estoy en getEstadoAsistencia");
+    console.log("Longitud asistencias:" + props.asistencias.length);
+    console.log("rowid:" + rowid);
+    console.log("rowid:" + date);
+     let r = "Ausente";
+     const fecha = date;
+      let i = 0;
+     while (i<props.asistencias.length) {
+    //  console.log("i =  " + i);
+          const e = i;
+        //  console.log("cursoid: " + props.cursos[e].id);
+          if (props.asistencias[e].alumno_id == rowid && props.asistencias[e].fecha == fecha ){
+              r = "Presente"
+          }else{
+            console.log("entre al else: " + props.asistencias[e].alumno_id)
+          }
+      i++;
+     };
+
+      return r;
+  };
+
+
 const classes = useStyles();
     return ( 
             <Paper className={classes.paper}>
@@ -118,7 +146,7 @@ const classes = useStyles();
                                       : null }
                                       
                                       {props.alumnosPorCurso.includes(alumno.id) ? 
-                                      <TableCell>Presente</TableCell>
+                                      <TableCell>{getEstadoAsistencia(alumno.id)}</TableCell>
                                       : null }                    
                                       
                                       {props.alumnosPorCurso.includes(alumno.id) ? 

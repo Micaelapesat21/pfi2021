@@ -783,6 +783,7 @@ export default function PanelControl(props) {
                                turnos = { turnos }
                                alumnos = { alumnos }
                                cursos = { cursos }
+                               asistencias = { asistencias }
                                actualizarCursos = { actualizarCursos }
                            />
                        </Container>

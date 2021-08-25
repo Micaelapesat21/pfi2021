@@ -54,12 +54,14 @@ class FormularioDatosCursos extends Component {
             loading: false,
             errorMessageIsOpen: false,
             successMessageIsOpen: false,
+            cursoSeleccionado: null, 
+            cursosMenuOpen: false,
             cursoInfo: null,
             errorMessage: ""
          }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
-        this.guardar = this.guardar.bind(this);
+        this.enviar = this.enviar.bind(this);
     }
 
     componentDidMount() {
@@ -70,14 +72,15 @@ class FormularioDatosCursos extends Component {
 
 
     //API Calls
-    guardar() {
-        {console.log(this.state.gimnasio)}
+    enviar() {
+        console.log("Estoy en enviar Mensaje");
+        console.log(this.state.cursoSeleccionado);
+        console.log(this.state.division);
         if (
-            this.state.numero !== "" &&
+            this.state.cursoSeleccionado !== null &&
             this.state.division !== ""
          ) {
-            var dict = this.getCursoModel();
-            this.postCursoInfo(dict);
+           console.log("enviando mensaje");
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -171,6 +174,11 @@ class FormularioDatosCursos extends Component {
         }
     }
 
+    handleChangeCurso(e) {
+        let curso = this.props.cursos[ e.target.value ];
+        this.setState({ cursoSeleccionado: e.target.value });
+    }
+
     getCursoModel() {
         return {
             numero: this.state.numero,
@@ -196,6 +204,26 @@ class FormularioDatosCursos extends Component {
         } else {
             return "Curso creado"
         }
+    }
+
+    getCursoMenuValue() {
+        if( this.state.cursoSeleccionado === null ) {
+            console.log("getCursoMenuValue == null");
+            return null;
+        } else {
+            console.log("getCursoMenuValue != null");
+            return this.state.cursoSeleccionado.numero + " "  + this.state.cursoSeleccionado.division
+        }
+    }
+
+    handleCursosMenuOpen() {
+        console.log("tomo los cursos");
+        console.log(this.props.cursos)
+        this.setState({ cursosMenuOpen: true });
+    }
+
+    handleCursosMenuClose() {
+        this.setState({ cursosMenuOpen: false });
     }
     
     render() {
@@ -228,33 +256,38 @@ class FormularioDatosCursos extends Component {
                         </Grid>
                          */}       
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Nombre"
-                                name="numero"
-                                label="Año del curso: 4"
+                            <InputLabel id="curso-label">Curso</InputLabel>
+                                <Select
                                 fullWidth
-                                autoComplete="Año"
-                                value={this.state.numero}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
+                                labelId="curso-label"
+                                id="curso-open-select"
+                                open={ this.state.cursosMenuOpen }
+                                onClose={ this.handleCursosMenuClose.bind(this) }
+                                onOpen={ this.handleCursosMenuOpen.bind(this) }
+                                value = { this.state.cursoSeleccionado }
+                                onChange={ e => this.handleChangeCurso(e) }
+                                >
+                                {
+                                this.props.cursos.map((curso, index) => (
+                                    <MenuItem value={index}> { curso.numero} { curso.division } </MenuItem>
+                                ))}  
+                                </Select>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                required
-                                id="Apellido"
-                                name="division"
-                                label="Division: A"
-                                fullWidth
-                                autoComplete="Division"
-                                value={this.state.division}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly
-                                }}
+                            id="outlined-multiline-static"
+                            label="Mensaje"
+                            name="division"
+                            multiline
+                            fullWidth
+                            rows={4}
+                            defaultValue="Escriba texto..."
+                            variant="outlined"
+                            value={this.state.division}
+                            onChange={this.handleChange}
+                            InputProps={{
+                                readOnly: this.state.redOnly
+                            }}
                             />
                         </Grid>
                         {/* 
@@ -417,9 +450,8 @@ class FormularioDatosCursos extends Component {
                     </Grid>
                 </Paper>
                 
-                <Button className = { classes.createButton } variant= "contained" onClick={ this.guardar.bind(this) } color="primary" autoFocus>
-                                
-                    Crear Curso
+                <Button className = { classes.createButton } variant= "contained" onClick={ this.enviar.bind(this) } color="primary" autoFocus>                         
+                    Enviar Mensaje
                 </Button>
             </Grid>
         );

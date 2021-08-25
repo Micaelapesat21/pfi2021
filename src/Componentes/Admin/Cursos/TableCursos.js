@@ -18,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosCursos from './FormularioDatosCursos';
+import FormularioMensajeCurso from './FormularioMensajeCurso';
 import Curso from './Curso';
 import Cursos from './Cursos';
 import MediaCard from './Curso';
@@ -107,17 +108,26 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [modalMensajeIsOpen, setmodalMensajeIsOpen] = React.useState(false);
+
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
+        setmodalMensajeIsOpen(false);
+    };
+    const addButtonPressedMensaje = () => {
+        setModalIsOpen(false);
+        setmodalMensajeIsOpen(true);
     };
 
     const handleCloseModal = () => {
         setModalIsOpen(false);
+        setmodalMensajeIsOpen(false);
     };
 
     const cursoCreado = (curso) => {
         setModalIsOpen(false);
+        setmodalMensajeIsOpen(false);
         props.cursoCreado(curso);
     }
 
@@ -133,8 +143,28 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del curso </DialogTitle>
             <DialogContent className="dialogContent">
-            {/* <FormularioDatosCursos titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos }/> */}
-                      <DatosCurso  />
+            <FormularioDatosCursos cursoCreado = { cursoCreado } titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos } />
+            {/*
+             <DatosCurso  /> */}
+                     
+            </DialogContent>
+            <DialogActions>
+            </DialogActions>
+            </Dialog>
+            <Dialog
+            maxWidth="lg"
+            fullWidth= {true}
+            open={modalMensajeIsOpen}
+            onClose={handleCloseModal}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del mensaje </DialogTitle>
+            <DialogContent className="dialogContent">
+            <FormularioMensajeCurso cursoCreado = { cursoCreado } titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos } cursos = { props.cursos }/>
+            {/*
+             <DatosCurso  /> */}
+                     
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -159,7 +189,7 @@ export default function Orders(props) {
                     </Button>                   
                     <div>
                     <Box m={2}>
-                        <Button  variant="contained" color="secondary" align="right" onClick={ addButtonPressed } padding={10} margin={5} >
+                        <Button  variant="contained" color="secondary" align="right" onClick={ addButtonPressedMensaje } padding={10} margin={5} >
                           Enviar Mensaje 
                         </Button>
                     </Box>
@@ -174,7 +204,7 @@ export default function Orders(props) {
                          {
                              props.cursos.map( objectcurso => (
                                 <div className= "col-md-3" key={objectcurso.id}>
-                                   <MediaCard title={objectcurso.numero + " Div. "+ objectcurso.division} curso = {objectcurso}  alumnos={props.alumnos} ></MediaCard>
+                                   <MediaCard title={objectcurso.numero + " Div. "+ objectcurso.division} curso = {objectcurso}  alumnos={props.alumnos} asistencias = { props.asistencias }></MediaCard>
                                 </div>
                             ))
                         }          
