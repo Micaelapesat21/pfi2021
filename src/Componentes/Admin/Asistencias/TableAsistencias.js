@@ -101,11 +101,21 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+function searchingTerm(term){
+    console.log("SearchiinvTerm");
+    return function(x){
+        return x.nombre.toLowerCase().includes(term) || !term ; 
+    }
+};
+
 export default function Orders(props) {
     console.log("ASISTENCIAS")
     console.log(props.asistencias)
     console.log("CURSOS")
     console.log(props.cursos)
+    const dateHoy= new Date();
+    console.log("FECHA");
+    console.log(dateHoy);
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [actualizar, setActualizar] = React.useState(false);
@@ -115,11 +125,28 @@ export default function Orders(props) {
     const [id,setIdCurso] = React.useState('');
     const numerocurso = "";
 
+    const [alumnos, setAlumnos] = React.useState([]);
+    const [data, setData] = React.useState([]);
+    const [term, setTerm] = React.useState("");
+
     React.useEffect(() => {
         console.log("estoy en use effect")
         setActualizar(false);   
 
     }, [date])
+
+    React.useEffect(()=>{
+        console.log("USE EFFECT TABLA ASISTENCIAS");
+        setAlumnos(props.alumnos);
+        console.log("state alumnos: " + alumnos);
+        setData(alumnos);   
+       // console.log("USE EFFECT TITULARES");
+    }); 
+
+    React.useEffect(()=>{
+        console.log("USE EFFECT 2");
+        setAlumnos(alumnos);
+    },[alumnos]); 
 
 
     const handleChange = (event) => {
@@ -292,6 +319,7 @@ const getEstadoAsistencia = (rowid) => {
                         </div>
                         <InputBase
                             placeholder="Ingrese Nombre Alumno"
+                            onChange={(e) => setTerm(e.target.value)}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -329,7 +357,7 @@ const getEstadoAsistencia = (rowid) => {
                     </TableHead>
                     <TableBody>
                         { //props.asistencias.map((row, index) => (
-                            props.alumnos.map((row, index) => (
+                           alumnos.filter(searchingTerm(term)).map((row, index) => (
                                 <TableRow key={index} > 
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
