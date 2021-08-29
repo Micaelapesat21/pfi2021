@@ -105,7 +105,12 @@ const useStyles = makeStyles(theme => ({
     
 }));
 
-
+function searchingTerm(term){
+    console.log("SearchiinvTerm");
+    return function(x){
+        return x.nombre.toLowerCase().includes(term) || !term ; 
+    }
+};
 
 export default function Orders(props) {
     const classes = useStyles();
@@ -115,19 +120,34 @@ export default function Orders(props) {
     const [successMessageIsOpen, setsuccessMessageIsOpen] = React.useState(false);
     const [successMessageIsOpenDesasignado, setsuccessMessageIsOpenDesasignado] = React.useState(false);
     
+    const [alumnos, setAlumnos] = React.useState([]);
+    const [data, setData] = React.useState([]);
+    const [term, setTerm] = React.useState("");
+
     console.log("Arreglo de titulares y de cursos");
     console.log(props.titulares);
     console.log(props.cursos);
 
+    React.useEffect(()=>{
+        console.log("USE EFFECT TABLA Alumnos");
+        setAlumnos(props.alumnos);
+        console.log("state alumnos: " + alumnos);
+        setData(alumnos);   
+       // console.log("USE EFFECT TITULARES");
+    }); 
+
     React.useEffect(() => {
-        console.log("estoy en use effect")
         closeSuccessModal();
         closeSuccessModal2();
         getEmployeeRfid();
-        setactualizar(false);
-       
+        setactualizar(false);  
     }, [actualizar])
 
+
+    React.useEffect(()=>{
+        console.log("USE EFFECT 2");
+        setAlumnos(alumnos);
+    },[alumnos]); 
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -294,6 +314,7 @@ export default function Orders(props) {
                         </div>
                         <InputBase
                             placeholder="Buscar…"
+                            onChange={(e) => setTerm(e.target.value)}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -324,7 +345,7 @@ export default function Orders(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { props.alumnos.map((row, index) => (
+                        { alumnos.filter(searchingTerm(term)).map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>

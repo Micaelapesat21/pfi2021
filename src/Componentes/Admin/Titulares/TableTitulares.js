@@ -82,9 +82,32 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+function searchingTerm(term){
+    console.log("SearchiinvTerm");
+    return function(x){
+        return x.nombre.toLowerCase().includes(term) || !term ; 
+    }
+};
+
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    
+
+    const [titulares, setTitulares] = React.useState([]);
+    const [data, setData] = React.useState([]);
+    const [term, setTerm] = React.useState("");
+
+    React.useEffect(()=>{
+        setTitulares(props.titulares);
+        setData(titulares)
+       // console.log("USE EFFECT TITULARES");
+    }); 
+
+    React.useEffect(()=>{
+     //   console.log("USE EFFECT 2");
+        setTitulares(titulares);
+    },[titulares]); 
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -124,6 +147,7 @@ export default function Orders(props) {
                         </div>
                         <InputBase
                             placeholder="Buscar…"
+                            onChange={(e) => setTerm(e.target.value)}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -150,7 +174,7 @@ export default function Orders(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { props.titulares.map((row, index) => (
+                        { titulares.filter(searchingTerm(term)).map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
