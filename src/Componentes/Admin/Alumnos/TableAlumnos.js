@@ -110,6 +110,7 @@ const useStyles = makeStyles(theme => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    const [actualizar, setactualizar] = React.useState(false);
     const [alumnosRfid, setalumnosRfid] = React.useState([]);
     const [successMessageIsOpen, setsuccessMessageIsOpen] = React.useState(false);
     const [successMessageIsOpenDesasignado, setsuccessMessageIsOpenDesasignado] = React.useState(false);
@@ -118,12 +119,14 @@ export default function Orders(props) {
     console.log(props.titulares);
     console.log(props.cursos);
 
-
     React.useEffect(() => {
+        console.log("estoy en use effect")
         closeSuccessModal();
         closeSuccessModal2();
         getEmployeeRfid();
-    }, [])
+        setactualizar(false);
+       
+    }, [actualizar])
 
 
     const addButtonPressed = () => {
@@ -132,6 +135,7 @@ export default function Orders(props) {
 
     const handleCloseModal = () => {
         setModalIsOpen(false);
+      
     };
 
     const alumnoCreado = (titular) => {
@@ -153,7 +157,7 @@ export default function Orders(props) {
         // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
          console.log('REACT - HIZO la asignacion')
          checkIfEmployeeHasJustAssignedRfid(employeeId);
-      
+         
      };
      const checkIfEmployeeHasJustAssignedRfid = async (employeeId) => {
          console.log("checkIfEmployeeHasJustAssignedRfid");
@@ -167,10 +171,10 @@ export default function Orders(props) {
         // }
          if (serial) {
            
-             console.log("RFID assigned!");
-             setsuccessMessageIsOpen(true);
+             console.log("RFID assigned!");            
              console.log("Con Serial: " + serial);
-           //  this.$toasted.show("RFID assigned!", {
+             setsuccessMessageIsOpen(true);
+             //  this.$toasted.show("RFID assigned!", {
            //     position: "top-left",
            //      duration: 1000,
            //  });
@@ -245,23 +249,28 @@ export default function Orders(props) {
     const closeSuccessModal = () => {
         console.log("cerrado");
         setsuccessMessageIsOpen(false);
+        setactualizar(true);
+
     }
  
     const getSuccessMessageDesasignado = () => {
-        if(successMessageIsOpenDesasignado) {
+        if(successMessageIsOpenDesasignado) 
+        { //setsuccessMessageIsOpenDesasignado(true)
             return "RFID Desasignado!"
+            
         } 
     }
     
     const closeSuccessModal2 = () => {
         setsuccessMessageIsOpenDesasignado(false);
+        setactualizar(true);
     }
  
 
     return (
         <React.Fragment>
-            <ErrorMessageModal title={'Alumno asignado a pulsera con éxito'} errorMessage= {getSuccessMessage() } isOpen={successMessageIsOpen} closeErrorModal={closeSuccessModal.bind()}/>
-            <ErrorMessageModal title={'Pulsera desasignada'} errorMessage= {getSuccessMessageDesasignado() } isOpen={successMessageIsOpenDesasignado} closeErrorModal={closeSuccessModal2.bind()}/>
+            <ErrorMessageModal title={'Alumno asignado a pulsera con éxito'} errorMessage= {getSuccessMessage() } isOpen={successMessageIsOpen} closeErrorModal={closeSuccessModal.bind() }/>
+            <ErrorMessageModal title={'Pulsera desasignada'} errorMessage= {getSuccessMessageDesasignado() } isOpen={successMessageIsOpenDesasignado} closeErrorModal={closeSuccessModal2.bind()} />
             <Dialog
             maxWidth="lg"
             fullWidth= {true}
@@ -272,7 +281,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
             <DialogContent className="dialogContent">   
-             <FormularioDatosAlumnos titularCreado = { alumnoCreado } titulares = { props.titulares } cursoCreado = { alumnoCreado } cursos = { props.cursos } turnos = { props.turnos }/>
+                <FormularioDatosAlumnos titularCreado = { alumnoCreado } titulares = { props.titulares } cursoCreado = { alumnoCreado } cursos = { props.cursos } turnos = { props.turnos }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
@@ -299,7 +308,7 @@ export default function Orders(props) {
             </AppBar>
             <Paper className={classes.paper}>
                 <Title>Alumnos</Title>
-                <Table size="small">
+                <Table size="small" >
                     <TableHead >
                         <TableRow >
                             <TableCell className={classes.tableHead}> 

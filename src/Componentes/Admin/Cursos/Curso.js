@@ -85,7 +85,7 @@ const handleGetAlumnosPorCursos = (curso) => {
         </DialogActions>
       </Dialog> 
   
-    <Card className={classes.root}>
+    <Card className={classes.root} variant="outlined">
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

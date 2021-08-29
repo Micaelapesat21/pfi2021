@@ -108,12 +108,18 @@ export default function Orders(props) {
     console.log(props.cursos)
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
-    const [estado, setEstado] = React.useState(10);
+    const [actualizar, setActualizar] = React.useState(false);
+    const [estado, setEstado] = React.useState("");
     const [date, setDate] = React.useState("2021-08-21");
     const [cursor,setCurso] = React.useState('');
     const [id,setIdCurso] = React.useState('');
     const numerocurso = "";
 
+    React.useEffect(() => {
+        console.log("estoy en use effect")
+        setActualizar(false);   
+
+    }, [date])
 
 
     const handleChange = (event) => {
@@ -121,14 +127,18 @@ export default function Orders(props) {
         if (event.target.id == "date"){
             console.log("handleChange if date");
             setDate(event.target.value);
-        }
-            setEstado(event.target.value);
-        
+        } 
+        //setEstado(event.target.value); 
+       
     };
 
-    const handleChangeStatus = (event) => {
-            setEstado(event.target.value);
-        
+    const handleChangeStatus = async (event,id) => {
+            console.log("id a modificar:" + id);  
+            console.log("estado a guardar:" + event.target.value);  
+            console.log("DIA:" + date);  
+            const estado = event.target.value;   
+            const response = await fetch(`${Constantes.RUTA_API}/save_attendance_data.php?id=${id}&date=${date}&status=${estado}`); 
+            console.log("Guardado");
     };
 
     const addButtonPressed = () => {
@@ -186,9 +196,9 @@ export default function Orders(props) {
     const getNumeroCurso = (rowid) => {
       // console.log("estoy en getNumeroCurso");
       // console.log("la entrada es: " + props.cursos[0].id);
-       let r = {numro:"",division:""};
+       let r = {numero:"",division:""};
         let i = 0;
-       while (i<10 ) {
+       while (i<props.cursos.length) {
       //  console.log("i =  " + i);
             const e = i;
           //  console.log("cursoid: " + props.cursos[e].id);
@@ -324,23 +334,22 @@ const getEstadoAsistencia = (rowid) => {
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
                                 <TableCell>{getNumeroCurso(row.curso).numero + " div " + getNumeroCurso(row.curso).division}</TableCell>
-                                <TableCell>{getEstadoAsistencia(row.id)}
-                                    { /*
-                                <FormControl className={classes.formControl}>
-                                        <InputLabel id="demo-simple-select-label"></InputLabel>
-                                            <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            defaultValue = {get_attendance(row.id)}
-                                            value={get_attendance(row.id)}
-                                            onChange={handleChangeStatus}
-                                            >
-                                            <MenuItem value={10}>Sin Seleccion</MenuItem>
-                                            <MenuItem value={20}>Presente</MenuItem>
-                                            <MenuItem value={30}>Ausente</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        */}
+                                <TableCell>{/*getEstadoAsistencia(row.id)*/}
+                                     <FormControl className={classes.formControl}>
+                                        <Select
+                                        value={estado}
+                                        onChange={(e) => handleChangeStatus(e,row.id)}
+                                        displayEmpty
+                                        className={classes.selectEmpty}
+                                        inputProps={{ 'aria-label': 'Without label' }}
+                                        >
+                                        <MenuItem value="" disabled>
+                                        {getEstadoAsistencia(row.id)}
+                                        </MenuItem>
+                                        <MenuItem value={"presente"}>Presente</MenuItem>
+                                        <MenuItem value={"ausente"}>Ausente</MenuItem>
+                                        </Select>
+                                    </FormControl>
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">

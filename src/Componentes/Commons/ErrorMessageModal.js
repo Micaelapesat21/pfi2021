@@ -17,6 +17,7 @@ class ErrorMessageModal extends Component {
 
   handleClose = () => {
     this.props.closeErrorModal();
+    //this.setState({ text: '' }, this.forceUpdate());
   };
 
   render() {
