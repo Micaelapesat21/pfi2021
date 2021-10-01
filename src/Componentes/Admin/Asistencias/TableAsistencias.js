@@ -108,6 +108,35 @@ function searchingTerm(term){
     }
 };
 
+function formatoFecha(fecha, formato) {
+   
+    let dia = fecha.getDate();
+    let mes = fecha.getMonth() + 1;
+
+    if (fecha.getMonth() + 1 < 10 ) {
+        mes = fecha.getMonth() + 1;
+        mes = "0" + mes.toString();
+
+        console.log("MES: " + mes);
+    }
+    
+    if (fecha.getDate() < 10 ) {
+        dia = fecha.getDate().toString().slice(+2)
+        console.log("DIA: " + dia);
+    }
+
+	const map = {
+        dd: dia,
+        mm: mes,
+        //yy: fecha.getFullYear().toString().slice(-2),
+        yyyy: fecha.getFullYear()
+    }
+
+    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
+}
+
+
+
 export default function Orders(props) {
     console.log("ASISTENCIAS")
     console.log(props.asistencias)
@@ -115,12 +144,15 @@ export default function Orders(props) {
     console.log(props.cursos)
     const dateHoy= new Date();
     console.log("FECHA");
-    console.log(dateHoy);
+    
+    const dateFormateada = formatoFecha(dateHoy, 'yyyy-mm-dd');
+    console.log(dateFormateada);
+
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [actualizar, setActualizar] = React.useState(false);
     const [estado, setEstado] = React.useState("");
-    const [date, setDate] = React.useState("2021-08-21");
+    const [date, setDate] = React.useState(dateFormateada);
     const [cursor,setCurso] = React.useState('');
     const [id,setIdCurso] = React.useState('');
     const numerocurso = "";
@@ -284,9 +316,9 @@ const getEstadoAsistencia = (rowid) => {
           const e = i;
         //  console.log("cursoid: " + props.cursos[e].id);
           if (props.asistencias[e].alumno_id == rowid && props.asistencias[e].fecha == fecha ){
-              r = "Presente"
+              r = props.asistencias[e].estado;
           }else{
-            console.log("entre al else: " + props.asistencias[e].alumno_id)
+            console.log("entre al else: " + props.asistencias[e].alumno_id);
           }
       i++;
      };
@@ -332,7 +364,7 @@ const getEstadoAsistencia = (rowid) => {
                                 id="date"
                                 label="Fecha"
                                 type="date"
-                                defaultValue="2021-08-21"
+                                defaultValue={dateFormateada}
                                 value={date}
                                 onChange={handleChange}
                                 className={classes.textField}
@@ -374,8 +406,8 @@ const getEstadoAsistencia = (rowid) => {
                                         <MenuItem value="" disabled>
                                         {getEstadoAsistencia(row.id)}
                                         </MenuItem>
-                                        <MenuItem value={"presente"}>Presente</MenuItem>
-                                        <MenuItem value={"ausente"}>Ausente</MenuItem>
+                                        <MenuItem value={"Presente"}>Presente</MenuItem>
+                                        <MenuItem value={"Ausente"}>Ausente</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </TableCell>

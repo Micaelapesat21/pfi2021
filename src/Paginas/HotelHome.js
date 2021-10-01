@@ -937,10 +937,11 @@ export default function PanelControl(props) {
 
                         <Container maxWidth="lg" className={classes.container}>
                            <Reportes 
-                               titulares = { titulares }
-                               turnos = { turnos }
-                               cursos = { cursos }
-                               actualizarReportes = { actualizarReportes}
+                               asistencias = { asistencias }
+                              // titulares = {titulares}
+                              // turnos = { turnos }
+                              // cursos = { cursos }
+                              // actualizarReportes = { actualizarReportes}
                            />
                         </Container>
                        </main>
