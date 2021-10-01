@@ -23,6 +23,8 @@ class Empleados extends Component {
         this.getEmpleados();
     }
 
+    
+
     //Api Calls
     getEmpleados() {
         this.setState({ loading: true });
