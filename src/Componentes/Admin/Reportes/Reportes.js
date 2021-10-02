@@ -9,11 +9,41 @@ import 'rc-datepicker/lib/style.css';
 import Constantes from './Constantes'; 
 import ExportExcel from 'react-export-excel';
 import Box from '@material-ui/core/Box';
+import {Bar} from 'react-chartjs-2';
 
 const ExcelFile = ExportExcel.ExcelFile;
 const ExcelSheet = ExportExcel.ExcelSheet;
 const ExcelColumn = ExportExcel.ExcelColumn;
 
+const data = {
+    labels: ['10/09', '11/09', '12/09', '13/09', '14/09', '15/09'],
+    datasets: [
+        {
+            label: '# Presentes',
+            data:  [100, 50, 90, 120, 75, 52],
+            backgroundColor: 'rgb(75, 192, 192)',
+        },
+
+      {
+        label: '# Ausentes',
+        data: [100, 50, 90, 120, 75, 52],
+        backgroundColor: 'rgb(255, 99, 132)',
+      }
+    
+    ]
+  };
+
+  const opciones = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
 
 const styles = theme => ({
 
@@ -29,38 +59,37 @@ function formatoFecha(fecha,formato) {
         mes = "0" + mes.toString();
 
         console.log("MES: " + mes);
-    }
+    };
     
     if (fecha.getDate() < 10 ) {
         dia = fecha.getDate().toString().slice(+2)
         console.log("DIA: " + dia);
-    }
+    };
 
     const map = {
         dd: dia,
         mm: mes,
         //yy: fecha.getFullYear().toString().slice(-2),
         yyyy: fecha.getFullYear()
-    }
-
+    };
     return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
-}
-
-const reportes = [{name:"Bautista Garcia Vega",presence_count :2,absence_count:26},{name:"Rosario Sol Garcia Vega",presence_count:0,absence_count:28}]
+};
 
 class Reportes extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             asistencias: [],
             reporte: [],
             // dateEnd: String,
-            fechaDesde: new Date("2019", "08", "26"),
-            fechaHasta: new Date("2019", "08", "26"),
+            fechaDesde: new Date("2021", "08", "26"),
+            fechaHasta: new Date("2021", "08", "26"),
             fechaD: "", 
             fechaH: "",
-            loading: false,
+            fechasReporte:[],
+            presentes: [],
+            ausentes: [],
+            loading: false
             }
             this.onChangeDesde = this.onChangeDesde.bind(this);
             this.onChangeHasta = this.onChangeHasta.bind(this);
@@ -73,7 +102,11 @@ class Reportes extends Component {
 
     componentDidUpdate() {
         console.log("Componente actualizado");
-        //this.setState({ reporte: this.reporte });
+        console.log(this.state.presentes);
+        console.log(this.state.ausentes);
+        console.log(this.state.fechasReporte);
+        console.log(this.state.fechaD);
+        console.log(this.state.fechaH);
     }
 
     reporteCreado = (asistencia) => {
@@ -101,40 +134,42 @@ class Reportes extends Component {
     }
 
     addButtonPressed = async () => {
+
+        const fechadesde= this.state.fechaD;
+        const fechahasta= this.state.fechaH;
+        console.log("FECHA DESDE:" + fechadesde);
         console.log("Exportar Reporte");
-        const result = await fetch(`${Constantes.RUTA_API}/download_employee_report.php?start=${this.state.fechaD}&end=${this.state.fechaH}`);
-        //const result = await fetch("http://localhost/TEST/asistencia-php-rfid-main/download_employee_report.php?start=2021-09-01&end=2021-09-29");
-        const res = await result.json();
-        console.log("reporte: " + res);
-
-        this.reporte = res;
-        this.setState({reporte: this.reporte})
+      
+       const result = await fetch(`${Constantes.RUTA_API}/download_employee_report.php?start=${fechadesde}&end=${fechahasta}`);
+       //const result = await fetch("http://localhost/TEST/asistencia-php-rfid-main/download_employee_report.php?start=2021-09-01&end=2021-09-29");
+       const res = await result.json();
+       console.log("reporte: " + res);
+       this.reporte = res;
        console.log(" this reporte: " + this.reporte );
-        
-       
-       /*
-        let i = 0;
-        const reporte = [];
-        while(i<res.length){
-                const e = i;
-                const alumnoAsis = {
-                    name: res[e].name,
-                    presence_count: res[e].presence_count,
-                    absence_count: res[e].absence_count,
-                };
-                reporte[e] = alumnoAsis;
-                console.log("alumno: " + reporte[e].name );
-        
-            i++;
-        }
 
-        //this.reporte = reporte;
-        
-        this.setState({reporte: reporte})
-        console.log(" this reporte: " + this.reporte[2].name );
-        
-        return reporte;
-        */
+       const presentesResult = await fetch(`${Constantes.RUTA_API}/get_Alumnos_Presentes_Count.php?start=${fechadesde}&end=${fechahasta}`);
+       //const presentesResult = await fetch("http://localhost/TEST/asistencia-php-rfid-main/get_Alumnos_Presentes_Count.php?start=2021-09-15&end=2021-09-23");
+       console.log("PRESENTES RESPONSE: " + presentesResult);
+       const presentes = await presentesResult.json();
+       console.log("PRESENTES: " + presentes);
+       this.presentes = presentes;
+
+       const ausentesResult = await fetch(`${Constantes.RUTA_API}/get_Alumnos_Ausentes_Count.php?start=${fechadesde}&end=${fechahasta}`);
+       const ausentes = await ausentesResult.json();
+       console.log("AUSENTES: " + ausentes);
+       this.ausentes = ausentes;
+      
+       
+       const fechasResult = await fetch(`${Constantes.RUTA_API}/get_Fechas_Reporte.php?start=${fechadesde}&end=${fechahasta}`);
+       const fechasreporte = await fechasResult.json();
+       console.log("FECHAS: " + fechasreporte);
+       this.fechasReporte = fechasreporte;
+       
+
+       this.setState({presentes: this.presentes})
+       this.setState({reporte: this.reporte})
+       this.setState({ausentes: this.ausentes})
+       this.setState({fechasReporte: this.fechasReporte})
     }
 
     render() {
@@ -174,12 +209,29 @@ class Reportes extends Component {
                                     <ExcelColumn label = "Dias Ausentes" value = "absence_count" />
                                 </ExcelSheet>
                         </ExcelFile>
+                        <div>
+                                <Bar data= {{
+                                        labels: this.state.fechasReporte,
+                                        datasets: [
+                                            {
+                                                label: '# Presentes',
+                                                data: this.state.presentes,
+                                                backgroundColor: 'rgb(75, 192, 192)',
+                                            },
+
+                                        {
+                                            label: '# Ausentes',
+                                            data: this.state.ausentes,
+                                            backgroundColor: 'rgb(255, 99, 132)',
+                                        } ]
+                                    }} options={opciones}/>
+                        </div>
                     </div>
             </Grid>
         </Grid>
         );
     }
-}
+};
 
 Reportes.propTypes = {
     classes: PropTypes.object.isRequired,
