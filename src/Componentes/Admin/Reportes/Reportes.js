@@ -51,7 +51,7 @@ const styles = theme => ({
 
 function formatoFecha(fecha,formato) {
    
-    let dia = fecha.getDate();
+    let dia = fecha.getDay();
     let mes = fecha.getMonth() + 1;
 
     if (fecha.getMonth() + 1 < 10 ) {
@@ -61,8 +61,9 @@ function formatoFecha(fecha,formato) {
         console.log("MES: " + mes);
     };
     
-    if (fecha.getDate() < 10 ) {
-        dia = fecha.getDate().toString().slice(+2)
+    if (fecha.getDay() < 10 ) {
+        dia = fecha.getDay();
+        dia = "0" + dia.toString();
         console.log("DIA: " + dia);
     };
 

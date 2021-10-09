@@ -27,6 +27,7 @@ import Constantes from './Constantes';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
 import Paper from '@material-ui/core/Paper';
+import AlumnosAPI from '../../../Network/Alumnos/AlumnosAPI';
 
 
 // Generate Order Data
@@ -119,8 +120,8 @@ export default function Orders(props) {
     const [alumnosRfid, setalumnosRfid] = React.useState([]);
     const [successMessageIsOpen, setsuccessMessageIsOpen] = React.useState(false);
     const [successMessageIsOpenDesasignado, setsuccessMessageIsOpenDesasignado] = React.useState(false);
-    
-    const [alumnos, setAlumnos] = React.useState([]);
+    const [successMessageDelete, setsuccessMessageDelete] = React.useState(false);
+    const [alumnos, setAlumnos] = React.useState(props.alumnos);
     const [data, setData] = React.useState([]);
     const [term, setTerm] = React.useState("");
 
@@ -128,19 +129,24 @@ export default function Orders(props) {
     console.log(props.titulares);
     console.log(props.cursos);
 
+    //AlumnosAPI.getAlumnos(handleGetAlumnos.bind());
+
     React.useEffect(()=>{
-        console.log("USE EFFECT TABLA Alumnos");
-        setAlumnos(props.alumnos);
+        console.log("USE EFFECT TABLA Alumnos"); 
+       // setAlumnos(props.alumnos);
         console.log("state alumnos: " + alumnos);
         setData(alumnos);   
        // console.log("USE EFFECT TITULARES");
     }); 
 
     React.useEffect(() => {
+        console.log("USE EFFECT 3");
         closeSuccessModal();
         closeSuccessModal2();
+        closeSuccessModal3();
         getEmployeeRfid();
-        setactualizar(false);  
+        AlumnosAPI.getAlumnos(handleGetAlumnos.bind());
+        setactualizar(false);
     }, [actualizar])
 
 
@@ -158,9 +164,23 @@ export default function Orders(props) {
       
     };
 
+    const handleGetAlumnos = async (alumnos) => {
+   
+        console.log("handleGetAlumnos ");
+        if (alumnos === undefined || alumnos === null) {
+            //show error message if needed
+        } else {
+            console.log("actualizo alumnos");
+           // setactualizar(true);
+            setAlumnos(alumnos);
+          
+        }
+    }
+
     const alumnoCreado = (titular) => {
         setModalIsOpen(false);
         props.alumnoCreado(titular);
+        setactualizar(true);
     };
   
     const assignRfidCard = async (employeeId,event) => {
@@ -210,19 +230,19 @@ export default function Orders(props) {
 
      const removeRfidCard = async(alumnoId) => {
  
-        console.log("REMOVIENDO PULSERA");
+        //console.log("REMOVIENDO PULSERA");
         const rfidSerial = await fetch(`${Constantes.RUTA_API}/get_employee_rfid_serial_by_id.php?employee_id=${alumnoId}`);
         // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
-        console.log("RFID SERIAL: " );
-        console.log(rfidSerial);
+        //console.log("RFID SERIAL: " );
+        //console.log(rfidSerial);
         const serial = await rfidSerial.json();
-        console.log(serial);
+        //console.log(serial);
         //rfidSerial = 'B3-ED-AF-19';
         const r = await fetch(`${Constantes.RUTA_API}/remove_rfid_card.php?rfid_serial=${serial}`);
       //const r = await fetch( "http://192.168.0.132/TEST/asistencia-php-rfid-main/remove_rfid_card.php?rfid_serial=" + rfidSerial.toString());
         setsuccessMessageIsOpenDesasignado(true); 
-      console.log("REMOVIDA");
-        console.log(r);
+     // console.log("REMOVIDA");
+       // console.log(r);
         //await fetch("./remove_rfid_card.php?rfid_serial=" + rfidSerial);
         // esto es el mensaje que sale arriba de todo 
         //this.$toasted.show("RFID removed", {
@@ -231,28 +251,45 @@ export default function Orders(props) {
         //});
      };
 
+     const eliminarAlumno = async (alumnoInfo,event) => {
+        console.log("eliminarAlumno: " + alumnoInfo.id);
+        AlumnosAPI.deleteAlumno(alumnoInfo, handleDeleteAlumnos); 
+     };
+
+    const handleDeleteAlumnos = async (alumnoInfo) => {
+        console.log("handleDeleteAlumnoInfo: " + alumnoInfo);
+        if (alumnoInfo.error == null) {
+            //delete was successful
+            console.log("delete was successful");
+            AlumnosAPI.getAlumnos(handleGetAlumnos.bind());
+            setsuccessMessageDelete(true);
+          
+        } else {
+            //delete user failed
+            console.log("delete was failed");
+        }
+    }
+
      const getEmployeeRfid = async () => {
- 
         console.log("getEmployeeRfid");
         const alumnosConRfid = await fetch(`${Constantes.RUTA_API}/get_employees_with_rfid.php`);
-        console.log("Alumnos con rfid: ");
         const alumnosRfid = await alumnosConRfid.json();
         console.log(alumnosRfid);
         setalumnosRfid(alumnosRfid);
      };
 
      const getStatusRfid = (alumnoId) => {
-        console.log("getStatusRfid");
-        console.log("longitud: " + alumnosRfid.length);
+        //console.log("getStatusRfid");
+        //console.log("longitud: " + alumnosRfid.length);
         let i = 0;
         let rfid_serial = "";
         while(i<alumnosRfid.length){
             const e = i;
             if (alumnosRfid[e].alumno_id == alumnoId){
-                console.log("entre al if: " + alumnosRfid[e].rfid_serial )
+          //      console.log("entre al if: " + alumnosRfid[e].rfid_serial )
                 rfid_serial = alumnosRfid[e].rfid_serial;
             }else{
-                console.log("entre al else: " + alumnosRfid[e].alumno_id)
+            //    console.log("entre al else: " + alumnosRfid[e].alumno_id)
             }
             i++;
         }
@@ -263,14 +300,19 @@ export default function Orders(props) {
         if(successMessageIsOpen) {
             return "RFID Asignado!"
         } 
+    };
+
+    const getSuccessMessageDelete = () => {
+        if(successMessageDelete) {
+            return "Gracias!"
+        } 
     }
 
     
     const closeSuccessModal = () => {
-        console.log("cerrado");
+        //console.log("cerrado");
         setsuccessMessageIsOpen(false);
         setactualizar(true);
-
     }
  
     const getSuccessMessageDesasignado = () => {
@@ -286,11 +328,17 @@ export default function Orders(props) {
         setactualizar(true);
     }
  
+    const closeSuccessModal3 = () => {
+        setsuccessMessageDelete(false);
+        setactualizar(true);
+    }
 
     return (
         <React.Fragment>
             <ErrorMessageModal title={'Alumno asignado a pulsera con éxito'} errorMessage= {getSuccessMessage() } isOpen={successMessageIsOpen} closeErrorModal={closeSuccessModal.bind() }/>
             <ErrorMessageModal title={'Pulsera desasignada'} errorMessage= {getSuccessMessageDesasignado() } isOpen={successMessageIsOpenDesasignado} closeErrorModal={closeSuccessModal2.bind()} />
+            <ErrorMessageModal title={'Alumno eliminado con exito'} errorMessage= {getSuccessMessageDelete() } isOpen={successMessageDelete} closeErrorModal={closeSuccessModal3.bind()} />
+            
             <Dialog
             maxWidth="lg"
             fullWidth= {true}
@@ -367,7 +415,7 @@ export default function Orders(props) {
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
-                                        <DeleteIcon />
+                                        <DeleteIcon size="small" onClick= {(event)=> {eliminarAlumno(row,event)}} />
                                     </IconButton>
                                     <IconButton size="small">
                                         <VisibilityIcon />

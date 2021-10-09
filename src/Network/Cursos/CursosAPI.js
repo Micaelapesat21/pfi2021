@@ -88,6 +88,26 @@ class CursosAPI extends Component {
            //return data.numero;
         });
     }
+
+
+    crearNotificacion(notificacionInfo, handlePostCursoInfo) {
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearNotificacionMasiva/Escnotificacion";
+      let body = JSON.stringify( notificacionInfo );
+      console.log("Create Notification Body:" + body);
+        fetch(url,{
+          method: 'Post', 
+          headers:{ 'Content-Type': 'application/json'},
+          body: body
+      })
+       .then ((response) => {
+            console.log("response",response);
+            return response.json();
+        })
+        .then (responseData => {
+            handlePostCursoInfo(responseData);
+        });
+    }
+
 }
 
 export default new CursosAPI();

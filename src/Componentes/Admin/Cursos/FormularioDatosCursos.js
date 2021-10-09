@@ -71,6 +71,7 @@ class FormularioDatosCursos extends Component {
 
     //API Calls
     guardar() {
+        console.log("estoy en guardar");
         {console.log(this.state.gimnasio)}
         if (
             this.state.numero !== "" &&

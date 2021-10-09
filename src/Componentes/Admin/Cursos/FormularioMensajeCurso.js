@@ -40,11 +40,41 @@ const styles = theme => ({
     }
 })
 
-class FormularioDatosCursos extends Component {
+
+function formatoFecha(fecha, formato) {
+   
+    let dia = fecha.getDay();
+    console.log("DIA1: " + dia);
+    let mes = fecha.getMonth() + 1;
+
+    if (fecha.getMonth() + 1 < 10 ) {
+        mes = fecha.getMonth() + 1;
+        mes = "0" + mes.toString();
+
+        console.log("MES: " + mes);
+    }
+    
+    if (fecha.getDay() < 10 ) {
+        dia = fecha.getDay();
+        dia = "0" + dia.toString();
+        console.log("DIA: " + dia);
+    }
+
+	const map = {
+        dd: dia,
+        mm: mes,
+        //yy: fecha.getFullYear().toString().slice(-2),
+        yyyy: fecha.getFullYear()
+    }
+
+    return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
+}
+
+
+class FormularioMensajeCurso extends Component {
 
     constructor(props) {
         super(props);
-       
         this.state = {
             numero: "",
             dvision: "",
@@ -54,9 +84,12 @@ class FormularioDatosCursos extends Component {
             loading: false,
             errorMessageIsOpen: false,
             successMessageIsOpen: false,
-            cursoSeleccionado: null, 
+            cursoSeleccionado: null,
+            cursoMensaje: null, 
             cursosMenuOpen: false,
             cursoInfo: null,
+            cursoMensajeInfo: null,
+            fecha:new Date(), 
             errorMessage: ""
          }
         this.handleChange = this.handleChange.bind(this);
@@ -68,24 +101,52 @@ class FormularioDatosCursos extends Component {
         //  this.getHotelInfo()
     }
 
- 
-
-
     //API Calls
     enviar() {
         console.log("Estoy en enviar Mensaje");
-        console.log(this.state.cursoSeleccionado);
-        console.log(this.state.division);
+        console.log("curso: " + this.state.cursoMensaje);
+        console.log("division:" + this.state.division);
+        console.log("fecha:" + this.state.fecha);
+        const dateFormateada = formatoFecha(this.state.fecha, 'yyyy-mm-dd');
+        console.log("Date formateada: " + dateFormateada);
+        //this.setState({fecha: dateFormateada})
+
+
         if (
             this.state.cursoSeleccionado !== null &&
             this.state.division !== ""
          ) {
            console.log("enviando mensaje");
+           var dict = this.getCursoModel();
+           console.log("curso modelo: " + dict);
+           this.postCursoMensaje(dict);
+           
         } else {
             this.setState({
                 errorMessageIsOpen: true,
                 errorMessage: "Verifique si lleno todos los datos."
             });
+        }
+    }
+
+    postCursoMensaje = (cursoMensajeInfo) => {
+        this.setState({ loading: true });
+        console.log("CURSO Mensaje:" + cursoMensajeInfo);
+        CursosAPI.crearNotificacion(cursoMensajeInfo, this.handlePostCursoMensaje.bind(this));
+    }
+
+    handlePostCursoMensaje = async (cursoMensajeInfo) => {
+        this.setState({ loading: false });
+        if (cursoMensajeInfo.error == null) {
+            //post was successful
+            this.setState({ 
+                cursoMensajeInfo: cursoMensajeInfo,
+                edicion: false, 
+                redOnly: true,
+                successMessageIsOpen: true
+            })
+        } else {
+            //get user with email failed
         }
     }
 
@@ -108,82 +169,23 @@ class FormularioDatosCursos extends Component {
         }
     }
 
-    handleCheck = () => {
-        this.setState({gimnasio: true});
-    }
-
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
 
     //Api Calls
-    /*
-    getHotelInfo(email) {
-        this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
-    }
-    */
-
-    handleGetHotelInfo(hotelInfo) {
-        this.setState({ loading: false });
-
-        if (hotelInfo === undefined || hotelInfo === null) {
-            //show error message if needed
-        } else {
-            let hotelData = hotelInfo.state;
-
-            if (hotelData !== null) {
-                this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.correo,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                    titular: hotelData.titular,
-                    jornada: hotelData.jornada,
-                    gimnasio: hotelData.gimnasio,
-                });            
-            }
-        }
-    }
-
-    postCursoInfo = (cursoInfo) => {
-        this.setState({ loading: true });
-        console.log("CURSO INFO:" + cursoInfo);
-        CursosAPI.createCurso(cursoInfo, this.handlePostCursoInfo.bind(this));
-    }
-
-    handlePostCursoInfo = async (cursoInfo) => {
-        this.setState({ loading: false });
-        if (cursoInfo.error == null) {
-            //post was successful
-            this.setState({ 
-                cursoInfo: cursoInfo,
-                edicion: false, 
-                redOnly: true,
-                successMessageIsOpen: true
-            })
-        } else {
-            //get user with email failed
-        }
-    }
-
+   
     handleChangeCurso(e) {
         let curso = this.props.cursos[ e.target.value ];
-        this.setState({ cursoSeleccionado: e.target.value });
+        this.setState({ cursoSeleccionado: e.target.value});
+        this.setState({ cursoMensaje: curso.id  });
     }
 
     getCursoModel() {
         return {
-            numero: this.state.numero,
-            division: this.state.division,
-            alumnos: [{}]
+            curso: this.state.cursoMensaje,
+            texto: this.state.division,
+            fecha: this.state.fecha
         };
 
     }
@@ -194,16 +196,13 @@ class FormularioDatosCursos extends Component {
     }
 
     closeSuccessModal() {
-        this.props.cursoCreado(this.state.cursoInfo);
+        //this.props.cursoMensaje(this.state.cursoMensajeInfo);
+        console.log("estoy cerrando el mensaje");
         this.setState({ successMessageIsOpen: false }, this.forceUpdate());
     }
 
     getSuccessMessage() {
-        if(this.state.gimnasio) {
-            return "Ya estas Inscripto en el Gimnasio B \n Usuario: ESCB_" + this.state.dni + "\n password: 123456"
-        } else {
-            return "Curso creado"
-        }
+           return "Gracias!";
     }
 
     getCursoMenuValue() {
@@ -233,28 +232,9 @@ class FormularioDatosCursos extends Component {
                 {this.showLoaderIfNeeded()}
                 
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
-                <ErrorMessageModal title={'Curso generado con éxito'} errorMessage= { this.getSuccessMessage() } isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
+                <ErrorMessageModal title={'Mensaje enviado con éxito'} errorMessage= { this.getSuccessMessage() } isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
                 <Paper className={classes.paper}>
-                    <Grid container spacing={3}>
-                        {/*
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel id="demo-mutiple-name-label">Nombre Titular</InputLabel>
-                            <Select
-                            fullWidth
-                            labelId="demo-mutiple-name-label"
-                            id="demo-controlled-open-select"
-                            open={ this.state.titularesMenuOpen }
-                            onClose={ this.handleTitularesMenuClose.bind(this) }
-                            onOpen={ this.handleTitularesMenuOpen.bind(this) }
-                            value = { this.state.titularSeleccionado }
-                            onChange={ e => this.handleChangeTitular(e) }
-                            >
-                            { this.props.titulares.map((titular, index) => (
-                                <MenuItem value={index}> { titular.nombre } { titular.apellido} </MenuItem>
-                            ))}
-                            </Select>
-                        </Grid>
-                         */}       
+                    <Grid container spacing={3}>    
                         <Grid item xs={12} sm={6}>
                             <InputLabel id="curso-label">Curso</InputLabel>
                                 <Select
@@ -290,167 +270,9 @@ class FormularioDatosCursos extends Component {
                             }}
                             />
                         </Grid>
-                        {/* 
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Correo"
-                                name="email"
-                                label="Correo Electronico"
-                                fullWidth
-                                autoComplete="Correo"
-                                value={this.state.email}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Dni"
-                                name="dni"
-                                label="DNI"
-                                fullWidth
-                                autoComplete="Dni"
-                                value={this.state.dni}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="País"
-                                name="pais"
-                                label="País"
-                                fullWidth
-                                autoComplete="País"
-                                value={this.state.pais}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="Estado"
-                                name="estado"
-                                label="Estado/Provincia/Región"
-                                fullWidth
-                                value={this.state.estado}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Ciudad"
-                                name="ciudad"
-                                label="Ciudad"
-                                fullWidth
-                                autoComplete="Ciudad"
-                                value={this.state.ciudad}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Código Postal"
-                                name="codigoPostal"
-                                label="Código Postal"
-                                fullWidth
-                                autoComplete="Código Postal"
-                                value={this.state.codigoPostal}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}> 
-                            <TextField
-                                required
-                                id="Direccion"
-                                name="direccion"
-                                label="Direccion"
-                                fullWidth
-                                autoComplete="Direccion"
-                                value={this.state.direccion}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="Telefono1"
-                                name="telefono1"
-                                label="Telefono 1"
-                                fullWidth
-                                autoComplete="Telefono1"
-                                value={this.state.telefono1}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="telefono2"
-                                name="telefono2"
-                                label="Telefono 2"
-                                fullWidth
-                                autoComplete="Telefono 2"
-                                value={this.state.telefono2}
-                                onChange={this.handleChange}
-                                InputProps={{
-                                    readOnly: this.state.redOnly,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel id="turno-label">Turno</InputLabel>
-                            <Select
-                            fullWidth
-                            labelId="turno-label"
-                            id="turnos-open-select"
-                            open={ this.state.turnosMenuOpen }
-                            onClose={ this.handleTurnosMenuClose.bind(this) }
-                            onOpen={ this.handleTurnosMenuOpen.bind(this) }
-                            value = { this.state.turnoSeleccionado }
-                            onChange={ e => this.handleChangeTurno(e) }
-                            >
-                            { this.props.turnos.map((turno, index) => (
-                                <MenuItem value={ index }> { turno.nombreTurno } , Precio:{  turno.precioTurno } </MenuItem>
-                                ))}
-                            </Select>
-                        </Grid> 
-                        <Grid item xs={12} sm={6}>
-                        <ListItem>
-                        <Checkbox id='gimnasio' onChange={this.handleCheck} color='primary'/>
-                        <ListItemText primary={'Inscribir a Gimnasio'}/></ListItem>
-                        </Grid>
-                        
-                        */}
                     </Grid>
                 </Paper>
-                
-                <Button className = { classes.createButton } variant= "contained" onClick={ this.enviar.bind(this) } color="primary" autoFocus>                         
+                <Button className = { classes.createButton } variant= "contained" onClick={ this.enviar.bind(this)} color="primary" autoFocus>                         
                     Enviar Mensaje
                 </Button>
             </Grid>
@@ -458,51 +280,8 @@ class FormularioDatosCursos extends Component {
     }
 }
 
-FormularioDatosCursos.propTypes = {
+FormularioMensajeCurso.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(FormularioDatosCursos);
+export default withStyles(styles)(FormularioMensajeCurso);
 
-/*
-<Grid xs = {12} sm={8}>
-          <ListItem>
-            <Checkbox id='gimnasio' color='primary'/>
-            <ListItemText primary={'Gimnasio'}/>
-            <Checkbox  id='futbol' color='primary'/>
-            <ListItemText primary={'Fútbol'}/>
-            <Checkbox id ='hockey' color='primary'/>
-            <ListItemText primary={'Hockey'}/>
-            <Checkbox id ='tenis' color='primary'/>
-            <ListItemText primary={'Tenis'}/>
-          </ListItem></Grid>
-          <Grid xs = {12} sm={6}>
-          <ListItem>
-            <Checkbox id ='ingles' color='primary'/>
-            <ListItemText primary={'Inglés'}/>
-            <Checkbox id = 'portugues' color='primary'/>
-            <ListItemText primary={'Portugués'}/>
-            <Checkbox id ='frances' color='primary'/>
-            <ListItemText primary={'Francés'}/>
-          </ListItem></Grid>
-          <Grid xs = {12} sm={8}>
-          <ListItem>
-            <Checkbox id ='danza' color='primary'/>
-            <ListItemText primary={'Danza'}/>
-            <Checkbox id ='teatro' color='primary'/>
-            <ListItemText primary={'Teatro'}/>
-            <Checkbox id ='pintura' color='primary'/>
-            <ListItemText primary={'Pintura'}/>
-            <Checkbox id ='musica' color='primary'/>
-            <ListItemText primary={'Música'}/>
-          </ListItem></Grid>
-          <Grid xs = {12} sm={8}>
-          <ListItem>
-            <Checkbox id ='transporte' color='primary'/>
-            <ListItemText primary={'Transporte'}/>
-            <Checkbox id ='desayuno' color='primary'/>
-            <ListItemText primary={'Desayuno'}/>
-            <Checkbox id ='almuerzo' color='primary'/>
-            <ListItemText primary={'Almuerzo'}/>
-            <Checkbox id ='merienda' onChange={this.handleCheck} color='primary'/>
-            <ListItemText primary={'Merienda'}/>
-          </ListItem></Grid> */

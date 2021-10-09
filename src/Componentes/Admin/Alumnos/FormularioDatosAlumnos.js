@@ -252,6 +252,7 @@ class FormularioDatosAlumnos extends Component {
 
     postAlumnoInfo = (alumnoInfo) => {
         this.setState({ loading: true });
+        console.log("POST ALUMNO INFO" + alumnoInfo.idTitular);
         AlumnosAPI.createAlumno(alumnoInfo, this.handlePostAlumnoInfo.bind(this));
     }
 
@@ -272,6 +273,7 @@ class FormularioDatosAlumnos extends Component {
 
     getAlumnoModel() {
         let titular = this.props.titulares[this.state.titularSeleccionado];
+        console.log("Titular Seleccionado: " + titular.id);
         let turno = this.props.turnos[this.state.turnoSeleccionado];
         let curso = this.props.cursos[this.state.cursoSeleccionado]
         return {

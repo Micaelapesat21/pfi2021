@@ -68,7 +68,7 @@ class Cursos extends Component {
             <Grid item xs={12} >
                <TableCursos cursos = { this.props.cursos }  titulares = { this.props.titulares }
                 turnos = { this.props.turnos }   alumnos = { this.props.alumnos } asistencias = { this.props.asistencias }
-                cursoCreado = { this.cursoCreado.bind(this)}/>
+                cursoCreado = { this.cursoCreado.bind(this)} />
             </Grid>
         </Grid>
         );
