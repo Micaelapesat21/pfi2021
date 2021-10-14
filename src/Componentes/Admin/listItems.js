@@ -96,6 +96,13 @@ export default function mainListItems(props) {
         <ListItemText primary="Reportes Asistencias" />
       </ListItem>
 
+      <ListItem button onClick={props.certificadosOpen}>
+        <ListItemIcon>
+          <AssessmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Certificados y Retiros" />
+      </ListItem>
+
     </div>
   )
 }

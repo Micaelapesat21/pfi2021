@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
 import HotelInfo from '../../../Models/Hotel/HotelInfo'
+import AlumnosAPI from '../../../Network/Alumnos/AlumnosAPI'
 import CursosAPI from '../../../Network/Cursos/CursosAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
@@ -17,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
+import MediaCard from './Certificado';
 
 const styles = theme => ({
     paper: {
@@ -73,7 +75,7 @@ const styles = theme => ({
 }
 
 
-class FormularioMensajeCurso extends Component {
+class FormularioDatosCertificados extends Component {
 
     constructor(props) {
         super(props);
@@ -92,7 +94,9 @@ class FormularioMensajeCurso extends Component {
             cursoInfo: null,
             cursoMensajeInfo: null,
             fecha:"", 
-            errorMessage: ""
+            errorMessage: "",
+            alumno: props.alumno,
+            certificados: props.certificados
          }
         this.handleChange = this.handleChange.bind(this);
         this.edicionOpen = this.edicionOpen.bind(this);
@@ -238,54 +242,24 @@ class FormularioMensajeCurso extends Component {
                 <ErrorMessageModal title={'Algo salió mal'} errorMessage={this.state.errorMessage} isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
                 <ErrorMessageModal title={'Mensaje enviado con éxito'} errorMessage= { this.getSuccessMessage() } isOpen={this.state.successMessageIsOpen} closeErrorModal={this.closeSuccessModal.bind(this)} />
                 <Paper className={classes.paper}>
-                    <Grid container spacing={3}>    
-                        <Grid item xs={12} sm={6}>
-                            <InputLabel id="curso-label">Curso</InputLabel>
-                                <Select
-                                fullWidth
-                                labelId="curso-label"
-                                id="curso-open-select"
-                                open={ this.state.cursosMenuOpen }
-                                onClose={ this.handleCursosMenuClose.bind(this) }
-                                onOpen={ this.handleCursosMenuOpen.bind(this) }
-                                value = { this.state.cursoSeleccionado }
-                                onChange={ e => this.handleChangeCurso(e) }
-                                >
+                        <div className="container">
+                            <div className="row"> 
                                 {
-                                this.props.cursos.map((curso, index) => (
-                                    <MenuItem value={index}> { curso.numero} { curso.division } </MenuItem>
-                                ))}  
-                                </Select>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                            id="outlined-multiline-static"
-                            label="Mensaje"
-                            name="division"
-                            multiline
-                            fullWidth
-                            rows={4}
-                            defaultValue="Escriba texto..."
-                            variant="outlined"
-                            value={this.state.division}
-                            onChange={this.handleChange}
-                            InputProps={{
-                                readOnly: this.state.redOnly
-                            }}
-                            />
-                        </Grid>
-                    </Grid>
+                                    this.state.certificados.map( objectcurso => (
+                                        <div className= "col-md-3" key={objectcurso._id}>
+                                        <MediaCard title={objectcurso.fecha} curso = {objectcurso} ></MediaCard>
+                                        </div>
+                                    ))
+                                }          
+                            </div>
+                        </div>         
                 </Paper>
-                <Button className = { classes.createButton } variant= "contained" onClick={ this.enviar.bind(this)} color="primary" autoFocus>                         
-                    Enviar Mensaje
-                </Button>
             </Grid>
         );
     }
 }
 
-FormularioMensajeCurso.propTypes = {
+FormularioDatosCertificados.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(FormularioMensajeCurso);
-
+export default withStyles(styles)(FormularioDatosCertificados);

@@ -121,7 +121,9 @@ function formatoFecha(fecha, formato) {
     }
     
     if (fecha.getDate() < 10 ) {
-        dia = fecha.getDate().toString().slice(+2)
+        //dia = fecha.getDate().toString().slice(+2);
+        dia = fecha.getDate();
+        dia = "0" + dia.toString();
         console.log("DIA: " + dia);
     }
 

@@ -17,6 +17,7 @@ class Cursos extends Component {
         super(props);
         this.state = {
             cursos: [],
+            cursoMensaje: null,
             alumnos:[],
             asistencias:[],
             loading: false,
@@ -50,6 +51,13 @@ class Cursos extends Component {
         this.props.actualizarCursos(cursosActualizado);
     }
 
+    cursoMensaje = (cursoMensaje) => {
+        //var cursosActualizado = this.props.cursos;
+        //cursosActualizado.push(curso);
+        this.setState({ cursoMensaje: cursoMensaje});
+        this.props.actualizarCursosMensaje(cursoMensaje);
+    }
+
     handleGetCursos(cursos) {
         this.setState({ loading: false });
 
@@ -68,7 +76,7 @@ class Cursos extends Component {
             <Grid item xs={12} >
                <TableCursos cursos = { this.props.cursos }  titulares = { this.props.titulares }
                 turnos = { this.props.turnos }   alumnos = { this.props.alumnos } asistencias = { this.props.asistencias }
-                cursoCreado = { this.cursoCreado.bind(this)} />
+                cursoCreado = { this.cursoCreado.bind(this)}  cursoMensaje = { this.cursoMensaje.bind(this)} />
             </Grid>
         </Grid>
         );

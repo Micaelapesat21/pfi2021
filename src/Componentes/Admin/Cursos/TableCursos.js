@@ -131,6 +131,12 @@ export default function Orders(props) {
         props.cursoCreado(curso);
     }
 
+    const cursoMensaje = (curso) => {
+        setModalIsOpen(false);
+        setmodalMensajeIsOpen(false);
+        props.cursoMensaje(curso);
+    }
+
     return (
         <React.Fragment>
             <Dialog
@@ -161,7 +167,7 @@ export default function Orders(props) {
             >
             <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del mensaje </DialogTitle>
             <DialogContent className="dialogContent">
-            <FormularioMensajeCurso cursoCreado = { cursoCreado } titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos } cursos = { props.cursos }/>
+            <FormularioMensajeCurso cursoCreado = { cursoCreado } cursoMensaje = { cursoMensaje } titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos } cursos = { props.cursos }/>
             {/*
              <DatosCurso  /> */}
                      

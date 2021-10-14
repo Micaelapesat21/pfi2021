@@ -50,8 +50,10 @@ const styles = theme => ({
 })
 
 function formatoFecha(fecha,formato) {
-   
-    let dia = fecha.getDay();
+    console.log(" formatoFecha " + fecha);  
+  
+    let dia = fecha.getDate();
+    console.log("dia: " + dia);
     let mes = fecha.getMonth() + 1;
 
     if (fecha.getMonth() + 1 < 10 ) {
@@ -61,8 +63,8 @@ function formatoFecha(fecha,formato) {
         console.log("MES: " + mes);
     };
     
-    if (fecha.getDay() < 10 ) {
-        dia = fecha.getDay();
+    if (fecha.getDate() < 10 ) {
+        dia = fecha.getDate();
         dia = "0" + dia.toString();
         console.log("DIA: " + dia);
     };
@@ -83,8 +85,8 @@ class Reportes extends Component {
             asistencias: [],
             reporte: [],
             // dateEnd: String,
-            fechaDesde: new Date("2021", "08", "26"),
-            fechaHasta: new Date("2021", "08", "26"),
+            fechaDesde: new Date("2021-10-13"),
+            fechaHasta: new Date("2021-10-14"),
             fechaD: "", 
             fechaH: "",
             fechasReporte:[],
