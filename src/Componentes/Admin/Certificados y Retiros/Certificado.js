@@ -15,6 +15,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosAlumnos from '../Alumnos/FormularioDatosAlumnos';
 import Alumnos from '../Alumnos/Alumnos';
 import CursosAPI from './../../../Network/Cursos/CursosAPI';
+import CertificadosAPI from './../../../Network/Certificados/CertificadosAPI';
+import Image from 'material-ui-image';
 
 
 const useStyles = makeStyles({
@@ -32,15 +34,40 @@ export default function MediaCard(props) {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   //const [modalIsOpen, setAlumnosPorCurso] = React.useState();
-
-
+  const [finalImg, setFinalImg] = React.useState(null);
+  console.log("PROPS CURSO" + props.curso);
+  console.log("PROPS CURSO" + props.curso.nombreImagen);
+  console.log("PROPS CURSO" + JSON.stringify(props.curso));
 
   //Api Calls
-  const getaAlumnosPorCursos = ()=> {
-    
-    CursosAPI.getCursos(handleGetAlumnosPorCursos());
-  }
 
+  const getImagenCertificados = async (imagenInfo,event) => {
+    console.log("getImagenCertificados: " + imagenInfo);
+    CertificadosAPI.getImagenS3(imagenInfo,handleGetImagen)
+    //setAlumno(imagenInfo);
+ };
+
+ const handleGetImagen = async (imagenInfo) => {
+    console.log("handleGetImagen: " + imagenInfo);
+    if (imagenInfo.error == null) {
+        //delete was successful
+        console.log("Se obtuvo la imagnen: " + imagenInfo.Body);
+
+        let objImg = new Buffer.from(imagenInfo.Body,"base64")
+        var finalImg = {
+             contentType: "image/jpg" ,
+             image: objImg,
+        };
+        console.log(finalImg);
+        setFinalImg(finalImg);
+       // setImagen(imagenInfo.Body);
+       // setmodalCertificadosIsOpen(true);
+        
+    } else {
+        //delete user failed
+        console.log("imagen was failed");
+    }
+}
 
 const handleGetAlumnosPorCursos = (curso) => {
     this.setState({ loading: false });
@@ -75,9 +102,10 @@ const handleGetAlumnosPorCursos = (curso) => {
           <Typography gutterBottom variant="h5" component="h2">
           {props.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-                    Certificado: {props.curso.certificado}
-          </Typography>
+        
+           <Image
+            src={props.curso.certificado}
+            />
         </CardContent>
       </CardActionArea>
       <CardActions>

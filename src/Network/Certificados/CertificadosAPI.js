@@ -33,7 +33,7 @@ class CertificadosAPI extends Component {
           headers:{ 'Content-Type': 'application/json'}
        })
         .then ((response) => {
-            console.log("response",response);
+            console.log("response image",response);
             if(response.headers.status !== 404) {
               return response.json();
             } else {
@@ -51,6 +51,32 @@ class CertificadosAPI extends Component {
     }
 
 
+
+    getImagenS3(datoImagen,handleGetImagen)
+    {
+      console.log("API CERTIFICADOS");
+      console.log(datoImagen); 
+      
+        let url =  "http://172.20.10.8:8080/regiapppfi2021/obtenerImagenS3"
+        fetch(url,{
+          method: 'Post', 
+          headers:{ 'Content-Type': 'application/json'}, 
+          body: JSON.stringify(datoImagen)
+       })
+        .then ((response) => {
+            console.log("response",response);
+            if(response.headers.status !== 404) {
+              return response.json();
+            } else {
+              return null;
+            }
+        })
+        .then (responseData => {
+          console.log("RESPONSE DATA");
+          console.log(responseData);
+            handleGetImagen(responseData);    
+        });
+    }
 }
 
 export default new CertificadosAPI();

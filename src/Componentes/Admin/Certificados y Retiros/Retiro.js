@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosAlumnos from '../Alumnos/FormularioDatosAlumnos';
 import Alumnos from '../Alumnos/Alumnos';
 import CursosAPI from './../../../Network/Cursos/CursosAPI';
+import Image from 'material-ui-image';
 
 
 const useStyles = makeStyles({
@@ -32,12 +33,14 @@ export default function MediaCard(props) {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   //const [modalIsOpen, setAlumnosPorCurso] = React.useState();
-
-
-
+  //const path = props.curso.imagenSource;
+ // console.log("PATH RETIROS" + path);
+ // const filePath = new File(path);
+ console.log("props.curso" + props.curso)
+ console.log("props.curso" + props.curso.imagenSource) // el nombre de la imagen
+ console.log("props.curso" + props.curso.alumno_id) // el id del alumno
   //Api Calls
   const getaAlumnosPorCursos = ()=> {
-    
     CursosAPI.getCursos(handleGetAlumnosPorCursos());
   }
 
@@ -75,9 +78,9 @@ const handleGetAlumnosPorCursos = (curso) => {
           <Typography gutterBottom variant="h5" component="h2">
           {props.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-                    Responsable: {props.curso.imagenSource}
-          </Typography>
+          <Image
+            src={props.curso.imagenSource}
+            />
         </CardContent>
       </CardActionArea>
       <CardActions>
