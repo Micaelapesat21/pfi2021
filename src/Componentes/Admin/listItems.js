@@ -16,6 +16,8 @@ import WorkIcon from '@material-ui/icons/Work';
 import GroupIcon from '@material-ui/icons/Group';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import EmailIcon from '@material-ui/icons/Email';   //@mui/icons-material/Email';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser'; 
 
 export default function mainListItems(props) {
   return (
@@ -67,14 +69,14 @@ export default function mainListItems(props) {
         </ListItemIcon>
         <ListItemText primary="Servicios" />
       </ListItem>
-
+      {/* 
       <ListItem button onClick={props.resenasOpen}>
         <ListItemIcon>
           <WorkIcon />
         </ListItemIcon>
         <ListItemText primary="Empleados" />
       </ListItem>
-      
+      */}
       <ListItem button onClick={props.facturacionOpen}>
         <ListItemIcon>
           <ReceiptIcon />
@@ -98,9 +100,16 @@ export default function mainListItems(props) {
 
       <ListItem button onClick={props.certificadosOpen}>
         <ListItemIcon>
-          <AssessmentIcon />
+          <VerifiedUserIcon />
         </ListItemIcon>
         <ListItemText primary="Certificados y Retiros" />
+      </ListItem>
+
+      <ListItem button onClick={props.mensajesOpen}>
+        <ListItemIcon>
+          <EmailIcon />
+        </ListItemIcon>
+        <ListItemText primary="Mensajes" />
       </ListItem>
 
     </div>

@@ -45,9 +45,12 @@ class Cursos extends Component {
     }
 
      cursoCreado = (curso) => {
+         console.log("cursoCreado: " + JSON.stringify(curso))
         var cursosActualizado = this.props.cursos;
+        //agrego el curso que se agrego.
         cursosActualizado.push(curso);
         this.setState({ cursos: cursosActualizado});
+        //le paso el arreglo de cursos actualizado
         this.props.actualizarCursos(cursosActualizado);
     }
 

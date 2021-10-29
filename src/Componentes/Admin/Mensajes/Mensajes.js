@@ -2,19 +2,19 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {  Grid } from '@material-ui/core';
-import TableTitulares from './TableTitulares'
+import TableMensajes from './TableMensajes'
 import TitularesAPI from '../../../Network/Titulares/TitularesAPI';
-import TurrnosAPI from './../../../Network/Turnos/TurnosAPI'
-import AlumnosAPI from './../../../Network/Alumnos/AlumnosAPI'
-import CursosAPI from './../../../Network/Cursos/CursosAPI'
-import AsistenciasAPI from './../../../Network/Asistencias/AsistenciasAPI'
-import MensajesAPI from './../../../Network/Mensajes/MensajesAPI'
+import TurrnosAPI from '../../../Network/Turnos/TurnosAPI'
+import AlumnosAPI from '../../../Network/Alumnos/AlumnosAPI'
+import CursosAPI from '../../../Network/Cursos/CursosAPI'
+import MensajesAPI from '../../../Network/Mensajes/MensajesAPI'
+import AsistenciasAPI from '../../../Network/Asistencias/AsistenciasAPI'
 
 const styles = theme => ({
 
 })
 
-class Titulares extends Component {
+class Mensajes extends Component {
     _isMounted = false;
 
     constructor(props) {
@@ -25,8 +25,10 @@ class Titulares extends Component {
             alumnos: [],
             cursos: [],
             asistencias: [],
-            mensajes: [],
             loading: false,
+            mensajes: [],
+            mensajesActualizados: [],
+            cursoMensaje: null,
         }
     }
 
@@ -59,6 +61,7 @@ class Titulares extends Component {
         this.setState({ titulares: titularesActualizado});
     }
 
+
     handleGetTitulares(titulares) {
         this.setState({ loading: false });
 
@@ -66,7 +69,26 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { titulares: titulares } , this.forceUpdate());
-            this.props.actualizarTitulares(titulares);
+        }
+    }
+
+    getMensajes() {
+        console.log("getMensajes ")
+        this.setState({ loading: true });
+        console.log("getMensajes luego del loading")
+        MensajesAPI.getMensajes(this.handleGetMensajes.bind(this));
+    }
+
+    handleGetMensajes(listmensajes) {
+        this.setState({ loading: false });
+
+        if (listmensajes === undefined || listmensajes === null) {
+            console.log("handleGetMensajes: " + listmensajes)
+            //show error message if needed
+        } else {
+            console.log("Actualiza los mensajes: " + JSON.stringify(listmensajes))
+            this.setState( { mensajes: listmensajes } , this.forceUpdate());
+            this.props.actualizarMensaje(listmensajes);
         }
     }
 
@@ -82,7 +104,7 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { turnos: turnos } , this.forceUpdate());
-            this.props.actualizarTurnos(turnos);
+       
         }
     }
 
@@ -99,23 +121,7 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { cursos: cursos } , this.forceUpdate());
-            //this.props.actualizarCursos(cursos);
-        }
-    }
-
-    getMensajes() {
-        console.log("getMensajes");
-        this.setState({ loading: true });
-        MensajesAPI.getMensajes(this.handleGetMensajes.bind(this));
-    }
-
-    handleGetMensajes(mensajes) {
-        this.setState({ loading: false });
-        console.log("MENSAJES: " + mensajes);
-        if (mensajes === undefined || mensajes === null) {
-            //show error message if needed
-        } else {
-            this.setState( { mensajes: mensajes } , this.forceUpdate());
+            
             //this.props.actualizarCursos(cursos);
         }
     }
@@ -133,7 +139,7 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { asistencias: asistencias } , this.forceUpdate());
-            this.props.actualizarAsistencias(asistencias);
+            //this.props.actualizarAsistencias(asistencias);
         }
     }
 
@@ -149,7 +155,7 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { alumnos: alumnos } , this.forceUpdate());
-            this.props.actualizarAlumnos(alumnos);
+           // this.props.actualizarAlumnos(alumnos);
         }
     }
     
@@ -172,8 +178,22 @@ class Titulares extends Component {
             //show error message if needed
         } else {
             this.setState( { cursos: cursos } , this.forceUpdate());
-            this.props.actualizarCursos(cursos);
+          //  this.props.actualizarCursos(cursos);
         }
+    }
+
+    cursoMensaje = (mensaje) => {
+        console.log("cursoMensaje de Mensajes.js:" + mensaje.id) 
+        console.log("listMensajes: " + JSON.stringify(this.props.mensajes)) 
+        var mensajesActualizados = this.props.mensajes;
+        const indice =  mensajesActualizados.findIndex(obj => obj.id == mensaje.id);
+        mensajesActualizados.splice(indice, 1);
+        console.log("listMensajesActualizada: " + JSON.stringify(mensajesActualizados)) 
+       //agrego el curso que se agrego.
+      // mensajesActualizados.push(curso);
+       this.setState({ mensajes: mensajesActualizados});
+       //le paso el arreglo de mensajes actualizado
+       this.props.actualizarMensaje(mensajesActualizados);
     }
 
     render() {
@@ -181,15 +201,17 @@ class Titulares extends Component {
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} >
-               <TableTitulares titulares = { this.state.titulares } titularCreado = { this.titularCreado.bind(this)} />
+           
+               <TableMensajes titulares = { this.state.titulares } titularCreado = { this.titularCreado.bind(this)}  mensajes={this.props.mensajes} cursoMensaje = { this.cursoMensaje.bind(this)}/>
+            
             </Grid>
         </Grid>
         );
     }
 }
 
-Titulares.propTypes = {
+Mensajes.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Titulares);
+export default withStyles(styles)(Mensajes);

@@ -318,9 +318,6 @@ export default function Orders(props) {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Agregar Alumno 
-                     </Button>
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>

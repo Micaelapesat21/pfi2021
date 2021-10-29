@@ -7,7 +7,8 @@ class HotelAPI extends Component {
 
     postHotelInfo(handlePostHotelInfo) {
      // let url =  Constants.BASE_URL + '/api/v1.0/hoteles';
-     let url =  Constants.BASE_URL + '/regiapppfi2021/obtenerUsuarios' 
+     //let url =  Constants.BASE_URL + '/regiapppfi2021/obtenerUsuarios' 
+     let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerUsuarios"; 
      let hotelData = CobroInfo.getInstance().toJson();
         fetch(url,{
           method: 'PUT', 
@@ -27,13 +28,10 @@ class HotelAPI extends Component {
     {
       console.log('ERROOOOOOOOOOOR A' + email);
       // prueba
-      let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerEmpleados';
+      //let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerEmpleados';
+      let url =  'http://192.168.0.132:8080/regiapppfi2021/obtenerEmpleados';
       
-      //    let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerEmpleado?correo=anixg89@gmail.com';
-      // let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuario?email=' + email;
-       
-      //let url =  Constants.BASE_URL + '/regiapppfi2021/obtenerUsuario?email=' + email;
-      
+      //let url =  Constants.BASE_URL + '/regiapppfi2021/obtenerUsuario?email=' + email;  
       //  let url =  Constants.BASE_URL + '/api/v1.0/hoteles?email=' + email;
       //anterior
       console.log('ERROOOOOOOOOOR 1');

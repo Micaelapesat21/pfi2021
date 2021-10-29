@@ -23,13 +23,14 @@ import AuthController from '../Componentes/login/AuthController'
 import ReservasHotel from '../Componentes/Admin/ReservasHotel'
 import { Grid } from '@material-ui/core';
 //import Logo from '../Imagenes/escudoColegio.jpg'
-import Logo from '../Imagenes/regiapp.jpg';
+import Logo from '../Imagenes/regiapp.png';
 import Titulares from '../Componentes/Admin/Titulares/Titulares';
 import Alumnos from '../Componentes/Admin/Alumnos/Alumnos';
 import Asistencias from '../Componentes/Admin/Asistencias/Asistencias';
 import Cursos from '../Componentes/Admin/Cursos/Cursos';
 import Reportes from '../Componentes/Admin/Reportes/Reportes';
 import Certificados from '../Componentes/Admin/Certificados y Retiros/Certificados';
+import Mensajes from '../Componentes/Admin/Mensajes/Mensajes';
 import Empleados from '../Componentes/Admin/Empleados/Empleados';
 import Cobros from '../Componentes/Admin/Cobros/Cobros';
 import Facturas from '../Componentes/Admin/Facturación/Facturas';
@@ -138,6 +139,8 @@ export default function PanelControl(props) {
     const [modoCursos, setmodoCursos] = React.useState(false);
     const [modoReportes, setmodoReportes] = React.useState(false);
     const [modoCertificados, setmodoCertificados] = React.useState(false);
+    const [modoMensajes, setmodoMensajes] = React.useState(false);
+    
     console.log('pasa 3');
     const [titulares, setTitulares] = React.useState([]);
 
@@ -162,7 +165,10 @@ export default function PanelControl(props) {
     console.log(cursos);
     const [reportes, setReportes] = React.useState([]);
     const [certificados, setCertificados] = React.useState([]);
-    console.log('pasa 9');
+    console.log('pasa 10');
+    const [mensajes, setMensajes] = React.useState([]);
+    console.log('pasa 11');
+    
 
     console.log(modoDatos); //false
     console.log(modoServicios); //false
@@ -199,7 +205,7 @@ export default function PanelControl(props) {
     }
 
     const actualizarCursos = (cursos) => {
-        console.log('pasa cursos');
+        console.log('pasa cursos' + JSON.stringify(cursos));
         setCursos(cursos);
         console.log('pasa cursos fin');
     }
@@ -208,6 +214,12 @@ export default function PanelControl(props) {
         console.log('pasa actualizarCursosMensaje');
         setCursosMensaje(cursosMensaje);
         console.log('pasa actualizarCursosMensaje fin');
+    }
+
+    const actualizarMensaje = (mensajes) => {
+        console.log('pasa actualizarMensaje: ' + mensajes);
+        setMensajes(mensajes);
+        console.log('pasa actualizarMensaje fin');
     }
 
     const actualizarReportes = (reportes) => {
@@ -221,7 +233,14 @@ export default function PanelControl(props) {
         setReportes(certificados);
         console.log('pasa Certificados fin');
     }
+
     
+    const actualizarMensajes = (reportes) => {
+        console.log('pasa Mensajes');
+        setReportes(mensajes);
+        console.log('pasa Mensajes fin');
+    }
+
 
     const handleDrawerOpen = () => {
         console.log('pasa draw');
@@ -245,6 +264,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const generalClose = () => {
         console.log('generalClose');
@@ -262,6 +282,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const datosClose = () => {
         console.log('quiere cerrar datos');
@@ -279,6 +300,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const asistenciasClose = () => {
         console.log('quiere cerrar asistencias');
@@ -297,6 +319,7 @@ export default function PanelControl(props) {
         asistenciasClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
 
     };
     const cursosClose = () => {
@@ -316,6 +339,7 @@ export default function PanelControl(props) {
         asistenciasClose();
         cursosClose();
         certificadosClose();
+        mensajesClose();
     };
 
     const reportesClose = () => {
@@ -335,12 +359,34 @@ export default function PanelControl(props) {
         asistenciasClose();
         cursosClose();
         reportesClose();
+        mensajesClose();
     };
 
     const certificadosClose = () => {
         console.log('quiere cerrar Certificados');
         setmodoCertificados(false);
     };
+
+    const mensajesOpen = () => {
+        console.log('quiere abrir Mensajes');
+        setmodoMensajes(true);
+        generalClose();
+        datosClose();
+        reservasClose();
+        resenasClose();
+        solicitudesClose();
+        serviciosClose();
+        asistenciasClose();
+        cursosClose();
+        reportesClose();
+        certificadosClose();
+    };
+
+    const mensajesClose = () => {
+        console.log('quiere cerrar Mensajes');
+        setmodoMensajes(false);
+    };
+
 
     const serviciosOpen = () => {
         console.log('Servicios Open');
@@ -356,6 +402,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const serviciosClose = () => {
         console.log('servicios close');
@@ -374,6 +421,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const reservasClose = () => {
         setmodoReservas(false);
@@ -392,6 +440,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const solicitudesClose = () => {
         console.log('solicitudes close');
@@ -410,6 +459,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
 
     };
     const resenasClose = () => {
@@ -429,6 +479,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const cobranzasClose = () => {
         setmodoCobranzas(false);
@@ -447,6 +498,7 @@ export default function PanelControl(props) {
         cursosClose();
         reportesClose();
         certificadosClose();
+        mensajesClose();
     };
     const facturacionClose = () => {
         setmodoFacturacion(false);
@@ -512,6 +564,7 @@ export default function PanelControl(props) {
                         cursosOpen={cursosOpen}
                         reportesOpen={reportesOpen}
                         certificadosOpen= {certificadosOpen}
+                        mensajesOpen= {mensajesOpen}
                     />}</List>
                     <Divider />
                     <List></List>
@@ -586,6 +639,7 @@ export default function PanelControl(props) {
                             cursosOpen={cursosOpen}
                             reportesOpen={reportesOpen}
                             certificadosOpen= {certificadosOpen}
+                            mensajesOpen= {mensajesOpen}
                         />}</List>
                         <Divider />
                         <List></List>
@@ -661,6 +715,7 @@ export default function PanelControl(props) {
                                 cursosOpen={cursosOpen}
                                 reportesOpen={reportesOpen}
                                 certificadosOpen= {certificadosOpen}
+                                mensajesOpen= {mensajesOpen}
                             />}</List>
                             <Divider />
                             <List></List>
@@ -740,6 +795,7 @@ export default function PanelControl(props) {
                             reportesOpen={reportesOpen}
                             certificadosOpen= {certificadosOpen}
                             facturacionopen={facturacionOpen}
+                            mensajesOpen= {mensajesOpen}
                         />}</List>
                         <Divider />
                         <List></List>
@@ -821,6 +877,7 @@ export default function PanelControl(props) {
                                     reportesOpen={reportesOpen}
                                     certificadosOpen= {certificadosOpen}
                                     facturacionopen={facturacionOpen}
+                                    mensajesOpen= {mensajesOpen}
                                />}</List>
                        <Divider />
                        <List></List>
@@ -882,7 +939,7 @@ export default function PanelControl(props) {
                               <div className={classes.toolbarIcon}>
                                   <Grid container justify="center" alignItems="center">
                                        <Grid item>
-                                           <img src={Logo} alt="logo" width={90} height={60} />
+                                           <img src={Logo} alt="logo" width={180} height={60} />
                                        </Grid>
                                    </Grid>
                                   <IconButton onClick={handleDrawerClose}>
@@ -903,6 +960,7 @@ export default function PanelControl(props) {
                                     reportesOpen={reportesOpen}
                                     certificadosOpen= {certificadosOpen}
                                     facturacionopen={facturacionOpen}
+                                    mensajesOpen= {mensajesOpen}
                                />}</List>
                        <Divider />
                        <List></List>
@@ -962,7 +1020,7 @@ export default function PanelControl(props) {
                               <div className={classes.toolbarIcon}>
                                   <Grid container justify="center" alignItems="center">
                                        <Grid item>
-                                           <img src={Logo} alt="logo" width={90} height={60} />
+                                           <img src={Logo} alt="logo" width={180} height={60} />
                                        </Grid>
                                    </Grid>
                                   <IconButton onClick={handleDrawerClose}>
@@ -983,6 +1041,7 @@ export default function PanelControl(props) {
                                     reportesOpen={reportesOpen}
                                     certificadosOpen= {certificadosOpen}
                                     facturacionopen={facturacionOpen}
+                                    mensajesOpen= {mensajesOpen}
                                />}</List>
                        <Divider />
                        <List></List>
@@ -1042,7 +1101,7 @@ export default function PanelControl(props) {
                               <div className={classes.toolbarIcon}>
                                   <Grid container justify="center" alignItems="center">
                                        <Grid item>
-                                           <img src={Logo} alt="logo" width={90} height={60} />
+                                           <img src={Logo} alt="logo" width={180} height={60} />
                                        </Grid>
                                    </Grid>
                                   <IconButton onClick={handleDrawerClose}>
@@ -1083,6 +1142,90 @@ export default function PanelControl(props) {
                       </div>
                 ) 
                 else
+                console.log('entro en modo Mensajes');
+                 if (modoMensajes)
+                  return (
+                       <div className={classes.root}>
+                         <CssBaseline />
+                           <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                               <Toolbar className={classes.toolbar}>
+                                   <IconButton
+                                    edge="start"
+                                       color="inherit"
+                                       aria-label="open drawer"
+                                       onClick={handleDrawerOpen}
+                                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                                   >
+                                   <MenuIcon />
+                                   </IconButton>
+                                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                                    Mensajes
+                                   </Typography>
+                                   <IconButton color="inherit">
+                                        <Badge badgeContent={0} color="secondary">
+                                          <NotificationsIcon />
+                                        </Badge>
+                                   </IconButton>
+                                    <IconButton color="inherit" variant="contained" onClick={AuthController.handleLogout}  >
+                                   <ExitToAppIcon />
+                                 </IconButton>
+                               </Toolbar>
+                          </AppBar>
+                           <Drawer
+                               variant="permanent"
+                                 classes={{
+                                  paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                              }}
+                              open={open}
+                           >
+                              <div className={classes.toolbarIcon}>
+                                  <Grid container justify="center" alignItems="center">
+                                       <Grid item>
+                                           <img src={Logo} alt="logo" width={180} height={60} />
+                                       </Grid>
+                                   </Grid>
+                                  <IconButton onClick={handleDrawerClose}>
+                                       <ChevronLeftIcon />
+                                    </IconButton>
+                              </div>
+                              <Divider />
+                               <List>{<ListItems
+                                    generalOpen={generalOpen}
+                                    datosOpen={datosOpen}
+                                    serviciosOpen={serviciosOpen}
+                                    reservasOpen={reservasOpen}
+                                    solicitudesOpen={solicitudesOpen}
+                                    resenasOpen={resenasOpen}
+                                    cobranzasOpen={cobranzasOpen}
+                                    asistenciasOpen={asistenciasOpen}
+                                    cursosOpen={cursosOpen}
+                                    reportesOpen={reportesOpen}
+                                    certificadosOpen={certificadosOpen}
+                                    mensajesOpen={mensajesOpen}
+                                    facturacionopen={facturacionOpen}
+                               />}</List>
+                       <Divider />
+                       <List></List>
+                   </Drawer>
+                       <main className={classes.content}>
+                         <div className={classes.appBarSpacer} />
+
+                        <Container maxWidth="lg" className={classes.container}>
+                           <Mensajes 
+                              titulares = { titulares }
+                              turnos = { turnos }
+                              alumnos = { alumnos }
+                              cursos = { cursos }
+                              mensajes = {mensajes}
+                              actualizarAlumnos = { actualizarAlumnos }
+                              actualizarMensaje = { actualizarMensaje }
+                           />
+                        </Container>
+                       </main>
+                      </div>
+                ) 
+                else
+                
                 console.log('entro en modoooo');
                    if (modoSolicitudes)
                       return (
@@ -1143,6 +1286,7 @@ export default function PanelControl(props) {
                                     cursosOpen={cursosOpen}
                                     reportesOpen={reportesOpen}
                                     certificadosOpen= {certificadosOpen}
+                                    mensajesOpen= {mensajesOpen}
                                 />}</List>
                                 <Divider />
                                 <List></List>
@@ -1223,6 +1367,7 @@ export default function PanelControl(props) {
                                         cursosOpen={cursosOpen}
                                         reportesOpen={reportesOpen}
                                         certificadosOpen= {certificadosOpen}
+                                        mensajesOpen= {mensajesOpen}
                                     />}</List>
                                     <Divider />
                                     <List></List>
@@ -1297,6 +1442,7 @@ export default function PanelControl(props) {
                                             cursosOpen={cursosOpen}
                                             reportesOpen={reportesOpen}
                                             certificadosOpen= {certificadosOpen}
+                                            mensajesOpen= {mensajesOpen}
                                         />}</List>
                                         <Divider />
                                         <List></List>
@@ -1374,6 +1520,7 @@ export default function PanelControl(props) {
                                                 cursosOpen={cursosOpen}
                                                 reportesOpen={reportesOpen}
                                                 certificadosOpen= {certificadosOpen}
+                                                mensajesOpen= {mensajesOpen}
                                             />}</List>
                                             <Divider />
                                             <List></List>
@@ -1449,6 +1596,7 @@ export default function PanelControl(props) {
                                                             cursosOpen={cursosOpen}
                                                             reportesOpen={reportesOpen}
                                                             certificadosOpen= {certificadosOpen}
+                                                            mensajesOpen= {mensajesOpen}
                                                         />}</List>
                                                         <Divider />
                                                         <List></List>

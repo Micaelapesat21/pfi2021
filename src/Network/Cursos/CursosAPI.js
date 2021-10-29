@@ -5,7 +5,9 @@ import HotelInfo from '../../Models/Hotel/HotelInfo';
 class CursosAPI extends Component {
 
     createCurso(cursoInfo, handlePostCursoInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCurso/Esccurso";
+      //let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCurso/Esccurso";
+      let url = "http://192.168.0.132:8080/regiapppfi2021/crearCurso/Esccurso";
+      
       let body = JSON.stringify( cursoInfo );
       console.log("Create Curso Body:" + body);
         fetch(url,{
@@ -24,7 +26,9 @@ class CursosAPI extends Component {
 
     getCursos(handleGetCursos)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursos";
+        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursos";
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCursos";
+        
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -44,7 +48,9 @@ class CursosAPI extends Component {
 
     getAlumnosPorCursos(curso,handleGetAlumnosPorCursos)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnosPorCursos/" + curso;
+        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerAlumnosPorCursos/" + curso;
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerAlumnosPorCursos/" + curso;
+        
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -66,7 +72,9 @@ class CursosAPI extends Component {
     {
       console.log("API CURSOS");
       console.log(idcurso);
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursosPorId/" + idcurso;
+       // let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCursosPorId/" + idcurso;
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCursosPorId/" + idcurso;
+        
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -89,9 +97,10 @@ class CursosAPI extends Component {
         });
     }
 
-
     crearNotificacion(notificacionInfo, handlePostCursoInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearNotificacionMasiva/Escnotificacion";
+     // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearNotificacionMasiva/Escnotificacion";
+      let url = "http://192.168.0.132:8080/regiapppfi2021/crearNotificacionMasiva/Escnotificacion";
+      
       let body = JSON.stringify( notificacionInfo );
       console.log("Create Notification Body:" + body);
         fetch(url,{

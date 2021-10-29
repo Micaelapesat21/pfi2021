@@ -27,7 +27,7 @@ También tengo canal de YouTube: https://www.youtube.com/channel/UCroP4BTWjfM0Ck
 */
 const Constantes = {
     //RUTA_API: "http://192.168.0.132/TEST/api-php-react-main",
-   // RUTA_API: "http://192.168.0.132/TEST/asistencia-php-rfid-main",
-    RUTA_API: "http://172.20.10.8/TEST/asistencia-php-rfid-main",
+      RUTA_API: "http://192.168.0.132/TEST/asistencia-php-rfid-main",
+   // RUTA_API: "http://172.20.10.8/TEST/asistencia-php-rfid-main",
 };
 export default Constantes;
