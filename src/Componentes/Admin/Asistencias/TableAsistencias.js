@@ -31,7 +31,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CursosAPI from './../../../Network/Cursos/CursosAPI';
 import { LeakAddTwoTone } from '@material-ui/icons';
-import Constantes from './Constantes'; 
+//import Constantes from './Constantes'; 
+import Constantes from '../Constantes';
 import { getDate } from 'date-fns';
 
 

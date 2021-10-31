@@ -23,7 +23,7 @@ import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MessageIcon from '@material-ui/icons/Message';
-import Constantes from './Constantes'; 
+//import Constantes from './Constantes'; 
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Paper from '@material-ui/core/Paper';
 import AlumnosAPI from '../../../Network/Alumnos/AlumnosAPI';

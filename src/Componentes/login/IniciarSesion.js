@@ -275,24 +275,27 @@ class IniciarSesion extends React.Component {
 
                 {/*    Cambiar contraseña             */}
 
-                <Link href="#" onClick={this.handleOpenContra} variant="body2">
-                  Olvidaste la contraseña?
-              </Link>
+      
                 <Dialog open={openContra} onClose={this.handleCloseContra} >
                   <CambiarPass closePass={this.handleCloseContra.bind()} />
                 </Dialog>
               </Grid>
               <Grid item >
-                <Link href="#" onClick={this.handleOpenRegistro} variant="body2">
-                  No tenes cuenta? Registrate
-              </Link>
-
+ 
               </Grid>
 
               <Dialog open={openRegistro} onClose={this.handleCloseRegistro}>
                 <Registro closeRegistro={this.handleCloseRegistro.bind()} />
               </Dialog>
 
+              <Button
+                fullWidth
+                variant="contained"
+                className={classes.botonicono}
+                onClick={AuthController.handleAuthGoogle}>
+                <img src={LogoGoogle} alt="LogoGoogle" className={classes.icono} />
+                Ingresá con Google
+              </Button>
             </Grid>
             {this.modoHotel()}
           </form>

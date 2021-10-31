@@ -1,6 +1,7 @@
 import {Component} from 'react';
-import Constants from '../../Utils/Constants';
+//import Constants from '../../Utils/Constants';
 import HotelInfo from '../../Models/Hotel/HotelInfo';
+import Constants from '../../Componentes/Admin/Constantes'
 
 class AsistenciasAPI extends Component {
 
@@ -45,9 +46,7 @@ class AsistenciasAPI extends Component {
 // Trae de mysql
     getAsistencias(handleGetAsistencias)
     {
-        let url =  "http://192.168.0.132/TEST/asistencia-php-rfid-main/get_employees_attencande.php";
-        //let url =  "http://172.20.10.8/TEST/asistencia-php-rfid-main/get_employees_attencande.php";
-        
+        let url =  "http://192.168.0.132/TEST/asistencia-regiapp-rfid/get_employees_attencande.php"; 
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

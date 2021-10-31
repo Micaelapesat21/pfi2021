@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {  Grid } from '@material-ui/core';
 import TablaCertificados from './TablaCertificados'
-import Constantes from './Constantes';
+//import Constantes from './Constantes';
 
 const styles = theme => ({
 

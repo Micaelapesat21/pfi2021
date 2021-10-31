@@ -6,7 +6,8 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import 'react-datepicker/dist/react-datepicker.css';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
-import Constantes from './Constantes'; 
+//import Constantes from './Constantes'; 
+import Constantes from '../Constantes';
 import ExportExcel from 'react-export-excel';
 import Box from '@material-ui/core/Box';
 import {Bar} from 'react-chartjs-2';
@@ -144,14 +145,12 @@ class Reportes extends Component {
         console.log("Exportar Reporte");
       
        const result = await fetch(`${Constantes.RUTA_API}/download_employee_report.php?start=${fechadesde}&end=${fechahasta}`);
-       //const result = await fetch("http://localhost/TEST/asistencia-php-rfid-main/download_employee_report.php?start=2021-09-01&end=2021-09-29");
        const res = await result.json();
        console.log("reporte: " + res);
        this.reporte = res;
        console.log(" this reporte: " + this.reporte );
 
        const presentesResult = await fetch(`${Constantes.RUTA_API}/get_Alumnos_Presentes_Count.php?start=${fechadesde}&end=${fechahasta}`);
-       //const presentesResult = await fetch("http://localhost/TEST/asistencia-php-rfid-main/get_Alumnos_Presentes_Count.php?start=2021-09-15&end=2021-09-23");
        console.log("PRESENTES RESPONSE: " + presentesResult);
        const presentes = await presentesResult.json();
        console.log("PRESENTES: " + presentes);

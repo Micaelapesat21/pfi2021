@@ -23,7 +23,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MessageIcon from '@material-ui/icons/Message';
 import Alumnos from './Alumnos';
-import Constantes from './Constantes'; 
+//import Constantes from './Constantes'; 
+import Constantes from '../Constantes';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
 import Paper from '@material-ui/core/Paper';
@@ -239,7 +240,6 @@ export default function Orders(props) {
         //console.log(serial);
         //rfidSerial = 'B3-ED-AF-19';
         const r = await fetch(`${Constantes.RUTA_API}/remove_rfid_card.php?rfid_serial=${serial}`);
-      //const r = await fetch( "http://192.168.0.132/TEST/asistencia-php-rfid-main/remove_rfid_card.php?rfid_serial=" + rfidSerial.toString());
         setsuccessMessageIsOpenDesasignado(true); 
      // console.log("REMOVIDA");
        // console.log(r);
