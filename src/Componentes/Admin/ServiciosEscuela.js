@@ -53,6 +53,7 @@ class ServiciosEscuela extends Component {
     
 
     handleChange = name => event => {
+        console.log("Mas")
         this.setState({ [name]: event.target.checked });
     };
 

@@ -216,42 +216,6 @@ export default function Orders(props) {
                         }          
                     </div>
                  </div>             
-
-              {/*   <Table size="small">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nombre</TableCell>
-                            <TableCell>Apellido</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Teléfono</TableCell>
-                            <TableCell>Ciudad</TableCell>
-                            <TableCell align="right">Acciones</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        { props.cursos.map((row, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{row.nombre}</TableCell>
-                                <TableCell>{row.apellido}</TableCell>
-                                <TableCell>{row.correo}</TableCell>
-                                <TableCell>{row.telefono1}</TableCell>
-                                <TableCell>{row.ciudad}</TableCell>
-                                <TableCell align="right">
-                                    <IconButton size="small">
-                                        <CheckIcon />
-                                    </IconButton>
-                                    <IconButton size="small">
-                                        <BlockIcon />
-                                    </IconButton>
-                                    <IconButton size="small">
-                                        <VisibilityIcon />
-                                    </IconButton>
-                                </TableCell>
-
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table> */}
                 <div className={classes.seeMore}>
                     <Link color="primary" >
                         Ver Mas Solicitudes

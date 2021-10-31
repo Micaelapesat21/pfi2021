@@ -168,6 +168,8 @@ export default function PanelControl(props) {
     console.log('pasa 10');
     const [mensajes, setMensajes] = React.useState([]);
     console.log('pasa 11');
+
+    const [pagos, setPagos] = React.useState([]);
     
 
     console.log(modoDatos); //false
@@ -220,6 +222,11 @@ export default function PanelControl(props) {
         console.log('pasa actualizarMensaje: ' + mensajes);
         setMensajes(mensajes);
         console.log('pasa actualizarMensaje fin');
+    }
+    const actualizarPagos = (pagos) => {
+        console.log('pasa actualizarPagos: ' + pagos);
+        setPagos(pagos);
+        console.log('pasa actualizarPagos fin');
     }
 
     const actualizarReportes = (reportes) => {
@@ -1121,6 +1128,7 @@ export default function PanelControl(props) {
                                     cursosOpen={cursosOpen}
                                     reportesOpen={reportesOpen}
                                     certificadosOpen={certificadosOpen}
+                                    mensajesOpen= {mensajesOpen}
                                     facturacionopen={facturacionOpen}
                                />}</List>
                        <Divider />
@@ -1530,7 +1538,7 @@ export default function PanelControl(props) {
 
                                             <Container maxWidth="lg" className={classes.container}>
                                             
-                                            <Cobros facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos }  cursos = { cursos } />
+                                            <Cobros facturas = { facturas } titulares = { titulares } turnos = { turnos } alumnos = { alumnos }  cursos = { cursos } pagos = {pagos} actualizarPagos = {actualizarPagos}/>
                             
                                             </Container>
                                         </main>

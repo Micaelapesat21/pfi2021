@@ -59,6 +59,28 @@ class CobranzasAPI extends Component {
           handlePostTarjeta(responseData);
         });
     }
+
+
+    getPagos(handleGetPagos)
+    {
+
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerPagos";
+        fetch(url,{
+          method: 'GET', 
+          headers:{ 'Content-Type': 'application/json'}
+      })
+        .then ((response) => {
+            console.log("response",response);
+            if(response.headers.status !== 404) {
+              return response.json();
+            } else {
+              return null;
+            }
+        })
+        .then (responseData => {
+          handleGetPagos(responseData);
+        });
+    }
 }
 
 export default new CobranzasAPI();

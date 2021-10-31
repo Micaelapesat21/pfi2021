@@ -91,7 +91,7 @@ console.log("ALUMNOS DEL CURSO")
 console.log(props.alumnos)
 console.log("ASISTENCIAS")
 console.log(props.asistencias)
-const [date, setDate] = React.useState("2021-08-21");
+const [date, setDate] = React.useState("2021-09-18");
 
 const getEstadoAsistencia = (rowid) => {
     console.log("estoy en getEstadoAsistencia");

@@ -31,9 +31,10 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  const [date, setDate] = React.useState("2021-09-18");
   //const [modalIsOpen, setAlumnosPorCurso] = React.useState();
 
-
+  console.log("asistencias: " + props.asistencias)
 
   //Api Calls
   const getaAlumnosPorCursos = ()=> {
@@ -66,6 +67,35 @@ const handleGetAlumnosPorCursos = (curso) => {
     props.alumnoCreado(titular);
   };
 
+  const getCantidadPresentesAsistencia = () => {
+    console.log("Longitud asistencias:" + props.asistencias.length);
+    console.log("rowid:" + date);
+    console.log("alumnos por curso: " + props.curso.alumnos)
+    let r = "Ausente";
+    let count = 0;
+    const fecha = date;
+    let i = 0;
+    let j = 0;
+    while (j < props.curso.alumnos.length){
+      const a = j
+      i = 0
+      const rowid = props.curso.alumnos[a];
+      console.log(" alumno de curso: " + rowid);
+      while (i<props.asistencias.length) {
+          const e = i;
+          console.log(" alumno de asistnecia: " + props.asistencias[e].alumno_id);
+            if (props.asistencias[e].alumno_id == rowid && props.asistencias[e].fecha == fecha && props.asistencias[e].estado == "Presente" ){
+              count++;
+            }
+        i++;
+      };
+      console.log("aumento j")
+      j++;
+    }
+      return count;
+  };
+
+
 
   return (
     <React.Fragment>
@@ -94,9 +124,9 @@ const handleGetAlumnosPorCursos = (curso) => {
           <Typography variant="body2" color="textSecondary" component="p">
                     Total alumnos: {props.curso.alumnos.length}
                     <br/>
-                    Total Presentes: 1
+                    Total Presentes: {getCantidadPresentesAsistencia()}
                     <br/>
-                    Total Ausentes: {props.curso.alumnos.length - 1}
+                    Total Ausentes: {props.curso.alumnos.length - getCantidadPresentesAsistencia()}
                     <br/>
           </Typography>
         </CardContent>

@@ -1,27 +1,34 @@
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {  Grid, Button, TextField } from '@material-ui/core';
+import {  Grid, Button, TextField, Typography} from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import 'react-datepicker/dist/react-datepicker.css';
-import { DatePicker, DatePickerInput } from 'rc-datepicker';
+import {DatePickerInput } from 'rc-datepicker';
+import DatePicker from 'react-datepicker';
 import 'rc-datepicker/lib/style.css';
 //import Constantes from './Constantes'; 
 import Constantes from '../Constantes';
 import ExportExcel from 'react-export-excel';
 import Box from '@material-ui/core/Box';
 import {Bar} from 'react-chartjs-2';
+import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 
 const ExcelFile = ExportExcel.ExcelFile;
 const ExcelSheet = ExportExcel.ExcelSheet;
 const ExcelColumn = ExportExcel.ExcelColumn;
+const placeholderFecha = {
+    label: 'Selecciona una fecha',
+    value: null,
+  };
+  
 
 const data = {
     labels: ['10/09', '11/09', '12/09', '13/09', '14/09', '15/09'],
     datasets: [
         {
             label: '# Presentes',
-            data:  [100, 50, 90, 120, 75, 52],
+            data:  [100, 50, 90, 120, 75, 52], 
             backgroundColor: 'rgb(75, 192, 192)',
         },
 
@@ -86,14 +93,18 @@ class Reportes extends Component {
             asistencias: [],
             reporte: [],
             // dateEnd: String,
-            fechaDesde: new Date("2021-10-13"),
-            fechaHasta: new Date("2021-10-14"),
+            fechaDesde: new Date(2021,10,1),
+            fechaHasta: new Date(2021,10,2),
             fechaD: "", 
             fechaH: "",
             fechasReporte:[],
             presentes: [],
             ausentes: [],
-            loading: false
+            loading: false,
+            errorMessageIsOpen: false,
+            errorMessage1IsOpen: false,
+            errorMessage2IsOpen: false,
+
             }
             this.onChangeDesde = this.onChangeDesde.bind(this);
             this.onChangeHasta = this.onChangeHasta.bind(this);
@@ -134,17 +145,27 @@ class Reportes extends Component {
         //this.state.fechaH = dateFormateada; 
         this.setState({fechaH: dateFormateada})
         console.log("fecha desde: " + this.state.fechaH);
-
     }
 
     addButtonPressed = async () => {
+    
 
         const fechadesde= this.state.fechaD;
         const fechahasta= this.state.fechaH;
         console.log("FECHA DESDE:" + fechadesde);
         console.log("Exportar Reporte");
-      
-       const result = await fetch(`${Constantes.RUTA_API}/download_employee_report.php?start=${fechadesde}&end=${fechahasta}`);
+      if (fechadesde == "" ){
+            this.setState({ errorMessageIsOpen: true }, this.forceUpdate());
+      }else { 
+            if (fechahasta == ""){
+                this.setState({ errorMessage1IsOpen: true }, this.forceUpdate());
+            } else {
+                    if (fechadesde > fechahasta) {
+                        this.setState({ errorMessage2IsOpen: true }, this.forceUpdate());
+                    }    
+        }
+    }
+       const result = await fetch(`${Constantes.RUTA_API}/download_alumno_report.php?start=${fechadesde}&end=${fechahasta}`);
        const res = await result.json();
        console.log("reporte: " + res);
        this.reporte = res;
@@ -174,21 +195,39 @@ class Reportes extends Component {
        this.setState({fechasReporte: this.fechasReporte})
     }
 
+    closeErrorModal() {
+        this.setState({ errorMessageIsOpen: false }, this.forceUpdate());
+        this.setState({ errorMessage1IsOpen: false }, this.forceUpdate());
+        this.setState({ errorMessage2IsOpen: false }, this.forceUpdate());
+    }
+
+    getErrorMessage() {
+            return "Gracias"
+    }
+
     render() {
         //const { classes } = this.props;
         return (
             <Grid container spacing={3} justify="center" alignItems="center">
+            <ErrorMessageModal title={'Porfavor seleccione una fecha de inicio en la que desea buscar la asistencia'} errorMessage= { this.getErrorMessage() } isOpen={this.state.errorMessageIsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+            <ErrorMessageModal title={'Porfavor seleccione una fecha de fin en la que desea buscar la asistencia'} errorMessage= { this.getErrorMessage() } isOpen={this.state.errorMessage1IsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+            <ErrorMessageModal title={'Porfavor seleccione un rango de fechas válido'} errorMessage= { this.getErrorMessage() } isOpen={this.state.errorMessage2IsOpen} closeErrorModal={this.closeErrorModal.bind(this)} />
+            
             <Grid item xs={12} >
                 <div>
+                <Typography variant="h5">Seleccione las fechas para buscar las Asistencias: </Typography>
+                <br/>
                     <DatePickerInput
                         onChange={this.onChangeDesde}
                         value={this.state.fechaDesde}
+                        placeholder = {placeholderFecha}
                         className='my-custom-datepicker-component'
                     />
                     <br/>
                     <DatePickerInput
                         onChange={this.onChangeHasta}
                         value={this.state.fechaHasta}
+                        placeholder = {placeholderFecha}
                         className='my-custom-datepicker-component'
                     />
                 </div>
@@ -202,7 +241,7 @@ class Reportes extends Component {
                         <br/>
 
                         <ExcelFile element = { <Button variant="contained" color="secondary">
-                                                                Exportar Reporte
+                                                                Exportar Reporte en Excel
                                                         </Button>} 
                                     filename = "Reporte Asistencia" >
                                 <ExcelSheet data ={this.reporte} name = "Asistencias">

@@ -9,6 +9,7 @@ import AlumnosAPI from './../../../Network/Alumnos/AlumnosAPI'
 import CursosAPI from './../../../Network/Cursos/CursosAPI'
 import AsistenciasAPI from './../../../Network/Asistencias/AsistenciasAPI'
 import MensajesAPI from './../../../Network/Mensajes/MensajesAPI'
+import CuotasAPI from './../../../Network/Cobranzas/CobranzasAPI'
 
 const styles = theme => ({
 
@@ -26,6 +27,7 @@ class Titulares extends Component {
             cursos: [],
             asistencias: [],
             mensajes: [],
+            pagos: [],
             loading: false,
         }
     }
@@ -40,6 +42,7 @@ class Titulares extends Component {
             this.getCursos();
             this.getAsistencias();
             this.getMensajes();
+            this.getPagos();
         }
     }
 
@@ -117,6 +120,22 @@ class Titulares extends Component {
         } else {
             this.setState( { mensajes: mensajes } , this.forceUpdate());
             //this.props.actualizarCursos(cursos);
+        }
+    }
+
+    getPagos() {
+        console.log("getPagos");
+        this.setState({ loading: true });
+        CuotasAPI.getPagos(this.handleGetPagos.bind(this));
+    }
+
+    handleGetPagos(pagos) {
+        this.setState({ loading: false });
+        console.log("Pagos: " + pagos);
+        if (pagos === undefined || pagos === null) {
+            //no hay pagos
+        } else {
+            this.setState( { pagos: pagos } , this.forceUpdate());
         }
     }
 

@@ -545,9 +545,7 @@ class FormularioDatosAlumnos extends Component {
                             </Select>
                         </Grid> 
                         <Grid item xs={12} sm={6}>
-                        <ListItem>
-                        <Checkbox id='gimnasio' onChange={this.handleCheck} color='primary'/>
-                        <ListItemText primary={'Inscribir a Gimnasio'}/></ListItem>
+                       
                         </Grid>
                         
           

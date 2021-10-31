@@ -18,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosAlumnos from './FormularioDatosAlumnos';
+
 import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
@@ -41,7 +42,7 @@ const rows = [
     createData(1, 'Elena', 'Roger', 'elenaroger@gmail.com', '1154537898', 'Palermo'),
 ];
 
-const CHECK_PAIRING_EMPLOYEE_INTERVAL = 1000;
+const CHECK_PAIRING_ALUMNO_INTERVAL = 1000;
 
 const useStyles = makeStyles(theme => ({
     seeMore: {
@@ -125,6 +126,9 @@ export default function Orders(props) {
     const [alumnos, setAlumnos] = React.useState(props.alumnos);
     const [data, setData] = React.useState([]);
     const [term, setTerm] = React.useState("");
+    
+    const [actualizarIsOpen, setActualizarIsOpen] = React.useState(false);
+    const [alumnoActualizar, setAlumnoActualizar] = React.useState([]);
 
     console.log("Arreglo de titulares y de cursos");
     console.log(props.titulares);
@@ -160,9 +164,15 @@ export default function Orders(props) {
         setModalIsOpen(true);
     };
 
+    const actualizarButtonPressed = (row) => {
+        console.log("actualizarButtonPressed" + row);
+        setAlumnoActualizar(row);
+        setActualizarIsOpen(true);
+    };
+
     const handleCloseModal = () => {
         setModalIsOpen(false);
-      
+        setActualizarIsOpen(false);
     };
 
     const handleGetAlumnos = async (alumnos) => {
@@ -197,12 +207,12 @@ export default function Orders(props) {
          const respuesta = await fetch(`${Constantes.RUTA_API}/set_reader_for_pairing.php?employee_id=${employeeId}`);
         // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
          console.log('REACT - HIZO la asignacion')
-         checkIfEmployeeHasJustAssignedRfid(employeeId);
+         checkIfAlumnoHasJustAssignedRfid(employeeId);
          
      };
-     const checkIfEmployeeHasJustAssignedRfid = async (employeeId) => {
-         console.log("checkIfEmployeeHasJustAssignedRfid");
-         const r = await fetch(`${Constantes.RUTA_API}/get_employee_rfid_serial_by_id.php?employee_id=${employeeId}`);
+     const checkIfAlumnoHasJustAssignedRfid = async (employeeId) => {
+         console.log("checkIfAlumnoHasJustAssignedRfid");
+         const r = await fetch(`${Constantes.RUTA_API}/get_alumno_rfid_serial_by_id.php?employee_id=${employeeId}`);
          console.log(r);
          const serial = await r.json();
          console.log(serial);
@@ -224,15 +234,15 @@ export default function Orders(props) {
          } else {
             console.log("Aun no asignado")
              setTimeout(() => {
-                checkIfEmployeeHasJustAssignedRfid(employeeId);
-             }, CHECK_PAIRING_EMPLOYEE_INTERVAL);
+                checkIfAlumnoHasJustAssignedRfid(employeeId);
+             }, CHECK_PAIRING_ALUMNO_INTERVAL);
          }
      };
 
      const removeRfidCard = async(alumnoId) => {
  
         //console.log("REMOVIENDO PULSERA");
-        const rfidSerial = await fetch(`${Constantes.RUTA_API}/get_employee_rfid_serial_by_id.php?employee_id=${alumnoId}`);
+        const rfidSerial = await fetch(`${Constantes.RUTA_API}/get_alumno_rfid_serial_by_id.php?employee_id=${alumnoId}`);
         // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
         //console.log("RFID SERIAL: " );
         //console.log(rfidSerial);
@@ -272,7 +282,7 @@ export default function Orders(props) {
 
      const getEmployeeRfid = async () => {
         console.log("getEmployeeRfid");
-        const alumnosConRfid = await fetch(`${Constantes.RUTA_API}/get_employees_with_rfid.php`);
+        const alumnosConRfid = await fetch(`${Constantes.RUTA_API}/get_Alumnos_with_rfid.php`);
         const alumnosRfid = await alumnosConRfid.json();
         console.log(alumnosRfid);
         setalumnosRfid(alumnosRfid);
@@ -354,6 +364,7 @@ export default function Orders(props) {
             <DialogActions>
             </DialogActions>
             </Dialog>
+
             <AppBar position="static">
                 <Toolbar>
                     <div className={classes.search}>
@@ -418,11 +429,17 @@ export default function Orders(props) {
                                         <DeleteIcon size="small" onClick= {(event)=> {eliminarAlumno(row,event)}} />
                                     </IconButton>
                                     <IconButton size="small">
-                                        <VisibilityIcon />
+                                        <VisibilityIcon onClick = { (event) => {actualizarButtonPressed(row,event)}}/>
                                     </IconButton> 
+                
+                                {/*                
+                                    
                                     <IconButton size="small">
                                         <MessageIcon />
                                     </IconButton> 
+                                */}
+
+
                                 </TableCell>
                                 
                             </TableRow>

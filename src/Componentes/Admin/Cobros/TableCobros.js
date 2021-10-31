@@ -78,10 +78,20 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+function searchingTerm(term){
+    return function(x){
+        return x.titular.toLowerCase().includes(term) || !term ; 
+    }
+};
+
 export default function Orders(props) {
     const classes = useStyles();
     const [modalCobranzaIsOpen, setModalIsOpen] = React.useState(false);
-    const [cobranzas, setCobranzas] = React.useState(rows);
+    const [cobranzas, setCobranzas] = React.useState(props.pagos);
+    const [term, setTerm] = React.useState("");
+    console.log("cobranzas" + cobranzas)
+    console.log("pagos" + props.pagos)
+
 
     const addButtonPressed = () => {
         setModalIsOpen(true);
@@ -124,7 +134,8 @@ export default function Orders(props) {
                             <SearchIcon />
                         </div>
                         <InputBase
-                            placeholder="Buscar…"
+                            placeholder="Buscar Titular..."
+                            onChange={(e) => setTerm(e.target.value)}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -132,9 +143,6 @@ export default function Orders(props) {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <Button variant="contained" color="secondary" onClick={ addButtonPressed } >
-                     Registrar pago
-                     </Button>
                 </Toolbar>
             </AppBar>
             <Paper className={classes.paper}>
@@ -151,11 +159,11 @@ export default function Orders(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        { cobranzas.map((row, index) => (
+                        { props.pagos.filter(searchingTerm(term)).map((row, index) => (
                             <TableRow key={index}>
-                                <TableCell>{row.numeroTransaccion}</TableCell>
+                                <TableCell>{row.numeroFactura}</TableCell>
                                 <TableCell>{row.titular}</TableCell>
-                                <TableCell>{row.totalCuota}</TableCell>
+                                <TableCell>${row.totalCuota}</TableCell>
                                 <TableCell>{row.fechaEmision}</TableCell>
                                
                             </TableRow>

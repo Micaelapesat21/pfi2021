@@ -278,34 +278,6 @@ export default function Orders(props) {
         return r;
     };
 
-/* Lo qeuice hacer asi que llame al fecht pero desde aca no pude.
-    const get_attendance = async (alumnoId) =>{
-      console.log("get_attendance");
-      console.log("Alumno id: " + alumnoId);
-        // date tiene que ser la fecha que se selecciona.
-      const fecha = date;
-      console.log(fecha);
-      const response = await fetch(`${Constantes.RUTA_API}/get_attendance_data_ajax.php?date=${fecha}`);
-      console.log(response);
-     let attendanceData = await response.json();
-      console.log(attendanceData);
-       // 
-      let i = 0;
-      let estado = " ";
-      while(i<attendanceData.length){
-          const e = i;
-          if (attendanceData[e].alumno_id == alumnoId){
-              console.log("entre al if: " + attendanceData[e].estado )
-              estado = attendanceData[e].estado;
-          }
-          i++;
-      }
-      console.log(estado);
-      return estado;
-     
-    };
-*/
-
 const getEstadoAsistencia = (rowid) => {
     console.log("estoy en getEstadoAsistencia");
     console.log("Longitud asistencias:" + props.asistencias.length);
@@ -418,9 +390,11 @@ const getEstadoAsistencia = (rowid) => {
                                     <IconButton size="small">
                                         <SaveIcon />
                                     </IconButton>
+                                    {/*
                                     <IconButton size="small">
                                         <AddIcon />
                                     </IconButton>
+                                    */}
                                 </TableCell>
                             </TableRow>
                                ))}
