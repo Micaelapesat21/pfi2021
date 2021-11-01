@@ -2,7 +2,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import CursosAPI from '../../../Network/Cursos/CursosAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
@@ -63,7 +62,7 @@ class FormularioDatosCursos extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //  this.get()
     }
 
  
@@ -114,42 +113,8 @@ class FormularioDatosCursos extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    //Api Calls
-    /*
-    getHotelInfo(email) {
-        this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
-    }
-    */
+    //Api Calls 
 
-    handleGetHotelInfo(hotelInfo) {
-        this.setState({ loading: false });
-
-        if (hotelInfo === undefined || hotelInfo === null) {
-            //show error message if needed
-        } else {
-            let hotelData = hotelInfo.state;
-
-            if (hotelData !== null) {
-                this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.correo,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                    titular: hotelData.titular,
-                    jornada: hotelData.jornada,
-                    gimnasio: hotelData.gimnasio,
-                });            
-            }
-        }
-    }
 
     postCursoInfo = (cursoInfo) => {
         this.setState({ loading: true });

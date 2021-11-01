@@ -126,37 +126,26 @@ export default function Orders(props) {
     const [alumnos, setAlumnos] = React.useState(props.alumnos);
     const [data, setData] = React.useState([]);
     const [term, setTerm] = React.useState("");
-    
     const [actualizarIsOpen, setActualizarIsOpen] = React.useState(false);
     const [alumnoActualizar, setAlumnoActualizar] = React.useState([]);
 
-    console.log("Arreglo de titulares y de cursos");
-    console.log(props.titulares);
-    console.log(props.cursos);
-
-    //AlumnosAPI.getAlumnos(handleGetAlumnos.bind());
 
     React.useEffect(()=>{
-        console.log("USE EFFECT TABLA Alumnos"); 
-       // setAlumnos(props.alumnos);
-        console.log("state alumnos: " + alumnos);
         setData(alumnos);   
        // console.log("USE EFFECT TITULARES");
     }); 
 
-    React.useEffect(() => {
-        console.log("USE EFFECT 3");
+    React.useEffect(() => { 
         closeSuccessModal();
         closeSuccessModal2();
         closeSuccessModal3();
-        getEmployeeRfid();
+        getAlumnosRfid();
         AlumnosAPI.getAlumnos(handleGetAlumnos.bind());
         setactualizar(false);
     }, [actualizar])
 
 
     React.useEffect(()=>{
-        console.log("USE EFFECT 2");
         setAlumnos(alumnos);
     },[alumnos]); 
 
@@ -165,7 +154,6 @@ export default function Orders(props) {
     };
 
     const actualizarButtonPressed = (row) => {
-        console.log("actualizarButtonPressed" + row);
         setAlumnoActualizar(row);
         setActualizarIsOpen(true);
     };
@@ -195,44 +183,20 @@ export default function Orders(props) {
     };
   
     const assignRfidCard = async (employeeId,event) => {
-        console.log("ESTOY POR ASIGNAR");
-        console.log(employeeId);
-        // shouldCheck = true;
-         //const employeeId = employee.id;
-         //const employeeId = 1; // esto lo puse para ver si colocaba en el empleado 3 la asignacion.
-         console.log("id");
-         console.log(employeeId); 
-
-         //employee.waiting = true;
          const respuesta = await fetch(`${Constantes.RUTA_API}/set_reader_for_pairing.php?employee_id=${employeeId}`);
-        // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
-         console.log('REACT - HIZO la asignacion')
          checkIfAlumnoHasJustAssignedRfid(employeeId);
          
      };
      const checkIfAlumnoHasJustAssignedRfid = async (employeeId) => {
          console.log("checkIfAlumnoHasJustAssignedRfid");
          const r = await fetch(`${Constantes.RUTA_API}/get_alumno_rfid_serial_by_id.php?employee_id=${employeeId}`);
-         console.log(r);
+        
          const serial = await r.json();
-         console.log(serial);
-        // if (!shouldCheck) {
-        //     employee.waiting = false;
-        //     return;
-        // }
+       
          if (serial) {
            
-             console.log("RFID assigned!");            
-             console.log("Con Serial: " + serial);
              setsuccessMessageIsOpen(true);
-             //  this.$toasted.show("RFID assigned!", {
-           //     position: "top-left",
-           //      duration: 1000,
-           //  });
-            // await this.setReaderForReading();
-            // await this.refreshEmployeesList();
-         } else {
-            console.log("Aun no asignado")
+        } else {
              setTimeout(() => {
                 checkIfAlumnoHasJustAssignedRfid(employeeId);
              }, CHECK_PAIRING_ALUMNO_INTERVAL);
@@ -240,37 +204,21 @@ export default function Orders(props) {
      };
 
      const removeRfidCard = async(alumnoId) => {
- 
-        //console.log("REMOVIENDO PULSERA");
         const rfidSerial = await fetch(`${Constantes.RUTA_API}/get_alumno_rfid_serial_by_id.php?employee_id=${alumnoId}`);
-        // await fetch("./set_reader_for_pairing.php?employee_id=" + employeeId);
-        //console.log("RFID SERIAL: " );
-        //console.log(rfidSerial);
         const serial = await rfidSerial.json();
-        //console.log(serial);
-        //rfidSerial = 'B3-ED-AF-19';
         const r = await fetch(`${Constantes.RUTA_API}/remove_rfid_card.php?rfid_serial=${serial}`);
         setsuccessMessageIsOpenDesasignado(true); 
-     // console.log("REMOVIDA");
-       // console.log(r);
-        //await fetch("./remove_rfid_card.php?rfid_serial=" + rfidSerial);
-        // esto es el mensaje que sale arriba de todo 
-        //this.$toasted.show("RFID removed", {
-          //  position: "top-left",
-            //duration: 1000,
-        //});
+     
      };
 
      const eliminarAlumno = async (alumnoInfo,event) => {
-        console.log("eliminarAlumno: " + alumnoInfo.id);
         AlumnosAPI.deleteAlumno(alumnoInfo, handleDeleteAlumnos); 
      };
 
     const handleDeleteAlumnos = async (alumnoInfo) => {
-        console.log("handleDeleteAlumnoInfo: " + alumnoInfo);
+        
         if (alumnoInfo.error == null) {
-            //delete was successful
-            console.log("delete was successful");
+            //delete was successful     
             AlumnosAPI.getAlumnos(handleGetAlumnos.bind());
             setsuccessMessageDelete(true);
           
@@ -280,17 +228,14 @@ export default function Orders(props) {
         }
     }
 
-     const getEmployeeRfid = async () => {
-        console.log("getEmployeeRfid");
+     const getAlumnosRfid = async () => {
         const alumnosConRfid = await fetch(`${Constantes.RUTA_API}/get_Alumnos_with_rfid.php`);
         const alumnosRfid = await alumnosConRfid.json();
-        console.log(alumnosRfid);
         setalumnosRfid(alumnosRfid);
      };
 
      const getStatusRfid = (alumnoId) => {
-        //console.log("getStatusRfid");
-        //console.log("longitud: " + alumnosRfid.length);
+
         let i = 0;
         let rfid_serial = "";
         while(i<alumnosRfid.length){

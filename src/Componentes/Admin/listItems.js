@@ -22,12 +22,6 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 export default function mainListItems(props) {
   return (
     <div>
-      {/* <ListItem button onClick={props.generalOpen}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Panel General" />
-      </ListItem> */}
       <ListItem button onClick={props.datosOpen}>
         <ListItemIcon>
           <DescriptionIcon />
@@ -35,7 +29,7 @@ export default function mainListItems(props) {
         <ListItemText primary="Datos" />
       </ListItem>
 
-      <ListItem button onClick={props.reservasOpen}>
+      <ListItem button onClick={props.alumnosOpen}>
         <ListItemIcon>
           <SchoolIcon />
         </ListItemIcon>
@@ -56,7 +50,7 @@ export default function mainListItems(props) {
         <ListItemText primary="Asistencias" />
       </ListItem>
 
-      <ListItem button onClick={props.solicitudesOpen}>
+      <ListItem button onClick={props.titularesOpen}>
         <ListItemIcon> 
           <AssignmentIcon />
         </ListItemIcon>
@@ -70,7 +64,7 @@ export default function mainListItems(props) {
         <ListItemText primary="Servicios" />
       </ListItem>
       {/* 
-      <ListItem button onClick={props.resenasOpen}>
+      <ListItem button onClick={props.empleadosOpen}>
         <ListItemIcon>
           <WorkIcon />
         </ListItemIcon>

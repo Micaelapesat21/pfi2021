@@ -1,13 +1,12 @@
 import {Component} from 'react';
 //import Constants from '../../Utils/Constants';
-import HotelInfo from '../../Models/Hotel/HotelInfo';
 import Constants from '../../Componentes/Admin/Constantes'
 
 class AsistenciasAPI extends Component {
 
     createAsistencia(asistenciaInfo, handlePostAsistenciaInfo) {
-     // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearAlumno/Escalumno";
-      let url = "http://192.168.0.132:8080/regiapppfi2021/crearAlumno/Escalumno";
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearAlumno/Escalumno";
+      //let url = "http://192.168.0.132:8080/regiapppfi2021/crearAlumno/Escalumno";
       let body = JSON.stringify( asistenciaInfo );
         fetch(url,{
           method: 'Post', 

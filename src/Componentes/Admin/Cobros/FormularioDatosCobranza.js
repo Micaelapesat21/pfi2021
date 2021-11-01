@@ -2,8 +2,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../../Network/Hotel/HotelAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
 import Select from '@material-ui/core/Select';
@@ -86,7 +84,7 @@ class FormularioDatosCobranza extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //  this.get()
     }
 
 

@@ -78,7 +78,7 @@ class GuestInfo {
     this._personalId = props.documento
 
     var guestData = new GuestData()
-    guestData.setHotelData(props)
+    guestData.setEscuelaData(props)
     this._guestData = guestData
 
     //set profile info

@@ -20,7 +20,7 @@ class CobroInfo {
         return this.myInstance;
     }
 
-    setHotelData(props) {
+    setEscuelaData(props) {
       if(props.id != null) {
         this._userID = props.id
       }

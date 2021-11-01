@@ -2,8 +2,8 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../Models/Hotel/HotelInfo'
-import HotelAPI from '../../Network/Hotel/HotelAPI'
+import EscuelaInfo from '../../Models/Escuela/EscuelaInfo'
+import EscuelaAPI from '../../Network/Escuela/EscuelaAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../Commons/ErrorMessageModal';
 
@@ -72,12 +72,12 @@ const styles = theme => ({
     },
 })
 
-class DatosHotel extends Component {
+class DatosEscuela extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            fotoHotel: "",
+            fotoEscuela: "",
             nombre: "",
             razon: "",
             email: "",
@@ -104,7 +104,7 @@ class DatosHotel extends Component {
     }
 
     componentDidMount() {
-         this.getHotelInfo()
+         this.getEscuelaInfo()
     }
 
     guardar() {
@@ -121,9 +121,9 @@ class DatosHotel extends Component {
             this.state.estrellas !== "" &&
             this.state.url !== ""
         ) {
-            var dict = this.getHotelModel();
-            HotelInfo.getInstance().setHotelData(dict);
-            this.postHotelInfo()
+            var dict = this.getEscuelaModel();
+            EscuelaInfo.getInstance().setEscuelaData(dict);
+            this.postEscuelaInfo()
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -168,47 +168,47 @@ class DatosHotel extends Component {
     }
 
     //Api Calls
-    getHotelInfo(email) {
+    getEscuelaInfo(email) {
         this.setState({ loading: true });
-        let hotelInfo = HotelInfo.getInstance().getHotelData()         
-        this.handleGetHotelInfo(hotelInfo)
+        let escuelaInfo = EscuelaInfo.getInstance().getHotelData()         
+        this.handleGetEscuelaInfo(escuelaInfo)
     }
 
-    handleGetHotelInfo(hotelInfo) {
+    handleGetEscuelaInfo(escuelaInfo) {
         this.setState({ loading: false });
 
-        if (hotelInfo === undefined || hotelInfo === null) {
+        if (escuelaInfo === undefined || escuelaInfo === null) {
             //show error message if needed
         } else {
-            let hotelData = hotelInfo.state;
+            let escuelaData = escuelaInfo.state;
 
-            if (hotelData !== null) {
+            if (escuelaData !== null) {
                 this.setState({
-                    nombre: hotelData.nombre,
-                    razon: hotelData.razon,
-                    email: hotelData.email,
-                    pais: hotelData.pais,
-                    estado: hotelData.estado,
-                    ciudad: hotelData.ciudad,
-                    codigoPostal: hotelData.codigoPostal,
-                    direccion: hotelData.direccion,
-                    telefono1: hotelData.telefono1,
-                    telefono2: hotelData.telefono2,
-                    estrellas: hotelData.estrellas,
-                    url: hotelData.url,
+                    nombre: escuelaData.nombre,
+                    razon: escuelaData.razon,
+                    email: escuelaData.email,
+                    pais: escuelaData.pais,
+                    estado: escuelaData.estado,
+                    ciudad: escuelaData.ciudad,
+                    codigoPostal: escuelaData.codigoPostal,
+                    direccion: escuelaData.direccion,
+                    telefono1: escuelaData.telefono1,
+                    telefono2: escuelaData.telefono2,
+                    estrellas: escuelaData.estrellas,
+                    url: escuelaData.url,
                 });            
             }
         }
     }
 
-    postHotelInfo = () => {
+    postEscuelaInfo = () => {
         this.setState({ loading: true });
-        HotelAPI.postHotelInfo(this.handlePostHotelInfo);
+        EscuelaAPI.postEscuelaInfo(this.handlePostEscuelaInfo);
     }
 
-    handlePostHotelInfo = async (hotelInfo) => {
+    handlePostEscuelaInfo = async (escuelaInfo) => {
         this.setState({ loading: false });
-        if (hotelInfo.error == null) {
+        if (escuelaInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
         } else {
@@ -216,7 +216,7 @@ class DatosHotel extends Component {
         }
     }
 
-    getHotelModel() {
+    getEscuelaModel() {
         return {
             nombre: this.state.nombre,
             razon: this.state.razon,
@@ -460,7 +460,7 @@ class DatosHotel extends Component {
     }
 }
 
-DatosHotel.propTypes = {
+DatosEscuela.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(DatosHotel);
+export default withStyles(styles)(DatosEscuela);

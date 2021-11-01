@@ -106,7 +106,7 @@ class IniciarSesion extends React.Component {
    // console.log('aprete el botoooooooon');  
     const Correo = this.state.correo;
     const Contrasena = this.state.contra;
-    let isHotel = this.props.modoHotel != null ;
+    let isHotel = this.props.modoAdmin != null ;
     //console.log(isHotel); Es hotel true 
     AuthController.handleIniciar(Correo, Contrasena, isHotel);
   }
@@ -130,10 +130,10 @@ class IniciarSesion extends React.Component {
     this.setState({ openRegistro: false });
   }
 
-  modoHotel() {
+  modoAdmin() {
     const { classes } = this.props;
 
-    if (this.props.modoHotel) {
+    if (this.props.modoAdmin) {
       return (
         <div></div>
       )
@@ -187,7 +187,7 @@ class IniciarSesion extends React.Component {
 
   }
   titulo() {
-    if (this.props.modoHotel) {
+    if (this.props.modoAdmin) {
       return (
         <Typography component="h1" variant="h5">
           Iniciar Sesión como Empleado
@@ -297,7 +297,7 @@ class IniciarSesion extends React.Component {
                 Ingresá con Google
               </Button>
             </Grid>
-            {this.modoHotel()}
+            {this.modoAdmin()}
           </form>
         </div>
 

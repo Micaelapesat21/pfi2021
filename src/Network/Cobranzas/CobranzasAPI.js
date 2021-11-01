@@ -4,8 +4,8 @@ import {Component} from 'react';
 class CobranzasAPI extends Component {
 
     createCobranza(cobranzaInfo, handlePostCobranzaInfo) {
-     // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCuota/Esccuota";
-      let url = "http://192.168.0.132:8080/regiapppfi2021/crearCuota/Esccuota";
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCuota/Esccuota";
+      //let url = "http://192.168.0.132:8080/regiapppfi2021/crearCuota/Esccuota";
       let body = JSON.stringify( cobranzaInfo );
         fetch(url,{
           method: 'Post', 
@@ -23,8 +23,8 @@ class CobranzasAPI extends Component {
 
     getCobranzas(handleGetCobranzas)
     {
-        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCuotas";
-        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCuotas";
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCuotas";
+        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCuotas";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -63,8 +63,8 @@ class CobranzasAPI extends Component {
 
     getPagos(handleGetPagos)
     {
-
-        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerPagos";
+         let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerPagos";
+        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerPagos";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}

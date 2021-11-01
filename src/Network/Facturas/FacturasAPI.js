@@ -1,12 +1,12 @@
 import {Component} from 'react';
 import Constants from '../../Utils/Constants';
-import HotelInfo from '../../Models/Hotel/HotelInfo';
+
 
 class FacturaAPI extends Component {
 
     createFactura(facturaInfo, handlePostFacturaInfo) {
-     // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCuota/Esccuota";
-      let url = "http://192.168.0.132:8080/regiapppfi2021/crearCuota/Esccuota";
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearCuota/Esccuota";
+      //let url = "http://192.168.0.132:8080/regiapppfi2021/crearCuota/Esccuota";
       
       let body = JSON.stringify( facturaInfo );
         fetch(url,{
@@ -29,8 +29,8 @@ class FacturaAPI extends Component {
 
     getFacturas(handleGetFactura)
     {
-     // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCuotas";
-      let url = "http://192.168.0.132:8080/regiapppfi2021/obtenerCuotas";
+      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCuotas";
+      //let url = "http://192.168.0.132:8080/regiapppfi2021/obtenerCuotas";
       
       fetch(url,{
           method: 'GET', 

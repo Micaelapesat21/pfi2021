@@ -16,7 +16,7 @@ class GuestData {
         };
     }
 
-    setHotelData(props) {
+    setEscuelaData(props) {
 
         this.state = {
             nombre:props.nombre,

@@ -2,7 +2,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import TitularesAPI from '../../../Network/Titulares/TitularesAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
@@ -60,7 +59,7 @@ class FormularioDatosTitular extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //  this.get()
     }
 
     guardar() {
@@ -77,7 +76,7 @@ class FormularioDatosTitular extends Component {
             this.state.documento !==""
         ) {
             
-            this.postTitularInfo(this.getHotelModel())
+            this.postTitularInfo(this.getTitularModel())
         } else {
             this.setState({
                 errorMessageIsOpen: true,
@@ -120,14 +119,14 @@ class FormularioDatosTitular extends Component {
         if (titularInfo.error == null) {
             //post was successful
             this.setState({ edicion: false, redOnly: true })
-            var dict = this.getHotelModel();
+            var dict = this.getTitularModel();
             this.props.titularCreado(dict);
         } else {
             //get user with email failed
         }
     }
 
-    getHotelModel() {
+    getTitularModel() {
         return {
             nombre: this.state.nombre,
             apellido: this.state.apellido,

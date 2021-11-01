@@ -130,30 +130,22 @@ class Reportes extends Component {
         this.setState({ asistencias: reportesActualizado });
         this.props.actualizarAsistencia(reportesActualizado);
     }
-    onChangeDesde = (event) => {
-        console.log(this.state.fechaDesde);
+    onChangeDesde = (event) => {  
         const dateFormateada = formatoFecha(event, 'yyyy-mm-dd');
-        console.log("Date formateada: " + dateFormateada);
-        //this.setState({this.fechaD: dateFormateada });
-        //this.state.fechaD = dateFormateada;
         this.setState({fechaD: dateFormateada})
-        console.log("fecha desde: " + this.state.fechaD);
+      
     }
     onChangeHasta = (event) => {
-        const dateFormateada = formatoFecha(event, 'yyyy-mm-dd');
-        console.log("Date formateada: " + dateFormateada);
-        //this.state.fechaH = dateFormateada; 
+        const dateFormateada = formatoFecha(event, 'yyyy-mm-dd'); 
         this.setState({fechaH: dateFormateada})
-        console.log("fecha desde: " + this.state.fechaH);
+        
     }
 
     addButtonPressed = async () => {
     
-
         const fechadesde= this.state.fechaD;
         const fechahasta= this.state.fechaH;
-        console.log("FECHA DESDE:" + fechadesde);
-        console.log("Exportar Reporte");
+        
       if (fechadesde == "" ){
             this.setState({ errorMessageIsOpen: true }, this.forceUpdate());
       }else { 
@@ -167,25 +159,19 @@ class Reportes extends Component {
     }
        const result = await fetch(`${Constantes.RUTA_API}/download_alumno_report.php?start=${fechadesde}&end=${fechahasta}`);
        const res = await result.json();
-       console.log("reporte: " + res);
        this.reporte = res;
-       console.log(" this reporte: " + this.reporte );
-
+       
        const presentesResult = await fetch(`${Constantes.RUTA_API}/get_Alumnos_Presentes_Count.php?start=${fechadesde}&end=${fechahasta}`);
-       console.log("PRESENTES RESPONSE: " + presentesResult);
        const presentes = await presentesResult.json();
-       console.log("PRESENTES: " + presentes);
        this.presentes = presentes;
 
        const ausentesResult = await fetch(`${Constantes.RUTA_API}/get_Alumnos_Ausentes_Count.php?start=${fechadesde}&end=${fechahasta}`);
        const ausentes = await ausentesResult.json();
-       console.log("AUSENTES: " + ausentes);
        this.ausentes = ausentes;
       
        
        const fechasResult = await fetch(`${Constantes.RUTA_API}/get_Fechas_Reporte.php?start=${fechadesde}&end=${fechahasta}`);
        const fechasreporte = await fechasResult.json();
-       console.log("FECHAS: " + fechasreporte);
        this.fechasReporte = fechasreporte;
        
 

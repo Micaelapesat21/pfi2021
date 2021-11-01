@@ -9,14 +9,13 @@ import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, D
 import firebase from '../firebaseConfig'
 import AuthController from '../Componentes/login/AuthController'
 import Registro from '../Componentes/login/Registro'
-import Home from './Home'
 import GuestAPI from '../Network/Guest/GuestAPI'
 import GuestInfo from '../Models/Guest/GuestInfo'
-import HotelHome from './HotelHome'
+import EscuelaHome from './EscuelaHome'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import LoadinPage from './LoadingPage/Index'
-import HotelAPI from '../Network/Hotel/HotelAPI';
-import HotelInfo from '../Models/Hotel/HotelInfo';
+import EscuelaAPI from '../Network/Escuela/EscuelaAPI';
+import EscuelaInfo from '../Models/Escuela/EscuelaInfo';
 
 
 
@@ -56,7 +55,7 @@ class Inicio extends Component {
             huespedes: "",
             precio: "",
             completado: false,
-            modoHotel: true,// Si se va a trabajar en el hotel ponerlo en true
+            modoAdmin: true,
             loading: true,
             data: [],
         };
@@ -71,15 +70,15 @@ class Inicio extends Component {
                 this.setState({
                  user: user
               });
-               //Diferencia entre modo hotel y trae el correcto            
-               if (this.state.modoHotel) {
-                    //GET RESERVA HOTEL
-                    console.log('pongo el email  ' + user.email);
-                    this.getHotelInfo(user.email)
-                    console.log('SALE DEL GET  '  + user.email);
+               //Diferencia entre modo empleado y modo invitado            
+               if (this.state.modoAdmin) {
+                 
+                  
+                    this.getEscuelaInfo(user.email)
+                  
                 }
                 else {
-                 //GET RESERVA HUESPED
+              // por si tenemos otro usuario.
                   this.getGuestInfo(user.email)
                 }
             });
@@ -111,10 +110,10 @@ class Inicio extends Component {
         this.setState({ loading: true });
         GuestAPI.getGuestInfo(email, this.handleGetGuestInfo);
     }
-    getHotelInfo(email) {
-        console.log('quiero ver los datos del hotel - getHotelInfo');
+    getEscuelaInfo(email) {
+
         this.setState({ loading: true });
-        HotelAPI.getHotelInfo(email, this.handleGetHotelInfo);
+        EscuelaAPI.getEscuelaInfo(email, this.handleGetEscuelaInfo);
     }
 
 
@@ -125,7 +124,7 @@ class Inicio extends Component {
 
         } else {
             let userData = guestInfo.data.usuario;
-            console.log(userData.email)
+          
             if (userData !== null) {
                 if ((userData.apellido &&
                     userData.nombre && userData.email
@@ -144,18 +143,17 @@ class Inicio extends Component {
             }
         }
     }
-    handleGetHotelInfo = async (hotelInfo) => {
-        console.log('quiero ver la info del hotel');
+    handleGetEscuelaInfo = async (escuelaInfo) => {
 
         this.setState({ loading: false, });
-        if (hotelInfo.data === undefined || hotelInfo === null) {
+        if (escuelaInfo.data === undefined || escuelaInfo === null) {
             //show error message
-            console.log(hotelInfo)
+            console.log(escuelaInfo)
         } else {
-            let userData = hotelInfo.data.hotel;
+            let userData = escuelaInfo.data.hotel;
             console.log(userData.email)
             if (userData !== null) {
-                HotelInfo.getInstance().setHotelData(userData)
+                EscuelaInfo.getInstance().setEscuelaData(userData)
             }
         }
     }
@@ -169,7 +167,7 @@ class Inicio extends Component {
 
     callbackInicio = (x) => {
         if (this._isMounted){ 
-         console.log('vuelve al inicioooooo')
+     
          this.setState({ inicio: x })
         }
     }
@@ -189,9 +187,8 @@ class Inicio extends Component {
     callHuespedes = (x) => {
         this.setState({ huespedes: x });
     }
-    callHotel = (x) => {
-        console.log('llama al hotel') 
-        this.setState({ modoHotel: x })
+    callAdmin = (x) => {
+        this.setState({ modoAdmin: x })
     }
   
 
@@ -209,9 +206,9 @@ class Inicio extends Component {
             return (
                 <Grid className={classes.inicio}>
                     <IniciarSesion
-                        modoHotel={this.state.modoHotel}
+                        modoAdmin={this.state.modoAdmin}
                         inicio={this.state.inicio}
-                        callHotel={this.callHotel}
+                        callHotel={this.callAdmin}
                         callInicio={this.callbackInicio}                        
                     />
                 </Grid>
@@ -219,10 +216,10 @@ class Inicio extends Component {
             )
         }
         else {
-            if (this.state.modoHotel === true) {
+            if (this.state.modoAdmin === true) {
                 return (
                     <Grid className={classes.inicio}>
-                        <IniciarSesion modoHotel={this.state.modoHotel} inicio={this.callbackInicio} />
+                        <IniciarSesion modoAdmin={this.state.modoAdmin} inicio={this.callbackInicio} />
                     </Grid>
                 )
             } else {
@@ -234,9 +231,9 @@ class Inicio extends Component {
         }
     }
     volver() {
-        if (this.state.modoHotel) {
+        if (this.state.modoAdmin) {
             return (
-                <IconButton onClick={() => this.callHotel(false)}>
+                <IconButton onClick={() => this.callAdmin(false)}>
                     <ArrowBackIcon />
                 </IconButton>
             )
@@ -255,14 +252,10 @@ class Inicio extends Component {
     render() {
         const { classes } = this.props;
         console.log('paso por el inicio');
-        console.log('user' + this.state.user);
-        console.log('modo hotel' + this.state.modoHotel);
-        console.log('loading' + this.state.loading);
+ 
         if (this.state.user) {
-            console.log('entra con el usuario');
-            console.log('user' + this.state.user);
         
-            if (this.state.modoHotel) {
+            if (this.state.modoAdmin) {
                
                 if (this.state.loading)
                     return (
@@ -270,7 +263,7 @@ class Inicio extends Component {
                     )
                 else
                     return (
-                        <HotelHome           
+                        <EscuelaHome           
                                 user={this.state.user}    
                        />
     
@@ -281,23 +274,6 @@ class Inicio extends Component {
                     if (this.state.loading)
                         return (
                             <LoadinPage />
-                        )
-                    else
-                        return (
-                            <Home
-                                user={this.state.user}
-                                id={this.state.id}
-                                CheckIn={this.state.CheckIn}
-                                CheckOut={this.state.CheckOut}
-                                huespedes={this.state.huespedes}
-                                precio={this.state.precio}
-                                callCheckIn={this.callCheckIn}
-                                callCheckOut={this.callCheckOut}
-                                callHuespedes={this.callHuespedes}
-                                perfilCompletado={this.state.completado}
-                                callPerfilCompletado={this.callPerfilCompletado}
-                                data={this.state.data}
-                            />
                         )
                 } else {
                     return (

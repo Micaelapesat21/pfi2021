@@ -4,9 +4,9 @@ class MensajesAPI extends Component {
 
     getMensajes(handleGetMensajes)
     {
-      console.log("getMensajes")
-       // let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerMensajes";
-        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerMensajes";
+ 
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerMensajes";
+        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerMensajes";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -26,8 +26,8 @@ class MensajesAPI extends Component {
 
 
     crearNotificacion(notificacionInfo, handlePostCursoInfo) {
-      // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearNotificacion/Escnotificacion";
-       let url = "http://192.168.0.132:8080/regiapppfi2021/crearNotificacion/Escnotificacion";
+       let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearNotificacion/Escnotificacion";
+       //let url = "http://192.168.0.132:8080/regiapppfi2021/crearNotificacion/Escnotificacion";
             /* body
                     usuario: req.body.usuario,
                     leida: req.body.leida, 
@@ -52,8 +52,8 @@ class MensajesAPI extends Component {
      }
    
      actualizarMensaje(idMensaje, handlePostActualizarMensaje) {
-      // let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearNotificacion/Escnotificacion/" + idMensaje;
-       let url = "http://192.168.0.132:8080/regiapppfi2021/actualizarMensaje/Escmensaje/" + idMensaje;
+       let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/actualizarMensaje/Escmensaje/" + idMensaje;
+       //let url = "http://192.168.0.132:8080/regiapppfi2021/actualizarMensaje/Escmensaje/" + idMensaje;
          fetch(url,{
            method: 'Post', 
            headers:{ 'Content-Type': 'application/json'}

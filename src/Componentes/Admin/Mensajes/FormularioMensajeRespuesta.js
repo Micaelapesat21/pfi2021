@@ -2,7 +2,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
+
 import MensajesAPI from '../../../Network/Mensajes/MensajesAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
@@ -100,7 +100,7 @@ class FormularioMensajeRespuesta extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //  this()
     }
 
     //API Calls

@@ -2,7 +2,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import AlumnosAPI from '../../../Network/Alumnos/AlumnosAPI'
 import CursosAPI from '../../../Network/Cursos/CursosAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -104,7 +103,7 @@ class FormularioDatosCertificados extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //  this.get
     }
 
     //API Calls

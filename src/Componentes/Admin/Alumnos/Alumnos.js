@@ -21,35 +21,7 @@ class Alumnos extends Component {
     }
 
     async componentDidMount() {
-        console.log("llamar a php");
-         
-        //const respuesta = fetch("http://192.168.0.132/TEST/api-php-react-main/obtener_videojuegos.php");
-        //console.log("RESPUESTA FETCH" + respuesta );
-        //const videojuegos = respuesta.json();
-        //let url = "http://192.168.0.132/TEST/api-php-react-main/obtener_videojuegos.php";
-       /*{ await fetch(url,{
-            method: 'GET', 
-            headers:{ 'Content-Type': 'application/json'}
-        })
-          .then ((response) => {
-              console.log("response",response.json());
-              if(response.headers.status !== 404) {
-                console.log("RESPUESTA FETCH error" + response.json() );
-                const videojuegos = response.json();
-                
-              } else {
-                //return null;
-              }
-          })
-          .then (responseData => {
-            console.log("RESPUESTA FETCH" + responseData.json() );
-                this.setState({
-                    videojuegos: responseData.json(),
-                });
-          });
-        }*/
-
-    
+         //console.log("componentDidMount");
     }
 
     alumnoCreado = (alumno) => {

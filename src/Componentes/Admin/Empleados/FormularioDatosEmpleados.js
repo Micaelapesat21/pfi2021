@@ -2,7 +2,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextField, Grid, ButtonBase, Typography, Avatar, Button, Paper } from '@material-ui/core';
-import HotelInfo from '../../../Models/Hotel/HotelInfo'
 import EmpleadosAPI from '../../../Network/Empleados/EmpleadosAPI'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorMessageModal from '../../Commons/ErrorMessageModal';
@@ -68,7 +67,7 @@ class FormularioDatosEmpleados extends Component {
     }
 
     componentDidMount() {
-        //  this.getHotelInfo()
+        //  this.get()
     }
 
     guardar() {

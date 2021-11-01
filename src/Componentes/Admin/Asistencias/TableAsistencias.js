@@ -195,9 +195,6 @@ export default function Orders(props) {
     };
 
     const handleChangeStatus = async (event,id) => {
-            console.log("id a modificar:" + id);  
-            console.log("estado a guardar:" + event.target.value);  
-            console.log("DIA:" + date);  
             const estado = event.target.value;   
             const response = await fetch(`${Constantes.RUTA_API}/save_attendance_data.php?id=${id}&date=${date}&status=${estado}`); 
             console.log("Guardado");
@@ -211,45 +208,6 @@ export default function Orders(props) {
         setModalIsOpen(false);
     };
 
-    //preuab para usar una funcion de la API pero no funciono
-    
-    /* //React.useEffect( () => {
-    //    console.log("USEEffect")
-    //    if (cursor === undefined || cursor === null || cursor === '' ) {
-    //        console.log(cursor)
-    //    } else {
-    //        console.log("estoy ejecutando")
-    //        getObtenerCursoPorId(props.cursoid);
-     //  } 
-
-   // },[cursor]);
-
-    const getObtenerCursoPorId = (id,numerocurso) =>  {
-        console.log("ANTES DEL LLAMADO " + cursor);
-        console.log(id);
-        //CursosAPI.getCursoPorId(id,handleGetCursoPorId);
-         //return handleGetCursoPorId;
-         
-        CursosAPI.getCursoPorId(id,handleGetCursoPorId());
-         console.log("LUEGO DEL LLAMADO " + numerocurso );
-         //return response;
-
-    };
-
-    const handleGetCursoPorId = (curso) => { 
-        if (curso === undefined || curso === null) {
-            //show error message if needed
-            return null;
-        } else {
-            //setCurso(curso);
-            console.log("Handle else:");
-            console.log(curso.numero)
-            //setCurso(curso.numero);
-            return curso;
-        }
-        
-    };
- */
     const asistenciaCreado = (asistencia) => {
         setModalIsOpen(false);
         //props.asistenciaCreado(titular);
@@ -279,10 +237,6 @@ export default function Orders(props) {
     };
 
 const getEstadoAsistencia = (rowid) => {
-    console.log("estoy en getEstadoAsistencia");
-    console.log("Longitud asistencias:" + props.asistencias.length);
-    console.log("rowid:" + rowid);
-    console.log("rowid:" + date);
      let r = "Ausente";
      const fecha = date;
       let i = 0;
@@ -293,7 +247,7 @@ const getEstadoAsistencia = (rowid) => {
           if (props.asistencias[e].alumno_id == rowid && props.asistencias[e].fecha == fecha ){
               r = props.asistencias[e].estado;
           }else{
-            console.log("entre al else: " + props.asistencias[e].alumno_id);
+            console.log("else");
           }
       i++;
      };

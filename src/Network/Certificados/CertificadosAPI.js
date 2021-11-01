@@ -4,8 +4,8 @@ class CertificadosAPI extends Component {
 
     getCertificados(handleGetCertificados)
     {
-       // let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCertificados";
-        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCertificados";
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCertificados";
+        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCertificados";
         fetch(url,{
           method: 'GET', 
           headers:{ 'Content-Type': 'application/json'}
@@ -25,11 +25,9 @@ class CertificadosAPI extends Component {
    
     getCertificadosPorAlumno(idalumno,handleGetCertificadoPorId)
     {
-      console.log("API CERTIFICADOS");
-      console.log(idalumno);
-
-        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCertificadosPorAlumno/" + idalumno;
-        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCertificadosPorAlumno/" + idalumno;
+      
+        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerCertificadosPorAlumno/" + idalumno;
+        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerCertificadosPorAlumno/" + idalumno;
         
         fetch(url,{
           method: 'GET', 
