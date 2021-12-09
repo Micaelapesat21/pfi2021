@@ -7,8 +7,11 @@ class EscuelaAPI extends Component {
 
     postEscuelaInfo(handlePostEscuelaInfo) {
       
-     let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuarios"; 
-     //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerUsuarios"; 
+     //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuarios"; 
+     let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerUsuarios"; 
+     //let url =  "http://172.20.10.8:8080/regiapppfi2021/obtenerUsuarios"; 
+     
+     
      let hotelData = CobroInfo.getInstance().toJson();
         fetch(url,{
           method: 'PUT', 
@@ -28,8 +31,10 @@ class EscuelaAPI extends Component {
     {
       
   
-      let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerEmpleados';
-      //let url =  'http://192.168.0.132:8080/regiapppfi2021/obtenerEmpleados';
+      //let url =  'https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerEmpleados';
+    let url =  'http://192.168.0.132:8080/regiapppfi2021/obtenerEmpleados';
+    //let url =  'http://172.20.10.8:8080/regiapppfi2021/obtenerEmpleados';
+      
       
         fetch(url,{
           method: 'GET', 

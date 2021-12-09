@@ -74,7 +74,7 @@ const handleCloseModal = () => {
                       <ListItemIcon>
                       <InboxIcon />
                       </ListItemIcon>
-                  <ListItemText primary={props.mensaje.fecha + " - " + props.mensaje.nombre} />   
+                  <ListItemText primary={props.mensaje.fecha + " - " + props.mensaje.hora + " : " + props.mensaje.nombre} />   
                   {open ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                           <Collapse in={open} timeout="auto" unmountOnExit>

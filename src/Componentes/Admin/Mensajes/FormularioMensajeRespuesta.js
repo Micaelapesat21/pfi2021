@@ -40,6 +40,17 @@ const styles = theme => ({
     }
 })
 
+function horaTime(){
+    const dateHoy= new Date();
+    console.log("FECHA: " + dateHoy);
+    const hora = dateHoy.getHours();
+    const minutos = dateHoy.getMinutes();
+    const miliseg = dateHoy.getSeconds();
+  
+    const r = hora + ':' + minutos + ':' + miliseg;
+    console.log("hora del mensaje" + r)
+    return r 
+}
 
  function formatoFecha (fecha, formato) {
    
@@ -92,6 +103,7 @@ class FormularioMensajeRespuesta extends Component {
             cursoInfo: null,
             cursoMensajeInfo: null,
             fecha:"", 
+            hora: "",
             errorMessage: ""
          }
         this.handleChange = this.handleChange.bind(this);
@@ -112,6 +124,8 @@ class FormularioMensajeRespuesta extends Component {
         const fecha = new Date();
         const dateFormateada = formatoFecha(fecha, 'yyyy-mm-dd');
         console.log("Date formateada: " + dateFormateada);
+        const hora = horaTime();
+        this.state.hora = hora;
         //this.setState({fecha: dateFormateada});
         this.state.fecha = dateFormateada;
         console.log("fecha: " + this.state.fecha);
@@ -196,7 +210,8 @@ class FormularioMensajeRespuesta extends Component {
             leida: this.props.mensaje.leida, 
             texto: this.state.division, // es el texto
             alumno: this.props.mensaje.alumno,
-            fecha: this.state.fecha
+            fecha: this.state.fecha,
+            hora: this.state.hora
         };
 
     }

@@ -4,8 +4,10 @@ import Constants from '../../Utils/Constants';
 class UsuariosAPI extends Component {
 
     createUsuarios(usuariosInfo, handlePostUsuariosInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearUsuarios/Escusuarios";
-      //let url = "http://192.168.0.132:8080/regiapppfi2021/crearUsuarios/Escusuarios";
+      //let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearUsuarios/Escusuarios";
+      let url = "http://192.168.0.132:8080/regiapppfi2021/crearUsuarios/Escusuarios";
+      //let url = "http://172.20.10.8:8080/regiapppfi2021/crearUsuarios/Escusuarios";
+      
       
       let body = JSON.stringify( usuariosInfo );
         fetch(url,{
@@ -24,8 +26,10 @@ class UsuariosAPI extends Component {
 
     getUsuarios(handleGetUsuarios)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuarios";
-        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerUsuarios";
+       // let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerUsuarios";
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerUsuarios";
+       // let url =  "http://172.20.10.8:8080/regiapppfi2021/obtenerUsuarios";
+        
         
         fetch(url,{
           method: 'GET', 
@@ -47,8 +51,10 @@ class UsuariosAPI extends Component {
 
     getNombreUsuario(usuario, handleGetNombreUsuarios)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerNombreUsuario/" + usuario;
-        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerNombreUsuario/" + usuario;
+        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerNombreUsuario/" + usuario;
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerNombreUsuario/" + usuario;
+        //let url =  "http://172.20.10.8:8080/regiapppfi2021/obtenerNombreUsuario/" + usuario;
+        
         
         fetch(url,{
           method: 'GET', 

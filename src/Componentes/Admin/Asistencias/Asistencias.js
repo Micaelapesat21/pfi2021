@@ -26,6 +26,7 @@ class Asistencias extends Component {
     }
 
     asistenciaCreado = (asistencia) => {
+        console.log("asistenciaCreado");
         var asistenciasActualizado = this.props.asistencias;
         asistenciasActualizado.push(asistencia);
         this.setState({ asistencias: asistenciasActualizado });

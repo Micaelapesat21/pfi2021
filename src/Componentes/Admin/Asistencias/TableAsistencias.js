@@ -102,11 +102,44 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function searchingTerm(term){
+function getNumeroCurso2 (rowid, cursos) {
+    // console.log("estoy en getNumeroCurso");
+    // console.log("la entrada es: " + props.cursos[0].id);
+     let r = {numero:"",division:""};
+      let i = 0;
+     while (i<cursos.length) {
+    //  console.log("i =  " + i);
+          const e = i;
+        //  console.log("cursoid: " + props.cursos[e].id);
+          if (cursos[e].id == rowid){
+              r.numero = cursos[i].numero;
+              r.division =cursos[i].division;
+            //  console.log("entre al if: " + r)
+          }else{
+            //  console.log("entre al else: " + props.cursos[i].id)
+          }
+
+      i++;
+     };
+
+      return r;
+  };
+
+function searchingTerm(term,name, cursos){
     console.log("SearchiinvTerm");
-    return function(x){
-        return x.nombre.toLowerCase().includes(term) || !term ; 
-    }
+
+    if (name == "alumno"){ 
+        return function(x){
+            return x.nombre.toLowerCase().includes(term) || !term ; 
+        }
+    } else{
+        //name == curso
+        return function(x){
+            const curso = getNumeroCurso2(x.curso, cursos).numero + getNumeroCurso2(x.curso, cursos).division; 
+            return curso.includes(term)  || !term ; 
+        }
+    } 
+
 };
 
 function formatoFecha(fecha, formato) {
@@ -140,6 +173,7 @@ function formatoFecha(fecha, formato) {
 
 
 
+
 export default function Orders(props) {
     console.log("ASISTENCIAS")
     console.log(props.asistencias)
@@ -155,20 +189,23 @@ export default function Orders(props) {
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [actualizar, setActualizar] = React.useState(false);
     const [estado, setEstado] = React.useState("");
+    const [estadoAlumno, setEstadoAlumno] = React.useState("");
     const [date, setDate] = React.useState(dateFormateada);
     const [cursor,setCurso] = React.useState('');
     const [id,setIdCurso] = React.useState('');
+    const [idAlumno,setIdAlumno] = React.useState('');
     const numerocurso = "";
 
     const [alumnos, setAlumnos] = React.useState([]);
     const [data, setData] = React.useState([]);
     const [term, setTerm] = React.useState("");
+    const [inputBase, setInputBase ] =  React.useState("");
 
     React.useEffect(() => {
         console.log("estoy en use effect")
         setActualizar(false);   
 
-    }, [date])
+    }, [date,actualizar])
 
     React.useEffect(()=>{
         console.log("USE EFFECT TABLA ASISTENCIAS");
@@ -194,10 +231,34 @@ export default function Orders(props) {
        
     };
 
+
     const handleChangeStatus = async (event,id) => {
             const estado = event.target.value;   
-            const response = await fetch(`${Constantes.RUTA_API}/save_attendance_data.php?id=${id}&date=${date}&status=${estado}`); 
-            console.log("Guardado");
+            setEstadoAlumno(estado);
+            console.log("Estado: " + estadoAlumno);
+            setIdAlumno(id);
+            console.log("Estado: " + idAlumno);
+            setModalIsOpen(true);
+            //const response = await fetch(`${Constantes.RUTA_API}/save_attendance_data.php?id=${id}&date=${date}&status=${estado}`); 
+           
+    };
+
+    const handleCloseAceptar = async () => {
+        const response = await fetch(`${Constantes.RUTA_API}/save_attendance_data.php?id=${idAlumno}&date=${date}&status=${estadoAlumno}`); 
+        console.log("Guardado");
+        setModalIsOpen(false);
+        const asistencia = {
+            alumno_id: idAlumno,
+            estado: estadoAlumno,
+            fecha: date
+        }
+        props.asistenciaCreado(asistencia);
+        setActualizar(true);
+    };
+
+    const handleCloseCancelar = () => {
+        console.log("NO Guardado");
+        setModalIsOpen(false);
     };
 
     const addButtonPressed = () => {
@@ -237,6 +298,7 @@ export default function Orders(props) {
     };
 
 const getEstadoAsistencia = (rowid) => {
+    console.log("getEstadoAsistencia");
      let r = "Ausente";
      const fecha = date;
       let i = 0;
@@ -254,6 +316,11 @@ const getEstadoAsistencia = (rowid) => {
 
       return r;
   };
+  const onchangeTerm = (e) => {
+    setTerm(e.target.value);
+    setInputBase(e.target.name);
+  }
+
 
     return (
         <React.Fragment>
@@ -265,13 +332,20 @@ const getEstadoAsistencia = (rowid) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos de la asistencia </DialogTitle>
-            <DialogContent className="dialogContent">
-             <FormularioDatosAsistencias titularCreado = { asistenciaCreado } titulares = { props.titulares } turnos = { props.turnos }/>
-            </DialogContent>
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Confirme el cambio </DialogTitle>
+             
+             <DialogContent className="dialogContent">
+             {/*
+               <FormularioDatosAsistencias titularCreado = { asistenciaCreado } titulares = { props.titulares } turnos = { props.turnos }/>
+             */}
+             ¿Está seguro que desa pasar al estado "{estadoAlumno}" al alumno?
+             </DialogContent>
             <DialogActions>
+                <Button onClick={handleCloseAceptar}> Si </Button>
+                <Button onClick={handleCloseCancelar}>No </Button>
             </DialogActions>
             </Dialog>
+
             <AppBar position="static">
                 <Toolbar>
                     <div className={classes.search}>
@@ -279,8 +353,24 @@ const getEstadoAsistencia = (rowid) => {
                             <SearchIcon />
                         </div>
                         <InputBase
+                            name = "alumno"
                             placeholder="Ingrese Nombre Alumno"
-                            onChange={(e) => setTerm(e.target.value)}
+                            onChange={(e) => onchangeTerm(e)}
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            name = "curso"
+                            placeholder="Ingrese Curso 5B.."
+                            onChange={(e) => onchangeTerm(e) }
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -318,7 +408,7 @@ const getEstadoAsistencia = (rowid) => {
                     </TableHead>
                     <TableBody>
                         { //props.asistencias.map((row, index) => (
-                           alumnos.filter(searchingTerm(term)).map((row, index) => (
+                           alumnos.filter(searchingTerm(term,inputBase, props.cursos)).map((row, index) => (
                                 <TableRow key={index} > 
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.apellido}</TableCell>
@@ -332,11 +422,11 @@ const getEstadoAsistencia = (rowid) => {
                                         className={classes.selectEmpty}
                                         inputProps={{ 'aria-label': 'Without label' }}
                                         >
-                                        <MenuItem value="" disabled>
-                                        {getEstadoAsistencia(row.id)}
-                                        </MenuItem>
-                                        <MenuItem value={"Presente"}>Presente</MenuItem>
-                                        <MenuItem value={"Ausente"}>Ausente</MenuItem>
+                                            <MenuItem value="" disabled>
+                                                {getEstadoAsistencia(row.id)}
+                                            </MenuItem>
+                                            <MenuItem value={"Presente"}>Presente</MenuItem>
+                                            <MenuItem value={"Ausente"}>Ausente</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </TableCell>

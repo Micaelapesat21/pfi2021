@@ -5,8 +5,10 @@ import Constants from '../../Utils/Constants';
 class TitularesAPI extends Component {
 
     createTitular(titularInfo, handlePostTitularInfo) {
-      let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearTitular/Esctitular";
-      //let url = "http://192.168.0.132:8080/regiapppfi2021/crearTitular/Esctitular";
+      //let url = "https://regiapppfi2021.herokuapp.com/regiapppfi2021/crearTitular/Esctitular";
+      let url = "http://192.168.0.132:8080/regiapppfi2021/crearTitular/Esctitular";
+      //let url = "http://172.20.10.8:8080/regiapppfi2021/crearTitular/Esctitular";
+      
       
       let body = JSON.stringify( titularInfo );
         fetch(url,{
@@ -25,8 +27,11 @@ class TitularesAPI extends Component {
 
     getTitulares(handleGetTiitulares)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerTitulares";
-        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerTitulares";
+        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerTitulares";
+        
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerTitulares";
+        //let url =  "http://172.20.10.8:8080/regiapppfi2021/obtenerTitulares";
+        
         
         fetch(url,{
           method: 'GET', 

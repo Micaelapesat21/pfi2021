@@ -3,8 +3,9 @@ import {Component} from 'react';
 class TurnosAPI extends Component {
     getTurnos(handleGetTurnos)
     {
-        let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerTurnos";
-        //let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerTurnos";
+        //let url =  "https://regiapppfi2021.herokuapp.com/regiapppfi2021/obtenerTurnos";
+        let url =  "http://192.168.0.132:8080/regiapppfi2021/obtenerTurnos";
+        //let url =  "http://172.20.10.8:8080/regiapppfi2021/obtenerTurnos";
         
         fetch(url,{
           method: 'GET', 
