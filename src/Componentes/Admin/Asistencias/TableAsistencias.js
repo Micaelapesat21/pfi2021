@@ -171,6 +171,20 @@ function formatoFecha(fecha, formato) {
     return formato.replace(/dd|mm|yyyy/gi, matched => map[matched])
 }
 
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var second = date.getSeconds();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours < 10 ? '0' + hours : hours;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+ minutes : minutes;
+    second = second < 10 ? '0' + second : second;
+    var strTime = hours + ':' + minutes +  ':' + second + ' ' + ampm;
+    return strTime;
+  }
+  
 
 
 
@@ -185,6 +199,11 @@ export default function Orders(props) {
     const dateFormateada = formatoFecha(dateHoy, 'yyyy-mm-dd');
     console.log(dateFormateada);
 
+    const horario2 =  dateHoy.getHours() + ':' + dateHoy.getMinutes() + ':' + dateHoy.getSeconds() + '' + dateHoy.getTimezoneOffset();
+    console.log("horario2" + horario2);
+    const horaActual= formatAMPM(dateHoy);
+     console.log("horaActual " + horaActual)
+    
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [actualizar, setActualizar] = React.useState(false);
@@ -244,14 +263,26 @@ export default function Orders(props) {
     };
 
     const handleCloseAceptar = async () => {
+        console.log("handleCloseAceptar")
         const response = await fetch(`${Constantes.RUTA_API}/save_attendance_data.php?id=${idAlumno}&date=${date}&status=${estadoAlumno}`); 
         console.log("Guardado");
-        setModalIsOpen(false);
+        var horario = " ";
+        console.log("estadoAlumno" + estadoAlumno);
+        
+        if (estadoAlumno=="Presente"){
+            horario = horaActual;
+        }
+
+        console.log("Horario: " + horario);
+        
         const asistencia = {
             alumno_id: idAlumno,
             estado: estadoAlumno,
-            fecha: date
+            fecha: date,
+            hora: horario 
         }
+        console.log("asistencia:" + asistencia.hora)
+        setModalIsOpen(false);
         props.asistenciaCreado(asistencia);
         setActualizar(true);
     };
@@ -316,6 +347,32 @@ const getEstadoAsistencia = (rowid) => {
 
       return r;
   };
+  const getEstadoAsistenciaHorario = (rowid) => {
+    console.log("getEstadoAsistenciaHorario");
+     let r = " ";
+     const fecha = date;
+      let i = 0;
+     while (i<props.asistencias.length) {
+    //  console.log("i =  " + i);
+          const e = i;
+        //  console.log("cursoid: " + props.cursos[e].id);
+          if (props.asistencias[e].alumno_id == rowid && props.asistencias[e].fecha == fecha) {
+             if  (props.asistencias[e].estado == 'Presente'){
+                    r = props.asistencias[e].hora;
+             } else {
+                    r = "";
+             }
+                    
+          }else{
+            console.log("else");
+          }
+      i++;
+     };
+
+      return r;
+  };
+
+
   const onchangeTerm = (e) => {
     setTerm(e.target.value);
     setInputBase(e.target.name);
@@ -403,6 +460,7 @@ const getEstadoAsistencia = (rowid) => {
                             <TableCell className={classes.tableHead}>Apellido</TableCell>
                             <TableCell className={classes.tableHead}>Curso</TableCell>
                             <TableCell className={classes.tableHead}>Estado</TableCell>
+                            <TableCell className={classes.tableHead}>Hora</TableCell>
                             <TableCell className={classes.tableHead} align="right">Acciones</TableCell>
                         </TableRow>
                     </TableHead>
@@ -430,6 +488,7 @@ const getEstadoAsistencia = (rowid) => {
                                         </Select>
                                     </FormControl>
                                 </TableCell>
+                                <TableCell>{getEstadoAsistenciaHorario(row.id)}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small">
                                         <SaveIcon />

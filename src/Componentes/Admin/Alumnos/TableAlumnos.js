@@ -18,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosAlumnos from './FormularioDatosAlumnos';
+import FormularioDatosAlumnos2 from './FormularioDatosAlumnos2';
 
 import Box from '@material-ui/core/Box';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -302,9 +303,25 @@ export default function Orders(props) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Datos del Alumno </DialogTitle>
             <DialogContent className="dialogContent">   
                 <FormularioDatosAlumnos titularCreado = { alumnoCreado } titulares = { props.titulares } cursoCreado = { alumnoCreado } cursos = { props.cursos } turnos = { props.turnos }/>
+            </DialogContent>
+            <DialogActions>
+            </DialogActions>
+            </Dialog>
+
+            <Dialog
+            maxWidth="lg"
+            fullWidth= {true}
+            open={actualizarIsOpen}
+            onClose={handleCloseModal}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Alumno </DialogTitle>
+            <DialogContent className="dialogContent">   
+                <FormularioDatosAlumnos2  alumnoActualizar={alumnoActualizar} titularCreado = { alumnoCreado } titulares = { props.titulares } cursoCreado = { alumnoCreado } cursos = { props.cursos } turnos = { props.turnos }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>

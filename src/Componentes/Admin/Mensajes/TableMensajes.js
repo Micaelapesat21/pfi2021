@@ -17,6 +17,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormularioDatosTitular from './FormularioDatosTitular';
+import FormularioMensajeTitular from './FormularioMensajeTitular';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import MensajesAPI from '../../../Network/Mensajes/MensajesAPI'
@@ -97,6 +98,7 @@ function searchingTerm(term){
 };
 
 export default function Orders(props) {
+    console.log("TITULARES: " + props.titulares[1]);
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = React.useState(false);
     const [modalMensajeIsOpen, setmodalMensajeIsOpen] = React.useState(false);
@@ -104,9 +106,8 @@ export default function Orders(props) {
     //const [mensajes, setMensajes] = React.useState(props.mensajes);
     //console.log("Mensajes: " +  mensajes );
     console.log("actualizar: " +  actualizar );
-  
 
-    const [titulares, setTitulares] = React.useState([]);
+    //const [titulares, setTitulares] = React.useState([]);
     const [data, setData] = React.useState([]);
     const [term, setTerm] = React.useState("");
 /*
@@ -161,6 +162,13 @@ export default function Orders(props) {
         MensajesAPI.getMensajes(this.handleGetMensajes.bind(this));
     }
 
+    const addButtonPressedMensaje = () => {
+        setModalIsOpen(false);
+        setmodalMensajeIsOpen(true);
+    };
+
+
+
     /*
     const handleGetMensajes = async (mensajes) => {
     console.log("estoy en el hanld de la respuesta: " + mensajes)
@@ -172,6 +180,13 @@ export default function Orders(props) {
     }
     */
 
+    const cursoCreado = (curso) => {
+        setModalIsOpen(false);
+        setmodalMensajeIsOpen(false);
+        props.cursoCreado(curso);
+    }
+
+
     return (
         <React.Fragment>
             <Dialog
@@ -182,13 +197,33 @@ export default function Orders(props) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
-            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Titular </DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del Titulares </DialogTitle>
             <DialogContent className="dialogContent">
              <FormularioDatosTitular titularCreado = { titularCreado } mensajes={props.mensajes} cursoMensaje = { cursoMensaje }/>
             </DialogContent>
             <DialogActions>
             </DialogActions>
             </Dialog>
+
+            <Dialog
+            maxWidth="lg"
+            fullWidth= {true}
+            open={modalMensajeIsOpen}
+            onClose={handleCloseModal}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title" style={{ fontWeight: 'bold', textAlign: 'center' }}  > Complete los datos del mensaje </DialogTitle>
+            <DialogContent className="dialogContent">
+            <FormularioMensajeTitular cursoCreado = { cursoCreado } cursoMensaje = { cursoMensaje } titularCreado = { cursoCreado } titulares = { props.titulares } turnos = { props.turnos } cursos = { props.cursos }/>
+            {/*
+             <DatosCurso  /> */}
+                     
+            </DialogContent>
+            <DialogActions>
+            </DialogActions>
+            </Dialog>
+
             <AppBar position="static">
                 <Toolbar>
                     <div className={classes.search}>
@@ -205,7 +240,11 @@ export default function Orders(props) {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
+                    <Button  variant="contained" color="secondary" align="right" onClick={ addButtonPressedMensaje } padding={10} margin={5} >
+                          Enviar Mensaje 
+                    </Button>
                 </Toolbar>
+
             </AppBar>
          <Paper className={classes.paper}>
              <FormularioDatosTitular mensajes={props.mensajes} cursoMensaje = { cursoMensaje }/>

@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   const classes = useStyles();
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
-  const [date, setDate] = React.useState("2021-09-18");
+  const [date, setDate] = React.useState("2021-12-20");
   //const [modalIsOpen, setAlumnosPorCurso] = React.useState();
 
   console.log("asistencias: " + props.asistencias)
@@ -121,14 +121,32 @@ const handleGetAlumnosPorCursos = (curso) => {
           <Typography gutterBottom variant="h5" component="h2">
           {props.title}
           </Typography>
+          <div>
+          { props.title == "7 Div. B" ? 
+          <div>
           <Typography variant="body2" color="textSecondary" component="p">
-                    Total alumnos: {props.curso.alumnos.length}
+                     Total alumnos: {props.curso.alumnos.length}
                     <br/>
                     Total Presentes: {getCantidadPresentesAsistencia()}
                     <br/>
                     Total Ausentes: {props.curso.alumnos.length - getCantidadPresentesAsistencia()}
                     <br/>
           </Typography>
+          </div>                    
+                              : 
+        <div>
+         <Typography variant="body2" color="textSecondary" component="p">
+              Total alumnos: 30
+              <br/>
+              Total Presentes: 25
+              <br/>
+              Total Ausentes: 5
+              <br/>
+        </Typography>
+        </div>
+                              }
+          </div>
+          
         </CardContent>
       </CardActionArea>
       <CardActions>

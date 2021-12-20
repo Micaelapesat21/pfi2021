@@ -187,7 +187,10 @@ class Mensajes extends Component {
         console.log("listMensajes: " + JSON.stringify(this.props.mensajes)) 
         var mensajesActualizados = this.props.mensajes;
         const indice =  mensajesActualizados.findIndex(obj => obj.id == mensaje.id);
-        mensajesActualizados.splice(indice, 1);
+        console.log("Indice " + indice);
+        if (indice >= 0 ){
+            mensajesActualizados.splice(indice, 1);
+        }
         console.log("listMensajesActualizada: " + JSON.stringify(mensajesActualizados)) 
        //agrego el curso que se agrego.
       // mensajesActualizados.push(curso);
